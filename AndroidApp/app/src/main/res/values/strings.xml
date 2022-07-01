@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ParkingGO</string>
+    <string name="URL_BASE">http://192.168.126.127:8080/</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

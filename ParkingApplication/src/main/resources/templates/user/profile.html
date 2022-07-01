@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout.html}">
+    <head>
+        <meta charset="utf-8">
+        <title>Parking.Go | Profile Page</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    </head>
+    <body>
+        <section layout:fragment="user-content">
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#profile">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#recharge">Recharge</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#booking">Booking</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content p-1">
+                        <div class="tab-pane container active profile" id="profile">
+                            <div class="pb-4 pt-4">
+                                <h2 class="">// Your Information //</h2>
+                            </div>
+                            <form th:action="@{/profile}" th:object="${profile}" id="form_profile" method="POST">
+                                <div class="row g-4 mb-3 pb-3">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                                        <h5 class="mb-2"><i class="fa fa-user"></i> Full Name</h5>
+                                        <input type="text" class="mb-4 form-control" th:field="*{fullname}" id="fullname" readonly="true">
+                                        <h5 class="mb-2"><i class="fa fa-calendar-alt"></i> Date of Birth</h5>
+                                        <input type="date" class="mb-4 form-control" th:value="${profile.getDob()}" th:field="*{dob}"id="dob" readonly="true">
+                                        <h5 class="mb-2"><i class="fa fa-money"></i> Balance</h5>
+                                        <input type="text" th:field="*{balance}" class="form-control" readonly="true">
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                                        <h5 class="mb-2"><i class="fa fa-phone-alt"></i> Phone</h5>
+                                        <input type="number" class="mb-4 form-control" th:field="*{phone}" id="phone" readonly="true">
+                                        <h5 class="mb-2"><i class="fa fa-envelope"></i> Email</h5>
+                                        <input type="text" class="mb-4 form-control" th:field="*{email}"  id="email" readonly="true">
+                                        <h5 class="mb-2"><i class="fa fa-address-card"></i> Identity Card</h5>
+                                        <input type="text" class="form-control" th:field="*{identitycard}" id="identitycard" readonly="true">
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                        <button type="button" id="edit" onclick="redisable()" class="btn btn-settings btn-primary mt-0 mb-2 me-2"><i class="fa fa-cogs"></i> Edit</button>
+                                        <button id="save" class="btn btn-settings btn-success mt-0 mb-2 me-2" style="display:none"><i class="fa fa-cogs"></i> Save</button>
+                                        <button type="button" id="cancel" class="btn btn-settings btn-danger mt-0 mb-2 me-2"  style="display: none"><i class="fa fa-cogs"></i><a th:href="@{/profile}"> Cancel</a></button>
+                                        <!-- <button type="button" class="btn btn-settings btn-danger mt-0 mb-2 me-2" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-qrcode"></i> QR Code</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane container fade" id="recharge">
+                            <div class="row g-4 mb-3 pb-3">
+                                <div class="pb-1 pt-4">
+                                    <h2>// Recharge History //</h2>
+                                </div>
+                                <table class="table table-bordered table-responsive-md">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>19/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>15/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>12/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>8/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>1/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <form th:action="@{/profile}" th:object="${profile}" id="form_profile" method="POST">
+                                <div class="row g-4 mb-3 pb-3">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                                        <h5 class="mb-2"><i class="fa fa-user"></i> Amount added to wallet</h5>
+                                        <input type="number" class="mb-4 form-control" placeholder="0đ">
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                                        <h5 class="mb-2"><i class="fa fa-user"></i> Money supply</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Direct trading
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                VNPay
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                MOMO
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                    <!--                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                                                                            <h5 class="mb-2"><i class="fa fa-phone-alt"></i> Phone</h5>
+                                                                            <input type="number" class="mb-4 form-control" th:field="*{phone}" id="phone" readonly="true">
+                                                                            <h5 class="mb-2"><i class="fa fa-envelope"></i> Email</h5>
+                                                                            <input type="text" class="mb-4 form-control" th:field="*{email}"  id="email" readonly="true">
+                                                                            <h5 class="mb-2"><i class="fa fa-address-card"></i> Identity Card</h5>
+                                                                            <input type="text" class="form-control" th:field="*{identitycard}" id="identitycard" readonly="true">
+                                                                        </div>-->
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                        <button id="save" class="btn btn-settings btn-success mt-0 mb-2 me-2"><i class="fa fa-cogs"></i> Recharge</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane container fade" id="booking">
+                            <div class="row g-4 mb-3 pb-3">
+                                <div class="pb-1 pt-4">
+                                    <h2>// Booking History //</h2>
+                                </div>
+                                <table class="table table-bordered table-responsive-md">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>19/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>15/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>12/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>8/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Le Thi Rieng Parking Lot</td>
+                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                            <td>1/6/2022</td>
+                                            <td><span class="badge badge-success">Done !</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

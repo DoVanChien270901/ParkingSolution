@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/user_nav_home"
+            android:icon="@drawable/home_icon"
+            android:title="Home"></item>
+    </group>
+
+    <item android:title="QrCode">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/user_nav_profile"
+                    android:icon="@drawable/qr_code_icon"
+                    android:title="Profile"></item>
+                <item
+                    android:id="@+id/user_nav_profil"
+                    android:icon="@drawable/qr_code_icon"
+                    android:title="...?"></item>
+                <item
+                    android:id="@+id/user_nav_logout"
+                    android:icon="@drawable/qr_code_icon"
+                    android:title="...?"></item>
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/user_nav_share"
+                android:icon="@drawable/logout_icon"
+                android:title="Home"></item>
+            <item
+                android:id="@+id/user_nav_rate"
+                android:icon="@drawable/qr_code_icon"
+                android:title="Home"></item>
+        </menu>
+    </item>
+</menu>

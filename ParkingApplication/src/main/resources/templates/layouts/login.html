@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <!-- Basic Page Info -->
+        <meta charset="utf-8">
+        <title>Parking.Go | Login Page</title>
+        <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"th:href="@{/vendorsc/styles/core.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/icon-font.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/fix.css}">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
+    </head>
+
+    <body class="login-page">
+        <div class="login-header box-shadow">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <div class="brand-logo">
+                    <a href="">
+                        <img th:src="@{/vendorsc/images/icon.png}" alt="">
+                        <span>arkingGo</span>
+                    </a>
+                </div>
+                <div class="login-menu">
+                    <ul>
+                        <li><a th:href="@{/account/register}">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 col-lg-7">
+                        <img th:src="@{/vendorsc/images/login-page-img.png}" alt="">
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                        <div class="login-box bg-white box-shadow border-radius-10">
+                            <div class="login-title">
+                                <h2 class="text-center text-primary">Login To Parking Booking</h2>
+                            </div>
+                            <label class="error-mes " role="alert" th:if="@{errorles}" th:value="${errormes}"></label>
+                            <form th:action="@{/account/login}" th:object="${authenticate}" method="POST">
+                                <div class="input-group custom">
+                                    <input th:field="*{username}" type="text" class="form-control form-control-lg" placeholder="*Username">
+                                    <div class="input-group-append custom">
+                                        <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                                    </div>
+                                </div>
+                                <!--<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-mes"></label>-->
+                                <div class="input-group custom">
+                                    <input th:field="*{password}" type="password" class="form-control form-control-lg" placeholder="*Password">
+                                    <div class="input-group-append custom">
+                                        <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                    </div>
+                                        <div class="invalid-feedback">
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                    </div>
+                                </div>
+                                <!--<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-mes"></label>-->
+                                <div class="row pb-30">
+                                    <div class="col-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Remember</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="forgot-password"><a href="">Forgot Password</a></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group mb-0">
+                                            <button class="btn btn-primary btn-lg btn-block" type="submit" >Sign In</button>
+                                        </div>
+                                        <br>
+                                        <div class="input-group mb-0">
+                                            <a class="btn btn-outline-danger btn-lg btn-block" href=""><i class="fa fa-google-plus"></i> Google</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- js -->
+        <script th:src="@{/vendorsc/scripts/core.js}"></script>
+        <script th:src="@{/vendorsc/scripts/script.min.js}"></script>
+        <script th:src="@{/vendorsc/scripts/process.js}"></script>
+        <script th:src="@{/vendorsc/scripts/layout-settings.js}"></script>
+    </body>
+
+</html>

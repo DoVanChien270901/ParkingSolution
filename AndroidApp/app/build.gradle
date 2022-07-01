@@ -1,0 +1,66 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "fpt.aptech.parkinggo"
+        minSdk 29
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        resources.excludes.add 'META-INF/ASL2.0'
+        resources.excludes.add 'META-INF/DEPENDENCIES'
+        resources.excludes.add 'META-INF/LICENSE'
+        resources.excludes.add 'META-INF/LICENSE.txt'
+        resources.excludes.add 'META-INF/license.txt'
+        resources.excludes.add 'META-INF/NOTICE'
+        resources.excludes.add 'META-INF/NOTICE.txt'
+        resources.excludes.add 'META-INF/notice.txt'
+        resources.excludes.add 'META-INF/ASL2.0'
+
+        resources.excludes.add 'META-INF/spring.tooling'
+        resources.excludes.add 'META-INF/INDEX.LIST'
+        resources.excludes.add 'META-INF/spring.handlers'
+        resources.excludes.add 'META-INF/spring.schemas'
+
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+//    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    //call api
+    implementation group: 'org.springframework', name: 'spring-web', version: '3.0.2.RELEASE'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    implementation 'org.apache.httpcomponents:httpclient:4.5'
+    implementation group: 'com.squareup.okhttp', name: 'okhttp-urlconnection', version: '2.7.5'
+    implementation group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.4.0'
+}

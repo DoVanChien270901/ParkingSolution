@@ -1,0 +1,83 @@
+.left-side-bar .brand-logo .light-logo {
+    width: 40px;
+    padding: 0px;
+}
+
+.login-page .brand-logo img,
+.login-header .brand-logo img {
+    width: 40px;
+    padding: 0px;
+}
+
+.left-side-bar .brand-logo span {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-top: 24px;
+}
+
+.login-page .brand-logo span,
+.login-header .brand-logo span {
+    font-size: 1.4rem;
+    color: #1b00ff;
+    font-weight: 800;
+    margin-top: 24px;
+}
+
+.action-center button {
+    font-size: 12px;
+}
+
+.login-menu ul li a {
+    border: 1.6px solid #1b00ff;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+}
+
+.login-menu ul li a:hover {
+    background-color: #1b00ff;
+    color: #fff;
+}
+
+.modal-content .modal-body .text-center img {
+    width: 80px;
+}
+
+.tab-wizard2 {
+    display: relative;
+}
+
+.login-box {
+    max-width: 450px;
+}
+
+.register-page-wrap .login-box {
+    max-width: 450px;
+}
+
+.form-control:disabled,
+.form-control:read-only {
+    background-color: #fff;
+}
+
+.qrcode {
+    max-width: 50%;
+    border: 1px solid #202020;
+    padding: 10px;
+}
+
+@media screen and (max-width:991px) {
+    .qrcode {
+        max-width: 25%;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .register-page-wrap .login-box {
+        max-width: 450px;
+    }
+}
+
+.invalid-feedback {
+    display: inline;
+}
