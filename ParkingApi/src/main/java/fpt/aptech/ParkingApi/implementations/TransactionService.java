@@ -225,7 +225,7 @@ public class TransactionService implements ITransaction {
             JSONObject result = new JSONObject(resultJsonStr.toString());
 
             TransactionRes transactionRes = new TransactionRes();
-            Integer returncode = (Integer) result.get("returncode");
+            Integer returncode = (Integer)result.get("returncode");
 
             transactionRes.setPayUrl(result.getString("orderurl"));
 //            transactionRes.setReturnCode(result.getInt("returncode"));
