@@ -27,6 +27,7 @@ import fpt.aptech.ParkingApi.dto.request.OrderReq;
 import fpt.aptech.ParkingApi.dto.response.TransactionRes;
 import fpt.aptech.ParkingApi.utils.HMACUtil;
 import fpt.aptech.ParkingApi.utils.MomoEncoderUtils;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -35,7 +36,9 @@ import java.util.TimeZone;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -225,7 +228,7 @@ public class TransactionService implements ITransaction {
             JSONObject result = new JSONObject(resultJsonStr.toString());
 
             TransactionRes transactionRes = new TransactionRes();
-            Integer returncode = (Integer)result.get("returncode");
+            Integer returncode = (Integer) result.get("returncode");
 
             transactionRes.setPayUrl(result.getString("orderurl"));
 //            transactionRes.setReturnCode(result.getInt("returncode"));
@@ -251,6 +254,134 @@ public class TransactionService implements ITransaction {
     }
 
     public TransactionRes createDirect(OrderReq orderRequest) {
+        return null;
+    }
+
+    @Override
+    public TransactionRes checkStatus(OrderReq orderRequest) {
+        switch (orderRequest.getChannel()) {
+            case Momo:
+                return checkStatusMomo(orderRequest);
+            case Zalopay:
+                return checkStatusZalopay(orderRequest);
+            case ATM:
+                return checkStatusZalopay(orderRequest);
+            case Direct:
+                //return createDirect(orderRequest);
+            default:
+                //đơn hàng không hợp lệ
+                break;
+        }
+        return null;
+    }
+
+    public TransactionRes checkStatusMomo(OrderReq orderRequest) {
+
+        try {
+            JSONObject json = new JSONObject();
+            String partnerCode = MomoConfig.PARTNER_CODE;
+            String accessKey = MomoConfig.ACCESS_KEY;
+            String secretKey = MomoConfig.SECRET_KEY;
+            json.put("partnerCode", partnerCode);
+            json.put("accessKey", accessKey);
+            json.put("requestId", orderRequest.getTransNo());
+            json.put("orderId", orderRequest.getTransNo());
+            json.put("requestType", "transactionStatus");
+
+            String data = "partnerCode=" + partnerCode + "&accessKey=" + accessKey + "&requestId=" + json.get("requestId")
+                + "&orderId=" + json.get("orderId") + "&requestType=" + json.get("requestType");
+            String hashData = MomoEncoderUtils.signHmacSHA256(data, secretKey);
+            json.put("signature", hashData);
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPost post = new HttpPost(MomoConfig.CREATE_ORDER_URL_QR);
+            StringEntity stringEntity = new StringEntity(json.toString());
+            post.setHeader("content-type", "application/json");
+            post.setEntity(stringEntity);
+
+            CloseableHttpResponse res = client.execute(post);
+            BufferedReader rd = new BufferedReader(new InputStreamReader(res.getEntity().getContent(), "UTF-8"));
+            StringBuilder resultJsonStr = new StringBuilder();
+            String line;
+            while ((line = rd.readLine()) != null) {
+                resultJsonStr.append(line);
+            }
+            JSONObject result = new JSONObject(resultJsonStr.toString());
+
+            TransactionRes transactionRes = new TransactionRes();
+            transactionRes.setReturnCode(result.getInt("errorCode"));
+            transactionRes.setTransNo(result.getString("orderId"));
+            transactionRes.setReturnMessage(result.getString("localMessage"));
+            transactionRes.setSignature(result.getString("signature"));
+
+//            Map<String, Object> kq = new HashMap<>();
+//            kq.put("requestId", result.get("requestId"));
+//            kq.put("orderId", result.get("orderId"));
+//            kq.put("extraData", result.get("extraData"));
+//            kq.put("amount", Long.parseLong(result.get("amount").toString()));
+//            kq.put("transId", result.get("transId"));
+//            kq.put("payType", result.get("payType"));
+//            kq.put("errorCode", result.get("errorCode"));
+//            kq.put("message", result.get("message"));
+//            kq.put("localMessage", result.get("localMessage"));
+//            kq.put("requestType", result.get("requestType"));
+//            kq.put("signature", result.get("signature"));
+            return transactionRes;
+
+        } catch (NoSuchAlgorithmException | InvalidKeyException | UnsupportedEncodingException ex) {
+            Logger.getLogger(TransactionService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TransactionService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public TransactionRes checkStatusZalopay(OrderReq orderRequest) {
+        try {
+            String appid = ZaloPayConfig.APP_ID;
+            String key1 = ZaloPayConfig.KEY1;
+            String data = appid + "|" + orderRequest.getTransNo() + "|" + key1; // appid|apptransid|key1
+            String mac = HMACUtil.HMacHexStringEncode(HMACUtil.HMACSHA256, key1, data);
+
+            List<NameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("appid", appid));
+            params.add(new BasicNameValuePair("apptransid", orderRequest.getTransNo()));
+            params.add(new BasicNameValuePair("mac", mac));
+
+            URIBuilder uri = new URIBuilder("https://sandbox.zalopay.com.vn/v001/tpe/getstatusbyapptransid");
+            uri.addParameters(params);
+
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpGet get = new HttpGet(uri.build());
+
+            CloseableHttpResponse res = client.execute(get);
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(res.getEntity().getContent(), "UTF-8"));
+            StringBuilder resultJsonStr = new StringBuilder();
+            String line;
+
+            while ((line = rd.readLine()) != null) {
+                resultJsonStr.append(line);
+            }
+
+            JSONObject result = new JSONObject(resultJsonStr.toString());
+
+            TransactionRes transactionRes = new TransactionRes();
+            transactionRes.setReturnCode(result.getInt("returncode"));
+            transactionRes.setReturnMessage(result.getString("returnmessage"));
+            transactionRes.setSignature(result.getString("isprocessing"));
+            transactionRes.setTransNo(result.getString("zptransid"));
+
+//            Map<String, Object> kq = new HashMap<>();
+//            kq.put("returncode", result.get("returncode"));
+//            kq.put("returnmessage", result.get("returnmessage"));
+//            kq.put("isprocessing", result.get("isprocessing"));
+//            kq.put("amount", result.get("amount"));
+//            kq.put("discountamount", result.get("discountamount"));
+//            kq.put("zptransid", result.get("zptransid"));
+//            return kq;
+        } catch (IOException | UnsupportedOperationException | URISyntaxException ex) {
+            Logger.getLogger(TransactionService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 }
