@@ -5,16 +5,18 @@
  */
 package fpt.aptech.ParkingApi.interfaces;
 
-import fpt.aptech.ParkingApi.dto.request.OrderReq;
+import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
+import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
+import fpt.aptech.ParkingApi.dto.response.CreateOrderRes;
 import fpt.aptech.ParkingApi.dto.response.TransactionRes;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
  * @author PCvinhvizg
  */
 public interface ITransaction {
-    TransactionRes createOrder(OrderReq orderRequest);
-//    Map<String, Object> createOrder(OrderReq orderRequest);
+    CreateOrderRes createOrder(CreateOrderReq orderRequest);
+    CreateOrderRes checkStatus(CreateOrderReq orderRequest);
+    PageTransactionRes findAll(int page, int size);
+    TransactionRes getByUserName(String username);
 }

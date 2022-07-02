@@ -5,42 +5,24 @@
  */
 package fpt.aptech.ParkingApi.dto.response;
 
+import fpt.aptech.ParkingApi.dto.enumm.PaymentChannel;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author PCvinhvizg
  */
 public class TransactionRes {
-    private String payUrl;
-    private String returnMessage;
-    private String signature;
+
     private String transNo;
-    private Integer returnCode;
+    private Double amount;
+    private PaymentChannel channel;
+    private LocalDateTime dateTime;
+//    private String description;
+    private Integer statusCode;
+//    private String type;
 
     public TransactionRes() {
-    }
-
-    public String getPayUrl() {
-        return payUrl;
-    }
-
-    public void setPayUrl(String payUrl) {
-        this.payUrl = payUrl;
-    }
-
-    public String getReturnMessage() {
-        return returnMessage;
-    }
-
-    public void setReturnMessage(String returnMessage) {
-        this.returnMessage = returnMessage;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
     }
 
     public String getTransNo() {
@@ -51,17 +33,36 @@ public class TransactionRes {
         this.transNo = transNo;
     }
 
-    public Integer getReturnCode() {
-        return returnCode;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setReturnCode(Integer returnCode) {
-        this.returnCode = returnCode;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
-    public void setReturnCode(String returncode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PaymentChannel getChannel() {
+        return channel;
     }
-    
-    
+
+    public void setChannel(PaymentChannel channel) {
+        this.channel = channel;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
+
 }

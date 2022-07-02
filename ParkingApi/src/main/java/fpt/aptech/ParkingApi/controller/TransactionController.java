@@ -5,8 +5,8 @@
  */
 package fpt.aptech.ParkingApi.controller;
 
-import fpt.aptech.ParkingApi.dto.request.OrderReq;
-import fpt.aptech.ParkingApi.dto.response.TransactionRes;
+import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
+import fpt.aptech.ParkingApi.dto.response.CreateOrderRes;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +33,22 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "createOrder", method = RequestMethod.POST)
-    public ResponseEntity<?> createOrder(@RequestBody OrderReq orderRequest) {
+    public ResponseEntity<?> createOrder(@RequestBody CreateOrderReq orderRequest) {
         //something code
         try {
-            TransactionRes transactionRes = _transactionServices.createOrder(orderRequest);
+            CreateOrderRes transactionRes = _transactionServices.createOrder(orderRequest);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
-            
-            String message = e.getMessage();
-            
-            
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "checkStatus", method = RequestMethod.POST)
+    public ResponseEntity<?> checkOrderStatus(@RequestBody CreateOrderReq orderRequest) {
+        try {
+            CreateOrderRes transactionRes = _transactionServices.checkStatus(orderRequest);
+            return new ResponseEntity(transactionRes, HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

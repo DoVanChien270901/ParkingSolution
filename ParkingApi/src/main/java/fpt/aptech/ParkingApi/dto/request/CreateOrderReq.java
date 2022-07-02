@@ -11,14 +11,14 @@ import fpt.aptech.ParkingApi.dto.enumm.PaymentChannel;
  *
  * @author PCvinhvizg
  */
-public class OrderReq {
+public class CreateOrderReq {
     private String user_name;
     private String transNo;
     private PaymentChannel channel;
     private Long amount;
     private String transType;
 
-    public OrderReq() {
+    public CreateOrderReq() {
     }
 
     public String getUser_name() {
