@@ -46,11 +46,12 @@ public class AccountController {
 //    @Autowired
 //    private HttpSession session;
 
-//    @RequestMapping(value = "/test", method = RequestMethod.GET)
-//    public String test() {
-//        String a = url;
-//        return "user/profile";
-//    }
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test() {
+//      String a = url;
+        return "admin/parking-manager";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute("authenticate") AuthenticateReq authenticate) {
         return "layouts/login";
@@ -96,19 +97,19 @@ public class AccountController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerReq") RegisterReq registerReq, HttpSession session) {
-            HttpEntity request = restTemplate.setRequest(registerReq);
-            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "register", HttpMethod.POST, request, LoginRes.class);
-            try {
-                if (response.getStatusCode() == HttpStatus.OK) {
-                    LoginRes loginRes = (LoginRes) response.getBody();
-                    session.setAttribute("account", loginRes);
-                        return "redirect:/home/user";
-                } else {
-                    return "redirect:/register";
-                }
-            } catch (Exception e) {
+        HttpEntity request = restTemplate.setRequest(registerReq);
+        ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "register", HttpMethod.POST, request, LoginRes.class);
+        try {
+            if (response.getStatusCode() == HttpStatus.OK) {
+                LoginRes loginRes = (LoginRes) response.getBody();
+                session.setAttribute("account", loginRes);
+                return "redirect:/home/user";
+            } else {
                 return "redirect:/register";
             }
+        } catch (Exception e) {
+            return "redirect:/register";
+        }
     }
 //    @RequestMapping(value = "/profile", method = RequestMethod.GET)
 //    public String getUser(Model model, HttpSession session) {

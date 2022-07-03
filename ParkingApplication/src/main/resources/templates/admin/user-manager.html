@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout.html}">
+    <head>
+        <meta charset="utf-8">
+        <title>Parking.Go | User Manager Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    </head>
+
+    <body>
+        <div class="main-container" layout:fragment="admin-content">
+            <div class="xs-pd-20-10 pd-ltr-20">
+                <div class="title pb-20">
+                    <h2 class="h3 mb-0">User Manager</h2>
+                </div>
+                <!-- basic table  Start -->
+                <div class="pd-20 card-box mb-30">
+                    <div class="">
+                        <h6>Search By Name</h6>
+                    </div>
+                    <div class="pt-2">
+                        <div class="clearfix mb-20">
+                            <div class="pull-left">
+                                <div class="row">
+                                    <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
+                                        <input type="text" class="form-control" placeholder="Name...">
+                                    </div>
+                                    <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
+                                        <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-responsive-md table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>0987654321</td>
+                                <td>mark15@gmail.com</td>
+                                <td><span class="badge badge-primary"><i class="fa fa-user"></i></span></td>
+                                <td class="action-center">
+                                    <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-info-circle"></i></button>
+                                </td>
+                            </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Lisa</td>
+                                <td>0123456789</td>
+                                <td>lisa9273@gmail.com</td>
+                                <td><span class="badge badge-danger"><i class="fa fa-user"></i></span></td>
+                                <td class="action-center">
+                                    <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-info-circle"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="collapse collapse-box" id="basic-table">
+                        <div class="code-box">
+                            <div class="clearfix">
+                                <a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left" data-clipboard-target="#basic-table-code"><i class="fa fa-clipboard"></i> Copy
+                                    Code</a>
+                                <a href="#basic-table" class="btn btn-primary btn-sm pull-right" rel="content-y" data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- basic table  End -->
+                <div class="footer-wrap pd-20 mb-20 card-box">
+                    Parking.Go Make By <a href="#" target="_blank">T1.2008.A0</a>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

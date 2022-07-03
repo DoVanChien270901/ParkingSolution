@@ -4,11 +4,8 @@
     <head>
         <!-- Basic Page Info -->
         <meta charset="utf-8">
-        <title>Parking.Go | Admin Page</title>
         <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        
-        
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/core.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/icon-font.min.css}">
@@ -24,22 +21,13 @@
         <div class="header">
             <div class="header-left">
                 <div class="menu-icon dw dw-menu"></div>
-                <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
-                <div class="header-search">
-                    <form>
-                        <div class="form-group mb-0">
-                            <i class="dw dw-search2 search-icon"></i>
-                            <input type="text" class="form-control search-input" placeholder="Search Here">
-                        </div>
-                    </form>
-                </div>
             </div>
             <div class="header-right">
                 <div class="user-info-dropdown">
                     <div class="dropdown">
                         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                             <span class="user-icon">
-                                <img th:src="@{/vendorsc/images/photo.jpg}" alt="">
+                                <img th:src="@{/vendorsc/images/male.jpg}" alt="">
                             </span>
                             <span class="user-name">Admin</span>
                         </a>
@@ -125,6 +113,7 @@
         <script th:src="@{/src/plugins/datatables/js/dataTables.bootstrap4.min.js}"></script>
         <script th:src="@{/src/plugins/datatables/js/dataTables.responsive.min.js}"></script>
         <script th:src="@{/src/plugins/datatables/js/responsive.bootstrap4.min.js}"></script>
+        <script th:src="@{/vendorsc/scripts/show-hide.js}"></script>
     </body>
 
 </html>
