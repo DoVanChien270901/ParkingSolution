@@ -46,10 +46,11 @@ public class JwtUtil {
 
     public String generrateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        Object[] listRole =  userDetails.getAuthorities().toArray();
+        Object[] listRole = userDetails.getAuthorities().toArray();
         claims.put("roles", listRole[0].toString());
-    //ObjectMapper oMapper = new ObjectMapper();
-    //Map<String, Object> claims = oMapper.convertValue(userDetails, Map.class);
+        //convert object to map
+        //ObjectMapper oMapper = new ObjectMapper();
+        //Map<String, Object> claims = oMapper.convertValue(userDetails, Map.class);
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -61,6 +62,6 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extracUsername(token);
-        return (username.equals(userDetails.getUsername())&& !isTokenExprired(token) );
+        return (username.equals(userDetails.getUsername()) && !isTokenExprired(token));
     }
 }

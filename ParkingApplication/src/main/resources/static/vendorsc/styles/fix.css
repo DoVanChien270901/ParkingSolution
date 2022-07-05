@@ -61,15 +61,24 @@
 }
 
 .qrcode {
-    max-width: 50%;
+    max-width: 100%;
     border: 1px solid #202020;
     padding: 10px;
 }
+.momo,.zalopay {
+    width: 40px;
+}
+
+.update-profile{
+    text-transform: capitalize;
+    width: 150px;
+}
+
 
 @media screen and (max-width:991px) {
-    .qrcode {
+    /*.qrcode {
         max-width: 25%;
-    }
+    }*/
 }
 
 @media screen and (max-width:768px) {
@@ -78,6 +87,25 @@
     }
 }
 
+@media screen and (max-width:567px){
+    .update-profile{
+        width: 100%;
+    }
+}
+
 .invalid-feedback {
     display: inline;
+}
+
+.custom input::-webkit-outer-spin-button,
+.custom input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.custom input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#list-create {
+    display: none;
 }

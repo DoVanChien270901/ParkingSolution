@@ -5,12 +5,18 @@
 package fpt.aptech.ParkingApi.controller;
 
 import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
-import fpt.aptech.ParkingApi.dto.request.AddQrReq;
-import fpt.aptech.ParkingApi.dto.qrcontent.AddRechargeQrConten;
+import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
+import fpt.aptech.ParkingApi.dto.qrcontent.RechargeQrContent;
+import fpt.aptech.ParkingApi.dto.request.BookingReq;
+import fpt.aptech.ParkingApi.dto.response.ProfileRes;
+import fpt.aptech.ParkingApi.entities.Profile;
+import fpt.aptech.ParkingApi.entities.Qrcode;
 import fpt.aptech.ParkingApi.implementations.QrCodeService;
+import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
 import fpt.aptech.ParkingApi.utils.QrCodeUtil;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,34 +31,58 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author vantu
  */
 @RestController
+@RequestMapping("/qr-code")
 public class QrCodeController {
 
     @Autowired
-    private QrCodeService qrCodeService;
+    private QrCodeService _qrCodeService;
     @Autowired
-    private ModelMapperUtil modelMapper;
+    private IProfile _profileService;
     @Autowired
-    private QrCodeUtil qrCodeUtil;
+    private ModelMapperUtil _modelMapper;
     @Autowired
-    private JwtUtil jwtTokenUtil;
+    private QrCodeUtil _qrCodeUtil;
+    @Autowired
+    private JwtUtil _jwtTokenUtil;
 
-    @RequestMapping(value = "/qr-code", method = RequestMethod.POST)
-    public ResponseEntity createQrCode(@RequestBody AddRechargeQrConten rechargeReq, @RequestHeader("Authenticate") String token) {
+    @RequestMapping(value = "/recharge", method = RequestMethod.POST)
+    public ResponseEntity<?> createQrCode(@RequestBody RechargeByQrCodeReq rechargeByQrCodeReq, @RequestHeader("Authenticate") String token) {
         try {
-            String username = jwtTokenUtil.extracUsername(token.substring(7));
-            AddQrReq addQrReq = new AddQrReq();
-            addQrReq.setContent(rechargeReq);
-            addQrReq.setTitle(TitleQrCode.RECHARMONEY);
-            qrCodeService.create(addQrReq, username);
+            String username = _jwtTokenUtil.extracUsername(token.substring(7));
+            Profile profile = new Profile();
+            profile.setUsername(username);
+            Qrcode qrcode = new Qrcode();
+            qrcode.setTitle("ReChargeWallet");
+            qrcode.setCreatedate(LocalDateTime.now());
+            qrcode.setAccountid(profile);
+            rechargeByQrCodeReq.setUsername(username);
+            _qrCodeService.create(qrcode, rechargeByQrCodeReq);
+            
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/booking", method = RequestMethod.POST)
+    public ResponseEntity<?> booking(@RequestBody BookingReq bookingReq, @RequestHeader("Authenticate") String token) {
+        try {
+            String username = _jwtTokenUtil.extracUsername(token.substring(7));
+            return new ResponseEntity(HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "/qr-code-profile", method = RequestMethod.GET)
     public ResponseEntity<?> getqrCodeByToken(@RequestHeader("Authenticate") String token) {
-        
+
         //String accountid = jwtTokenUtil.extracUsername(tokenReq.getToken());
         return ResponseEntity.ok("asd");
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> get(@RequestHeader("Authenticate") String token) {
+        return ResponseEntity.ok("hello");
     }
 }
