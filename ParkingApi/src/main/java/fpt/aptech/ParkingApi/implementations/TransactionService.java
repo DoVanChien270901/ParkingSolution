@@ -26,13 +26,16 @@ import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.dto.response.CreateOrderRes;
 import fpt.aptech.ParkingApi.dto.response.TransactionRes;
+import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Transactioninformation;
+import fpt.aptech.ParkingApi.repositorys.ProfileRepo;
 import fpt.aptech.ParkingApi.repositorys.TransactionRepo;
 import fpt.aptech.ParkingApi.utils.HMACUtil;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
 import fpt.aptech.ParkingApi.utils.MomoEncoderUtils;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -54,6 +57,8 @@ import org.springframework.data.domain.PageRequest;
 @Service
 public class TransactionService implements ITransaction {
 
+    @Autowired
+    private ProfileRepo _proProfileRepository;
     @Autowired
     private TransactionRepo _transactionRepository;
     @Autowired
@@ -345,6 +350,23 @@ public class TransactionService implements ITransaction {
             transactionRes.setReturnMessage(result.getString("localMessage"));
             transactionRes.setSignature(result.getString("signature"));
 
+            if (transactionRes.getReturnCode() == 0) {
+                //lưu vào database
+                Transactioninformation transactioninformation = new Transactioninformation();
+                Profile profile = _proProfileRepository.getByUsername(orderRequest.getUser_name());
+                transactioninformation.setAccountid(profile);
+                transactioninformation.setAmount(Double.parseDouble(orderRequest.getAmount().toString()));
+                transactioninformation.setChannel(orderRequest.getChannel().toString());
+                transactioninformation.setDatetime(LocalDateTime.now());
+                transactioninformation.setDescription(secretKey);
+                transactioninformation.setStatuscode(0);
+                transactioninformation.setStype(orderRequest.getTransType());
+                transactioninformation.setTransno(orderRequest.getTransNo());
+                _transactionRepository.save(transactioninformation);
+            }else{
+                //do nothing
+            }
+
 //            Map<String, Object> kq = new HashMap<>();
 //            kq.put("requestId", result.get("requestId"));
 //            kq.put("orderId", result.get("orderId"));
@@ -403,6 +425,23 @@ public class TransactionService implements ITransaction {
             transactionRes.setSignature(result.getString("isprocessing"));
             transactionRes.setTransNo(result.getString("zptransid"));
 
+            if (transactionRes.getReturnCode() == 1) {
+                //lưu vào database
+                Transactioninformation transactioninformation = new Transactioninformation();
+                Profile profile = _proProfileRepository.getByUsername(orderRequest.getUser_name());
+                transactioninformation.setAccountid(profile);
+                transactioninformation.setAmount(Double.parseDouble(orderRequest.getAmount().toString()));
+                transactioninformation.setChannel(orderRequest.getChannel().toString());
+                transactioninformation.setDatetime(LocalDateTime.now());
+                transactioninformation.setDescription(transactionRes.getReturnMessage());
+                transactioninformation.setStatuscode(0);
+                transactioninformation.setStype(orderRequest.getTransType());
+                transactioninformation.setTransno(orderRequest.getTransNo());
+                _transactionRepository.save(transactioninformation);
+            }else{
+                //do nothing
+            }
+            
 //            Map<String, Object> kq = new HashMap<>();
 //            kq.put("returncode", result.get("returncode"));
 //            kq.put("returnmessage", result.get("returnmessage"));
@@ -416,4 +455,5 @@ public class TransactionService implements ITransaction {
         }
         return null;
     }
+
 }
