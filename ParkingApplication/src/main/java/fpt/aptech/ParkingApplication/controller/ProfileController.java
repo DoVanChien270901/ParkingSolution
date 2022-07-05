@@ -56,12 +56,11 @@ public class ProfileController {
             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "user", HttpMethod.GET, request, ProfileRes.class);
             ProfileRes profileRes = (ProfileRes) response.getBody();
 //display qrcode
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("data:image/png;base64,");
-//            sb.append(new String(Base64.getEncoder().encode(profileRes.getQrContent())));
-//            sb.toString();
-//
-//            model.addAttribute("displaycode", sb.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("data:image/png;base64,");
+            sb.append(new String(Base64.getEncoder().encode(profileRes.getQrcontent())));
+            sb.toString();
+            model.addAttribute("displaycode", sb.toString());
             model.addAttribute("profile", profileRes);
             return "user/profile";
         } catch (Exception e) {

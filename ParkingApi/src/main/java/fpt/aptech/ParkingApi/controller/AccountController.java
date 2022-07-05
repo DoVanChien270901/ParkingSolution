@@ -6,7 +6,7 @@ package fpt.aptech.ParkingApi.controller;
 
 import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
 import fpt.aptech.ParkingApi.dto.qrcontent.ProfileQrContent;
-import fpt.aptech.ParkingApi.dto.request.AddQrReq;
+import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
 import fpt.aptech.ParkingApi.implementations.MyUserDetailsService;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
@@ -17,10 +17,11 @@ import fpt.aptech.ParkingApi.dto.response.ProfileRes;
 import fpt.aptech.ParkingApi.dto.request.EditProfileReq;
 import fpt.aptech.ParkingApi.dto.request.AuthenticateReq;
 import fpt.aptech.ParkingApi.dto.response.PageProfileRes;
-import fpt.aptech.ParkingApi.entities.Account;
+import fpt.aptech.ParkingApi.entities.*;
 import fpt.aptech.ParkingApi.interfaces.IAccount;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
+import java.time.LocalDateTime;
 import javax.xml.ws.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.*;
  * @author CHIEN
  */
 @RestController
+@CrossOrigin
 public class AccountController {
 
     @Autowired
@@ -83,12 +85,13 @@ public class AccountController {
         try {
             boolean result = _accountService.create(registerRequest);
             if (result == true) {
-                _profileService.create(registerRequest);
-//                ProfileQrContent profileQr = _mapper.map(registerRequest, ProfileQrContent.class);
-//                AddQrReq addQrReq = new AddQrReq();
-//                addQrReq.setTitle(TitleQrCode.PROFILE);
-//                addQrReq.setContent(profileQr);
-//                _qrCodeService.create(addQrReq, registerRequest.getUsername());
+                Profile profile = _profileService.create(registerRequest);
+                ProfileQrContent qrContent = _mapper.map(registerRequest, ProfileQrContent.class);
+                Qrcode qrcode = new Qrcode();
+                qrcode.setTitle("PROFILE");
+                qrcode.setCreatedate(LocalDateTime.now());
+                qrcode.setAccountid(profile);
+                _qrCodeService.create(qrcode, qrContent);
                 final UserDetails userDetails = _userDetailsService
                         .loadUserByUsername(registerRequest.getUsername());
                 final String jwt = _jwtTokenUtil.generrateToken(userDetails);
@@ -96,7 +99,6 @@ public class AccountController {
                 res.setToken(jwt);
                 Object[] role = userDetails.getAuthorities().toArray();
                 res.setRole(Roles.valueOf(role[0].toString()));
-                ProfileRes profile = _profileService.getByUserName(registerRequest.getUsername());
                 res.setFullname(profile.getFullname());
                 res.setEmail(profile.getEmail());
                 return ResponseEntity.ok(res);
@@ -143,7 +145,7 @@ public class AccountController {
 //            String username = _jwtTokenUtil.extracUsername(token.substring(7));
 //            editProfileReq.setUsername(username);
 //            _profileService.edit(editProfileReq);
-//            AddQrReq addQrReq = new AddQrReq();
+//            RechargeByQrCodeReq addQrReq = new RechargeByQrCodeReq();
 //            //_qrCodeService.edit(,username);
 //            return new ResponseEntity(HttpStatus.OK);
 //        } catch (Exception e) {

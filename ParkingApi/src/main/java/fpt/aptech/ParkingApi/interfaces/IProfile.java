@@ -9,6 +9,7 @@ import fpt.aptech.ParkingApi.dto.request.EditProfileReq;
 import fpt.aptech.ParkingApi.dto.response.PageProfileRes;
 import fpt.aptech.ParkingApi.dto.response.ProfileRes;
 import fpt.aptech.ParkingApi.entities.Account;
+import fpt.aptech.ParkingApi.entities.Profile;
 
 /**
  *
@@ -17,6 +18,6 @@ import fpt.aptech.ParkingApi.entities.Account;
 public interface IProfile {
     PageProfileRes findAll(int page, int size);
     ProfileRes getByUserName(String username);
-    void create(RegisterReq registerReq);
+    Profile create(RegisterReq registerReq);
     boolean edit(EditProfileReq editProfileReq, String username);
 }

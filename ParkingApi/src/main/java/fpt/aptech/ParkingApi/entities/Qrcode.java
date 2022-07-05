@@ -5,6 +5,7 @@
 package fpt.aptech.ParkingApi.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -45,6 +47,10 @@ public class Qrcode implements Serializable {
     @Size(max = 50)
     @Column(name = "title")
     private String title;
+    @Column(name = "createdate")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime createdate;
+
     @JoinColumn(name = "accountid", referencedColumnName = "username")
     @ManyToOne
     private Profile accountid;
@@ -78,6 +84,14 @@ public class Qrcode implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public LocalDateTime getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(LocalDateTime createdate) {
+        this.createdate = createdate;
     }
 
     public Profile getAccountid() {
