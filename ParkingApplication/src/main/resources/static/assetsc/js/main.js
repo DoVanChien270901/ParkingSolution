@@ -128,4 +128,4 @@ $(document).ready(function(){
        $('#booking-list').show(); 
        $('#booking-create').hide(); 
     });
-})
+});

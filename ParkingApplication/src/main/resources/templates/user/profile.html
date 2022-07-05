@@ -81,15 +81,17 @@
                                         <lable>Choose Payment Method:</lable>
                                         <div class="class-momo p-2">
                                             <img class="momo" th:src="@{/assetsc/img/momo.png}">
-                                            <span>
-                                                <input type="radio" name="payment" checked="true"> 
+                                            <span class="p-1">
+                                                Momo
                                             </span>
+                                            <input style="width: 40px;" type="radio" name="payment" checked="true"> 
                                         </div>
                                         <div class="class-zalopay p-2">
                                             <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
-                                            <span>
-                                                <input type="radio" name="payment"> 
+                                            <span class="p-1">
+                                                ZaloPay
                                             </span>
+                                            <input style="width: 22.5px;" type="radio" name="payment"> 
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4">
@@ -142,7 +144,7 @@
                                     <div class="col-12 col-md-12 col-lg-6"></div>
                                 </div>
                                 <div class="table-responsive-md">
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Code</th>
@@ -271,9 +273,9 @@
                                     <div class="row g-4 mb-3 pb-3">
                                         <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                             <lable><i class="fa fa-parking"></i> Parking</lable>
-                                            <input type="text" value="???" class="form-control mb-4"/>
+                                            <input type="text" value="" class="form-control mb-4"/>
                                             <lable><i class="fa fa-car"></i> Car Name</lable>
-                                            <input type="text" value="???" class="form-control mb-4"/>
+                                            <input type="text" value="" class="form-control mb-4"/>
                                             <lable><i class="fa fa-clock"></i> Start Time</lable>
                                             <input type="number" value="0" class="form-control mb-4"/>
                                             <lable><i class="fa fa-times"></i> Timer Number</lable>
@@ -281,7 +283,7 @@
                                         </div>
                                         <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                             <lable><i class="fa fa-id-card"></i> License Plates</lable>
-                                            <input type="text" value="???" class="form-control mb-4"/>
+                                            <input type="text" value="" class="form-control mb-4"/>
                                             <lable><i class="fa fa-wallet"></i> Amount</lable>
                                             <input type="number" value="0" class="form-control mb-4"/>
                                             <img class="qrcode mb-2" th:src="@{/assetsc/img/qrcode.png}" />
