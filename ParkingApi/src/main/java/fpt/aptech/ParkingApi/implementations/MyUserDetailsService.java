@@ -56,6 +56,7 @@ public class MyUserDetailsService implements UserDetailsService, IAccount {
     public static String encryPassword(String pass) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(pass);
+
     }
 
     @Override

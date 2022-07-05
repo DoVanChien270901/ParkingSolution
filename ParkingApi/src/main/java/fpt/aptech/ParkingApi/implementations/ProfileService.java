@@ -54,17 +54,16 @@ public class ProfileService implements IProfile {
     public ProfileRes getByUserName(String username) {
         Profile profile =  _profileRepository.getByUsername(username);
         ProfileRes pres = _mapper.map(profile, ProfileRes.class);
-        String title = TitleQrCode.PROFILE.toString();
-        Qrcode qrcode = _qrCodeRepository.getByUserName(username, TitleQrCode.PROFILE.toString());
-        pres.setQrcontent(qrcode.getContent());
+//        String title = TitleQrCode.PROFILE.toString();
+//        Qrcode qrcode = _qrCodeRepository.getByUserName(username, TitleQrCode.PROFILE.toString());
+//        pres.setQrContent(qrcode.getContent());
         return pres;
     }
 
     @Override
-    public Profile create(RegisterReq registerReq) {
+    public void create(RegisterReq registerReq) {
         Profile profile = _mapper.map(registerReq, Profile.class);
         _profileRepository.save(profile);
-        return profile;
     }
 
     @Override

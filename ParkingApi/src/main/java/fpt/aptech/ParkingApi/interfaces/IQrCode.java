@@ -5,7 +5,7 @@
 package fpt.aptech.ParkingApi.interfaces;
 
 import fpt.aptech.ParkingApi.dto.qrcontent.ProfileQrContent;
-import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
+import fpt.aptech.ParkingApi.dto.request.AddQrReq;
 import fpt.aptech.ParkingApi.dto.response.QrCodeRes;
 import fpt.aptech.ParkingApi.entities.Qrcode;
 
@@ -14,7 +14,7 @@ import fpt.aptech.ParkingApi.entities.Qrcode;
  * @author CHIEN
  */
 public interface IQrCode {
-    void create(Qrcode qrcode, Object qrContent);
+    void create(AddQrReq addQrReq, String username);
     Boolean delete(Qrcode qrcode);
     Boolean edit(ProfileQrContent profileQrContent, String username, String title);
     QrCodeRes qrCodeRes(String accountid);
