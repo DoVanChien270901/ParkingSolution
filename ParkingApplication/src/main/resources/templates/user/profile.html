@@ -67,7 +67,47 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>        
+                        </div>
+                        <div class="tab-pane container fade" id="direct-payment">
+                            <div class="row g-4 mb-3 pb-3 recharge">
+                                <div class="pb-1 pt-4">
+                                    <h2>// Direct Payment //</h2>
+                                </div>
+                                <div class="container amount">
+                                    <lable><i class="fa fa-wallet"></i> 30.000 VND</lable>
+                                </div>
+                                <div class="row payment">
+                                    <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-4">
+                                        <lable>Input Amount: </lable>
+                                        <input class="form-control" id="" name="" type="number" value="0"/>
+                                        <div class="p-2 select-amount">
+                                            <div class="row pt-4">
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="20.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="50.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="100.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="150.000 VND" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-4 col-no-qrcode">
+                                        <img class="no-qrcode mb-2" th:src="@{/assetsc/img/no-qr-code.png}" />
+                                    </div>
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
+                                        <div class="submit-payment d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-qrcode"></i> QR Code</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="tab-pane container fade" id="electronice-payment">
                             <div class="row g-4 mb-3 pb-3 recharge">
                                 <div class="pb-1 pt-4">
