@@ -105,6 +105,9 @@ public class AccountController {
             } catch (Exception e) {
                 return "redirect:/register";
             }
+        } catch (Exception e) {
+            return "redirect:/register";
+        }
     }
 //    @RequestMapping(value = "/profile", method = RequestMethod.GET)
 //    public String getUser(Model model, HttpSession session) {

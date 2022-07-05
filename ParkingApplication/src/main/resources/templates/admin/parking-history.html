@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout.html}">
+    <head>
+        <meta charset="utf-8">
+        <title>Parking.Go | Parking History Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    </head>
+
+    <body>
+        <div class="main-container" layout:fragment="admin-content">
+            <div class="xs-pd-20-10 pd-ltr-20">
+                <div class="title pb-20">
+                    <h2 class="h3 mb-2">Parking History</h2>
+                </div>
+                <!-- basic table  Start -->
+                <div class="pd-20 card-box mb-30" id="list-index">
+                    <div class="clearfix mb-20">
+                        <div class="">
+                            <h6>Search Booking Time</h6>
+                        </div>
+                        <div class="pt-2">
+                            <div class="pull-left">
+                                <div class="row">
+                                    <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
+                                        <input type="text" class="form-control" placeholder="Booking Time..."> 
+                                    </div>
+                                    <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
+                                        <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <div class="row">
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 p-1">
+                                        <select class="form-control">
+                                            <option value="" selected="true">--- Choose Parking ---</option>
+                                            <option value="">Cao Thang Parking Lot</option>
+                                            <option value="">Dong Phuong A Parking Lot</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Booking Time</th>
+                                <th scope="col">Time Number</th>
+                                <th scope="col">Car Name</th>
+                                <th scope="col">License Plates</th>
+                                <th scope="col">User Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>2/7/2022 18:00:20</td>
+                                <td>2 Hour</td>
+                                <td>Ferrari</td>
+                                <td>51D - 3999</td>
+                                <td>user1234</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>2/7/2022 22:15:30</td>
+                                <td>3 Hour</td>
+                                <td>Ferrari</td>
+                                <td>52F - 1234</td>
+                                <td>user2256</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="collapse collapse-box" id="basic-table">
+                        <div class="code-box">
+                            <div class="clearfix">
+                                <a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left" data-clipboard-target="#basic-table-code"><i class="fa fa-clipboard"></i> Copy
+                                    Code</a>
+                                <a href="#basic-table" class="btn btn-primary btn-sm pull-right" rel="content-y" data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pd-20 card-box mb-30" id="list-create" style="display:none;">
+                    <div class="clearfix mb-20">
+                        <div class="pull-left">
+                            <h6>Create Parking</h6>
+                        </div>
+                        <div class="pull-right">
+                        </div>
+                    </div>
+                    <form>
+                        <ul class="profile-edit-list row">
+                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control form-control" type="text" value="Dong Phuong 4" readonly="true">
+                                </div>
+                                <div class="form-group">
+                                    <label>Latitude</label>
+                                    <input class="form-control form-control" type="text" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input class="form-control form-control" type="text" value="309 Dong Hung Thuan 29">
+                                </div>
+
+                            </li>
+                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Number of Parking</label>
+                                    <input class="form-control form-control" type="text" value="20">
+                                </div>
+                                <div class="form-group">
+                                    <label>Longitude</label>
+                                    <input class="form-control form-control" type="text" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Rent Cost</label>
+                                    <input class="form-control form-control" type="text" value="20/h">
+                                </div>
+                            </li>
+                            <li class="weight-500 col-12 col-md-12">
+                                <div class="form-group mb-0 weight">
+                                    <input type="submit" class="btn btn-sm btn-primary" value="Update">
+                                    <a href="#" class="btn btn-sm btn-danger" id="index"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- basic table  End -->
+                <div class="footer-wrap pd-20 mb-20 card-box">
+                    Parking.Go Make By <a href="#" target="_blank">T1.2008.A0</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
