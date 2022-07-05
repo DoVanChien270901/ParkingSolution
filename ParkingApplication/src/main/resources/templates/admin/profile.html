@@ -8,64 +8,160 @@
     <body>
         <div class="main-container" layout:fragment="admin-content">
             <div class="pd-ltr-20 xs-pd-20-10">
-                <div class="page-header">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-xl-4 col-lg-4 col-md-12 mb-30">
-                            <div class="pd-20 card-box height-100-p">
-                                <div class="profile-photo">
-                                    <img th:src="@{/vendorsc/images/male.jpg}" alt="" class="avatar-photo">
-                                    <h5 class="text-center h5 mb-0">user1234</h5>
+                <div class="min-height-200px">
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="title">
+                                    <h4>Profile</h4>
                                 </div>
-                                <div class="profile-photo pt-4">
-                                    <img class="qrcode" th:src="@{/vendorsc/images/qrcode.png}" alt="">
-                                </div>
+                                <nav aria-label="breadcrumb" role="navigation">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                                    </ol>
+                                </nav>
                             </div>
                         </div>
-                        <div class="col-12 col-xl-8 col-lg-8 col-md-12 col-sm-12 mb-30">
-                            <div class="profile-tab height-100-p">
-                                <div class="tab height-100-p">
-                                    <div class="tab-content">
-                                        <!-- Timeline Tab start -->
-                                        <div class="tab-pane fade show active" id="timeline" role="tabpanel">
-                                            <div class="pd-20">
-                                                <form>
-                                                    <ul class="profile-edit-list row">
-                                                        <li class="weight-500 col-12 col-md-12">
-                                                            <h4 class="text-blue h5 mb-20">Profile User</h4>
-                                                        </li>
-                                                        <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                                                            <div class="form-group">
-                                                                <label>Full Name</label>
-                                                                <input class="form-control form-control" type="text" value="Noname123">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Date of birth</label>
-                                                                <input class="form-control form-control" type="date" value="2002-10-20">
-                                                            </div>
-                                                        </li>
-                                                        <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                                                            <div class="form-group">
-                                                                <label>Email</label>
-                                                                <input class="form-control form-control" type="email" value="user1234@example.com">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Phone Number</label>
-                                                                <input class="form-control form-control" type="text" value="0991112553">
-                                                            </div>
-                                                        </li>    
-                                                        <li class="weight-500 col-12 col-md-12 form-check">
-                                                            <div class="form-group mb-0 weight">
-                                                                <input type="radio" class="" name="gender" value="male" checked="true"> Male
-                                                                <input type="radio" class="ml-3" name="gender" value="female"> Female
-                                                            </div>
-                                                        </li>
-                                                        <li class="weight-500 col-12 col-md-12">
-                                                            <div class="form-group mb-0 pt-4 weight">
-                                                                <input type="submit" class="btn btn-sm btn-primary update-profile" value="Update">
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </form>
+                    </div>
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-xl-4 col-lg-4 col-md-12 mb-30">
+                                <div class="pd-20 card-box height-100-p">
+                                    <div class="profile-photo">
+                                        <a href="modal" data-toggle="modal" data-target="#modal" class="edit-avatar"><i
+                                                class="fa fa-pencil"></i></a>
+                                        <img th:src="@{/vendorsc/images/photo.jpg}" alt="" class="avatar-photo">
+                                    </div>
+                                    <h5 class="text-center h5 mb-0">Admin</h5>
+                                    <p class="text-center text-muted font-14"></p>
+                                    <div class="profile-info">
+                                        <h5 class="mb-20 h5 text-blue">Information</h5>
+                                        <ul>
+                                            <li><b>Full Name:</b> Noname123</li>
+                                            <li><b>Phone:</b> 0991112553</li>
+                                            <li><b>Date of Birth: </b>20/10/2002</li>
+                                            <li><b>Email: </b>admin@example.com</li>
+                                            <li><b>Identity Card:</b> 3315628917</li>
+                                            <li><img class="qrcode" th:src="@{/vendorsc/images/qrcode.png}" alt=""></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-8 col-lg-8 col-md-12 col-sm-12 mb-30">
+                                <div class="card-box height-100-p overflow-hidden">
+                                    <div class="profile-tab height-100-p">
+                                        <div class="tab height-100-p">
+                                            <ul class="nav nav-tabs customtab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Settings Profile</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tasks" role="tab">History</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <!-- Timeline Tab start -->
+                                                <div class="tab-pane fade show active" id="timeline" role="tabpanel">
+                                                    <div class="pd-20">
+                                                        <form>
+                                                            <ul class="profile-edit-list row">
+                                                                <li class="weight-500 col-12 col-md-12">
+                                                                    <h4 class="text-blue h5 mb-20">Edit Profile</h4>
+                                                                </li>
+                                                                <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label>User Name</label>
+                                                                        <input class="form-control form-control" type="text" readonly="true" value="Admin123">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Full Name</label>
+                                                                        <input class="form-control form-control" type="text" value="Noname123">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Date of birth</label>
+                                                                        <input class="form-control form-control-lg date-picker" type="text" value="20/10/2002">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label>Identity Card</label>
+                                                                        <input class="form-control form-control" type="text" readonly="true" value="3315628917">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Phone Number</label>
+                                                                        <input class="form-control form-control" type="text" value="0991112553">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Email</label>
+                                                                        <input class="form-control form-control" type="email" value="admin@example.com">
+                                                                    </div>
+                                                                </li>
+                                                                <li class="weight-500 col-12 col-md-12">
+                                                                    <div class="form-group mb-0 weight">
+                                                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- Timeline Tab End -->
+                                                <div class="tab-pane fade" id="tasks" role="tabpanel">
+                                                    <div class="pd-20 profile-task-wrap">
+                                                        <div class="container pd-0">
+                                                            <form>
+                                                                <ul class="profile-edit-list row">
+                                                                    <li class="weight-500 col-12 col-md-12">
+                                                                        <h4 class="text-blue h5 mb-20">History of Parking</h4>
+                                                                    </li>
+                                                                </ul>
+                                                                <table class="table table-bordered table-responsive-md">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">Name</th>
+                                                                            <th scope="col">Address</th>
+                                                                            <th scope="col">Date</th>
+                                                                            <th scope="col">Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Le Thi Rieng Parking Lot</td>
+                                                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                                                            <td>19/6/2022</td>
+                                                                            <td><span class="badge badge-success">Done !</span></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Le Thi Rieng Parking Lot</td>
+                                                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                                                            <td>15/6/2022</td>
+                                                                            <td><span class="badge badge-success">Done !</span></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Le Thi Rieng Parking Lot</td>
+                                                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                                                            <td>12/6/2022</td>
+                                                                            <td><span class="badge badge-success">Done !</span></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Le Thi Rieng Parking Lot</td>
+                                                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                                                            <td>08/6/2022</td>
+                                                                            <td><span class="badge badge-success">Done !</span></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Le Thi Rieng Parking Lot</td>
+                                                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
+                                                                            <td>01/6/2022</td>
+                                                                            <td><span class="badge badge-success">Done !</span></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -73,13 +169,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="footer-wrap pd-20 mb-20 card-box">
-                    Parking.Go Make By <a href="#" target="_blank">T1.2008.A0</a>
+                    <div class="footer-wrap pd-20 mb-20 card-box">
+                        Parking.Go Make By <a href="#" target="_blank">T1.2008.A0</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 
 </html>

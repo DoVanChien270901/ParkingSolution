@@ -12,17 +12,12 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
-import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,20 +27,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class QrCodeUtil {
 
-    private final String SERRET_KEY = "HACKER";
-
     public byte[] generQrCode(Object obContent, int width, int height) {
+
         try {
-            //object to string json
             QRCodeWriter qRCodeWriter = new QRCodeWriter();
-//            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-//            String jsonContent = ow.writeValueAsString(obContent);
-            //encode string json (base64)
-//            Base64.Encoder base64 = Base64.getEncoder();
-//            String base64Content = base64.encodeToString(jsonContent.getBytes());
-            //encode -> qrcode
-            String jwtContent  = generrateToken(obContent);
-            BitMatrix bitMatrix = qRCodeWriter.encode(jwtContent, BarcodeFormat.QR_CODE, width, height);
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            String jsonContent = ow.writeValueAsString(obContent);
+            BitMatrix bitMatrix = qRCodeWriter.encode(jsonContent, BarcodeFormat.QR_CODE, width, height);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(bitMatrix, "PNG", byteArrayOutputStream);
             return byteArrayOutputStream.toByteArray();
@@ -70,27 +58,4 @@ public class QrCodeUtil {
             return null;
         }
     }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
-
-    private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SERRET_KEY).parseClaimsJws(token).getBody();
-    }
-
-    public String generrateToken(Object object) {
-        //convert object to map
-        ObjectMapper obMapper = new ObjectMapper();
-        Map<String, Object> claims = obMapper.convertValue(object, Map.class);
-        return createToken(claims);
-    }
-
-    public String createToken(Map<String, Object> claims) {
-        return Jwts.builder().setClaims(claims).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .signWith(SignatureAlgorithm.HS256, SERRET_KEY).compact();
-    }
-
 }

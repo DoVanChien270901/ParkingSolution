@@ -1,9 +1,4 @@
 /********** Template CSS **********/
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 :root {
     --primary: #1b00ff;
@@ -411,7 +406,7 @@ nav .navbar-brand .span-logo {
 /* icon css */
 
 .fa-github,
-.profile .fa-address-card, .booking-create .fa-id-card {
+.profile .fa-address-card {
     color: #202020 !important;
 }
 
@@ -419,25 +414,21 @@ nav .navbar-brand .span-logo {
     color: #14C38E !important;
 }
 
-.fa-wallet {
-    color:#FF869E !important;
-}
-
 .fa-twitter,
-.profile .fa-address-book, .booking-create .fa-clock {
+.profile .fa-address-book {
     color: #87ceeb !important;
 }
 
 .fa-youtube,
-.profile .fa-user, .booking-create .fa-car {
+.profile .fa-user {
     color: #dc3545 !important;
 }
 
-.profile .fa-envelope, .booking-create .fa-times {
+.profile .fa-envelope {
     color: #FAC213 !important;
 }
 
-.profile .fa-calendar-alt, .booking-create .fa-parking {
+.profile .fa-calendar-alt {
     color: #1b00ff !important;
 }
 
@@ -486,53 +477,33 @@ nav .navbar-brand .span-logo {
 
 /* profile */
 
+.profile h5 .profile-text {
+    font-weight: 400;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 18px;
+}
+
 .profile .col-qrcode .qrcode {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-width: 45%;
-    border: 1px solid #202020;
-    padding: 10px;
-}
-.booking-create .qrcode {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 30%;
+    max-width: 50%;
     border: 1px solid #202020;
     padding: 10px;
 }
 
-.profile .col-qrcode p , .booking-create .qrcode{
+.profile .col-qrcode p {
     text-align: center;
     font-style: italic;
 }
 
-.profile lable, .booking-create lable{
+.profile lable {
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     font-size: 16px;
 }
 
-/* recharge */
-.recharge .amount lable {
-    float: right;
-    font-size: 18px;
-    font-weight: 500;
-}
 
-.recharge .payment lable{
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-}
-.recharge .select-amount input{
-    width: 100%;
-}
-.recharge .submit-payment button{
-    text-transform: capitalize;
-    width: 250px;
-}
 /* btn */
 
 .btn {
@@ -583,23 +554,6 @@ nav .navbar-brand .span-logo {
     border-radius: 5px;
 }
 
-#edit, #cancel, #save, #save-booking {
-    width: 150px;
-    text-transform: capitalize;
-}
-
-#cancel, #save {
-    display: none;
-}
-
-#back-to-booking-list, #guide-direction, #back-to-google-map {
-    text-transform: capitalize;
-    width: 150px;
-}
-
-#booking-list .table-hover tbody tr:hover{
-    cursor: pointer;
-}
 
 /* ============ Desktop View ============ */
 
@@ -626,28 +580,6 @@ nav .navbar-brand .span-logo {
     }
 }
 
-.a-cancel, .a-back-to-booking-list {
-    color: #fff !important;
-}
-.a-cancel:hover, .a-back-to-booking-list:hover{
-    text-decoration: none;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-.momo,.zalopay, .wallet {
-    width: 40px;
-}
-.wallet-title {
-    font-weight: 500 !important;
-}
 
 /* ============ Desktop View .End// ============ */
 
@@ -663,327 +595,16 @@ input[type=number] {
     }
 }
 
-@media screen and (max-width: 1200px) {
-    .profile .col-qrcode .qrcode{
-        max-width: 50%;
-    }
-    .booking-create .qrcode {
-        max-width: 40%;
-    }
-}
+@media screen and (max-width: 1200px) {}
 
 @media screen and (max-width: 991px) {
-    .button-edit {
-        display: flex;
-        justify-content: center;
-    }
     .profile .col-qrcode .qrcode {
-        max-width: 30%;
-    }
-    .recharge .submit-payment button{
-        width: 250px;
-    }
-    .booking-create .qrcode{
         max-width: 40%;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .profile .col-qrcode .qrcode, .booking-create .qrcode {
-        max-width: 40%;
+    .profile .col-qrcode .qrcode {
+        max-width: 50%;
     }
-    .recharge .submit-payment button {
-        width: 250px;
-    }
-}
-
-@media screen and (max-width:567px){
-    #edit, #save, #cancel, #save-booking {
-        width: 100%;
-    }
-
-    #back-to-booking-list, #guide-direction, #back-to-google-map {
-        width: 100%;
-    }
-
-    .profile .col-qrcode .qrcode, .booking-create .qrcode {
-        max-width: 45%;
-    }
-
-    .recharge .submit-payment button{
-        width: 100%;
-    }
-}
-
-/* Google Map CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    font-family: 'Poppins', sans-serif;
-}
-
-.wrapper-google-map {
-    height: 100%;
-    width: 300px;
-    position: relative;
-}
-
-.wrapper-google-map .menu-btn {
-    position: absolute;
-    left: 185px;
-    top: 10px;
-    background: #fff;
-    color: black;
-    height: 40px;
-    width: 40px;
-    z-index: 9999;
-    box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
-    border-radius: 2px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-#btn:checked~.menu-btn {
-    left: 301px;
-    top: 13.8px;
-}
-
-.wrapper-google-map .menu-btn i {
-    position: absolute;
-    font-size: 18px;
-    transition: all 0.3s ease;
-}
-
-.wrapper-google-map .menu-btn i.fa-times {
-    opacity: 0;
-}
-
-#btn:checked~.menu-btn i.fa-times {
-    opacity: 1;
-    transform: rotate(-180deg);
-}
-
-#btn:checked~.menu-btn i.fa-bars {
-    opacity: 0;
-    transform: rotate(180deg);
-}
-
-#btn:checked~#sidebar {
-    left: 0;
-}
-
-#sidebar .title {
-    background: #1b00ff;
-    border-bottom: 1px solid #1b00ff;
-    font-style: 'Arial', sans-serif !important;
-}
-
-#sidebar .title h4 {
-    line-height: 65px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 700;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-.content-google-map {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    width: 100%;
-    text-align: center;
-}
-
-#map {
-    width: 100%;
-    height: 100vh;
-}
-
-#sidebar {
-    position: fixed;
-    background: #fff;
-    height: 100%;
-    width: 320px;
-    left: -320px;
-    transition: all 0.3s ease;
-    overflow-y: scroll;
-}
-
-::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #1b00ff;
-}
-
-.wrapper-google-map .location-btn {
-    position: absolute;
-    left: 230px;
-    top: 10px;
-}
-
-.wrapper-google-map .location-btn button {
-    background: #fff;
-    color: black;
-    height: 40px;
-    width: 40px;
-    box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
-    border: 0;
-    outline: 0;
-    border-radius: 2px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#content-parking {
-    max-width: 250px;
-    text-align: left;
-    color: #000000;
-}
-
-.gm-style-iw-c {
-    text-align: left;
-}
-
-#content-parking strong {
-    font-weight: 600;
-    font-size: 14px;
-}
-
-#content-parking .direction {
-    background-color: #1b00ff;
-    color: #fff;
-    border-radius: 2px;
-    border: 0;
-    outline: 0;
-    padding: 5px;
-}
-
-.shop-item .booking-list {
-    background-color: #198754;
-    color: #fff;
-    border-radius: 2px;
-    border: 0;
-    outline: 0;
-    padding: 5px;
-    float: right;
-}
-
-#content-parking .direction:hover {
-    background-color: #1502bd;
-}
-
-.shop-item .booking-list:hover {
-    background-color: #157347;
-}
-
-#sidebar .form-direction input {
-    background-color: #1b00ff;
-    border: 0;
-    outline: 0;
-    color: #fff;
-}
-
-#sidebar .form-direction input:focus {
-    outline: 0;
-}
-
-#sidebar .form-direction .form-control:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.wrapper-google-map ul.list-items {
-    padding: 0rem 1rem;
-    list-style-type: none;
-}
-
-#sidebar .list-items .shop-item a {
-    text-decoration: none;
-    font-size: 16px;
-    color: #1b00ff;
-    font-weight: 600;
-    text-transform: capitalize;
-}
-
-#sidebar .list-items .shop-item p {
-    font-size: 14px;
-    color: #404040;
-}
-
-#sidebar .list-items .shop-item {
-    margin: 1rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-#sidebar .list-items li:last-child .shop-item {
-    border: none;
-}
-
-#sidebar .list-google-map ul.list-items {
-    list-style: none;
-}
-
-#sidebar .list-items {
-    position: relative;
-    background: #fff;
-    width: 100%;
-    height: 100%;
-    list-style: none;
-}
-
-#sidebar .list-items li:first-child {
-    border-top: none;
-}
-
-#sidebar .list-items li a {
-    color: #f2f2f2;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    height: 100%;
-    width: 100%;
-    display: block;
-}
-
-#sidebar .list-items li a i {
-    margin-right: 20px;
-}
-
-#sidebar .result-list {
-    padding-left: 1rem;
-    margin-top: 1rem;
-    font-size: 16px;
-    font-style: italic;
-    color: #dc3545;
-    font-weight: 600;
-}
-
-#list-google-map .page-item a:hover {
-    color: #1502bd;
-}
-
-#sidebar .title h4 button {
-    position: absolute;
-    left: 10px;
-    background-color: #1b00ff;
-    color: #fff;
-    border: 0;
-    outline: 0;
 }
