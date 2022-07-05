@@ -52,6 +52,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 @Service
@@ -113,6 +114,7 @@ public class TransactionService implements ITransaction {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Transactioninformation> pageTrans = _transactionRepository.findAll(pageRequest);
         List<TransactionRes> listTrans = _mapper.mapList(pageTrans.getContent(), TransactionRes.class);
+
         PageTransactionRes pageTransactionRes = new PageTransactionRes();
         pageTransactionRes.setListTransaction(listTrans);
         pageTransactionRes.setCurrentPage(pageTrans.getPageable().getPageNumber());
@@ -122,10 +124,20 @@ public class TransactionService implements ITransaction {
     }
 
     @Override
-    public TransactionRes getByUserName(String username) {
-        Transactioninformation transactioninformation = _transactionRepository.getById(username);
-        TransactionRes tRes = _mapper.map(transactioninformation, TransactionRes.class);
-        return tRes;
+    public PageTransactionRes getByUserName(String username, int page, int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Profile userProfile = _proProfileRepository.getByUsername(username);
+        List<Transactioninformation> trans = (List<Transactioninformation>) userProfile.getTransactioninformationCollection();
+        Page<Transactioninformation> pageTrans = new PageImpl<>(trans ,pageRequest, trans.size());
+        List<TransactionRes> listTrans = _mapper.mapList(pageTrans.getContent(), TransactionRes.class);
+
+        PageTransactionRes pageTransactionRes = new PageTransactionRes();
+        pageTransactionRes.setCurrentPage(pageTrans.getPageable().getPageNumber());
+        pageTransactionRes.setListTransaction(listTrans);
+        pageTransactionRes.setSize(pageTrans.getSize());
+        pageTransactionRes.setTotalPages(pageTrans.getTotalPages());
+        return pageTransactionRes;
     }
 
     public CreateOrderRes createMomo(CreateOrderReq orderRequest) {
@@ -363,7 +375,7 @@ public class TransactionService implements ITransaction {
                 transactioninformation.setStype(orderRequest.getTransType());
                 transactioninformation.setTransno(orderRequest.getTransNo());
                 _transactionRepository.save(transactioninformation);
-            }else{
+            } else {
                 //do nothing
             }
 
@@ -438,10 +450,10 @@ public class TransactionService implements ITransaction {
                 transactioninformation.setStype(orderRequest.getTransType());
                 transactioninformation.setTransno(orderRequest.getTransNo());
                 _transactionRepository.save(transactioninformation);
-            }else{
+            } else {
                 //do nothing
             }
-            
+
 //            Map<String, Object> kq = new HashMap<>();
 //            kq.put("returncode", result.get("returncode"));
 //            kq.put("returnmessage", result.get("returnmessage"));

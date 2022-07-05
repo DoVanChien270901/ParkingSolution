@@ -5,7 +5,6 @@
  */
 package fpt.aptech.ParkingApi.dto.response;
 
-import fpt.aptech.ParkingApi.dto.enumm.PaymentChannel;
 import java.time.LocalDateTime;
 
 /**
@@ -14,23 +13,21 @@ import java.time.LocalDateTime;
  */
 public class TransactionRes {
 
-    private String transNo;
+    private String transno;
     private Double amount;
-    private PaymentChannel channel;
-    private LocalDateTime dateTime;
-//    private String description;
-    private Integer statusCode;
-//    private String type;
+    private String channel;
+    private LocalDateTime datetime;
+    private Integer statuscode;
 
     public TransactionRes() {
     }
 
     public String getTransNo() {
-        return transNo;
+        return transno;
     }
 
     public void setTransNo(String transNo) {
-        this.transNo = transNo;
+        this.transno = transNo;
     }
 
     public Double getAmount() {
@@ -41,28 +38,28 @@ public class TransactionRes {
         this.amount = amount;
     }
 
-    public PaymentChannel getChannel() {
+    public String getChannel() {
         return channel;
     }
 
-    public void setChannel(PaymentChannel channel) {
+    public void setChannel(String channel) {
         this.channel = channel;
     }
 
     public LocalDateTime getDateTime() {
-        return dateTime;
+        return datetime;
     }
 
     public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+        this.datetime = dateTime;
     }
 
     public Integer getStatusCode() {
-        return statusCode;
+        return statuscode;
     }
 
     public void setStatusCode(Integer statusCode) {
-        this.statusCode = statusCode;
+        this.statuscode = statusCode;
     }
 
 }

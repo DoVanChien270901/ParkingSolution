@@ -8,6 +8,7 @@ package fpt.aptech.ParkingApi.controller;
 import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
 import fpt.aptech.ParkingApi.dto.response.CreateOrderRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
+import fpt.aptech.ParkingApi.dto.response.TransactionRes;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,27 +52,27 @@ public class TransactionController {
             CreateOrderRes transactionRes = _transactionServices.checkStatus(orderRequest);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
-    
+
     @RequestMapping(value = "/list-transaction", method = RequestMethod.GET)
     public ResponseEntity<?> listTransaction(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
             PageTransactionRes pageTransactionRes = _transactionServices.findAll(page, size); // fisrt page = 0
             return new ResponseEntity(pageTransactionRes, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
-    
-//    @RequestMapping(value = "getUserrechargeHistory", method = RequestMethod.GET)
-//    public ResponseEntity<?> getUserrechargeHistory(@RequestParam("username") String username ){
-//        try {
-//            TransactionRes transactionRes = _transactionServices.getByUserName(username);
-//            return new ResponseEntity(transactionRes, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-//        }
-//    }
+
+    @RequestMapping(value = "user-transactions-history", method = RequestMethod.GET)
+    public ResponseEntity<?> getTransactionHistory(@RequestParam("username") String username, @RequestParam("page") int page, @RequestParam("size") int size) {
+        try {
+            PageTransactionRes transactionRes = _transactionServices.getByUserName(username, page, size);
+            return new ResponseEntity(transactionRes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }
