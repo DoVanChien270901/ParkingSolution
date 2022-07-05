@@ -978,3 +978,12 @@ input[type=number] {
 #list-google-map .page-item a:hover {
     color: #1502bd;
 }
+
+#sidebar .title h4 button {
+    position: absolute;
+    left: 10px;
+    background-color: #1b00ff;
+    color: #fff;
+    border: 0;
+    outline: 0;
+}
