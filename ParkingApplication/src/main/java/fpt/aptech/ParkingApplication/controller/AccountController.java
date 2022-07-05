@@ -38,9 +38,6 @@ public class AccountController {
     @Value("${spring.data.rest.base-path}")
     private String PATH_API;
 
-//    private final String uri = "http://localhost:8080/";
-    @Autowired
-    private RestTemplateConfiguration restTemplate;
 //    @Autowired
 //    private IntercepterConfiguration intercepterConfiguration;
 //    @Autowired
@@ -48,10 +45,8 @@ public class AccountController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
-//      String a = url;
-        return "user/booking";
+        return "user/jscalllapi";
     }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute("authenticate") AuthenticateReq authenticate) {
         return "layouts/login";
@@ -62,8 +57,8 @@ public class AccountController {
             BindingResult bindingResult, HttpSession session, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors() == false) {
             try {
-                HttpEntity request = restTemplate.setRequest(authenticateReq);
-                ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "authenticate", HttpMethod.POST, request, LoginRes.class);
+                HttpEntity request = RestTemplateConfiguration.setRequest(authenticateReq);
+                ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "authenticate", HttpMethod.POST, request, LoginRes.class);
                 if (response.getStatusCode() == HttpStatus.OK) {
                     LoginRes loginRes = (LoginRes) response.getBody();
                     session.setAttribute("account", loginRes);
@@ -97,14 +92,17 @@ public class AccountController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerReq") RegisterReq registerReq, HttpSession session) {
-        HttpEntity request = restTemplate.setRequest(registerReq);
-        ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "register", HttpMethod.POST, request, LoginRes.class);
-        try {
-            if (response.getStatusCode() == HttpStatus.OK) {
-                LoginRes loginRes = (LoginRes) response.getBody();
-                session.setAttribute("account", loginRes);
-                return "redirect:/home/user";
-            } else {
+            HttpEntity request = RestTemplateConfiguration.setRequest(registerReq);
+            ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "register", HttpMethod.POST, request, LoginRes.class);
+            try {
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    LoginRes loginRes = (LoginRes) response.getBody();
+                    session.setAttribute("account", loginRes);
+                        return "redirect:/home/user";
+                } else {
+                    return "redirect:/register";
+                }
+            } catch (Exception e) {
                 return "redirect:/register";
             }
         } catch (Exception e) {

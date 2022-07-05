@@ -13,9 +13,10 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
 import fpt.aptech.ParkingApi.dto.qrcontent.ProfileQrContent;
+import fpt.aptech.ParkingApi.dto.qrcontent.RechargeQrContent;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
-import fpt.aptech.ParkingApi.dto.request.AddQrReq;
-import fpt.aptech.ParkingApi.dto.request.AddQrReq;
+import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
+import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
 import fpt.aptech.ParkingApi.dto.response.QrCodeRes;
 import fpt.aptech.ParkingApi.entities.Account;
 import fpt.aptech.ParkingApi.entities.Profile;
@@ -32,6 +33,7 @@ import fpt.aptech.ParkingApi.repositorys.QrCodeRepo;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import javax.imageio.ImageIO;
 
 /**
@@ -53,16 +55,11 @@ public class QrCodeService implements IQrCode {
     private ProfileRepo _profileRepository;
 
     @Override
-    public void create(AddQrReq addQrReq, String username) {
-        Profile profile = _profileRepository.getByUsername(username);
-        if (profile.getUsername().equals(username)) {
-            byte[] byteContent = _qrCodeUtil.generQrCode(addQrReq.getContent(), 650, 650);
-            Qrcode qrcode = new Qrcode();
-            qrcode.setTitle(addQrReq.getTitle());
-            qrcode.setAccountid(profile);
-            qrcode.setContent(byteContent);
-            _qrcodeRepository.save(qrcode);
-        }
+    public void create(Qrcode qrCode, Object obContent) {
+        //Profile profile = _profileRepository.getByUsername(username);
+        byte[] byteContent = _qrCodeUtil.generQrCode(obContent, 650, 650);
+        qrCode.setContent(byteContent);
+        _qrcodeRepository.save(qrCode);
     }
 
     @Override
@@ -74,7 +71,7 @@ public class QrCodeService implements IQrCode {
     public Boolean edit(ProfileQrContent profileQrContent, String username, String title) {
         Qrcode qrcode = _qrcodeRepository.getByUserName(username, title);
         if (qrcode != null) {
-            //decode Qr
+//decode Qr
 //                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(qrcode.getContent());
 //                BufferedImage bufferedImage = ImageIO.read(byteArrayInputStream);
 //                BufferedImageLuminanceSource bufferedImageLuminanceSource = new BufferedImageLuminanceSource(bufferedImage);
@@ -85,7 +82,6 @@ public class QrCodeService implements IQrCode {
 //                String stringJson = result.getText();
 //                Gson g = new Gson();
 //                ProfileQrContent objectContent = g.fromJson(stringJson, ProfileQrContent.class);
-
             byte[] byteContent = _qrCodeUtil.generQrCode(profileQrContent, 650, 650);
             qrcode.setContent(byteContent);
             _qrcodeRepository.save(qrcode);

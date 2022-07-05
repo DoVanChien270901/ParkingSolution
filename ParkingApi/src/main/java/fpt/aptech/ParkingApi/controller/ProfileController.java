@@ -7,7 +7,7 @@ package fpt.aptech.ParkingApi.controller;
 import fpt.aptech.ParkingApi.configurations.ModelMapperConfig;
 import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
 import fpt.aptech.ParkingApi.dto.qrcontent.ProfileQrContent;
-import fpt.aptech.ParkingApi.dto.request.AddQrReq;
+import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
 import fpt.aptech.ParkingApi.dto.request.EditProfileReq;
 import fpt.aptech.ParkingApi.dto.response.PageProfileRes;
 import fpt.aptech.ParkingApi.dto.response.ProfileRes;

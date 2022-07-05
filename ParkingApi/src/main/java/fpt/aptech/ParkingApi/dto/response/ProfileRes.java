@@ -21,6 +21,7 @@ public class ProfileRes implements Serializable {
     private Double balance;
     private String email;
     private Integer phone;
+    private byte[] qrcontent;
 
     public ProfileRes() {
     }
@@ -72,4 +73,13 @@ public class ProfileRes implements Serializable {
     public void setPhone(Integer phone) {
         this.phone = phone;
     }
+
+    public byte[] getQrcontent() {
+        return qrcontent;
+    }
+
+    public void setQrcontent(byte[] qrcontent) {
+        this.qrcontent = qrcontent;
+    }
+
 }

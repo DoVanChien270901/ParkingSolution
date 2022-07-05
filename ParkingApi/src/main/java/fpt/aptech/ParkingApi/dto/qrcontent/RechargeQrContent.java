@@ -14,27 +14,23 @@ import java.time.LocalDateTime;
  *
  * @author CHIEN
  */
-public class AddRechargeQrConten {
+public class RechargeQrContent {
 
     private String username;
     private Double amount;
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime createdate;
+//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 
-    public AddRechargeQrConten() {
+    public RechargeQrContent() {
+    }
+
+    public RechargeQrContent(String username, Double amount) {
+        this.username = username;
+        this.amount = amount;
     }
 
     public String getUsername() {
         return username;
-    }
-
-    public LocalDateTime getCreatedate() {
-        return createdate;
-    }
-
-    public void setCreatedate(LocalDateTime createdate) {
-        this.createdate = createdate;
     }
 
     public void setUsername(String username) {

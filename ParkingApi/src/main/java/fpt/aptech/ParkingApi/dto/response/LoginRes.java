@@ -4,11 +4,14 @@
  */
 package fpt.aptech.ParkingApi.dto.response;
 
+import java.io.Serializable;
+
 /**
  *
  * @author CHIEN
  */
-public class LoginRes {
+public class LoginRes implements Serializable {
+
     private String token;
     private String fullname;
     private String email;
@@ -48,6 +51,6 @@ public class LoginRes {
     public void setRole(Roles role) {
         this.role = role;
     }
-
+    
     
 }

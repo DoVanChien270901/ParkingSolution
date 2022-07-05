@@ -19,16 +19,19 @@ import org.springframework.web.client.RestTemplate;
  * @author CHIEN
  */
 @Service
-public class RestTemplateConfiguration {
+public class RestTemplateConfiguration extends RestTemplate {
 
-    public HttpEntity setRequest() {
+    public RestTemplateConfiguration() {
+    }
+
+    public static HttpEntity setRequest() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         return new HttpEntity(headers);
     }
 
-    public HttpEntity setRequest(String token) {
+    public static HttpEntity setRequest(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -38,14 +41,14 @@ public class RestTemplateConfiguration {
         return new HttpEntity(headers);
     }
 
-    public HttpEntity setRequest(Object ob) {
+    public static HttpEntity setRequest(Object ob) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         return new HttpEntity(ob, headers);
     }
 
-    public HttpEntity setRequest(String token, Object ob) {
+    public static HttpEntity setRequest(String token, Object ob) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -55,10 +58,10 @@ public class RestTemplateConfiguration {
         return new HttpEntity(ob, headers);
     }
 
-    public ResponseEntity<?> excuteRequest(String uri, HttpMethod method, HttpEntity request, Class t) {
+    public static ResponseEntity<?> excuteRequest(String uri, HttpMethod method, HttpEntity request, Class t) {
         try {
             RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(uri, method, request, t);
+            return restTemplate.exchange(uri, method, request, t);
         } catch (RestClientResponseException e) {
             return ResponseEntity
                     .status(e.getRawStatusCode())
