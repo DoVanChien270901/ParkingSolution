@@ -56,6 +56,12 @@ var parkingLocations = [{
         "lat": 10.835440504398681,
         "long": 106.6285604770306,
     },
+    {
+        "name": "Hoang Nhu Parking Lot",
+        "address": "Tan Tao, Binh Tan, Ho Chi Minh City, Vietnam",
+        "lat": 10.763773372224323,
+        "long": 106.58615458756867,
+    }
 
 ]
 
@@ -82,12 +88,12 @@ function listElements(name, addr, calulate) {
     address.innerHTML = addr;
 
     // radius
-    radius.innerHTML = calulate.toFixed(3) + ' km ';
+    radius.innerHTML = '<i class="fa fa-road"></i> ' + calulate.toFixed(3) + ' km ';
 
     // button booking
     button.setAttribute('class', 'booking-list');
     button.setAttribute('type', 'button');
-    button.innerHTML = 'Booking';
+    button.innerHTML = '<i class="fa fa-parking"></i> ' + 'Booking';
 
     div.appendChild(a);
     div.appendChild(address);
@@ -99,7 +105,7 @@ function listElements(name, addr, calulate) {
 
 function contentElement(name, address) {
     return '<div id="content-parking">' + '<strong>' + name + '</strong>' + '<br/>' + address + '<div class="p-1"></div>' +
-        '<button type="button" class="direction" id="direction">Direction</button>';
+        '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>';
 }
 
 function calculate(lat1, lat2, long1, long2) {
@@ -182,6 +188,7 @@ function showPlace(latpos, longpos) {
 }
 
 function showDirection(data) {
+    // delete
     if (ddisplay || dservice) {
         ddisplay.setMap(null);
     } else {

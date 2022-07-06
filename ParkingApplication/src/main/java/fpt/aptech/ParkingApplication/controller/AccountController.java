@@ -49,7 +49,7 @@ public class AccountController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
 //      String a = url;
-        return "user/booking";
+        return "user/google-map";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
