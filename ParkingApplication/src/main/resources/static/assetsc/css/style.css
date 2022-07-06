@@ -1,4 +1,9 @@
 /********** Template CSS **********/
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 :root {
     --primary: #1b00ff;
@@ -406,7 +411,7 @@ nav .navbar-brand .span-logo {
 /* icon css */
 
 .fa-github,
-.profile .fa-address-card {
+.profile .fa-address-card, .booking-create .fa-id-card {
     color: #202020 !important;
 }
 
@@ -414,21 +419,25 @@ nav .navbar-brand .span-logo {
     color: #14C38E !important;
 }
 
+.fa-wallet {
+    color:#FF869E !important;
+}
+
 .fa-twitter,
-.profile .fa-address-book {
+.profile .fa-address-book, .booking-create .fa-clock {
     color: #87ceeb !important;
 }
 
 .fa-youtube,
-.profile .fa-user {
+.profile .fa-user, .booking-create .fa-car {
     color: #dc3545 !important;
 }
 
-.profile .fa-envelope {
+.profile .fa-envelope, .booking-create .fa-times {
     color: #FAC213 !important;
 }
 
-.profile .fa-calendar-alt {
+.profile .fa-calendar-alt, .booking-create .fa-parking {
     color: #1b00ff !important;
 }
 
@@ -477,33 +486,63 @@ nav .navbar-brand .span-logo {
 
 /* profile */
 
-.profile h5 .profile-text {
-    font-weight: 400;
-    font-family: var(--bs-font-sans-serif);
-    font-size: 18px;
-}
-
 .profile .col-qrcode .qrcode {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-width: 50%;
+    max-width: 45%;
     border: 1px solid #202020;
-    padding: 10px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
-.profile .col-qrcode p {
+#direct-payment .col-no-qrcode .no-qrcode {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30%;
+}
+
+.booking-create .qrcode {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30%;
+    border: 1px solid #202020;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.profile .col-qrcode p , .booking-create .qrcode{
     text-align: center;
     font-style: italic;
 }
 
-.profile lable {
+.profile lable, .booking-create lable{
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     font-size: 16px;
 }
 
+/* recharge */
+.recharge .amount lable {
+    float: right;
+    font-size: 18px;
+    font-weight: 500;
+}
 
+.recharge .payment lable{
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+}
+.recharge .select-amount input{
+    width: 100%;
+}
+.recharge .submit-payment button{
+    text-transform: capitalize;
+    width: 250px;
+}
 /* btn */
 
 .btn {
@@ -554,6 +593,23 @@ nav .navbar-brand .span-logo {
     border-radius: 5px;
 }
 
+#edit, #cancel, #save, #save-booking {
+    width: 250px;
+    text-transform: capitalize;
+}
+
+#cancel, #save {
+    display: none;
+}
+
+#back-to-booking-list, #guide-direction, #back-to-google-map {
+    text-transform: capitalize;
+    width: 250px;
+}
+
+#booking-list .table-hover tbody tr:hover{
+    cursor: pointer;
+}
 
 /* ============ Desktop View ============ */
 
@@ -580,6 +636,28 @@ nav .navbar-brand .span-logo {
     }
 }
 
+.a-cancel, .a-back-to-booking-list {
+    color: #fff !important;
+}
+.a-cancel:hover, .a-back-to-booking-list:hover{
+    text-decoration: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.momo,.zalopay, .wallet {
+    width: 40px;
+}
+.wallet-title {
+    font-weight: 500 !important;
+}
 
 /* ============ Desktop View .End// ============ */
 
@@ -595,16 +673,58 @@ nav .navbar-brand .span-logo {
     }
 }
 
-@media screen and (max-width: 1200px) {}
+@media screen and (max-width: 1200px) {
+    .profile .col-qrcode .qrcode{
+        max-width: 50%;
+    }
+    .booking-create .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 40%;
+    }
+}
 
 @media screen and (max-width: 991px) {
-    .profile .col-qrcode .qrcode {
+    .button-edit {
+        display: flex;
+        justify-content: center;
+    }
+    .profile .col-qrcode .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 30%;
+    }
+    .recharge .submit-payment button{
+        width: 250px;
+    }
+    .booking-create .qrcode{
         max-width: 40%;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .profile .col-qrcode .qrcode {
-        max-width: 50%;
+    .profile .col-qrcode .qrcode, .booking-create .qrcode {
+        max-width: 40%;
+    }
+    .recharge .submit-payment button {
+        width: 250px;
+    }
+    #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 35%;
     }
 }
+
+@media screen and (max-width:567px){
+    #edit, #save, #cancel, #save-booking {
+        width: 100%;
+    }
+
+    #back-to-booking-list, #guide-direction, #back-to-google-map {
+        width: 100%;
+    }
+
+    .profile .col-qrcode .qrcode, .booking-create .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 45%;
+    }
+
+    .recharge .submit-payment button{
+        width: 100%;
+    }
+}
+
