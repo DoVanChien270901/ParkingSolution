@@ -487,9 +487,27 @@ nav .navbar-brand .span-logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-width: 50%;
+    max-width: 45%;
     border: 1px solid #202020;
-    padding: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#direct-payment .col-no-qrcode .no-qrcode {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30%;
+}
+
+.booking-create .qrcode {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30%;
+    border: 1px solid #202020;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .profile .col-qrcode p {
@@ -554,6 +572,23 @@ nav .navbar-brand .span-logo {
     border-radius: 5px;
 }
 
+#edit, #cancel, #save, #save-booking {
+    width: 250px;
+    text-transform: capitalize;
+}
+
+#cancel, #save {
+    display: none;
+}
+
+#back-to-booking-list, #guide-direction, #back-to-google-map {
+    text-transform: capitalize;
+    width: 250px;
+}
+
+#booking-list .table-hover tbody tr:hover{
+    cursor: pointer;
+}
 
 /* ============ Desktop View ============ */
 
@@ -595,10 +630,27 @@ nav .navbar-brand .span-logo {
     }
 }
 
-@media screen and (max-width: 1200px) {}
+@media screen and (max-width: 1200px) {
+    .profile .col-qrcode .qrcode{
+        max-width: 50%;
+    }
+    .booking-create .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 40%;
+    }
+}
 
 @media screen and (max-width: 991px) {
-    .profile .col-qrcode .qrcode {
+    .button-edit {
+        display: flex;
+        justify-content: center;
+    }
+    .profile .col-qrcode .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 30%;
+    }
+    .recharge .submit-payment button{
+        width: 250px;
+    }
+    .booking-create .qrcode{
         max-width: 40%;
     }
 }
@@ -607,4 +659,29 @@ nav .navbar-brand .span-logo {
     .profile .col-qrcode .qrcode {
         max-width: 50%;
     }
+    .recharge .submit-payment button {
+        width: 250px;
+    }
+    #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 35%;
+    }
 }
+
+@media screen and (max-width:567px){
+    #edit, #save, #cancel, #save-booking {
+        width: 100%;
+    }
+
+    #back-to-booking-list, #guide-direction, #back-to-google-map {
+        width: 100%;
+    }
+
+    .profile .col-qrcode .qrcode, .booking-create .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
+        max-width: 45%;
+    }
+
+    .recharge .submit-payment button{
+        width: 100%;
+    }
+}
+

@@ -46,11 +46,12 @@ public class AccountController {
 //    @Autowired
 //    private HttpSession session;
 
-//    @RequestMapping(value = "/test", method = RequestMethod.GET)
-//    public String test() {
-//        String a = url;
-//        return "user/profile";
-//    }
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test() {
+//      String a = url;
+        return "user/google-map";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute("authenticate") AuthenticateReq authenticate) {
         return "layouts/login";

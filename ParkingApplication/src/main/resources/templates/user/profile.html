@@ -145,53 +145,274 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="tab-pane container fade" id="direct-payment">
+                            <div class="row g-4 mb-3 pb-3 recharge">
+                                <div class="pb-1 pt-4">
+                                    <h2>// Direct Payment //</h2>
+                                </div>
+                                <div class="container amount">
+                                    <lable><i class="fa fa-wallet"></i> 30.000 VND</lable>
+                                </div>
+                                <div class="row payment">
+                                    <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-4">
+                                        <lable>Input Amount: </lable>
+                                        <input class="form-control" id="" name="" type="number" value="0"/>
+                                        <div class="p-2 select-amount">
+                                            <div class="row pt-4">
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="20.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="50.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="100.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="150.000 VND" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-4 col-no-qrcode">
+                                        <img class="no-qrcode mb-2" th:src="@{/assetsc/img/no-qr-code.png}" />
+                                    </div>
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
+                                        <div class="submit-payment d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-qrcode"></i> QR Code</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane container fade" id="electronice-payment">
+                            <div class="row g-4 mb-3 pb-3 recharge">
+                                <div class="pb-1 pt-4">
+                                    <h2>// Electronic Payment //</h2>
+                                </div>
+                                <div class="container amount">
+                                    <lable><i class="fa fa-wallet"></i> 30.000 VND</lable>
+                                </div>
+                                <div class="row payment">
+                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4 form-check">
+                                        <lable>Choose Payment Method:</lable>
+                                        <div class="class-momo p-2">
+                                            <img class="momo" th:src="@{/assetsc/img/momo.png}">
+                                            <span class="p-1">
+                                                Momo
+                                            </span>
+                                            <input style="width: 40px;" type="radio" name="payment" checked="true"> 
+                                        </div>
+                                        <div class="class-zalopay p-2">
+                                            <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
+                                            <span class="p-1">
+                                                ZaloPay
+                                            </span>
+                                            <input style="width: 22.5px;" type="radio" name="payment"> 
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4">
+                                        <lable>Input Amount: </lable>
+                                        <input class="form-control" id="" name="" type="number" value="0"/>
+                                        <div class="p-2 select-amount">
+                                            <div class="row pt-4">
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="20.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="50.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="100.000 VND" />
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                    <input type="button" class="btn btn-sm btn-success p-2" value="150.000 VND" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
+                                        <div class="submit-payment d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-money-check"></i> Payment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane container fade" id="history">
+                            <div class="row g-4 mb-3 pb-3">
+                                <div class="pb-1 pt-4">
+                                    <h2>// History //</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                <input type="text" class="form-control" placeholder="From...">
+                                            </div>
+                                            <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                <input type="text" class="form-control" placeholder="To...">
+                                            </div>
+                                            <div class="col-6 col-lg-2 col-md-2 col-sm-2 p-1">
+                                                <button type="submit" class="btn btn-sm btn-primary m-1"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-6"></div>
+                                </div>
+                                <div class="table-responsive-md">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Code</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Date Time</th>
+                                                <th scope="col">Payment</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>250.000 VND</td>
+                                                <td>2/7/2022 18:00:02</td>
+                                                <td>240.000 VND</td>
+                                                <td><span class="badge badge-success">Done !</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>54.000 VND</td>
+                                                <td>3/7/2022 12:03:02</td>
+                                                <td>70.000 VND</td>
+                                                <td><span class="badge badge-success">Done !</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>112.000 VND</td>
+                                                <td>3/7/2022 14:22:52</td>
+                                                <td>69.000 VND</td>
+                                                <td><span class="badge badge-success">Done !</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>109.000 VND</td>
+                                                <td>3/7/2022 16:22:52</td>
+                                                <td>47.000 VND</td>
+                                                <td><span class="badge badge-success">Done !</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>109.000 VND</td>
+                                                <td>5/7/2022 07:33:17</td>
+                                                <td>47.000 VND</td>
+                                                <td><span class="badge badge-success">Done !</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>109.000 VND</td>
+                                                <td>6/7/2022 14:59:13</td>
+                                                <td>47.000 VND</td>
+                                                <td><span class="badge badge-success">Done !</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="tab-pane container fade" id="booking">
                             <div class="row g-4 mb-3 pb-3">
                                 <div class="pb-1 pt-4">
                                     <h2>// Booking History //</h2>
                                 </div>
-                                <table class="table table-bordered table-responsive-md">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Le Thi Rieng Parking Lot</td>
-                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
-                                            <td>19/6/2022</td>
-                                            <td><span class="badge badge-success">Done !</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Le Thi Rieng Parking Lot</td>
-                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
-                                            <td>15/6/2022</td>
-                                            <td><span class="badge badge-success">Done !</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Le Thi Rieng Parking Lot</td>
-                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
-                                            <td>12/6/2022</td>
-                                            <td><span class="badge badge-success">Done !</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Le Thi Rieng Parking Lot</td>
-                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
-                                            <td>8/6/2022</td>
-                                            <td><span class="badge badge-success">Done !</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Le Thi Rieng Parking Lot</td>
-                                            <td>Cach Mang Thang 8, Ward 15, District 10, Ho Chi Minh City, Vietnam</td>
-                                            <td>1/6/2022</td>
-                                            <td><span class="badge badge-success">Done !</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive-md">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Parking</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Date Time</th>
+                                                <th scope="col">Time Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Le Thi Rieng Parking Lot</td>
+                                                <td>20.000 VND</td>
+                                                <td>2/7/2022 18:00:02</td>
+                                                <td>2 Hour</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Le Thi Rieng Parking Lot</td>
+                                                <td>20.000 VND</td>
+                                                <td>2/7/2022 21:00:02</td>
+                                                <td>2 Hour</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Cao Thang Parking Lot</td>
+                                                <td>25.000 VND</td>
+                                                <td>3/7/2022 09:00:02</td>
+                                                <td>2 Hour</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>Vung Tau Parking Lot</td>
+                                                <td>18.000 VND</td>
+                                                <td>3/7/2022 21:20:02</td>
+                                                <td>2 Hour</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Dong Phuong A Parking Lot</td>
+                                                <td>18.000 VND</td>
+                                                <td>4/7/2022 11:20:02</td>
+                                                <td>2 Hour</td>
+                                            </tr> 
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Dong Phuong A Parking Lot</td>
+                                                <td>18.000 VND</td>
+                                                <td>5/7/2022 15:33:55</td>
+                                                <td>2 Hour</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row booking-create" id="booking-create" style="display:none;">
+                                <div class="pb-4 pt-4">
+                                    <h2>// Create Booking //</h2>
+                                </div>
+                                <form>
+                                    <div class="row g-4 mb-3 pb-3">
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                            <lable><i class="fa fa-parking"></i> Parking</lable>
+                                            <input type="text" value="" class="form-control mb-4"/>
+                                            <lable><i class="fa fa-car"></i> Car Name</lable>
+                                            <input type="text" value="" class="form-control mb-4"/>
+                                            <lable><i class="fa fa-clock"></i> Start Time</lable>
+                                            <input type="number" value="0" class="form-control mb-4"/>
+                                            <lable><i class="fa fa-times"></i> Timer Number</lable>
+                                            <input type="number" value="0" class="form-control mb-4"/>
+                                        </div>
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                            <lable><i class="fa fa-id-card"></i> License Plates</lable>
+                                            <input type="text" value="" class="form-control mb-4"/>
+                                            <lable><i class="fa fa-wallet"></i> Amount</lable>
+                                            <input type="number" value="0" class="form-control mb-4"/>
+                                            <img class="qrcode mb-2" th:src="@{/assetsc/img/qrcode.png}" />
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 button-edit">
+                                            <!-- Cancel Start -->
+                                            <button type="button" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back to List</button>
+                                            <button type="button" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><a class="a-back-to-booking-list" href=""><i class="fa fa-arrow-alt-circle-right"></i> Guide</a></button>
+                                            <!-- Cancel End -->
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
