@@ -120,12 +120,13 @@ function reDisable() {
 }
 
 $(document).ready(function(){
-    $('#booking table tbody tr').click(function(){
-       $('#booking-list').hide(); 
-       $('#booking-create').show(); 
+    $('#booking table tbody tr').click(function(){ 
+        var id = $(this).attr('value');
+        window.location.href = "booking-details?id="+id;
     });
     $('#back-to-booking-list').click(function(){
        $('#booking-list').show(); 
        $('#booking-create').hide(); 
     });
 });
+

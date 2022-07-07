@@ -486,7 +486,7 @@ nav .navbar-brand .span-logo {
 
 /* profile */
 
-.profile .col-qrcode .qrcode {
+.profile .col-qrcode .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -494,6 +494,7 @@ nav .navbar-brand .span-logo {
     border: 1px solid #202020;
     padding: 10px;
 }
+
 .booking-create .qrcode {
     display: block;
     margin-left: auto;
@@ -583,7 +584,8 @@ nav .navbar-brand .span-logo {
     border-radius: 5px;
 }
 
-#edit, #cancel, #save, #save-booking {
+#edit, #cancel, #save, #save-booking,
+#direct-payment .create-qrcode-payment button {
     width: 150px;
     text-transform: capitalize;
 }
@@ -664,7 +666,7 @@ input[type=number] {
 }
 
 @media screen and (max-width: 1200px) {
-    .profile .col-qrcode .qrcode{
+    .profile .col-qrcode .qrcode, #direct-payment .col-no-qrcode .no-qrcode{
         max-width: 50%;
     }
     .booking-create .qrcode {
@@ -673,23 +675,24 @@ input[type=number] {
 }
 
 @media screen and (max-width: 991px) {
-    .button-edit {
+    .button-edit, #direct-payment .create-qrcode-payment {
         display: flex;
         justify-content: center;
     }
-    .profile .col-qrcode .qrcode {
+    .profile .col-qrcode .qrcode,  #direct-payment .col-no-qrcode .no-qrcode {
         max-width: 30%;
     }
     .recharge .submit-payment button{
         width: 250px;
     }
-    .booking-create .qrcode{
+    .booking-create .qrcode {
         max-width: 40%;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .profile .col-qrcode .qrcode, .booking-create .qrcode {
+    .profile .col-qrcode .qrcode, .booking-create .qrcode, 
+    #direct-payment .col-no-qrcode .no-qrcode {
         max-width: 40%;
     }
     .recharge .submit-payment button {
@@ -706,11 +709,13 @@ input[type=number] {
         width: 100%;
     }
 
-    .profile .col-qrcode .qrcode, .booking-create .qrcode {
+    .profile .col-qrcode .qrcode, .booking-create .qrcode,
+    #direct-payment .col-no-qrcode .no-qrcode{
         max-width: 45%;
     }
 
-    .recharge .submit-payment button{
+    .recharge .submit-payment button,
+    #direct-payment .create-qrcode-payment button{
         width: 100%;
     }
 }

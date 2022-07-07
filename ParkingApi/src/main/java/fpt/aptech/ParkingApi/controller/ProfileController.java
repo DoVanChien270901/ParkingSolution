@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @RestController
 public class ProfileController {
+
     @Autowired
     private IProfile _profileService;
     @Autowired
@@ -39,7 +40,7 @@ public class ProfileController {
     private JwtUtil _jwtTokenUtil;
     @Autowired
     private ModelMapperUtil _mapper;
-    
+
     @RequestMapping(value = "/list-users", method = RequestMethod.GET)
     public ResponseEntity<?> listusers(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
@@ -49,6 +50,7 @@ public class ProfileController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<?> getUserByToken(@RequestHeader("Authorization") String token) {
         try {
@@ -60,6 +62,7 @@ public class ProfileController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
     @RequestMapping(value = "/qrcontent", method = RequestMethod.GET)
     public ResponseEntity<?> getQrContentByUserName(@RequestParam("username") String username) {
         try {
@@ -70,12 +73,20 @@ public class ProfileController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public ResponseEntity editUser(@RequestBody EditProfileReq editProfileReq, @RequestHeader("Authorization") String token) {
         try {
             String username = _jwtTokenUtil.extracUsername(token.substring(7));
-            _profileService.edit(editProfileReq, username);
-            return new ResponseEntity("Successful", HttpStatus.OK);
+
+            boolean result = _profileService.edit(editProfileReq, username);
+            if (result) {
+                ProfileQrContent profileQrContent = _mapper.map(editProfileReq, ProfileQrContent.class);
+                _qrCodeService.edit(profileQrContent, username, TitleQrCode.PROFILE.toString());
+                return new ResponseEntity("Successful", HttpStatus.OK);
+            } else {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            }
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }

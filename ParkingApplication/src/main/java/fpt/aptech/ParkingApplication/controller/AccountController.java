@@ -42,11 +42,11 @@ public class AccountController {
 //    private IntercepterConfiguration intercepterConfiguration;
 //    @Autowired
 //    private HttpSession session;
-
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
-        return "user/jscalllapi";
+        return "admin/profile";
     }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute("authenticate") AuthenticateReq authenticate) {
         return "layouts/login";
@@ -92,13 +92,14 @@ public class AccountController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerReq") RegisterReq registerReq, HttpSession session) {
+        try {
             HttpEntity request = RestTemplateConfiguration.setRequest(registerReq);
             ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "register", HttpMethod.POST, request, LoginRes.class);
             try {
                 if (response.getStatusCode() == HttpStatus.OK) {
                     LoginRes loginRes = (LoginRes) response.getBody();
                     session.setAttribute("account", loginRes);
-                        return "redirect:/home/user";
+                    return "redirect:/home/user";
                 } else {
                     return "redirect:/register";
                 }

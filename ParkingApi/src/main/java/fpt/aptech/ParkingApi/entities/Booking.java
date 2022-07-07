@@ -4,12 +4,18 @@
  */
 package fpt.aptech.ParkingApi.entities;
 
+import fpt.aptech.ParkingApi.dto.response.BookingDetailRes;
+import fpt.aptech.ParkingApi.dto.response.BookingRes;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
+import javax.persistence.FieldResult;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,11 +23,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.NamedNativeQuery;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -31,6 +39,43 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "booking")
 @XmlRootElement
+//booking-list
+@NamedNativeQuery(
+        name = "getListBookingByUsername",
+        query = "SELECT b.id AS id, b.starttime AS starttime, b.timenumber AS timenumber, b.price AS price, b.parkingname AS parkingname "
+        + " FROM Booking b WHERE b.accountid = :username",
+        resultSetMapping = "CustomeResultBookingList"
+)
+@SqlResultSetMapping(
+        name = "CustomeResultBookingList",
+        classes = @ConstructorResult(targetClass = BookingRes.class,
+                columns = {
+                    @ColumnResult(name = "id", type = Integer.class),
+                    @ColumnResult(name = "starttime", type = LocalDateTime.class),
+                    @ColumnResult(name = "timenumber", type = Integer.class),
+                    @ColumnResult(name = "price", type = Double.class),
+                    @ColumnResult(name = "parkingname", type = String.class)
+                })
+)
+//booking-details
+@NamedNativeQuery(
+        name = "getDetailBookingById",
+        query = "SELECT b.starttime AS starttime, b.timenumber AS timenumber, b.price AS price, b.carname AS carname, b.lisenceplates AS lisenceplates, b.parkingname AS parkingname "
+        + " FROM Booking b WHERE b.id = :id",
+        resultSetMapping = "CustomeResultBookingDetails"
+)
+@SqlResultSetMapping(
+        name = "CustomeResultBookingDetails",
+        classes = @ConstructorResult(targetClass = BookingDetailRes.class,
+                columns = {
+                    @ColumnResult(name = "starttime", type = LocalDateTime.class),
+                    @ColumnResult(name = "timenumber", type = Integer.class),
+                    @ColumnResult(name = "price", type = Double.class),
+                    @ColumnResult(name = "carname", type = String.class),
+                    @ColumnResult(name = "lisenceplates", type = String.class),
+                    @ColumnResult(name = "parkingname", type = String.class)
+                })
+)
 @NamedQueries({
     @NamedQuery(name = "Booking.findAll", query = "SELECT b FROM Booking b"),
     @NamedQuery(name = "Booking.findById", query = "SELECT b FROM Booking b WHERE b.id = :id"),
@@ -54,6 +99,8 @@ public class Booking implements Serializable {
     private Date starttime;
     @Column(name = "timenumber")
     private Integer timenumber;
+    @Column(name = "price")
+    private double price;
     @Size(max = 255)
     @Column(name = "carname")
     private String carname;
@@ -105,6 +152,14 @@ public class Booking implements Serializable {
 
     public void setTimenumber(Integer timenumber) {
         this.timenumber = timenumber;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getCarname() {

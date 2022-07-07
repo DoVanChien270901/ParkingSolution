@@ -72,6 +72,7 @@ public class AccountController {
             Object[] role = userDetails.getAuthorities().toArray();
             res.setRole(Roles.valueOf(role[0].toString()));
             ProfileRes profile = _profileService.getByUserName(authenticateRequest.getUsername());
+            res.setUsername(authenticateRequest.getUsername());
             res.setFullname(profile.getFullname());
             res.setEmail(profile.getEmail());
             return ResponseEntity.ok(res);
@@ -98,6 +99,7 @@ public class AccountController {
                 LoginRes res = new LoginRes();
                 res.setToken(jwt);
                 Object[] role = userDetails.getAuthorities().toArray();
+                res.setUsername(registerRequest.getUsername());
                 res.setRole(Roles.valueOf(role[0].toString()));
                 res.setFullname(profile.getFullname());
                 res.setEmail(profile.getEmail());

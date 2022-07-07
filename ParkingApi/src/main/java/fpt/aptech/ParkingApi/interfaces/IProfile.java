@@ -20,4 +20,5 @@ public interface IProfile {
     ProfileRes getByUserName(String username);
     Profile create(RegisterReq registerReq);
     boolean edit(EditProfileReq editProfileReq, String username);
+    boolean deductionBalanceForBooking(int timenumber, String username, String parkingname);
 }
