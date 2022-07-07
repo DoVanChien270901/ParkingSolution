@@ -10,6 +10,7 @@ package fpt.aptech.ParkingApi.dto.response;
  */
 public class LoginRes {
     private String token;
+    private String username;
     private String fullname;
     private String email;
     private Roles role;
@@ -23,6 +24,14 @@ public class LoginRes {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFullname() {

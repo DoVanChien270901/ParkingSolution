@@ -35,8 +35,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Parkinglocation.findByLongtitude", query = "SELECT p FROM Parkinglocation p WHERE p.longtitude = :longtitude"),
     @NamedQuery(name = "Parkinglocation.findByAddress", query = "SELECT p FROM Parkinglocation p WHERE p.address = :address"),
     @NamedQuery(name = "Parkinglocation.findByNop", query = "SELECT p FROM Parkinglocation p WHERE p.nop = :nop"),
-    @NamedQuery(name = "Parkinglocation.findByRentcost", query = "SELECT p FROM Parkinglocation p WHERE p.rentcost = :rentcost"),
-    @NamedQuery(name = "Parkinglocation.findByAccountid", query = "SELECT p FROM Parkinglocation p WHERE p.accountid = :accountid")})
+    @NamedQuery(name = "Parkinglocation.findByRentcost", query = "SELECT p FROM Parkinglocation p WHERE p.rentcost = :rentcost")})
 public class Parkinglocation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,13 +56,12 @@ public class Parkinglocation implements Serializable {
     private String address;
     @Column(name = "nop")
     private Integer nop;
+    @Column(name = "blank")
+    private Integer blank;
     @Basic(optional = false)
     @NotNull
     @Column(name = "rentcost")
     private double rentcost;
-    @Size(max = 25)
-    @Column(name = "accountid")
-    private String accountid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkingname")
     private Collection<Booking> bookingCollection;
     @OneToMany(mappedBy = "parkingname")
@@ -123,20 +121,20 @@ public class Parkinglocation implements Serializable {
         this.nop = nop;
     }
 
+    public Integer getBlank() {
+        return blank;
+    }
+
+    public void setBlank(Integer blank) {
+        this.blank = blank;
+    }
+
     public double getRentcost() {
         return rentcost;
     }
 
     public void setRentcost(double rentcost) {
         this.rentcost = rentcost;
-    }
-
-    public String getAccountid() {
-        return accountid;
-    }
-
-    public void setAccountid(String accountid) {
-        this.accountid = accountid;
     }
 
     @XmlTransient

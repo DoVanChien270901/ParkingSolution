@@ -13,6 +13,7 @@ import fpt.aptech.ParkingApi.dto.response.ProfileRes;
 import fpt.aptech.ParkingApi.entities.Account;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
+import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,25 +35,26 @@ public class ProfileService implements IProfile {
     @Autowired
     private QrCodeRepo _qrCodeRepository;
     @Autowired
+    private ParkingRepo _ParkingRepository;
+    @Autowired
     private ModelMapperUtil _mapper;
-    
 
     @Override
     public PageProfileRes findAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Profile> pageprofile = _profileRepository.findAll(pageRequest);
-            List<ProfileRes> listpro = _mapper.mapList(pageprofile.getContent(), ProfileRes.class);
-            PageProfileRes pageProfileRes = new PageProfileRes();
-            pageProfileRes.setListProfile(listpro);
-            pageProfileRes.setCurrentPage(pageprofile.getPageable().getPageNumber());
-            pageProfileRes.setSize(pageprofile.getSize());
-            pageProfileRes.setTotalPages(pageprofile.getTotalPages());
+        List<ProfileRes> listpro = _mapper.mapList(pageprofile.getContent(), ProfileRes.class);
+        PageProfileRes pageProfileRes = new PageProfileRes();
+        pageProfileRes.setListProfile(listpro);
+        pageProfileRes.setCurrentPage(pageprofile.getPageable().getPageNumber());
+        pageProfileRes.setSize(pageprofile.getSize());
+        pageProfileRes.setTotalPages(pageprofile.getTotalPages());
         return pageProfileRes;
     }
 
     @Override
     public ProfileRes getByUserName(String username) {
-        Profile profile =  _profileRepository.getByUsername(username);
+        Profile profile = _profileRepository.getByUsername(username);
         ProfileRes pres = _mapper.map(profile, ProfileRes.class);
 //        String title = TitleQrCode.PROFILE.toString();
 //        Qrcode qrcode = _qrCodeRepository.getByUserName(username, TitleQrCode.PROFILE.toString());
@@ -73,6 +75,18 @@ public class ProfileService implements IProfile {
             profile = _mapper.map(editProfileReq, Profile.class);
             profile.setUsername(username);
             _profileRepository.save(profile);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deductionBalanceForBooking(int timenumber, String username, String parkingname) {
+        double balance = _profileRepository.getBalanceByUsername(username);
+        double amount = timenumber * _ParkingRepository.getRencostByName(parkingname);
+        if (balance - amount >= 0) {
+            _profileRepository.updateBalanceByUsername(balance - amount, username);
             return true;
         } else {
             return false;

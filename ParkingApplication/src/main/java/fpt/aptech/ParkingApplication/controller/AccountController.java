@@ -45,7 +45,6 @@ public class AccountController {
 //    private IntercepterConfiguration intercepterConfiguration;
 //    @Autowired
 //    private HttpSession session;
-
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
 //      String a = url;

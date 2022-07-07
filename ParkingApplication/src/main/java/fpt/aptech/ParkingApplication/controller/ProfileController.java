@@ -79,6 +79,8 @@ public class ProfileController {
             ResponseEntity<?> response = restTemplate
                     .excuteRequest(PATH_API + "user", HttpMethod.PUT, request, String.class);
             if (response.getStatusCode() == HttpStatus.OK) {
+                loginRes.setFullname(profileRes.getFullname());
+                session.setAttribute("account" ,loginRes);
                 return "redirect:/profile";
             } else {
                 return "badrequest";
