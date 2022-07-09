@@ -23,12 +23,15 @@ import com.google.gson.*;
 import fpt.aptech.ParkingApi.configurations.MomoConfig;
 import fpt.aptech.ParkingApi.configurations.ZaloPayConfig;
 import fpt.aptech.ParkingApi.dto.enumm.PaymentChannel;
+import fpt.aptech.ParkingApi.dto.request.CheckStatusPaymentReq;
 import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
+import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.dto.response.TransactionRes;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Transactioninformation;
+import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.repositorys.ProfileRepo;
 import fpt.aptech.ParkingApi.repositorys.TransactionRepo;
 import fpt.aptech.ParkingApi.utils.HMACUtil;
@@ -60,6 +63,8 @@ import org.springframework.data.domain.PageRequest;
 public class TransactionService implements ITransaction {
 
     @Autowired
+    private ParkingRepo _parkingRepo;
+    @Autowired
     private ProfileRepo _proProfileRepository;
     @Autowired
     private TransactionRepo _transactionRepository;
@@ -75,6 +80,7 @@ public class TransactionService implements ITransaction {
 
     @Override
     public EPaymentRes createOrder(CreateOrderReq orderRequest) {
+        System.out.println(orderRequest.getTransno());
         switch (orderRequest.getChannel()) {
             case Momo:
                 return createMomo(orderRequest);
@@ -93,14 +99,14 @@ public class TransactionService implements ITransaction {
 
     //check status Transaction -> save on database
     @Override
-    public EPaymentRes checkStatus(CreateOrderReq orderRequest) {
-        switch (orderRequest.getChannel()) {
+    public EPaymentRes checkStatus(CheckStatusPaymentReq checkStatusReq) {
+        switch (checkStatusReq.getChannel()) {
             case Momo:
-                return checkStatusMomo(orderRequest);
+                return checkStatusMomo(checkStatusReq);
             case Zalopay:
-                return checkStatusZalopay(orderRequest);
+                return checkStatusZalopay(checkStatusReq);
             case ATM:
-                return checkStatusZalopay(orderRequest);
+                return checkStatusZalopay(checkStatusReq);
             case Direct:
             //return createDirect(orderRequest);
             default:
@@ -130,7 +136,7 @@ public class TransactionService implements ITransaction {
         PageRequest pageRequest = PageRequest.of(page, size);
         Profile userProfile = _proProfileRepository.getByUsername(username);
         List<Transactioninformation> trans = (List<Transactioninformation>) userProfile.getTransactioninformationCollection();
-        Page<Transactioninformation> pageTrans = new PageImpl<>(trans ,pageRequest, trans.size());
+        Page<Transactioninformation> pageTrans = new PageImpl<>(trans, pageRequest, trans.size());
         List<TransactionRes> listTrans = _mapper.mapList(pageTrans.getContent(), TransactionRes.class);
 
         PageTransactionRes pageTransactionRes = new PageTransactionRes();
@@ -149,7 +155,7 @@ public class TransactionService implements ITransaction {
         String returnUrl = MomoConfig.REDIRECT_URL;
         String notifyUrl = MomoConfig.NOTIFY_URL;
 
-        String order_id = orderRequest.getTransNo();
+        String order_id = orderRequest.getTransno();
 
         json.put("partnerCode", partnerCode);
         json.put("accessKey", accessKey);
@@ -208,7 +214,7 @@ public class TransactionService implements ITransaction {
                 transactionRes.setReturnCode(result.getInt("errorCode"));
                 transactionRes.setReturnMessage(result.getString("localMessage"));
                 transactionRes.setSignature(result.getString("signature"));
-                transactionRes.setTransNo(orderRequest.getTransNo());
+                transactionRes.setTransNo(orderRequest.getTransno());
 //                transactionRes.setSignature(hashData);
 //                transactionRes.setTransNo(order_id);
 
@@ -229,7 +235,7 @@ public class TransactionService implements ITransaction {
 
     public EPaymentRes createZalopay(CreateOrderReq orderRequest) {
         try {
-            String transNo = orderRequest.getTransNo();
+            String transNo = orderRequest.getTransno();
             Map<String, Object> zalopay_Params = new HashMap<>();
             zalopay_Params.put("appid", ZaloPayConfig.APP_ID);
             zalopay_Params.put("apptransid", transNo);
@@ -325,7 +331,7 @@ public class TransactionService implements ITransaction {
         return null;
     }
 
-    public EPaymentRes checkStatusMomo(CreateOrderReq orderRequest) {
+    public EPaymentRes checkStatusMomo(CheckStatusPaymentReq checkStatusReq) {
 
         try {
             JSONObject json = new JSONObject();
@@ -334,8 +340,8 @@ public class TransactionService implements ITransaction {
             String secretKey = MomoConfig.SECRET_KEY;
             json.put("partnerCode", partnerCode);
             json.put("accessKey", accessKey);
-            json.put("requestId", orderRequest.getTransNo());
-            json.put("orderId", orderRequest.getTransNo());
+            json.put("requestId", checkStatusReq.getTransno());
+            json.put("orderId", checkStatusReq.getTransno());
             json.put("requestType", "transactionStatus");
 
             String data = "partnerCode=" + partnerCode + "&accessKey=" + accessKey + "&requestId=" + json.get("requestId")
@@ -344,7 +350,7 @@ public class TransactionService implements ITransaction {
             json.put("signature", hashData);
             CloseableHttpClient client = HttpClients.createDefault();
             HttpPost post = new HttpPost(MomoConfig.CREATE_ORDER_URL_QR);
-            StringEntity stringEntity = new StringEntity(json.toString() , "UTF-8");
+            StringEntity stringEntity = new StringEntity(json.toString(), "UTF-8");
             post.setHeader("content-type", "application/json");
             post.setEntity(stringEntity);
 
@@ -362,23 +368,6 @@ public class TransactionService implements ITransaction {
             transactionRes.setTransNo(result.getString("orderId"));
             transactionRes.setReturnMessage(result.getString("localMessage"));
             transactionRes.setSignature(result.getString("signature"));
-
-//            if (transactionRes.getReturnCode() == 0) {
-//                //lưu vào database
-//                Transactioninformation transactioninformation = new Transactioninformation();
-//                Profile profile = _proProfileRepository.getByUsername(orderRequest.getUser_name());
-//                transactioninformation.setAccountid(profile);
-//                transactioninformation.setAmount(Double.parseDouble(orderRequest.getAmount().toString()));
-//                transactioninformation.setChannel(orderRequest.getChannel().toString());
-//                transactioninformation.setDatetime(LocalDateTime.now());
-//                transactioninformation.setDescription(secretKey);
-//                transactioninformation.setStatuscode(0);
-//                transactioninformation.setStype(orderRequest.getTransType());
-//                transactioninformation.setTransno(orderRequest.getTransNo());
-//                _transactionRepository.save(transactioninformation);
-//            } else {
-//                //do nothing
-//            }
 
 //            Map<String, Object> kq = new HashMap<>();
 //            kq.put("requestId", result.get("requestId"));
@@ -402,16 +391,16 @@ public class TransactionService implements ITransaction {
         return null;
     }
 
-    public EPaymentRes checkStatusZalopay(CreateOrderReq orderRequest) {
+    public EPaymentRes checkStatusZalopay(CheckStatusPaymentReq checkStatusReq) {
         try {
             String appid = ZaloPayConfig.APP_ID;
             String key1 = ZaloPayConfig.KEY1;
-            String data = appid + "|" + orderRequest.getTransNo() + "|" + key1; // appid|apptransid|key1
+            String data = appid + "|" + checkStatusReq.getTransno() + "|" + key1; // appid|apptransid|key1
             String mac = HMACUtil.HMacHexStringEncode(HMACUtil.HMACSHA256, key1, data);
 
             List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("appid", appid));
-            params.add(new BasicNameValuePair("apptransid", orderRequest.getTransNo()));
+            params.add(new BasicNameValuePair("apptransid", checkStatusReq.getTransno()));
             params.add(new BasicNameValuePair("mac", mac));
 
             URIBuilder uri = new URIBuilder("https://sandbox.zalopay.com.vn/v001/tpe/getstatusbyapptransid");
@@ -438,23 +427,6 @@ public class TransactionService implements ITransaction {
             transactionRes.setSignature(String.valueOf(result.getBoolean("isprocessing")));
             transactionRes.setTransNo(String.valueOf(result.getLong("zptransid")));
 
-//            if (transactionRes.getReturnCode() == 1) {
-//                //lưu vào database
-//                Transactioninformation transactioninformation = new Transactioninformation();
-//                Profile profile = _proProfileRepository.getByUsername(orderRequest.getUser_name());
-//                transactioninformation.setAccountid(profile);
-//                transactioninformation.setAmount(Double.parseDouble(orderRequest.getAmount().toString()));
-//                transactioninformation.setChannel(orderRequest.getChannel().toString());
-//                transactioninformation.setDatetime(LocalDateTime.now());
-//                transactioninformation.setDescription(transactionRes.getReturnMessage());
-//                transactioninformation.setStatuscode(0);
-//                transactioninformation.setStype(orderRequest.getTransType());
-//                transactioninformation.setTransno(orderRequest.getTransNo());
-//                _transactionRepository.save(transactioninformation);
-//            } else {
-//                //do nothing
-//            }
-
 //            Map<String, Object> kq = new HashMap<>();
 //            kq.put("returncode", result.get("returncode"));
 //            kq.put("returnmessage", result.get("returnmessage"));
@@ -469,4 +441,27 @@ public class TransactionService implements ITransaction {
         return null;
     }
 
+    @Override
+    public Transactioninformation create(TransactionReq transactionReq, int statuscode) {
+        Transactioninformation transInfo = new Transactioninformation();
+        transInfo.setAccountid(_proProfileRepository.getByUsername(transactionReq.getUsername()));
+        transInfo.setAmount(Double.valueOf(transactionReq.getAmount()));
+        transInfo.setChannel(transactionReq.getPaymentReq().getChannel().toString());
+        transInfo.setDatetime(LocalDateTime.now());
+        transInfo.setDescription(transactionReq.getUsername() + " - " + transactionReq.getPaymentReq().getTransno() + " - " + transactionReq.getStype());
+        transInfo.setStatuscode(statuscode);
+        transInfo.setStype(transactionReq.getStype());
+        transInfo.setTransno(transactionReq.getPaymentReq().getTransno());
+        if (statuscode == 0) {
+            Double balance = _proProfileRepository.getBalanceByUsername(transactionReq.getUsername());
+            Double amount = Double.valueOf(transactionReq.getAmount());
+            if (transactionReq.getStype().equals("eRecharge")) {
+                _proProfileRepository.updateBalanceByUsername(balance + amount, transactionReq.getUsername());
+            } else if (transactionReq.getStype().equals("eBooking")) {
+                transInfo.setParkingname(_parkingRepo.getByName(transactionReq.getParkingname()));
+                _proProfileRepository.updateBalanceByUsername(balance - amount, transactionReq.getUsername());
+            }
+        }
+        return _transactionRepository.save(transInfo);
+    }
 }
