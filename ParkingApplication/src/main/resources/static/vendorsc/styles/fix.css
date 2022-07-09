@@ -1,3 +1,23 @@
+/* Form Login, Register, Reset Password, Forgot Password */
+#form-account-fix .login-box {
+    max-width: 520px;
+}
+#form-account-fix .login-box .login-title {
+    padding: 0 0 10px !important;
+    margin-bottom: 0px !important;
+}
+#form-account-fix .login-box form div.input-group {
+    position: flex !important;
+    margin-bottom: 0px !important;
+}
+
+#form-account-fix .title-reset-password,
+#form-account-fix .title-forgot-password{
+    font-size:90%;
+}
+
+
+/* Admin Manager */
 .left-side-bar .brand-logo .light-logo {
     width: 40px;
     padding: 0px;
@@ -9,18 +29,17 @@
     padding: 0px;
 }
 
-.left-side-bar .brand-logo span {
-    font-size: 1.3rem;
+.left-side-bar .brand-logo span,
+.login-page .brand-logo span,
+.login-header .brand-logo span {
+    font-size: 1.4rem;
     font-weight: 800;
     margin-top: 24px;
 }
 
 .login-page .brand-logo span,
 .login-header .brand-logo span {
-    font-size: 1.4rem;
     color: #1b00ff;
-    font-weight: 800;
-    margin-top: 24px;
 }
 
 .action-center button {
@@ -61,36 +80,25 @@
 }
 
 .qrcode {
-    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 85%;
     border: 1px solid #202020;
-    padding: 10px;
+    padding: 5px;
+    border-radius: 5px;
 }
-.momo,.zalopay {
+
+.momo,
+.zalopay {
     width: 40px;
 }
 
-.update-profile{
+.update-profile,
+.update-parking, 
+.cancel-return-parking-list {
     text-transform: capitalize;
-    width: 150px;
-}
-
-
-@media screen and (max-width:991px) {
-    /*.qrcode {
-        max-width: 25%;
-    }*/
-}
-
-@media screen and (max-width:768px) {
-    .register-page-wrap .login-box {
-        max-width: 450px;
-    }
-}
-
-@media screen and (max-width:567px){
-    .update-profile{
-        width: 100%;
-    }
+    width: 200px;
 }
 
 .invalid-feedback {
@@ -108,4 +116,44 @@
 
 #list-create {
     display: none;
+}
+
+@media screen and (max-width:1200px){
+    .update-profile{
+        width: 250px;
+    }
+}
+
+@media screen and (max-width:991.20px) {
+    .update-profile{
+        width: 250px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .register-page-wrap .login-box {
+        max-width: 450px;
+    }
+    .update-profile,
+    .update-parking, 
+    .cancel-return-parking-list {
+        width: 220px;
+    }
+}
+
+@media screen and (min-width:567px){
+    .col-update-profile,
+    .col-create-parking {
+        justify-content: center;
+        display: flex;
+    }
+}
+
+@media screen and (max-width:567px){
+    .update-profile,
+    .update-parking, 
+    .cancel-return-parking-list {
+        width: 100%;
+    }
+
 }

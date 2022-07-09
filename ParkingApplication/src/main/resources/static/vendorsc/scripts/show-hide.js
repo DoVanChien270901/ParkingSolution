@@ -1,10 +1,9 @@
-$(document).ready(function() {
-    $('#list-index').show();
-    $('#create').click(function() {
-        $('#list-create').show();
+jQuery(document).ready(function () {
+    $('#create').click(function () {
         $('#list-index').hide();
+        $('#list-create').show();
     });
-    $('#index').click(function() {
+    $('#index').click(function () {
         $('#list-create').hide();
         $('#list-index').show();
     });

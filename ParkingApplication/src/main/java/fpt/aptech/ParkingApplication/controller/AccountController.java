@@ -44,7 +44,7 @@ public class AccountController {
 //    private HttpSession session;
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
-        return "admin/profile";
+        return "user/google-map";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

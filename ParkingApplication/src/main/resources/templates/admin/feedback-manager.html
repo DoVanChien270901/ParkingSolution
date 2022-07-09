@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | User Manager Page</title>
+        <title>Parking.Go | Feedback Manager Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     </head>
 
@@ -11,21 +11,24 @@
         <div class="main-container" layout:fragment="admin-content">
             <div class="xs-pd-20-10 pd-ltr-20">
                 <div class="title pb-20">
-                    <h2 class="h2 p-1 mb-0">User Manager</h2>
+                    <h2 class="h3 mb-2">Feedback Manager</h2>
                 </div>
                 <!-- basic table  Start -->
-                <div class="pd-20 card-box mb-30">
-                    <div class="p-1">
-                        <h6>Search By Name</h6>
-                    </div>
-                    <div class="pt-1">
-                        <div class="clearfix mb-20">
+                <div class="pd-20 card-box mb-30" id="list-index">
+                    <div class="clearfix mb-20">
+                        <div class="p-1">
+                            <h6>Search By Date</h6>
+                        </div>
+                        <div class="pt-1">
                             <div class="pull-left">
                                 <div class="row">
-                                    <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
-                                        <input type="text" class="form-control" placeholder="Name...">
+                                    <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
+                                        <input type="text" class="form-control" placeholder="From...">
                                     </div>
-                                    <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
+                                    <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
+                                        <input type="text" class="form-control" placeholder="To...">
+                                    </div>
+                                    <div class="col-12 col-lg-2 col-md-2 col-sm-2 p-1">
                                         <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
                                     </div>
                                 </div>
@@ -33,38 +36,31 @@
                         </div>
                     </div>
                     <div class="p-1">
-                        <table class="table table-responsive-sm">
+                        <table class="table table-responsive-md">
                             <thead>
                                 <tr class="table-secondary">
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Gender</th>
+                                    <th scope="col">DateTime</th>
+                                    <th scope="col">Account</th>
+                                    <th scope="col">Parking</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>0987654321</td>
-                                    <td>mark15@gmail.com</td>
-                                    <td>
-                                        <span class="badge badge-primary"><i class="fa fa-user"></i> Male</span>
-                                    </td>
+                                    <td>07/02/2022 18:00:20</td>
+                                    <td>user1234</td>
+                                    <td>Le Thi Rieng Parking Lot</td>
                                     <td class="action-center">
                                         <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-info-circle"></i></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td>Lisa</td>
-                                    <td>0123456789</td>
-                                    <td>lisa9273@gmail.com</td>
-                                    <td>
-                                        <span class="badge badge-danger"><i class="fa fa-user"></i> Female</span>
-                                    </td>
+                                    <td>07/02/2022 15:17:34</td>
+                                    <td>user2256</td>
+                                    <td>Cao Thang Parking Lot</td>
                                     <td class="action-center">
                                         <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-info-circle"></i></button>
                                     </td>
@@ -84,11 +80,11 @@
                                 </li>
                             </ul>
                         </nav>
-                    </div>             
+                    </div>
                 </div>
                 <!-- basic table  End -->
                 <div class="footer-wrap pd-20 mb-20 card-box">
-                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                    Parking.Go Make By <a href="#" target="_blank">T1.2008.A0</a>
                 </div>
             </div>
         </div>

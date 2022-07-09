@@ -3,7 +3,6 @@ var lat = 0;
 var long = 0;
 var infowindow = null;
 var ddisplay = null;
-var dservice = null;
 var radius_circle = null;
 var buttonDirection;
 var markerArray = [];
@@ -56,7 +55,6 @@ var parkingLocations = [{
         "lat": 10.835440504398681,
         "long": 106.6285604770306,
     },
-
 ]
 
 function listElements(name, addr, calulate) {
@@ -87,7 +85,7 @@ function listElements(name, addr, calulate) {
     // button booking
     button.setAttribute('class', 'booking-list');
     button.setAttribute('type', 'button');
-    button.innerHTML = 'Booking';
+    button.innerHTML = '<i class="fa fa-parking"></i> ' + 'Booking';
 
     div.appendChild(a);
     div.appendChild(address);
@@ -99,7 +97,7 @@ function listElements(name, addr, calulate) {
 
 function contentElement(name, address) {
     return '<div id="content-parking">' + '<strong>' + name + '</strong>' + '<br/>' + address + '<div class="p-1"></div>' +
-        '<button type="button" class="direction" id="direction">Direction</button>';
+            '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>';
 }
 
 function calculate(lat1, lat2, long1, long2) {
@@ -147,8 +145,8 @@ function showPlace(latpos, longpos) {
                 icon: iconParking,
                 content: contentOnMarker,
             });
-            google.maps.event.addListener(markerParking, "click", (function(markerParking, i) {
-                return function() {
+            google.maps.event.addListener(markerParking, "click", (function (markerParking, i) {
+                return function () {
                     inforwindow.setContent(this.content);
                     inforwindow.open(map, markerParking);
                     map.panTo(this.position);
@@ -158,8 +156,8 @@ function showPlace(latpos, longpos) {
         }
     }
     // show place marker on listShop
-    $(document).ready(function() {
-        $('#shop-item #shop-item-name').click(function() {
+    $(document).ready(function () {
+        $('#shop-item #shop-item-name').click(function () {
             var idParking = this.textContent;
             for (var i in parkingLocations) {
                 if (idParking == parkingLocations[i]['name']) {
@@ -184,13 +182,13 @@ function showPlace(latpos, longpos) {
 function showDirection(data) {
     if (ddisplay || dservice) {
         ddisplay.setMap(null);
-    } else {
-        dservice = new google.maps.DirectionsService();
-        ddisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
     }
+    var dservice = new google.maps.DirectionsService();
+    ddisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+
     ddisplay.setMap(map);
     dservice.route({
-        origin: { lat: lat, lng: long },
+        origin: {lat: lat, lng: long},
         destination: data,
         travelMode: 'DRIVING',
         provideRouteAlternatives: true,
@@ -198,9 +196,9 @@ function showDirection(data) {
         avoidTolls: true,
         avoidHighways: false,
         optimizeWaypoints: true
-    }, function(result, status) {
+    }, function (result, status) {
         if (status == "OK") {
-            $("#direction").on("click", function() {
+            $("#direction").on("click", function () {
                 ddisplay.setDirections(result);
                 document.getElementById("distance").setAttribute('value', 'Distance: ' + (result.routes[0].legs[0].distance.value / 1000).toFixed(3) + ' km');
                 document.getElementById("duration").setAttribute('value', 'Duration: ' + result.routes[0].legs[0].duration.text);
@@ -221,17 +219,17 @@ function getPosition() {
 
 function showMap() {
     inforwindow = new google.maps.InfoWindow();
-    window.navigator.geolocation.getCurrentPosition(function(pos) {
+    window.navigator.geolocation.getCurrentPosition(function (pos) {
         lat = pos.coords.latitude;
         long = pos.coords.longitude;
         map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: lat, lng: long },
+            center: {lat: lat, lng: long},
             zoom: 14,
             fullscreenControl: false,
             streetViewControl: false,
         });
         var markerLocation = new google.maps.Marker({
-            position: { lat: lat, lng: long },
+            position: {lat: lat, lng: long},
             map: map,
         });
         showPlace(lat, long);
