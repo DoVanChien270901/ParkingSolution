@@ -5,8 +5,10 @@
  */
 package fpt.aptech.ParkingApi.controller;
 
+import fpt.aptech.ParkingApi.dto.enumm.PaymentChannel;
 import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
-import fpt.aptech.ParkingApi.dto.response.CreateOrderRes;
+import fpt.aptech.ParkingApi.dto.request.ERechargeReq;
+import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import org.json.JSONException;
@@ -25,36 +27,62 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TransactionController {
-
+    
     @Autowired
     private ITransaction _transactionServices;
-
+    
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public String test() {
         return "Test";
     }
-
-    @RequestMapping(value = "createOrder", method = RequestMethod.POST)
-    public ResponseEntity<?> createOrder(@RequestBody CreateOrderReq orderRequest) {
+    
+    @RequestMapping(value = "/e-recharge", method = RequestMethod.POST)
+    public ResponseEntity<?> eRecharge(@RequestBody ERechargeReq rechargeReq) {
         //something code
         try {
-            CreateOrderRes transactionRes = _transactionServices.createOrder(orderRequest);
+            CreateOrderReq orderRequest = new CreateOrderReq();
+            switch (rechargeReq.getChannel()) {
+                case "Momo":
+                    orderRequest.setChannel(PaymentChannel.Momo);
+                    break;
+                case "Zalopay":
+                    orderRequest.setChannel(PaymentChannel.Zalopay);
+                    break;
+                case "ATM":
+                    orderRequest.setChannel(PaymentChannel.ATM);
+            }
+            orderRequest.setTransNo(String.valueOf(System.currentTimeMillis()));
+            orderRequest.setAmount(rechargeReq.getAmount());
+            
+            EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
-    @RequestMapping(value = "checkStatus", method = RequestMethod.POST)
+    
+    @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
+    public ResponseEntity<?> createOrder(@RequestBody CreateOrderReq orderRequest) {
+        //something code
+        try {
+            EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
+            return new ResponseEntity(transactionRes, HttpStatus.OK);
+        } catch (JSONException e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @RequestMapping(value = "/checkStatus", method = RequestMethod.POST)
     public ResponseEntity<?> checkOrderStatus(@RequestBody CreateOrderReq orderRequest) {
         try {
-            CreateOrderRes transactionRes = _transactionServices.checkStatus(orderRequest);
+            EPaymentRes transactionRes = _transactionServices.checkStatus(orderRequest);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    
     @RequestMapping(value = "/list-transaction", method = RequestMethod.GET)
     public ResponseEntity<?> listTransaction(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
@@ -64,14 +92,14 @@ public class TransactionController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
-
-    @RequestMapping(value = "user-transactions-history", method = RequestMethod.GET)
+    
+    @RequestMapping(value = "/user-transactions-history", method = RequestMethod.GET)
     public ResponseEntity<?> getTransactionHistory(@RequestParam("username") String username, @RequestParam("page") int page, @RequestParam("size") int size) {
         try {
             PageTransactionRes transactionRes = _transactionServices.getByUserName(username, page, size);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

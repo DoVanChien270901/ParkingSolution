@@ -12,17 +12,12 @@ import fpt.aptech.ParkingApi.dto.enumm.PaymentChannel;
  * @author PCvinhvizg
  */
 public class CreateOrderReq {
-    private String user_name;
+
     private String transno;
     private PaymentChannel channel;
     private Long amount;
-    private String stype;
 
     public CreateOrderReq() {
-    }
-
-    public String getUser_name() {
-        return user_name;
     }
 
     public String getTransNo() {
@@ -31,10 +26,6 @@ public class CreateOrderReq {
 
     public void setTransNo(String transNo) {
         this.transno = transNo;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
     }
 
     public PaymentChannel getChannel() {
@@ -53,13 +44,4 @@ public class CreateOrderReq {
         this.amount = amount;
     }
 
-    public String getTransType() {
-        return stype;
-    }
-
-    public void setTransType(String transType) {
-        this.stype = transType;
-    }
-    
-    
 }

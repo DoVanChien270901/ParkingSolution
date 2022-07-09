@@ -7,15 +7,15 @@ package fpt.aptech.ParkingApi.interfaces;
 
 import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
-import fpt.aptech.ParkingApi.dto.response.CreateOrderRes;
+import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 
 /**
  *
  * @author PCvinhvizg
  */
 public interface ITransaction {
-    CreateOrderRes createOrder(CreateOrderReq orderRequest);
-    CreateOrderRes checkStatus(CreateOrderReq orderRequest);
+    EPaymentRes createOrder(CreateOrderReq orderRequest);
+    EPaymentRes checkStatus(CreateOrderReq orderRequest);
     PageTransactionRes findAll(int page, int size);
     PageTransactionRes getByUserName(String username, int page, int size);
 }
