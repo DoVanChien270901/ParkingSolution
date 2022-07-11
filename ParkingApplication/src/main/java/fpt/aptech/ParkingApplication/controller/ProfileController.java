@@ -6,10 +6,18 @@ package fpt.aptech.ParkingApplication.controller;
 
 import fpt.aptech.ParkingApplication.configuration.RestTemplateConfiguration;
 import fpt.aptech.ParkingApplication.domain.request.EditProfileReq;
+import fpt.aptech.ParkingApplication.domain.response.ItemPageProfile;
+import fpt.aptech.ParkingApplication.domain.response.ListPage;
 import fpt.aptech.ParkingApplication.domain.response.LoginRes;
+import fpt.aptech.ParkingApplication.domain.response.PageProfileRes;
 import fpt.aptech.ParkingApplication.domain.response.ProfileRes;
+import fpt.aptech.ParkingApplication.domain.response.UserDetailsRes;
 import fpt.aptech.ParkingApplication.utils.ModelMapperUtil;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 
 /**
@@ -79,7 +88,7 @@ public class ProfileController {
                     .excuteRequest(PATH_API + "user", HttpMethod.PUT, request, String.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 loginRes.setFullname(profileRes.getFullname());
-                session.setAttribute("account" ,loginRes);
+                session.setAttribute("account", loginRes);
                 return "redirect:/profile";
             } else {
                 return "badrequest";
@@ -87,5 +96,72 @@ public class ProfileController {
         } catch (Exception e) {
             return "badrequest";
         }
+    }
+
+    @RequestMapping(value = "/list-user", method = RequestMethod.GET)
+    public String listUser(@RequestParam("page") int currentPage, Model model) {
+        if (1 > currentPage) {
+            currentPage = 1;
+        }
+        HttpEntity request = restTemplate.setRequest();
+        ResponseEntity<?> response = restTemplate
+                .excuteRequest(PATH_API + "list-users?page=" + (currentPage - 1) + "&size=1", HttpMethod.GET, request, PageProfileRes.class);
+        PageProfileRes pageProfileRes = (PageProfileRes) response.getBody();
+        model.addAttribute("listProfile", pageProfileRes.getListProfile());
+        if (currentPage > pageProfileRes.getTotalPages()) {
+            currentPage = pageProfileRes.getTotalPages();
+        }
+        model.addAttribute("current", currentPage);
+        int[] nav = nav(currentPage, pageProfileRes.getTotalPages());
+        model.addAttribute("pageList", nav);
+        return "admin/user-manager";
+    }
+
+    @RequestMapping(value = "/user-details", method = RequestMethod.GET)
+    public String userDetails(@RequestParam("id") String username, @RequestParam("page") int currentPage, Model model) {
+        HttpEntity request = restTemplate.setRequest();
+        ResponseEntity<?> response = restTemplate
+                .excuteRequest(PATH_API + "user-details?username=" + username, HttpMethod.GET, request, UserDetailsRes.class);
+        UserDetailsRes detailsRes = (UserDetailsRes) response.getBody();
+        model.addAttribute("userDetails", detailsRes);
+        model.addAttribute("currentPage", currentPage);
+        return "admin/user-manager";
+    }
+
+    private int[] nav(int currentPage, int totalPage) {
+        int[] nav = new int[10];
+        int step = (totalPage - (currentPage + 5)) / 5; // (total - (curent+5)) : 5
+        nav[0] = currentPage;
+        if (currentPage >= (totalPage - 5)) {
+            nav[9] = totalPage;
+            nav[8] = totalPage - 1;
+            nav[7] = totalPage - 2;
+            nav[6] = totalPage - 3;
+            nav[5] = totalPage - 4;
+            currentPage = totalPage - 4;
+            step = currentPage / 5;
+            for (int j = 4; j >= 0; j--) {
+                nav[j] = currentPage - step;
+                currentPage = currentPage - step;
+            }
+        } else if (step == 0) {
+            nav = new int[(totalPage - currentPage) + 1];
+            nav[0] = currentPage;
+            for (int i = 1; i < (nav.length); i++) {
+                nav[i] = ++currentPage;
+            }
+        } else {
+            for (int i = 1; i <= 9; i++) {
+                if (i <= 4) {
+                    currentPage++;
+                } else if (i == 9) {
+                    currentPage = totalPage;
+                } else {
+                    currentPage = currentPage + step;
+                }
+                nav[i] = currentPage;
+            }
+        }
+        return nav;
     }
 }

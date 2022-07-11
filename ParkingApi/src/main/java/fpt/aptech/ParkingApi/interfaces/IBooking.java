@@ -16,5 +16,5 @@ import java.util.List;
 public interface IBooking {
     Booking create(NewBookingReq bookingReq, String username);
     List<BookingRes> getListBookingByUsername(String username);
-    BookingDetailRes getDetailBookingById(int id);
+    BookingDetailRes getDetailBookingById(int id, String username);
 }

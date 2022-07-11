@@ -13,6 +13,7 @@ import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
 import fpt.aptech.ParkingApi.implementations.QrCodeService;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
+import fpt.aptech.ParkingApi.interfaces.IQrCode;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
 import fpt.aptech.ParkingApi.utils.QrCodeUtil;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class QrCodeController {
 
     @Autowired
-    private QrCodeService _qrCodeService;
+    private IQrCode _qrCodeService;
     @Autowired
     private IProfile _profileService;
     @Autowired

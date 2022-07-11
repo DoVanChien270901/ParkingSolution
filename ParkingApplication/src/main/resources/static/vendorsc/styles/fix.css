@@ -109,3 +109,6 @@
 #list-create {
     display: none;
 }
+#list-user table tbody tr{
+    cursor: pointer;
+}

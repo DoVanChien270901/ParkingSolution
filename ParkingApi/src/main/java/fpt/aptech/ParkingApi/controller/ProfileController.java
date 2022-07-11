@@ -5,17 +5,29 @@
 package fpt.aptech.ParkingApi.controller;
 
 import fpt.aptech.ParkingApi.configurations.ModelMapperConfig;
+import fpt.aptech.ParkingApi.dto.enumm.Roles;
 import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
 import fpt.aptech.ParkingApi.dto.qrcontent.ProfileQrContent;
 import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
 import fpt.aptech.ParkingApi.dto.request.EditProfileReq;
+import fpt.aptech.ParkingApi.dto.response.ItemPageProfile;
 import fpt.aptech.ParkingApi.dto.response.PageProfileRes;
+import fpt.aptech.ParkingApi.dto.response.UserDetailsRes;
 import fpt.aptech.ParkingApi.dto.response.ProfileRes;
+import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
+import fpt.aptech.ParkingApi.repositorys.ProfileRepo;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,9 +52,11 @@ public class ProfileController {
     private JwtUtil _jwtTokenUtil;
     @Autowired
     private ModelMapperUtil _mapper;
+    @Autowired
+    private ProfileRepo _ProfileRepo;
 
-    @RequestMapping(value = "/list-users", method = RequestMethod.GET)
-    public ResponseEntity<?> listusers(@RequestParam("page") int page, @RequestParam("size") int size) {
+    @RequestMapping(value = "/list-profile", method = RequestMethod.GET)
+    public ResponseEntity<?> listProfile(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
             PageProfileRes pageProfileRes = _profileService.findAll(page, size); // fisrt page = 0
             return new ResponseEntity(pageProfileRes, HttpStatus.OK);
@@ -51,6 +65,25 @@ public class ProfileController {
         }
     }
 
+    @RequestMapping(value = "/list-users", method = RequestMethod.GET)
+    public ResponseEntity<?> listusers(@RequestParam("page") int page, @RequestParam("size") int size) {
+        try {
+            PageProfileRes pageProfileRes = _profileService.getListUserByRole("user", page, size); // fisrt page = 0
+            return new ResponseEntity(pageProfileRes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+//    @RequestMapping(value = "/list-users", method = RequestMethod.GET)
+//    public ResponseEntity<?> listusers(@RequestParam("page") int page, @RequestParam("size") int size) {
+//        try {
+//            PageProfileRes pageProfileRes = _profileService.getListUser(page, size); // fisrt page = 0
+//            return new ResponseEntity(pageProfileRes, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        }
+//    }
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<?> getUserByToken(@RequestHeader("Authorization") String token) {
         try {
@@ -91,4 +124,22 @@ public class ProfileController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
+    @RequestMapping(value = "/user-details", method = RequestMethod.GET)
+    public ResponseEntity<?> userDetails(@Param("username")String username) {
+        try {
+            UserDetailsRes pres = _profileService.profileDetailsByUsername(username);
+            return new ResponseEntity(pres, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+//    @RequestMapping(value = "/callproc", method = RequestMethod.GET)
+//    public ResponseEntity<?> abc(@RequestParam("page") int page, @RequestParam("size") int size) {
+//        List<ItemPageProfile> list = _ProfileRepo.getUserByRole("user");
+//        PagedListHolder holder = new PagedListHolder(list);
+//        holder.setPageSize(size);
+//        holder.setPage(page);
+//        List<ItemPageProfile> l = holder.getPageList();
+//        return null;
+//    }
 }

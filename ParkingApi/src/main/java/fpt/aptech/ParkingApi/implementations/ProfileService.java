@@ -7,8 +7,10 @@ package fpt.aptech.ParkingApi.implementations;
 import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
 import fpt.aptech.ParkingApi.dto.request.EditProfileReq;
 import fpt.aptech.ParkingApi.dto.request.RegisterReq;
+import fpt.aptech.ParkingApi.dto.response.ItemPageProfile;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.dto.response.PageProfileRes;
+import fpt.aptech.ParkingApi.dto.response.UserDetailsRes;
 import fpt.aptech.ParkingApi.dto.response.ProfileRes;
 import fpt.aptech.ParkingApi.entities.Account;
 import fpt.aptech.ParkingApi.entities.Profile;
@@ -22,6 +24,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import fpt.aptech.ParkingApi.repositorys.ProfileRepo;
 import fpt.aptech.ParkingApi.repositorys.QrCodeRepo;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -40,10 +44,23 @@ public class ProfileService implements IProfile {
     private ModelMapperUtil _mapper;
 
     @Override
+    public PageProfileRes getListUser(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Profile> pageprofile = _profileRepository.getListUser(pageable);
+        List<ItemPageProfile> listpro = _mapper.mapList(pageprofile.getContent(), ItemPageProfile.class);
+        PageProfileRes pageProfileRes = new PageProfileRes();
+        pageProfileRes.setListProfile(listpro);
+        pageProfileRes.setCurrentPage(pageprofile.getPageable().getPageNumber());
+        pageProfileRes.setSize(pageprofile.getSize());
+        pageProfileRes.setTotalPages(pageprofile.getTotalPages());
+        return pageProfileRes;
+    }
+
+    @Override
     public PageProfileRes findAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Profile> pageprofile = _profileRepository.findAll(pageRequest);
-        List<ProfileRes> listpro = _mapper.mapList(pageprofile.getContent(), ProfileRes.class);
+        List<ItemPageProfile> listpro = _mapper.mapList(pageprofile.getContent(), ItemPageProfile.class);
         PageProfileRes pageProfileRes = new PageProfileRes();
         pageProfileRes.setListProfile(listpro);
         pageProfileRes.setCurrentPage(pageprofile.getPageable().getPageNumber());
@@ -56,7 +73,6 @@ public class ProfileService implements IProfile {
     public ProfileRes getByUserName(String username) {
         Profile profile = _profileRepository.getByUsername(username);
         ProfileRes pres = _mapper.map(profile, ProfileRes.class);
-        String title = TitleQrCode.PROFILE.toString();
         Qrcode qrcode = _qrCodeRepository.getByUserName(username, TitleQrCode.PROFILE.toString());
         pres.setQrcontent(qrcode.getContent());
         return pres;
@@ -93,4 +109,26 @@ public class ProfileService implements IProfile {
             return false;
         }
     }
+
+    @Override
+    public PageProfileRes getListUserByRole(String role, int page, int size) {
+        List<ItemPageProfile> list = _profileRepository.getUserByRole("user");
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageProfileRes pageProfileRes = new PageProfileRes();
+        pageProfileRes.setCurrentPage(page);
+        pageProfileRes.setSize(size);
+        pageProfileRes.setTotalPages(holder.getPageCount());
+        pageProfileRes.setListProfile(holder.getPageList());
+        return pageProfileRes;
+    }
+
+    @Override
+    public UserDetailsRes profileDetailsByUsername(String username) {
+        Profile profile = _profileRepository.getByUsername(username);
+        UserDetailsRes pres = _mapper.map(profile, UserDetailsRes.class);
+        return pres;
+    }
+
 }
