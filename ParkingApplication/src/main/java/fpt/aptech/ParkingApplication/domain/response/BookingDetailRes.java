@@ -18,6 +18,7 @@ public class BookingDetailRes {
     private String carname;
     private String lisenceplates;
     private String parkingname;
+    private byte[] qrcontent;
 
     public BookingDetailRes() {
     }
@@ -77,6 +78,14 @@ public class BookingDetailRes {
 
     public void setParkingname(String parkingname) {
         this.parkingname = parkingname;
+    }
+
+    public byte[] getQrcontent() {
+        return qrcontent;
+    }
+
+    public void setQrcontent(byte[] qrcontent) {
+        this.qrcontent = qrcontent;
     }
 
 }

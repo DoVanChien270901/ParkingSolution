@@ -44,7 +44,7 @@ public class QrCodeUtil {
 //            Base64.Encoder base64 = Base64.getEncoder();
 //            String base64Content = base64.encodeToString(jsonContent.getBytes());
             //encode -> qrcode
-            String jwtContent  = generrateToken(obContent);
+            String jwtContent = generrateToken(obContent);
             BitMatrix bitMatrix = qRCodeWriter.encode(jwtContent, BarcodeFormat.QR_CODE, width, height);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(bitMatrix, "PNG", byteArrayOutputStream);
@@ -65,6 +65,25 @@ public class QrCodeUtil {
             hintMap.put(DecodeHintType.PURE_BARCODE, true);
             String content = reader.decode(bitmap, hintMap).getText();
             return content;
+        } catch (ChecksumException | FormatException | NotFoundException | IOException ex) {
+            Logger.getLogger(QrCodeUtil.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public Object decode1(byte[] qrcodeByteArray) {
+        try {
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(qrcodeByteArray));
+            BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(image);
+            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+            QRCodeReader reader = new QRCodeReader();
+            Map<DecodeHintType, Object> hintMap = new HashMap<>();
+            hintMap.put(DecodeHintType.PURE_BARCODE, true);
+            String content = reader.decode(bitmap, hintMap).getText();
+            //convert map to object
+            ObjectMapper obMapper = new ObjectMapper();
+            Object object = obMapper.convertValue(extractAllClaims(content), Object.class);
+            return object;
         } catch (ChecksumException | FormatException | NotFoundException | IOException ex) {
             Logger.getLogger(QrCodeUtil.class.getName()).log(Level.SEVERE, null, ex);
             return null;

@@ -124,9 +124,5 @@ $(document).ready(function(){
         var id = $(this).attr('value');
         window.location.href = "booking-details?id="+id;
     });
-    $('#back-to-booking-list').click(function(){
-       $('#booking-list').show(); 
-       $('#booking-create').hide(); 
-    });
 });
 

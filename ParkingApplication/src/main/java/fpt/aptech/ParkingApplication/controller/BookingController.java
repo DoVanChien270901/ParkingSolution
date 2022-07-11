@@ -11,6 +11,7 @@ import fpt.aptech.ParkingApplication.domain.response.BookingRes;
 import fpt.aptech.ParkingApplication.domain.response.ListBookingRes;
 import fpt.aptech.ParkingApplication.domain.response.LoginRes;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,12 +37,20 @@ public class BookingController {
     private String PATH_API;
 
     @RequestMapping(value = "booking-details", method = RequestMethod.GET)
-    public String test(@RequestParam("id") int id, Model model) {
-        HttpEntity request = RestTemplateConfiguration.setRequest();
+    public String test(@RequestParam("id") int id, HttpSession session, Model model) {
+        LoginRes loginRes = (LoginRes) session.getAttribute("account");
+        String token = loginRes.getToken();
+        HttpEntity request = RestTemplateConfiguration.setRequest(token);
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(PATH_API + "booking-details?id="+id, HttpMethod.GET, request, BookingDetailRes.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             BookingDetailRes bookingDetailRes = (BookingDetailRes) response.getBody();
+            //display qrcode
+            StringBuilder sb = new StringBuilder();
+            sb.append("data:image/png;base64,");
+            sb.append(new String(Base64.getEncoder().encode(bookingDetailRes.getQrcontent())));
+            sb.toString();
+            model.addAttribute("displaycode", sb.toString());
             model.addAttribute("bookingDetailRes", bookingDetailRes);
             return "user/qrcode-booking";
         } else {

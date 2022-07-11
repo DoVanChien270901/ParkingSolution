@@ -157,3 +157,6 @@
     }
 
 }
+#list-user table tbody tr{
+    cursor: pointer;
+}

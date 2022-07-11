@@ -4,13 +4,18 @@
  */
 package fpt.aptech.ParkingApi.entities;
 
+import fpt.aptech.ParkingApi.dto.response.BookingRes;
+import fpt.aptech.ParkingApi.dto.response.ItemPageProfile;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,6 +23,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +32,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.NamedNativeQuery;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -35,6 +43,22 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "profile")
 @XmlRootElement
+@NamedNativeQuery(
+        name = "getUserByRole",
+        query = "{CALL listUserByRole(:role)}",
+        resultSetMapping = "ItemPageProfile"
+)
+@SqlResultSetMapping(
+        name = "ItemPageProfile",
+        classes = @ConstructorResult(targetClass = ItemPageProfile.class,
+                columns = {
+                    @ColumnResult(name = "username", type = String.class),
+                    @ColumnResult(name = "fullname", type = String.class),
+                    @ColumnResult(name = "identitycard", type = Integer.class),
+                    @ColumnResult(name = "email", type = String.class),
+                    @ColumnResult(name = "phone", type = Integer.class)
+                })
+)
 @NamedQueries({
     @NamedQuery(name = "Profile.findAll", query = "SELECT p FROM Profile p"),
     @NamedQuery(name = "Profile.findByUsername", query = "SELECT p FROM Profile p WHERE p.username = :username"),

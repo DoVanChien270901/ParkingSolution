@@ -58,7 +58,7 @@
                             </a>
                         </li>                      
                         <li>
-                            <a href="" class="dropdown-toggle no-arrow">
+                            <a th:href="@{/list-user?page=1}" class="dropdown-toggle no-arrow">
                                 <span class="micon dw dw-user"></span><span class="mtext">User</span>
                             </a>
                         </li>
@@ -67,8 +67,8 @@
                                 <span class="micon dw dw-book"></span><span class="mtext">Parking</span>
                             </a>
                             <ul class="submenu">
-                                <li><a href="">View</a></li>
-                                <li><a href="">History</a></li>
+                                <li><a th:href="@{list-parking}">View</a></li>
+                                <li><a th:href="@{parking-history}">History</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
