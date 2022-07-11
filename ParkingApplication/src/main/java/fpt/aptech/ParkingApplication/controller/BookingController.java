@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,7 @@ public class BookingController {
     public String test(@RequestParam("id") int id, Model model) {
         HttpEntity request = RestTemplateConfiguration.setRequest();
         ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(PATH_API + "booking-details?id="+id, HttpMethod.GET, request, BookingDetailRes.class);
+            .excuteRequest(PATH_API + "booking-details?id=" + id, HttpMethod.GET, request, BookingDetailRes.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             BookingDetailRes bookingDetailRes = (BookingDetailRes) response.getBody();
             model.addAttribute("bookingDetailRes", bookingDetailRes);
@@ -55,7 +56,7 @@ public class BookingController {
         String token = loginRes.getToken();
         HttpEntity request = RestTemplateConfiguration.setRequest(token);
         ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(PATH_API + "list-booking", HttpMethod.GET, request, ListBookingRes.class);
+            .excuteRequest(PATH_API + "list-booking", HttpMethod.GET, request, ListBookingRes.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             ListBookingRes bookingRes = (ListBookingRes) response.getBody();
             model.addAttribute("listBookingRes", bookingRes.getBookingRes());

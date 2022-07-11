@@ -455,13 +455,17 @@ public class TransactionService implements ITransaction {
         if (statuscode == 0) {
             Double balance = _proProfileRepository.getBalanceByUsername(transactionReq.getUsername());
             Double amount = Double.valueOf(transactionReq.getAmount());
-            if (transactionReq.getStype().equals("eRecharge")) {
+            if (transactionReq.getStype().equals("e-Recharge")) {
                 _proProfileRepository.updateBalanceByUsername(balance + amount, transactionReq.getUsername());
-            } else if (transactionReq.getStype().equals("eBooking")) {
+            } else if (transactionReq.getStype().equals("e-Booking")) {
                 transInfo.setParkingname(_parkingRepo.getByName(transactionReq.getParkingname()));
-                _proProfileRepository.updateBalanceByUsername(balance - amount, transactionReq.getUsername());
             }
         }
         return _transactionRepository.save(transInfo);
+    }
+    
+    @Override
+    public Transactioninformation getbyTransNo(String transno){
+        return _transactionRepository.getByTransNo(transno);
     }
 }

@@ -12,6 +12,7 @@ import fpt.aptech.ParkingApplication.domain.response.LoginRes;
 import fpt.aptech.ParkingApplication.domain.response.PaymentChannel;
 import fpt.aptech.ParkingApplication.domain.response.ProfileRes;
 import fpt.aptech.ParkingApplication.utils.ModelMapperUtil;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,35 @@ public class TransactionController {
         return "redirect:" + url;
     }
 
+    @RequestMapping(value = "/e-payment-detail", method = RequestMethod.GET)
+    public String ePaymentDetail(@RequestParam Map<String, String> allMap, Model model, HttpSession session) {
+        try {
+            String requestid;
+            if (allMap.get("requestId").isEmpty()) {
+                requestid = allMap.get("apptransid");
+            } else {
+                requestid = allMap.get("requestId");
+            }
+
+            EPaymentRes orderRes = (EPaymentRes) session.getAttribute(requestid);
+            HttpEntity request = restTemplate.setRequest(orderRes.getTransactionReq());
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "checkStatus", HttpMethod.POST, request, EPaymentRes.class);
+            EPaymentRes orderResponse = (EPaymentRes) response.getBody();
+            if (orderResponse.getReturnCode().equals(0) && orderRes.getTransactionReq().getStype().equals("e-Booking")) {
+
+                // create booking
+            }
+            System.out.println(orderResponse.getReturnCode());
+            //lấy session key = transNo, value = ...
+            //check status với transNo = true
+            //
+            //nếu value.type = eBooking => goi api booking
+            return "user/e-payment";
+        } catch (Exception e) {
+            return "badrequest";
+        }
+    }
+
     @RequestMapping(value = "/e-payment", method = RequestMethod.GET)
     public String ePayment(Model model, HttpSession session) {
         try {
@@ -65,13 +95,15 @@ public class TransactionController {
     @RequestMapping(value = "/e-payment", method = RequestMethod.POST)
     public String createEPayment(@ModelAttribute("rechargeReq") ERechargeReq rechargeReq, HttpSession session) {
         try {
-//            LoginRes loginRes = (LoginRes) session.getAttribute("account");
-//            String token = loginRes.getToken();
+            LoginRes loginRes = (LoginRes) session.getAttribute("account");
+
             HttpEntity request = restTemplate.setRequest(rechargeReq);
             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "e-recharge", HttpMethod.POST, request, EPaymentRes.class);
             EPaymentRes orderRes = (EPaymentRes) response.getBody();
+            orderRes.getTransactionReq().setUsername(loginRes.getUsername());
+            session.setAttribute(orderRes.getTransNo(), orderRes);
             String url = orderRes.getPayUrl();
-           return "redirect:" + url;
+            return "redirect:" + url;
 //            return null;
         } catch (Exception e) {
             System.out.println(e.getMessage());

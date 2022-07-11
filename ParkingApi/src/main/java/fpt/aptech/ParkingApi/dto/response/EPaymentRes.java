@@ -5,6 +5,8 @@
  */
 package fpt.aptech.ParkingApi.dto.response;
 
+import fpt.aptech.ParkingApi.dto.request.TransactionReq;
+
 /**
  *
  * @author PCvinhvizg
@@ -15,6 +17,15 @@ public class EPaymentRes {
     private String signature;
     private String transNo;
     private Integer returnCode;
+    private TransactionReq transactionReq;
+
+    public TransactionReq getTransactionReq() {
+        return transactionReq;
+    }
+
+    public void setTransactionReq(TransactionReq transactionReq) {
+        this.transactionReq = transactionReq;
+    }
 
     public EPaymentRes() {
     }

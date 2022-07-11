@@ -5,17 +5,28 @@
  */
 package fpt.aptech.ParkingApplication.domain.response;
 
+import fpt.aptech.ParkingApplication.domain.request.TransactionReq;
 
 /**
  *
  * @author PCvinhvizg
  */
-public class EPaymentRes{
+public class EPaymentRes {
+
     private String payUrl;
     private String returnMessage;
     private String signature;
     private String transNo;
     private Integer returnCode;
+    private TransactionReq transactionReq;
+
+    public TransactionReq getTransactionReq() {
+        return transactionReq;
+    }
+
+    public void setTransactionReq(TransactionReq transactionReq) {
+        this.transactionReq = transactionReq;
+    }
 
     public EPaymentRes() {
     }

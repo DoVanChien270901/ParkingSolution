@@ -27,4 +27,6 @@ public interface ITransaction {
     PageTransactionRes findAll(int page, int size);
 
     PageTransactionRes getByUserName(String username, int page, int size);
+    
+    Transactioninformation getbyTransNo(String transno);
 }
