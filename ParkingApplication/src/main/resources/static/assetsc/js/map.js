@@ -6,56 +6,81 @@ var ddisplay = null;
 var radius_circle = null;
 var buttonDirection;
 var markerArray = [];
-var parkingLocations = [{
-        "name": "Le Thi Rieng Parking Lot",
-        "address": "Cach Mang Thang Tam, Ward 15, District 10, Ho Chi Minh City, Vietnam",
-        "lat": 10.786140368621982,
-        "long": 106.66553523925666,
-    },
-    {
-        "name": "Truong Son Parking Lot",
-        "address": "Truong Son, Ward 15, District 10, Ho Chi Minh City, Vietnam",
-        "lat": 10.783623768095028,
-        "long": 106.66602110517302,
-    },
-    {
-        "name": "550 Street",
-        "address": "550 Street. Cach Mang Thang 8, Ward 11, District 3, Ho Chi Minh City, Vietnam",
-        "lat": 10.785919366395701,
-        "long": 106.66687897069089,
-    },
-    {
-        "name": "Thong Nhat Hospital",
-        "address": "669 Street. Cach Mang Thang 8, Ward 6, Tan Binh, Ho Chi Minh City, Vietnam",
-        "lat": 10.792474542422955,
-        "long": 106.65389890720036,
-    },
-    {
-        "name": "332 Cao Thang",
-        "address": "332 Street. Cao Thang, Ward 12, District 10, Ho Chi Minh City, Vietnam",
-        "lat": 10.775856472760822,
-        "long": 106.66872907259513,
-    },
+var parkingLocations =[];
+//call api get list parking
 
-    {
-        "name": "152 Ba Son",
-        "address": "152 Street. Nguyen Thi Tu, Binh Hung Hoa B, Binh Tan, Ho Chi Minh City, Vietnam",
-        "lat": 10.815494097294602,
-        "long": 106.59142729657972,
-    },
-    {
-        "name": "Tan Binh Industrial Zone",
-        "address": "CN6 Road, Son Ky, Tan Phu, Ho Chi Minh City, Vietnam",
-        "lat": 10.808647358759579,
-        "long": 106.61051074577816,
-    },
-    {
-        "name": "Dong Phuong 4 Restaurant",
-        "address": "309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam",
-        "lat": 10.835440504398681,
-        "long": 106.6285604770306,
-    },
-]
+let myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+
+
+var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    body: null,
+    redirect: "follow",
+};
+var api = "http://localhost:8080/list-parking";
+fetch(api, requestOptions)
+        .then((response) => {
+            return response.json();
+        })
+        .then((result) => {
+            parkingLocations = result;
+            console.log(parkingLocations);
+        })
+        .catch((error) => console.log("error", error));
+
+//var parkingLocations = [{
+//        "name": "Le Thi Rieng Parking Lot",
+//        "address": "Cach Mang Thang Tam, Ward 15, District 10, Ho Chi Minh City, Vietnam",
+//        "lat": 10.786140368621982,
+//        "long": 106.66553523925666,
+//    },
+//    {
+//        "name": "Truong Son Parking Lot",
+//        "address": "Truong Son, Ward 15, District 10, Ho Chi Minh City, Vietnam",
+//        "lat": 10.783623768095028,
+//        "long": 106.66602110517302,
+//    },
+//    {
+//        "name": "550 Street",
+//        "address": "550 Street. Cach Mang Thang 8, Ward 11, District 3, Ho Chi Minh City, Vietnam",
+//            "lat": 10.785919366395701,
+//        "long": 106.66687897069089,
+//    },
+//    {
+//        "name": "Thong Nhat Hospital",
+//        "address": "669 Street. Cach Mang Thang 8, Ward 6, Tan Binh, Ho Chi Minh City, Vietnam",
+//        "lat": 10.792474542422955,
+//        "long": 106.65389890720036,
+//    },
+//    {
+//        "name": "332 Cao Thang",
+//        "address": "332 Street. Cao Thang, Ward 12, District 10, Ho Chi Minh City, Vietnam",
+//        "lat": 10.775856472760822,
+//        "long": 106.66872907259513,
+//    },
+//
+//    {
+//        "name": "152 Ba Son",
+//        "address": "152 Street. Nguyen Thi Tu, Binh Hung Hoa B, Binh Tan, Ho Chi Minh City, Vietnam",
+//        "lat": 10.815494097294602,
+//        "long": 106.59142729657972,
+//    },
+//    {
+//        "name": "Tan Binh Industrial Zone",
+//        "address": "CN6 Road, Son Ky, Tan Phu, Ho Chi Minh City, Vietnam",
+//        "lat": 10.808647358759579,
+//        "long": 106.61051074577816,
+//    },
+//    {
+//        "name": "Dong Phuong 4 Restaurant",
+//        "address": "309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam",
+//        "lat": 10.835440504398681,
+//        "long": 106.6285604770306,
+//    },
+//]
 
 function listElements(name, addr, calulate) {
     const ul = document.querySelector('.list-items');
@@ -97,7 +122,7 @@ function listElements(name, addr, calulate) {
 
 function contentElement(name, address) {
     return '<div id="content-parking">' + '<strong>' + name + '</strong>' + '<br/>' + address + '<div class="p-1"></div>' +
-            '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>';
+            '<a type="button" th:href="@{}" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</a>';
 }
 
 function calculate(lat1, lat2, long1, long2) {
@@ -118,8 +143,8 @@ function showPlace(latpos, longpos) {
     var longpos = longpos.toFixed(7);
     // console.log(latpos, longpos);
     for (var i = 0; i < parkingLocations.length; i++) {
-        var latParking = parkingLocations[i]['lat'].toFixed(6);
-        var longParking = parkingLocations[i]['long'].toFixed(7);
+        var latParking = parkingLocations[i]['latitude'];
+        var longParking = parkingLocations[i]['longtitude'];
         //console.log(latParking, longParking);
         // check radius
         var cal = calculate(latpos, latParking, longpos, longParking);
@@ -140,7 +165,7 @@ function showPlace(latpos, longpos) {
             var contentOnMarker = contentElement(parkingLocations[i]['name'], parkingLocations[i]['address']);
             // create marker
             markerParking = new google.maps.Marker({
-                position: new google.maps.LatLng(parkingLocations[i]['lat'], parkingLocations[i]['long']),
+                position: new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']),
                 map: map,
                 icon: iconParking,
                 content: contentOnMarker,
@@ -161,7 +186,7 @@ function showPlace(latpos, longpos) {
             var idParking = this.textContent;
             for (var i in parkingLocations) {
                 if (idParking == parkingLocations[i]['name']) {
-                    var posI = new google.maps.LatLng(parkingLocations[i]['lat'], parkingLocations[i]['long']);
+                    var posI = new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']);
                     var contentOnShop = contentElement(parkingLocations[i]['name'], parkingLocations[i]['address']);
                     markerParking = new google.maps.Marker({
                         position: posI,
@@ -231,6 +256,15 @@ function showMap() {
         var markerLocation = new google.maps.Marker({
             position: {lat: lat, lng: long},
             map: map,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 10,
+
+                fillOpacity: 1,
+                strokeWeight: 2,
+                fillColor: '#5384ed',
+                strokeColor: '#ffffff'
+            }
         });
         showPlace(lat, long);
     });

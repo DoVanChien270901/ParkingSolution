@@ -14,7 +14,6 @@ import fpt.aptech.ParkingApi.entities.Booking;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
 import fpt.aptech.ParkingApi.interfaces.IBooking;
-import fpt.aptech.ParkingApi.interfaces.IParking;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
 import fpt.aptech.ParkingApi.utils.JwtUtil;

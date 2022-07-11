@@ -65,11 +65,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div th:if="${displaycode}" class="col-12 col-sm-12 col-md-12 col-lg-4 col-qrcode pt-4">
+                                        <div th:if="${displaycode}" class="col-12 col-sm-12 col-md-12 col-lg-6 col-qrcode pt-4">
                                             <img class="qrcode mb-2" th:src="${displaycode}"/>
                                             <p>Your QR Code</p>
                                         </div>
-                                        <div th:unless="${displaycode}" class="col-12 col-lg-6 col-md-12 col-sm-12 pt-4 col-no-qrcode">
+                                        <div th:unless="${displaycode}" class="col-12 col-lg-6 col-md-12 col-sm-12 pt-6 col-no-qrcode">
                                             <img class="no-qrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />
                                         </div>
                                         <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
