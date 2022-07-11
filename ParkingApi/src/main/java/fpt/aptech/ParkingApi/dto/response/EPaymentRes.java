@@ -3,20 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.ParkingApplication.domain.response;
+package fpt.aptech.ParkingApi.dto.response;
+
+import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 
 /**
  *
  * @author PCvinhvizg
  */
-public class CreateOrderRes {
+public class EPaymentRes {
     private String payUrl;
     private String returnMessage;
     private String signature;
     private String transNo;
     private Integer returnCode;
+    private TransactionReq transactionReq;
 
-    public CreateOrderRes() {
+    public TransactionReq getTransactionReq() {
+        return transactionReq;
+    }
+
+    public void setTransactionReq(TransactionReq transactionReq) {
+        this.transactionReq = transactionReq;
+    }
+
+    public EPaymentRes() {
     }
 
     public String getPayUrl() {
@@ -58,10 +69,5 @@ public class CreateOrderRes {
     public void setReturnCode(Integer returnCode) {
         this.returnCode = returnCode;
     }
-
-    public void setReturnCode(String returncode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
 }

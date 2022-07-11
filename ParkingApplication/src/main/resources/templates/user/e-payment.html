@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/user-layout.html}">
 
     <head>
         <meta charset="utf-8">
@@ -35,58 +37,60 @@
                                 </ul>
                             </div>
                         </div>
-                         <div class="container" id="electronice-payment">
+                        <div class="container" id="electronice-payment">
                             <div class="row g-4 mb-3 pb-3 recharge">
                                 <div class="pb-1 pt-4">
                                     <h2>// Electronic Payment //</h2>
                                 </div>
-                                <div class="container amount">
-                                    <lable><i class="fa fa-wallet"></i> 30.000 VND</lable>
+                                <div th:if="${balance}" class="container amount">
+                                    <lable><i class="fa fa-wallet"></i> <span th:text="${balance}"/> VND</lable>
                                 </div>
-                                <div class="row payment">
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4 form-check">
-                                        <lable>Choose Payment Method:</lable>
-                                        <div class="class-momo p-2">
-                                            <img class="momo" th:src="@{/assetsc/img/momo.png}">
-                                            <span class="p-1">
-                                                Momo
-                                            </span>
-                                            <input style="width: 40px;" type="radio" name="payment" checked="true"> 
+                                <form th:action="@{/e-payment}" th:object="${rechargeReq}" method="POST">
+                                    <div class="row payment">
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4 form-check">
+                                            <lable>Choose Payment Method:</lable>
+                                            <div class="class-momo p-2">
+                                                <img class="momo" th:src="@{/assetsc/img/momo.png}">
+                                                <span class="p-1">
+                                                    Momo
+                                                </span>
+                                                <input style="width: 40px;" type="radio" name="" th:field="*{channel}" value="Momo"> 
+                                            </div>
+                                            <div class="class-zalopay p-2">
+                                                <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
+                                                <span class="p-1">
+                                                    ZaloPay
+                                                </span>
+                                                <input style="width: 22.5px;" type="radio" name=""  th:field="*{channel}" value="Zalopay"> 
+                                            </div>
                                         </div>
-                                        <div class="class-zalopay p-2">
-                                            <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
-                                            <span class="p-1">
-                                                ZaloPay
-                                            </span>
-                                            <input style="width: 22.5px;" type="radio" name="payment"> 
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4">
-                                        <lable>Input Amount: </lable>
-                                        <input class="form-control" id="" name="" type="number" value="0"/>
-                                        <div class="p-2 select-amount">
-                                            <div class="row pt-4">
-                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                    <input type="button" class="btn btn-sm btn-success p-2" value="20.000 VND" />
-                                                </div>
-                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                    <input type="button" class="btn btn-sm btn-success p-2" value="50.000 VND" />
-                                                </div>
-                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                    <input type="button" class="btn btn-sm btn-success p-2" value="100.000 VND" />
-                                                </div>
-                                                <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                    <input type="button" class="btn btn-sm btn-success p-2" value="150.000 VND" />
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4">
+                                            <lable>Input Amount: </lable>
+                                            <input class="form-control" id="" name="" type="number" placeholder="0" th:field="*{amount}"/>
+                                            <div class="p-2 select-amount">
+                                                <div class="row pt-4">
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" class="btn btn-sm btn-success p-2" value="20.000 VND" />
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" class="btn btn-sm btn-success p-2" value="50.000 VND" />
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" class="btn btn-sm btn-success p-2" value="100.000 VND" />
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" class="btn btn-sm btn-success p-2" value="150.000 VND" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
-                                        <div class="submit-payment d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-money-check"></i> Payment</button>
+                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
+                                            <div class="submit-payment d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-money-check"></i> Payment</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
