@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +42,7 @@ public class BookingController {
     private JwtUtil _jwtUtil;
 
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
-    public ResponseEntity<?> booking(@RequestBody NewBookingReq bookingReq) {
+    public ResponseEntity<?> newBooking(@RequestBody NewBookingReq bookingReq) {
         //String username = _jwtUtil.extracUsername(token.substring(7));
         String username = "username1";
         if (!bookingReq.isWalletparking()) {
@@ -74,8 +73,9 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking-details", method = RequestMethod.GET)
-    public ResponseEntity<?> bookingDetails(@RequestParam("id") int id) {
-        BookingDetailRes res = _bookingService.getDetailBookingById(id);
+    public ResponseEntity<?> bookingDetails(@RequestParam("id") int id, @RequestHeader("Authorization") String token) {
+        String username = _jwtUtil.extracUsername(token.substring(7));
+        BookingDetailRes res = _bookingService.getDetailBookingById(id, username);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 }

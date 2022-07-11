@@ -6,6 +6,7 @@ package fpt.aptech.ParkingApi.repositorys;
 
 import fpt.aptech.ParkingApi.entities.Account;
 import fpt.aptech.ParkingApi.entities.Qrcode;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,4 +19,6 @@ public interface QrCodeRepo extends JpaRepository<Qrcode, Integer> {
 
     @Query("SELECT q FROM Qrcode q WHERE q.accountid.username = :username and q.title = :title")
     Qrcode getByUserName(@PathVariable("username") String username, @PathVariable("title") String title);
+    @Query("SELECT q FROM Qrcode q WHERE q.accountid.username = :username and q.title = 'BOOKING'")
+    List<Qrcode> getByUserNameAndTBooking(@PathVariable("username") String username);
 }
