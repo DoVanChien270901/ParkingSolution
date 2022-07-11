@@ -11,6 +11,6 @@ public class MomoConfig {
     public static String NOTIFY_URL = "http://localhost:3000/success/payment";
     public static String IPN_URL = "https://5764-125-235-239-194.ap.ngrok.io";
     public static String CREATE_ORDER_URL_QR = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-    public static String REDIRECT_URL = "http://localhost:3000/success/payment";//url momo-api trả về -> tự động redirect tới url này
+    public static String REDIRECT_URL = "http://localhost:8081/e-payment-detail";//url momo-api trả về -> tự động redirect tới url này
     public static String CREATE_ORDER_URL = "https://test-payment.momo.vn/v2/gateway/api/pos";
 }
