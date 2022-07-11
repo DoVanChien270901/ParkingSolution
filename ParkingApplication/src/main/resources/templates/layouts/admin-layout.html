@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <head>
         <!-- Basic Page Info -->
@@ -36,17 +36,6 @@
                             <a class="dropdown-item" href=""><i class="dw dw-logout"></i> Log Out</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="right-sidebar">
-            <div class="sidebar-title">
-                <h3 class="weight-600 font-16 text-blue">
-                    Layout Settings
-                    <span class="btn-block font-weight-400 font-12">User Interface Settings</span>
-                </h3>
-                <div class="close-sidebar" data-toggle="right-sidebar-close">
-                    <i class="icon-copy ion-close-round"></i>
                 </div>
             </div>
         </div>
@@ -104,6 +93,7 @@
         <!-- Admin Content Start -->
         <div class="main-container" layout:fragment="admin-content"></div>
         <!-- Admin Content End -->
+        <!-- JavaScript -->
         <script th:src="@{/vendorsc/scripts/core.js}"></script>
         <script th:src="@{/vendorsc/scripts/script.min.js}"></script>
         <script th:src="@{/vendorsc/scripts/process.js}"></script>
@@ -115,4 +105,5 @@
         <script th:src="@{/vendorsc/scripts/fix.js}"></script>
         <script th:src="@{/vendorsc/scripts/show-hide.js}"></script>
     </body>
+    
 </html>

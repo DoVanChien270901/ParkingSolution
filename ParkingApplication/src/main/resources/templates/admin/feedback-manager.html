@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Recharge History Page</title>
+        <title>Parking.Go | Feedback Manager Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     </head>
 
@@ -11,7 +11,7 @@
         <div class="main-container" layout:fragment="admin-content">
             <div class="xs-pd-20-10 pd-ltr-20">
                 <div class="title pb-20">
-                    <h2 class="h2 p-1 mb-0">Recharge History</h2>
+                    <h2 class="h3 mb-2">Feedback Manager</h2>
                 </div>
                 <!-- basic table  Start -->
                 <div class="pd-20 card-box mb-30" id="list-index">
@@ -40,32 +40,30 @@
                             <thead>
                                 <tr class="table-secondary">
                                     <th scope="col">#</th>
-                                    <th scope="col">Amount</th>
                                     <th scope="col">DateTime</th>
-                                    <th scope="col">Transaction</th>
                                     <th scope="col">Account</th>
+                                    <th scope="col">Parking</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>300</td>
                                     <td>07/02/2022 18:00:20</td>
-                                    <td class="form-inline">
-                                        <img class="momo" th:src="@{/vendorsc/images/momo.png}">
-                                        <span class="p-1">Momo</span>
+                                    <td>user1234</td>
+                                    <td>Le Thi Rieng Parking Lot</td>
+                                    <td class="action-center">
+                                        <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-info-circle"></i></button>
                                     </td>
-                                    <td>users123467</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td>250</td>
-                                    <td>07/02/2022 16:20:53</td>
-                                    <td class="form-inline">
-                                        <img class="zalopay" th:src="@{/vendorsc/images/zalopay.png}">
-                                        <span class="p-1">ZaloPay</span>
+                                    <td>07/02/2022 15:17:34</td>
+                                    <td>user2256</td>
+                                    <td>Cao Thang Parking Lot</td>
+                                    <td class="action-center">
+                                        <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-info-circle"></i></button>
                                     </td>
-                                    <td>noname3945</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -86,7 +84,7 @@
                 </div>
                 <!-- basic table  End -->
                 <div class="footer-wrap pd-20 mb-20 card-box">
-                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                    Parking.Go Make By <a href="#" target="_blank">T1.2008.A0</a>
                 </div>
             </div>
         </div>
