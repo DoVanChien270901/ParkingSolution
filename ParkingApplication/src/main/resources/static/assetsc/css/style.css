@@ -486,13 +486,15 @@ nav .navbar-brand .span-logo {
 
 /* profile */
 
-.profile .col-qrcode .qrcode, #direct-payment .col-no-qrcode .no-qrcode {
-    display: block;
+.profile .col-qrcode .qrcode, 
+#direct-payment .col-no-qrcode .no-qrcode, 
+.col-qrcode .qrcode {
     margin-left: auto;
     margin-right: auto;
     max-width: 45%;
     border: 1px solid #202020;
-    padding: 10px;
+    padding: 5px;
+    display: block;
 }
 
 .booking-create .qrcode {
@@ -501,10 +503,10 @@ nav .navbar-brand .span-logo {
     margin-right: auto;
     max-width: 30%;
     border: 1px solid #202020;
-    padding: 10px;
+    padding: 5px;
 }
 
-.profile .col-qrcode p , .booking-create .qrcode{
+.profile .col-qrcode p , .booking-create .qrcode{ 
     text-align: center;
     font-style: italic;
 }
@@ -666,10 +668,12 @@ input[type=number] {
 }
 
 @media screen and (max-width: 1200px) {
-    .profile .col-qrcode .qrcode, #direct-payment .col-no-qrcode .no-qrcode{
+    .profile .col-qrcode .qrcode, 
+    .col-qrcode .qrcode {
         max-width: 50%;
     }
-    .booking-create .qrcode {
+    .booking-create .qrcode,
+    #direct-payment .col-no-qrcode .no-qrcode {
         max-width: 40%;
     }
 }
@@ -679,7 +683,7 @@ input[type=number] {
         display: flex;
         justify-content: center;
     }
-    .profile .col-qrcode .qrcode,  #direct-payment .col-no-qrcode .no-qrcode {
+    .profile .col-qrcode .qrcode,  #direct-payment .col-no-qrcode .no-qrcode, .qrcode {
         max-width: 30%;
     }
     .recharge .submit-payment button{
@@ -692,7 +696,7 @@ input[type=number] {
 
 @media screen and (max-width: 768px) {
     .profile .col-qrcode .qrcode, .booking-create .qrcode, 
-    #direct-payment .col-no-qrcode .no-qrcode {
+    #direct-payment .col-no-qrcode .no-qrcode, .qrcode {
         max-width: 40%;
     }
     .recharge .submit-payment button {
