@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/handle-layout.html}">
+
+    <head>
+        <meta charset="utf-8">
+        <title>ParkingGo | Dashboard Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <style>
+            #preview {
+                width: 650px;
+                height: 650px;
+                object-fit: cover;
+                position: absolute;
+                margin: auto;
+                left: 0;
+                right: 0;
+                top: 25px;
+                text-align: center;
+                z-index: 0;
+            }
+
+            /* animation scanner */
+            body {
+                font-family: Lato;
+                font-weight: 400;
+                background-color: #26282a;
+                color: white;
+            }
+
+            .center {
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            /* .spacer {
+              margin-top: 6rem;
+            } */
+
+            /* barcode container */
+            .anim-box {
+                position: relative;
+                width: 700px;
+                height: 700px;
+                padding: 25px 30px;
+                transition: transform .6s ease-out;
+            }
+
+            /* adds the 4 corners */
+            .anim-box:before,
+            .anim-box:after,
+            .anim-box>:first-child:before,
+            .anim-box>:first-child:after {
+                position: absolute;
+                width: 10%;
+                height: 15%;
+                border-color: white;
+                border-style: solid;
+                content: ' ';
+            }
+
+            /* top left corner */
+            .anim-box:before {
+                top: 0;
+                left: 0;
+                border-width: 2px 0 0 2px;
+            }
+
+            /* top right corner */
+            .anim-box:after {
+                top: 0;
+                right: 0;
+                border-width: 2px 2px 0 0;
+            }
+
+            /* bottom right corner */
+            .anim-box>:first-child:before {
+                bottom: 0;
+                right: 0;
+                border-width: 0 2px 2px 0;
+            }
+
+            /* bottom left corner */
+            .anim-box>:first-child:after {
+                bottom: 0;
+                left: 0;
+                border-width: 0 0 2px 2px;
+            }
+
+            /* barcode bars */
+            .anim-item {
+                display: inline-block;
+                background-color: white;
+                height: 100px;
+            }
+
+            .anim-item-sm {
+                width: 2px;
+                margin-right: 3px;
+            }
+
+            .anim-item-md {
+                width: 3px;
+                margin-right: 2px;
+            }
+
+            .anim-item-lg {
+                width: 5px;
+                margin-right: 5px;
+            }
+
+            /* grow on hover */
+            /* .anim-box:hover {
+              transform: scale(1.5, 2);
+            } */
+
+            .anim-box .scanner {
+                animation-play-state: running;
+            }
+
+            /* animated laser beam */
+            .scanner {
+                width: 100%;
+                height: 3px;
+                background-color: red;
+                opacity: 0.7;
+                position: relative;
+                box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+                top: 50%;
+                animation-name: scan;
+                animation-duration: 4s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                animation-play-state: paused;
+            }
+
+            @keyframes scan {
+                0% {
+                    box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+                    top: 50%;
+                }
+
+                25% {
+                    box-shadow: 0px 6px 8px 10px rgba(170, 11, 23, 0.49);
+                    top: 5px;
+                }
+
+                75% {
+                    box-shadow: 0px -6px 8px 10px rgba(170, 11, 23, 0.49);
+                    top: 98%;
+                }
+            }
+
+            .body-scanner {
+                position: absolute;
+                margin: auto;
+                left: 0;
+                right: 0;
+                z-index: 1;
+            }
+
+            .container {
+                position: relative;
+            }
+            .form-comfirm {
+                position: relative;
+                border-style: solid;
+                border-width: 1px;
+                border-color: black;
+                margin: auto;
+                width: 500px;
+                height: 150px;
+                border-radius: 10px;
+                background-color: aliceblue;
+                z-index: 2;
+            }
+
+            .form-comfirm label {
+                position: absolute;
+                margin-top: 10px;
+                margin-left: 10px;
+                color: black;
+            }
+
+            .form-comfirm h3 {
+                text-align: center;
+                color: black;
+            }
+
+            .form-comfirm div, button{
+                margin-right: 30px;
+                margin-top: 30px;
+            }
+        </style>
+        <script type="text/javascript" th:src="@{/vendorsc/scripts/instascan.min.js}"></script>
+    </head>
+    <body>
+        <div class="main-container" layout:fragment="handle-content">
+            <div class="container">
+                <video id="preview" style="transform: scaleX(1);"></video>
+                <div class="body-scanner">
+                    <div class='spacer'></div>
+                    <div class='anim-box center spacer'>
+                        <!-- empty first child used for corners -->
+                        <div></div>
+                        <div class='scanner'></div>
+                    </div>
+                    <div class='spacer'></div>
+                </div>
+            </div>
+            <div class="form-comfirm"></div>
+        </div>
+        <script layout:fragment="code-javascript">
+            //scan qrcode
+            let scanner = new Instascan.Scanner({
+                video: document.getElementById('preview')
+            });
+            scanner.addListener('scan', function (content) {
+                console.log(content);
+                //call api get list parking
+                let myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                var raw = JSON.stringify({
+                    qrcontent: content,
+                });
+
+                var requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: "follow",
+                };
+                var api = "http://localhost:8080/qr-code/content-recharge";
+                fetch(api, requestOptions)
+                        .then((response) => {
+                            if (response.status == 200) {
+                                return response.json();
+                            } else {
+                                console.log("err");
+                            }
+                        })
+                        .then((result) => {
+                            listElements(result.username, result.amount);
+                        })
+                        .catch((error) => console.log("error", error));
+            });
+            function formElement(result) {
+                return '<div id="content-parking">' + '<strong>' + name + '</strong>' + '<br/>' + address + '<div class="p-1"></div>' +
+                        '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>';
+            }
+            function formComfirmE() {
+                const main = document.querySelector('.form-comfirm');
+                const h3 = document.createElement('h3');
+                const label = document.createElement('label');
+                const btn1 = document.createElement('button');
+                const btn2 = document.createElement('button');
+                const div = document.createElement('div');
+
+                h3.innerText = 'Comfirm Request';
+                label.innerText = 'User Do Van Chien requested to top up the wallet with an amount of 1000';
+
+                btn1.setAttribute('type', 'button');
+                btn2.setAttribute('type', 'button');
+                btn1.innerText = 'Accept';
+                btn2.innerText = 'Cancel';
+                
+                div.setAttribute('class', 'd-flex justify-content-end col-ms-12 col-md-12 col-lg-12');
+                
+                main.appendChild(h3);
+                main.appendChild(label);
+                div.appendChild(btn1);
+                div.appendChild(btn2);
+                main.appendChild(div);
+            }
+            formComfirmE();
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]);
+                } else {
+                    console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        </script>
+    </body>
+</html>

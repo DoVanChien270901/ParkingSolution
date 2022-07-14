@@ -7,6 +7,7 @@ package fpt.aptech.ParkingApplication.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -22,6 +23,10 @@ public class ParkingController {
     @RequestMapping("/parking-history")
     public String history() {
         return "admin/parking-history";
+    }
+    @RequestMapping(value = "/map", method = RequestMethod.GET)
+    public String map() {
+        return "user/google-map";
     }
     
 }

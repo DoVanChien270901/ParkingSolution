@@ -74,4 +74,8 @@ public class BookingController {
             return "badrequest";
         }
     }
+    @RequestMapping(value = "/booking", method = RequestMethod.GET)
+    public String booking() {
+        return "user/booking";
+    }
 }

@@ -17,6 +17,7 @@ import fpt.aptech.ParkingApi.dto.qrcontent.RechargeQrContent;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
 import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
 import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
+import fpt.aptech.ParkingApi.dto.request.ScanQrCodeReq;
 import fpt.aptech.ParkingApi.dto.response.QrCodeRes;
 import fpt.aptech.ParkingApi.entities.Account;
 import fpt.aptech.ParkingApi.entities.Profile;
@@ -45,6 +46,8 @@ public class QrCodeService implements IQrCode {
 
     @Autowired
     private QrCodeRepo _qrcodeRepository;
+    @Autowired
+    private ModelMapperUtil _mapper;
     @Autowired
     private AccountRepo _accountRepository;
     @Autowired
@@ -95,6 +98,25 @@ public class QrCodeService implements IQrCode {
         Qrcode qrcode = _qrcodeRepository.getByUserName(accountid, TitleQrCode.PROFILE.toString());
         QrCodeRes qrCodeRes = _modelMapper.map(qrcode, QrCodeRes.class);
         return qrCodeRes;
+    }
+
+    @Override
+    public boolean RechargeByQrContent(ScanQrCodeReq scanQrCodeReq) {
+        Object obContent = _qrCodeUtil.extractAllClaims(scanQrCodeReq.getQrcontent());
+        RechargeQrContent rechargeQrContent = _mapper.map(obContent, RechargeQrContent.class);
+        Profile profile = _profileRepository.getByUsername(rechargeQrContent.getUsername());
+        if (profile != null) {
+            _profileRepository.updateBalanceByUsername(rechargeQrContent.getAmount() + profile.getBalance(), rechargeQrContent.getUsername());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Object getContent(ScanQrCodeReq scanQrCodeReq) {
+        Object obContent = _qrCodeUtil.extractAllClaims(scanQrCodeReq.getQrcontent());
+        return obContent;
     }
 
 }

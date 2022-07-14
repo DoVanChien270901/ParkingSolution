@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.*;
  * @author CHIEN
  */
 @RestController
-@CrossOrigin
 public class AccountController {
 
     @Autowired

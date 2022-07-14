@@ -8,6 +8,7 @@ import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
 import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
 import fpt.aptech.ParkingApi.dto.qrcontent.RechargeQrContent;
 import fpt.aptech.ParkingApi.dto.request.BookingReq;
+import fpt.aptech.ParkingApi.dto.request.ScanQrCodeReq;
 import fpt.aptech.ParkingApi.dto.response.ProfileRes;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +47,8 @@ public class QrCodeController {
     private QrCodeUtil _qrCodeUtil;
     @Autowired
     private JwtUtil _jwtTokenUtil;
+    @Autowired
+    private ModelMapperUtil _mapper;
 
     @RequestMapping(value = "/recharge", method = RequestMethod.POST)
     public ResponseEntity<?> createQrCode(@RequestBody RechargeByQrCodeReq rechargeByQrCodeReq, @RequestHeader("Authenticate") String token) {
@@ -58,7 +62,7 @@ public class QrCodeController {
             qrcode.setAccountid(profile);
             rechargeByQrCodeReq.setUsername(username);
             _qrCodeService.create(qrcode, rechargeByQrCodeReq);
-            
+
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -85,5 +89,32 @@ public class QrCodeController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> get(@RequestHeader("Authenticate") String token) {
         return ResponseEntity.ok("hello");
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/scan-recharge", method = RequestMethod.POST)
+    public ResponseEntity<?> scanQrCodeRecharge(@RequestBody ScanQrCodeReq scanQrCodeReq) {
+        boolean result = false;
+        try {
+            result = _qrCodeService.RechargeByQrContent(scanQrCodeReq);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        if (result) {
+            return ResponseEntity.ok("Update Balence Successful!");
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/content-recharge", method = RequestMethod.POST)
+    public ResponseEntity<?> contentRecharge(@RequestBody ScanQrCodeReq scanQrCodeReq) {
+        RechargeQrContent rechargeQrContent = _mapper.map(_qrCodeService.getContent(scanQrCodeReq), RechargeQrContent.class);
+        if (rechargeQrContent.getUsername() != null && rechargeQrContent.getAmount() >= 10000) {
+            return ResponseEntity.ok(rechargeQrContent);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }

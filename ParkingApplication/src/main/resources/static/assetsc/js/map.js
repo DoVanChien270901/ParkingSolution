@@ -6,13 +6,12 @@ var ddisplay = null;
 var radius_circle = null;
 var buttonDirection;
 var markerArray = [];
-var parkingLocations =[];
+var parkingLocations = [];
+
 //call api get list parking
 
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-
-
 
 var requestOptions = {
     method: "GET",
@@ -27,65 +26,15 @@ fetch(api, requestOptions)
         })
         .then((result) => {
             parkingLocations = result;
-            console.log(parkingLocations);
+            showMap();
         })
         .catch((error) => console.log("error", error));
-
-//var parkingLocations = [{
-//        "name": "Le Thi Rieng Parking Lot",
-//        "address": "Cach Mang Thang Tam, Ward 15, District 10, Ho Chi Minh City, Vietnam",
-//        "lat": 10.786140368621982,
-//        "long": 106.66553523925666,
-//    },
-//    {
-//        "name": "Truong Son Parking Lot",
-//        "address": "Truong Son, Ward 15, District 10, Ho Chi Minh City, Vietnam",
-//        "lat": 10.783623768095028,
-//        "long": 106.66602110517302,
-//    },
-//    {
-//        "name": "550 Street",
-//        "address": "550 Street. Cach Mang Thang 8, Ward 11, District 3, Ho Chi Minh City, Vietnam",
-//            "lat": 10.785919366395701,
-//        "long": 106.66687897069089,
-//    },
-//    {
-//        "name": "Thong Nhat Hospital",
-//        "address": "669 Street. Cach Mang Thang 8, Ward 6, Tan Binh, Ho Chi Minh City, Vietnam",
-//        "lat": 10.792474542422955,
-//        "long": 106.65389890720036,
-//    },
-//    {
-//        "name": "332 Cao Thang",
-//        "address": "332 Street. Cao Thang, Ward 12, District 10, Ho Chi Minh City, Vietnam",
-//        "lat": 10.775856472760822,
-//        "long": 106.66872907259513,
-//    },
-//
-//    {
-//        "name": "152 Ba Son",
-//        "address": "152 Street. Nguyen Thi Tu, Binh Hung Hoa B, Binh Tan, Ho Chi Minh City, Vietnam",
-//        "lat": 10.815494097294602,
-//        "long": 106.59142729657972,
-//    },
-//    {
-//        "name": "Tan Binh Industrial Zone",
-//        "address": "CN6 Road, Son Ky, Tan Phu, Ho Chi Minh City, Vietnam",
-//        "lat": 10.808647358759579,
-//        "long": 106.61051074577816,
-//    },
-//    {
-//        "name": "Dong Phuong 4 Restaurant",
-//        "address": "309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam",
-//        "lat": 10.835440504398681,
-//        "long": 106.6285604770306,
-//    },
-//]
 
 function listElements(name, addr, calulate) {
     const ul = document.querySelector('.list-items');
     const li = document.createElement('li');
     const div = document.createElement('div');
+    //const div1 = document.createElement('div');
     const a = document.createElement('a');
     const address = document.createElement('p');
     const radius = document.createElement('p');
@@ -94,6 +43,9 @@ function listElements(name, addr, calulate) {
     // div 
     div.classList.add('shop-item');
     div.setAttribute('id', 'shop-item');
+    // div 
+//    div1.setAttribute('id', 'item-parking');
+//    div1.setAttribute('value', name);
 
     // name
     a.innerHTML = name;
@@ -110,6 +62,8 @@ function listElements(name, addr, calulate) {
     // button booking
     button.setAttribute('class', 'booking-list');
     button.setAttribute('type', 'button');
+    //button.setAttribute('id', 'item-parking');
+    button.setAttribute('value', name);
     button.innerHTML = '<i class="fa fa-parking"></i> ' + 'Booking';
 
     div.appendChild(a);
@@ -122,7 +76,7 @@ function listElements(name, addr, calulate) {
 
 function contentElement(name, address) {
     return '<div id="content-parking">' + '<strong>' + name + '</strong>' + '<br/>' + address + '<div class="p-1"></div>' +
-            '<a type="button" th:href="@{}" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</a>';
+            '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>';
 }
 
 function calculate(lat1, lat2, long1, long2) {
@@ -152,33 +106,34 @@ function showPlace(latpos, longpos) {
         // show multiple marker
         if (cal < radius) {
             listElements(parkingLocations[i].name, parkingLocations[i].address, cal);
-            //console.log(req.des);
-            var markerParking, i;
-            // icon
-            var iconParking = {
-                url: "/assetsc/img/marker.png",
-                size: new google.maps.Size(71, 71),
-                scaledSize: new google.maps.Size(45, 45),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-            };
-            var contentOnMarker = contentElement(parkingLocations[i]['name'], parkingLocations[i]['address']);
-            // create marker
-            markerParking = new google.maps.Marker({
-                position: new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']),
-                map: map,
-                icon: iconParking,
-                content: contentOnMarker,
-            });
-            google.maps.event.addListener(markerParking, "click", (function (markerParking, i) {
-                return function () {
-                    inforwindow.setContent(this.content);
-                    inforwindow.open(map, markerParking);
-                    map.panTo(this.position);
-                    showDirection(this.position);
-                }
-            })(markerParking, i));
         }
+        //console.log(req.des);
+        var markerParking, i;
+        // icon
+        var iconParking = {
+            url: "/assetsc/img/marker.png",
+            size: new google.maps.Size(71, 71),
+            scaledSize: new google.maps.Size(45, 45),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+        };
+        var contentOnMarker = contentElement(parkingLocations[i]['name'], parkingLocations[i]['address']);
+        // create marker
+        markerParking = new google.maps.Marker({
+            position: new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']),
+            map: map,
+            icon: iconParking,
+            content: contentOnMarker,
+        });
+        google.maps.event.addListener(markerParking, "click", (function (markerParking, i) {
+            return function () {
+                inforwindow.setContent(this.content);
+                inforwindow.open(map, markerParking);
+                map.panTo(this.position);
+                showDirection(this.position);
+            }
+        })(markerParking, i));
+
     }
     // show place marker on listShop
     $(document).ready(function () {
@@ -235,11 +190,10 @@ function showDirection(data) {
 }
 
 function getPosition() {
-    if (!navigator.geolocation) {
-        window.alert("Your browser does not support geolocation feature !");
-    } else {
-        showMap();
-    }
+    navigator.geolocation.getCurrentPosition(function (position) {
+        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        map.setCenter(initialLocation);
+    });
 }
 
 function showMap() {
@@ -269,3 +223,9 @@ function showMap() {
         showPlace(lat, long);
     });
 }
+$(document).ready(function () {
+    $('#shop-item booking-list').click(function () {
+        var id = $(this).attr('value');
+        console.log(id);
+    });
+});
