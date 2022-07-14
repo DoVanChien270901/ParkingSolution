@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.ParkingApi.dto.response;
+package fpt.aptech.ParkingApplication.domain.response;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  *
  * @author PCvinhvizg
  */
-public class TransactionRes  {
+public class TransactionRes {
 
     private String transno;
     private Double amount;
@@ -20,20 +20,6 @@ public class TransactionRes  {
     private String stype;
     private String parkingname;
     private Integer statuscode;
-
-    public TransactionRes() {
-    }
-
-    
-    public TransactionRes(String transno, Double amount, String channel, LocalDateTime datetime, String stype, String parkingname, Integer statuscode) {
-        this.transno = transno;
-        this.amount = amount;
-        this.channel = channel;
-        this.datetime = datetime;
-        this.stype = stype;
-        this.parkingname = parkingname;
-        this.statuscode = statuscode;
-    }
 
     public String getTransno() {
         return transno;
@@ -90,5 +76,7 @@ public class TransactionRes  {
     public void setStatuscode(Integer statuscode) {
         this.statuscode = statuscode;
     }
+
+    
 
 }

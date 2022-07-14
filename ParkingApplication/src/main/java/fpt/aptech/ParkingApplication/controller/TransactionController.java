@@ -9,12 +9,13 @@ import fpt.aptech.ParkingApplication.configuration.RestTemplateConfiguration;
 import fpt.aptech.ParkingApplication.domain.request.ERechargeReq;
 import fpt.aptech.ParkingApplication.domain.response.EPaymentRes;
 import fpt.aptech.ParkingApplication.domain.response.LoginRes;
-import fpt.aptech.ParkingApplication.domain.response.PaymentChannel;
+import fpt.aptech.ParkingApplication.domain.response.PageTransactionRes;
+
 import fpt.aptech.ParkingApplication.domain.response.ProfileRes;
-import fpt.aptech.ParkingApplication.utils.ModelMapperUtil;
+import fpt.aptech.ParkingApplication.domain.response.TransactionRes;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -65,11 +66,11 @@ public class TransactionController {
 
                 // create booking
             }
-            System.out.println(orderResponse.getReturnCode());
+//            System.out.println(orderResponse.getReturnCode());
             //lấy session key = transNo, value = ...
             //check status với transNo = true
             //
-            //nếu value.type = eBooking => goi api booking
+            //nếu value.type = e-Booking => goi api booking
             return "user/e-payment";
         } catch (Exception e) {
             return "badrequest";
@@ -106,8 +107,29 @@ public class TransactionController {
             return "redirect:" + url;
 //            return null;
         } catch (Exception e) {
+            return "badrequest";
+        }
+    }
+
+    @RequestMapping(value = "/history", method = RequestMethod.GET)
+    public String userTransactions(Model model, HttpSession session) {
+        try {
+            LoginRes loginRes = (LoginRes) session.getAttribute("account");
+            String token = loginRes.getToken();
+            HttpEntity request = restTemplate.setRequest(token);
+            
+            int page = 5;
+            int size = 10;
+            
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "user-transactions?page="+page+"&size="+size, HttpMethod.GET, request, PageTransactionRes.class);
+            PageTransactionRes pageTransactionRes = (PageTransactionRes) response.getBody();
+            List<TransactionRes> usertransactions = pageTransactionRes.getListTransaction();
+            model.addAttribute("transactionlist", usertransactions);
+            return "user/history";
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return "badrequest";
         }
     }
+
 }

@@ -134,9 +134,9 @@ public class TransactionService implements ITransaction {
     public PageTransactionRes getByUserName(String username, int page, int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        Profile userProfile = _proProfileRepository.getByUsername(username);
-        List<Transactioninformation> trans = (List<Transactioninformation>) userProfile.getTransactioninformationCollection();
-        Page<Transactioninformation> pageTrans = new PageImpl<>(trans, pageRequest, trans.size());
+        
+        List<TransactionRes> trans = _transactionRepository.getListTransByUsername(username);
+        Page<TransactionRes> pageTrans = new PageImpl<>(trans, pageRequest, trans.size());
         List<TransactionRes> listTrans = _mapper.mapList(pageTrans.getContent(), TransactionRes.class);
 
         PageTransactionRes pageTransactionRes = new PageTransactionRes();
@@ -463,9 +463,9 @@ public class TransactionService implements ITransaction {
         }
         return _transactionRepository.save(transInfo);
     }
-    
+
     @Override
-    public Transactioninformation getbyTransNo(String transno){
-        return _transactionRepository.getByTransNo(transno);
+    public Transactioninformation getbyTransNo(String transno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -13,11 +13,14 @@ import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
+import fpt.aptech.ParkingApi.utils.JwtUtil;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TransactionController {
 
+    @Autowired
+    private JwtUtil _jwtTokenUtil;
     @Autowired
     private ITransaction _transactionServices;
 
@@ -57,7 +62,7 @@ public class TransactionController {
             orderRequest.setAmount(rechargeReq.getAmount());
             orderRequest.setStype("e-Recharge");
             EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
-            
+
             TransactionReq transactionReq = new TransactionReq();
             transactionReq.setAmount(rechargeReq.getAmount());
             transactionReq.setStype(orderRequest.getStype());
@@ -66,7 +71,7 @@ public class TransactionController {
             statusPaymentReq.setTransno(orderRequest.getTransno());
             transactionReq.setPaymentReq(statusPaymentReq);
             transactionRes.setTransactionReq(transactionReq);
-            
+
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -93,7 +98,7 @@ public class TransactionController {
             orderRequest.setAmount(rechargeReq.getAmount());
             orderRequest.setStype("e-Booking");
             EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
-            
+
             //set TransactionReq
             TransactionReq transactionReq = new TransactionReq();
             transactionReq.setAmount(rechargeReq.getAmount());
@@ -104,7 +109,7 @@ public class TransactionController {
             transactionReq.setPaymentReq(statusPaymentReq);
             transactionRes.setTransactionReq(transactionReq);
             //thiếu set booking name
-            
+
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -145,9 +150,11 @@ public class TransactionController {
         }
     }
 
-    @RequestMapping(value = "/user-transactions-history", method = RequestMethod.GET)
-    public ResponseEntity<?> getTransactionHistory(@RequestParam("username") String username, @RequestParam("page") int page, @RequestParam("size") int size) {
+    @RequestMapping(value = "/user-transactions", method = RequestMethod.GET)
+    public ResponseEntity<?> getTransactionHistory(@RequestHeader("Authorization") String token , @RequestParam("page") int page, @RequestParam("size") int size) {
         try {
+            
+            String username = _jwtTokenUtil.extracUsername(token.substring(7));
             PageTransactionRes transactionRes = _transactionServices.getByUserName(username, page, size);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (Exception e) {

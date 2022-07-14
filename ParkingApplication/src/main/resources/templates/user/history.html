@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
-
     <head>
         <meta charset="utf-8">
         <title>Parking.Go | History Transaction Page</title>
@@ -35,7 +34,7 @@
                                 </ul>
                             </div>
                         </div>
-                          <div class="container" id="history">
+                        <div class="container" id="history">
                             <div class="row g-4 mb-3 pb-3">
                                 <div class="pb-1 pt-4">
                                     <h2>// History //</h2>
@@ -60,55 +59,30 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Code</th>
+                                                <th scope="col">No</th>
                                                 <th scope="col">Amount</th>
                                                 <th scope="col">Date Time</th>
-                                                <th scope="col">Payment</th>
+                                                <th scope="col">Channel</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Parking Name</th>
                                                 <th scope="col">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>250.000 VND</td>
-                                                <td>2/7/2022 18:00:02</td>
-                                                <td>240.000 VND</td>
-                                                <td><span class="badge badge-success">Done !</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>54.000 VND</td>
-                                                <td>3/7/2022 12:03:02</td>
-                                                <td>70.000 VND</td>
-                                                <td><span class="badge badge-success">Done !</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>112.000 VND</td>
-                                                <td>3/7/2022 14:22:52</td>
-                                                <td>69.000 VND</td>
-                                                <td><span class="badge badge-success">Done !</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>109.000 VND</td>
-                                                <td>3/7/2022 16:22:52</td>
-                                                <td>47.000 VND</td>
-                                                <td><span class="badge badge-success">Done !</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>109.000 VND</td>
-                                                <td>5/7/2022 07:33:17</td>
-                                                <td>47.000 VND</td>
-                                                <td><span class="badge badge-success">Done !</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>109.000 VND</td>
-                                                <td>6/7/2022 14:59:13</td>
-                                                <td>47.000 VND</td>
-                                                <td><span class="badge badge-success">Done !</span></td>
+                                            <tr th:each="trans : ${transactionlist}">
+                                                <td th:text="${trans.transno}"></td>
+                                                <td type="number" th:text="${trans.amount}"></td>
+                                                <td type="date" th:text="${trans.datetime}"></td>
+                                                <td th:text="${trans.channel}"></td>
+                                                <td> 
+                                                    <span th:if="${trans.stype == 'e-Booking'}">E-payment Booking</span> 
+                                                    <span th:if="${trans.stype == 'e-Recharge'}">E-payment Recharge</span> 
+                                                </td>
+                                                <td th:text="${trans.parkingname}"></td>
+                                                <td>
+                                                    <span th:if="${trans.statuscode == 0}" class="badge badge-success">Success!</span>
+                                                    <span th:unless="${trans.statuscode == 0}" class="badge badge-success">Failed!</span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
