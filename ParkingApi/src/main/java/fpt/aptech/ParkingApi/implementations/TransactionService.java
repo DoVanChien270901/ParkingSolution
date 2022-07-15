@@ -466,6 +466,6 @@ public class TransactionService implements ITransaction {
 
     @Override
     public Transactioninformation getbyTransNo(String transno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return _transactionRepository.getByTransNo(transno);
     }
 }

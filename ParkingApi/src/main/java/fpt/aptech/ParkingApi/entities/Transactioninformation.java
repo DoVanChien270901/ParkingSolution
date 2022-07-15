@@ -90,7 +90,7 @@ public class Transactioninformation implements Serializable {
     @Column(name = "stype")
     private String stype;
     @JoinColumn(name = "parkingname", referencedColumnName = "name")
-    @ManyToOne(optional = false)
+    @ManyToOne()
     private Parkinglocation parkingname;
     @JoinColumn(name = "accountid", referencedColumnName = "username")
     @ManyToOne(optional = false)

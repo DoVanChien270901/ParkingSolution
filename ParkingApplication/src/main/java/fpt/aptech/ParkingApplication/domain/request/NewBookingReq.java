@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fpt.aptech.ParkingApi.dto.request;
+package fpt.aptech.ParkingApplication.domain.request;
 
 import java.time.LocalDateTime;
 
@@ -20,8 +20,17 @@ public class NewBookingReq {
     private String parkingname;
     private boolean walletparking;
 
-    
     public NewBookingReq() {
+    }
+
+    public NewBookingReq(String username, LocalDateTime starttime, int timenumber, String carname, String lisenceplates, String parkingname, boolean walletparking) {
+        this.username = username;
+        this.starttime = starttime;
+        this.timenumber = timenumber;
+        this.carname = carname;
+        this.lisenceplates = lisenceplates;
+        this.parkingname = parkingname;
+        this.walletparking = walletparking;
     }
 
     public String getUsername() {

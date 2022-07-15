@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 public interface TransactionRepo extends JpaRepository<Transactioninformation, String> {
 
-//    @Query("SELECT p FROM Transactioninformation p WHERE p.transno.transno = :transno")
-//    Transactioninformation getByTransNo(@PathVariable("transno") String transno);
-
+    @Query("SELECT p FROM Transactioninformation p WHERE p.transno.transno = :transno")
+    Transactioninformation getByTransNo(@PathVariable("transno") String transno);
     @Query(name = "getListTransByUsername", nativeQuery = true)
     List<TransactionRes> getListTransByUsername(@Param("username") String username);
 }

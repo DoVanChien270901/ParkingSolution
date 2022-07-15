@@ -44,8 +44,8 @@ public class BookingController {
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
     public ResponseEntity<?> newBooking(@RequestBody NewBookingReq bookingReq) {
         //String username = _jwtUtil.extracUsername(token.substring(7));
-        String username = "username1";
-        if (!bookingReq.isWalletparking()) {
+        String username = bookingReq.getUsername();
+        if (bookingReq.isWalletparking()) {
             boolean result = _profileServices.deductionBalanceForBooking(bookingReq.getTimenumber(), username, bookingReq.getParkingname());
             if (!result) {
                 return new ResponseEntity("Insufficient balance", HttpStatus.METHOD_NOT_ALLOWED);
