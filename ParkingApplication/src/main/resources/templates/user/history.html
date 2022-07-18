@@ -71,8 +71,8 @@
                                         <tbody>
                                             <tr th:each="trans : ${transactionlist}">
                                                 <td th:text="${trans.transno}"></td>
-                                                <td type="number" th:text="${trans.amount}"></td>
-                                                <td type="date" th:text="${trans.datetime}"></td>
+                                                <td type="number" th:text="${#numbers.formatInteger(trans.amount, 3, 'POINT')}"></td>
+                                                <td type="date" th:text="${#temporals.format(trans.datetime, 'dd-MM-yyyy HH:mm')}"></td>
                                                 <td th:text="${trans.channel}"></td>
                                                 <td> 
                                                     <span th:if="${trans.stype == 'e-Booking'}">E-payment Booking</span> 

@@ -5,17 +5,20 @@
  */
 package fpt.aptech.ParkingApplication.domain.response;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author PCvinhvizg
  */
-public class TransactionRes {
+public class TransactionRes implements Serializable {
 
     private String transno;
     private Double amount;
     private String channel;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime datetime;
     private String stype;
     private String parkingname;
@@ -76,7 +79,5 @@ public class TransactionRes {
     public void setStatuscode(Integer statuscode) {
         this.statuscode = statuscode;
     }
-
-    
 
 }
