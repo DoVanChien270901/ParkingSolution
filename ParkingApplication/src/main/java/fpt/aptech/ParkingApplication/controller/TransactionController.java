@@ -17,7 +17,6 @@ import fpt.aptech.ParkingApplication.domain.response.PageTransactionRes;
 import fpt.aptech.ParkingApplication.domain.response.ProfileRes;
 import fpt.aptech.ParkingApplication.domain.response.TransactionRes;
 import fpt.aptech.ParkingApplication.utils.ModelMapperUtil;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -59,7 +58,7 @@ public class TransactionController {
 
     @RequestMapping("/pay")
     public String pay(Model model) {
-        return "user/payment-detail";
+        return "user/e-payment-detail";
     }
 
     @RequestMapping(value = "/e-payment-detail", method = RequestMethod.GET)
@@ -70,33 +69,31 @@ public class TransactionController {
             if (requestid.isEmpty()) {
                 requestid = allMap.get("apptransid");
             }
-            
+
             EPaymentRes orderRes = (EPaymentRes) session.getAttribute(requestid);
             HttpEntity transRequest = restTemplate.setRequest(orderRes.getTransactionReq());
             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "checkStatus", HttpMethod.POST, transRequest, EPaymentRes.class);
             EPaymentRes orderResponse = (EPaymentRes) response.getBody();
             if (orderResponse.getReturnCode().equals(0) && orderRes.getTransactionReq().getStype().equals("e-Booking")) {
                 // create booking
-                BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderResponse.getTransactionReq().getParkingname());
+                BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderRes.getTransactionReq().getParkingname());
                 NewBookingReq newBookingReq = new NewBookingReq(
                     orderRes.getTransactionReq().getUsername(),
                     bookingReq.getStarttime(), bookingReq.getTimenumber(), bookingReq.getCarname(),
                     bookingReq.getLisenceplates(), bookingReq.getParkingname(),
-                    true
+                    false
                 );
                 HttpEntity newbookingRequest = restTemplate.setRequest(newBookingReq);
                 ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, HttpStatus.class);
-                HttpStatus status = (HttpStatus) newbookingResponse.getBody();
+                HttpStatus status = newbookingResponse.getStatusCode();
                 if (status.equals(HttpStatus.OK)) {
-                    
+                    model.addAttribute("transactionReq", orderRes.getTransactionReq());
+                    return "user/e-payment-detail";
                 }
+            } else {
+                model.addAttribute("transactionReq", orderRes.getTransactionReq());
+                return "user/e-payment-detail";
             }
-
-//            System.out.println(orderResponse.getReturnCode());
-            //lấy session key = transNo, value = ...
-            //check status với transNo = true
-            //
-            //nếu value.type = e-Booking => goi api booking
             return "user/e-payment-detail";
         } catch (Exception e) {
             return "badrequest";

@@ -1,89 +1,79 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
 
-<head>
-    <meta charset="utf-8">
-    <title>Parking.Go | Index Page</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-</head>
-<style>
-</style>
+    <head>
+        <meta charset="utf-8">
+        <title>Parking.Go | Index Page</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    </head>
+    <style>
+    </style>
 
-<body>
-    <section layout:fragment="user-content">
-        <!-- Carousel Start -->
-        <div class="container-xxl py-5 booking-create">
-            <div class="container">
-                <div class="pb-4 pt-4">
-                    <h2 class="text-primary text-uppercase text-center">// Payment Successfull! //</h2>
-                    <br>
-                    <center><img class="col-1" th:src="@{/assetsc/img/icon-success-circle-green-tick.png}" alt="Image">
-                    </center>
-                </div>
-
-                <center>
-                    <div class="col-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> No</lable>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> 12342534435645</lable>
-                            </div>
-                        </div>
-                        <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Amount</lable>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> 1000.0</lable>
-                            </div>
-                        </div>
-                        <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Date Time</lable>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> 2022-07-10T17:23:18.637</lable>
-                            </div>
-                        </div>
-                        <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Channel</lable>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Momo</lable>
-                            </div>
-                        </div>
-                        <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Type</lable>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> E-payment Booking</lable>
-                            </div>
-                        </div>
-                        <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Parking Name</lable>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> parking1</lable>
-                            </div>
-                        </div>
-                        <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Status</lable>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class=""></i> Success!</lable>
-                            </div>
+    <body>
+        <section layout:fragment="user-content">
+            <!-- Carousel Start -->
+            <div class="container-xxl py-5 booking-create">
+                <div class="container">
+                    <div class="pb-4 pt-4">
+                        <h2 class="text-primary text-uppercase text-center">// Payment Successfull! //</h2>
+                        <br>
+                        <center><img class="col-1" th:src="@{/assetsc/img/icon-success-circle-green-tick.png}" alt="Image">
+                        </center>
+                        <br>
+                    </div>
+                    <div class="box">
+                        <div class="row">
+                            <center>
+                                <form th:object="${transactionReq}">
+                                    <div class="col-md-5">
+                                        <div class="row g-4 mb-3 pb-3">
+                                            <div class="col-md-6 d-flex align-items-center justify-content-md-start">
+                                                <lable> No</lable>
+                                            </div>
+                                            <div class="col-md-6 d-flex align-items-center justify-content-md-end">
+                                                <lable th:text="*{paymentReq.transno}"  ></lable>
+                                            </div>
+                                        </div>
+                                        <div class="row g-4 mb-3 pb-3">
+                                            <div class="col-md-6 d-flex align-items-center justify-content-md-start">
+                                                <lable> Name</lable>
+                                            </div>
+                                            <div class="col-md-6 d-flex align-items-center justify-content-md-end">
+                                                <lable  th:text="*{username}">  </lable>
+                                            </div>
+                                        </div>
+                                        <div class="row g-4 mb-3 pb-3">
+                                            <div class="col-md-6  d-flex align-items-center justify-content-md-start">
+                                                <lable> Amount</lable>
+                                            </div>
+                                            <div class="col-md-6  d-flex align-items-center justify-content-md-end">
+                                                <lable th:text="*{amount}"> </lable>
+                                            </div>
+                                        </div>
+                                        <div class="row g-4 mb-3 pb-3">
+                                            <div class="col-md-6 d-flex align-items-center justify-content-md-start">
+                                                <lable > Channel</lable>
+                                            </div>
+                                            <div class="col-md-6 d-flex align-items-center justify-content-md-end">
+                                                <lable th:text="*{paymentReq.channel}"> </lable>
+                                            </div>
+                                        </div>
+                                        <div class="row g-4 mb-3 pb-3">
+                                            <div class="col-md-6  d-flex align-items-center justify-content-md-start">
+                                                <lable> Type</lable>
+                                            </div>
+                                            <div class="col-md-6  d-flex align-items-center justify-content-md-end">
+                                                <lable th:text="*{stype}"> </lable>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </center>
                         </div>
                     </div>
-                </center>
-            </div>
-            <!-- Carousel End -->
-    </section>
-</body>
+                </div>
+                <!-- Carousel End -->
+        </section>
+    </body>
 
 </html>
