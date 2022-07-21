@@ -8,16 +8,21 @@ package fpt.aptech.ParkingApi.controller;
 import fpt.aptech.ParkingApi.dto.enumm.PaymentChannel;
 import fpt.aptech.ParkingApi.dto.request.CheckStatusPaymentReq;
 import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
+import fpt.aptech.ParkingApi.dto.request.EBookingReq;
 import fpt.aptech.ParkingApi.dto.request.ERechargeReq;
 import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
+import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
+import fpt.aptech.ParkingApi.utils.JwtUtil;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TransactionController {
 
+    @Autowired
+    private ParkingRepo _parkingRepo;
+    @Autowired
+    private JwtUtil _jwtTokenUtil;
     @Autowired
     private ITransaction _transactionServices;
 
@@ -57,7 +66,6 @@ public class TransactionController {
             orderRequest.setAmount(rechargeReq.getAmount());
             orderRequest.setStype("e-Recharge");
             EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
-            
             TransactionReq transactionReq = new TransactionReq();
             transactionReq.setAmount(rechargeReq.getAmount());
             transactionReq.setStype(orderRequest.getStype());
@@ -66,7 +74,6 @@ public class TransactionController {
             statusPaymentReq.setTransno(orderRequest.getTransno());
             transactionReq.setPaymentReq(statusPaymentReq);
             transactionRes.setTransactionReq(transactionReq);
-            
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -75,11 +82,11 @@ public class TransactionController {
 
     //doit
     @RequestMapping(value = "/e-booking", method = RequestMethod.POST)
-    public ResponseEntity<?> eBooking(@RequestBody ERechargeReq rechargeReq) {
+    public ResponseEntity<?> eBooking(@RequestBody EBookingReq bookingReq) {
         //something code
         try {
             CreateOrderReq orderRequest = new CreateOrderReq();
-            switch (rechargeReq.getChannel()) {
+            switch (bookingReq.getChannel()) {
                 case "Momo":
                     orderRequest.setChannel(PaymentChannel.Momo);
                     break;
@@ -90,21 +97,21 @@ public class TransactionController {
                     orderRequest.setChannel(PaymentChannel.ATM);
             }
             orderRequest.setTransno(String.valueOf(System.currentTimeMillis()));
-            orderRequest.setAmount(rechargeReq.getAmount());
+            Double amount  = _parkingRepo.getRencostByName(bookingReq.getParkingname()) * bookingReq.getTimenumber();
+            orderRequest.setAmount(amount.longValue());
             orderRequest.setStype("e-Booking");
             EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
-            
+//_parkingRepo.getRencostByName(bookingReq.getParkingname()) * bookingReq.getTimenumber()
             //set TransactionReq
             TransactionReq transactionReq = new TransactionReq();
-            transactionReq.setAmount(rechargeReq.getAmount());
+            transactionReq.setAmount(amount.longValue());
             transactionReq.setStype(orderRequest.getStype());
+            transactionReq.setParkingname(bookingReq.getParkingname());
             CheckStatusPaymentReq statusPaymentReq = new CheckStatusPaymentReq();
             statusPaymentReq.setChannel(orderRequest.getChannel());
             statusPaymentReq.setTransno(orderRequest.getTransno());
             transactionReq.setPaymentReq(statusPaymentReq);
             transactionRes.setTransactionReq(transactionReq);
-            //thiếu set booking name
-            
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -145,9 +152,12 @@ public class TransactionController {
         }
     }
 
-    @RequestMapping(value = "/user-transactions-history", method = RequestMethod.GET)
-    public ResponseEntity<?> getTransactionHistory(@RequestParam("username") String username, @RequestParam("page") int page, @RequestParam("size") int size) {
+    @RequestMapping(value = "/user-transactions", method = RequestMethod.GET)
+    public ResponseEntity<?> getTransactionHistory(@RequestHeader("Authorization") String token, @RequestParam("page") int page, @RequestParam("size") int size) {
+
         try {
+
+            String username = _jwtTokenUtil.extracUsername(token.substring(7));
             PageTransactionRes transactionRes = _transactionServices.getByUserName(username, page, size);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (Exception e) {

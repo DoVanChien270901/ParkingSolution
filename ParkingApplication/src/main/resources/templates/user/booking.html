@@ -15,56 +15,62 @@
                         <h2 class="text-primary text-uppercase text-center">// Đong Phuong 4 Restaurant  //</h2>
                         <marquee class="text-primary">309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam</marquee>
                     </div>
-                    <form>
+                    <form th:action="@{/booking}" th:object="${bookingReq}" method="POST">
+                        
                         <div class="row g-4 mb-3 pb-3">
                             <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class="fa fa-car"></i> Car Name</lable>
-                                <input type="text" value="" class="form-control mb-4"/>
-                                <lable><i class="fa fa-clock"></i> Start Time</lable>
-                                <input type="number" value="0" class="form-control mb-4"/>
+                                <lable><i class="fa fa-car"></i> Parking Name</lable>
+                                <input  th:field="*{parkingname}" type="text" value="" class="form-control mb-4"/>
                             </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class="fa fa-id-card"></i> License Plates</lable>
-                                <input type="text" value="" class="form-control mb-4"/>
-                                <lable><i class="fa fa-times"></i> Timer Number</lable>
-                                <input type="number" value="0" class="form-control mb-4"/>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-12 col-sm-12 amount">
-                                <lable><i class="fa fa-wallet"></i> Choose Payment Method</lable>
-                                <div class="p-2">
-                                    <div class="row">
-                                        <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                            <img class="momo" th:src="@{/assetsc/img/momo.png}">
-                                            <span class="p-1">
-                                                Momo
-                                            </span>
-                                            <input style="width: 20px;" class="" type="radio" name="payment" checked="true"> 
-                                        </div>
-                                        <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                            <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
-                                            <span class="p-1">ZaloPay</span>
-                                            <input style="width: 20px;" class="" type="radio" name="payment"> 
-                                        </div>
-                                        <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                            <img class="wallet" th:src="@{/assetsc/img/wallet.png}">
-                                            <span class="p-1">Wallet</span>
-                                            <input style="width: 20px;" class="" type="radio" name="payment"> 
+                            <div class="row g-4 mb-3 pb-3">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <lable><i class="fa fa-car"></i> Car Name</lable>
+                                    <input  th:field="*{carname}" type="text" value="" class="form-control mb-4"/>
+                                    <lable><i class="fa fa-clock"></i> Start Time</lable>
+                                    <input type="datetime-local" th:field="*{starttime}" value="" class="form-control mb-4"/>
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <lable><i class="fa fa-id-card"></i> License Plates</lable>
+                                    <input type="text" th:field="*{lisenceplates}" value="" class="form-control mb-4"/>
+                                    <lable><i class="fa fa-times"></i> Timer Number</lable>
+                                    <input type="number" th:field="*{timenumber}" value="0" class="form-control mb-4"/>
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-12 col-sm-12 amount">
+                                    <lable><i class="fa fa-wallet"></i> Choose Payment Method</lable>
+                                    <div class="p-2">
+                                        <div class="row">
+                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
+                                                <img class="momo" th:src="@{/assetsc/img/momo.png}">
+                                                <span class="p-1">
+                                                    Momo
+                                                </span>
+                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Momo"  name="payment" checked="true"> 
+                                            </div>
+                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
+                                                <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
+                                                <span class="p-1">ZaloPay</span>
+                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Zalopay" name="payment"> 
+                                            </div>
+                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
+                                                <img class="wallet" th:src="@{/assetsc/img/wallet.png}">
+                                                <span class="p-1">Wallet</span>
+                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Wallet"  name="payment"> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12 col-lg-6 col-md-12 col-sm-12">
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <input type="text" value="0 VND" class="form-control mb-4" readonly="true"/>
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 button-edit">
+                                    <!-- Cancel Start -->
+                                    <button type="submit" id="save-booking" class="btn btn-success mt-0 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Booking</button>
+                                    <button type="button" id="back-to-google-map" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back</button>
+                                    <!-- Cancel End -->
+                                </div>
                             </div>
-                            <div class="col-12 col-lg-6 col-md-12 col-sm-12">
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <input type="text" value="0 VND" class="form-control mb-4" readonly="true"/>
-                            </div>
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12 button-edit">
-                                <!-- Cancel Start -->
-                                <button type="button" id="save-booking" class="btn btn-success mt-0 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Booking</button>
-                                <button type="button" id="back-to-google-map" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back</button>
-                                <!-- Cancel End -->
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>

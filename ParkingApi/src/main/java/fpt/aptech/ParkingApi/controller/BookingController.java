@@ -41,9 +41,11 @@ public class BookingController {
     private JwtUtil _jwtUtil;
 
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
-    public ResponseEntity<?> newBbookingooking(@RequestBody NewBookingReq bookingReq) {
-        if (!bookingReq.isWalletparking()) {
-            boolean result = _profileServices.deductionBalanceForBooking(bookingReq.getTimenumber(), bookingReq.getUsername(), bookingReq.getParkingname());
+    public ResponseEntity<?> newBooking(@RequestBody NewBookingReq bookingReq) {
+        //String username = _jwtUtil.extracUsername(token.substring(7));
+        String username = bookingReq.getUsername();
+        if (bookingReq.isWalletparking()) {
+            boolean result = _profileServices.deductionBalanceForBooking(bookingReq.getTimenumber(), username, bookingReq.getParkingname());
             if (!result) {
                 return new ResponseEntity("Insufficient balance", HttpStatus.METHOD_NOT_ALLOWED);
             }
@@ -58,7 +60,7 @@ public class BookingController {
         bookingQrContent.setUsername(bookingReq.getUsername());
         bookingQrContent.setBookingid(booking.getId());
         _qrcodeService.create(qrcode, bookingQrContent);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(booking.getId(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list-booking", method = RequestMethod.GET)

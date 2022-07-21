@@ -4,23 +4,25 @@
  */
 package fpt.aptech.ParkingApi.entities;
 
+import fpt.aptech.ParkingApi.dto.response.TransactionRes;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.NamedNativeQuery;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -30,6 +32,28 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "transactioninformation")
 @XmlRootElement
+//trans-list
+@NamedNativeQuery(
+        name = "getListTransByUsername",
+        query = "SELECT b.transno AS transno, b.amount AS amount, b.channel AS channel, b.datetime AS datetime, "
+            + "b.stype AS stype, b.parkingname AS parkingname, b.statuscode AS statuscode "
+        + " FROM Transactioninformation b WHERE b.accountid = :username ORDER BY b.datetime DESC",
+        resultSetMapping = "CustomeResultTransactionList"
+)
+@SqlResultSetMapping(
+        name = "CustomeResultTransactionList",
+        classes = @ConstructorResult(targetClass = TransactionRes.class,
+                columns = {
+                    @ColumnResult(name = "transno", type = String.class),
+                    @ColumnResult(name = "amount", type = Double.class),
+                    @ColumnResult(name = "channel", type = String.class),
+                    @ColumnResult(name = "datetime", type = LocalDateTime.class),
+                    @ColumnResult(name = "stype", type = String.class),
+                    @ColumnResult(name = "parkingname", type = String.class),
+                    @ColumnResult(name = "statuscode", type = Integer.class)
+                })
+)
+
 @NamedQueries({
     @NamedQuery(name = "Transactioninformation.findAll", query = "SELECT t FROM Transactioninformation t"),
     @NamedQuery(name = "Transactioninformation.findByTransno", query = "SELECT t FROM Transactioninformation t WHERE t.transno = :transno"),
@@ -66,7 +90,7 @@ public class Transactioninformation implements Serializable {
     @Column(name = "stype")
     private String stype;
     @JoinColumn(name = "parkingname", referencedColumnName = "name")
-    @ManyToOne
+    @ManyToOne()
     private Parkinglocation parkingname;
     @JoinColumn(name = "accountid", referencedColumnName = "username")
     @ManyToOne(optional = false)

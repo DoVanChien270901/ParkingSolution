@@ -3,37 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.ParkingApi.dto.response;
+package fpt.aptech.ParkingApplication.domain.response;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author PCvinhvizg
  */
-public class TransactionRes  {
+public class TransactionRes implements Serializable {
 
     private String transno;
     private Double amount;
     private String channel;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime datetime;
     private String stype;
     private String parkingname;
     private Integer statuscode;
-
-    public TransactionRes() {
-    }
-
-    
-    public TransactionRes(String transno, Double amount, String channel, LocalDateTime datetime, String stype, String parkingname, Integer statuscode) {
-        this.transno = transno;
-        this.amount = amount;
-        this.channel = channel;
-        this.datetime = datetime;
-        this.stype = stype;
-        this.parkingname = parkingname;
-        this.statuscode = statuscode;
-    }
 
     public String getTransno() {
         return transno;
