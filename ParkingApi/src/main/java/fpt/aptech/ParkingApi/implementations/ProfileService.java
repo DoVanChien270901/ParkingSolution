@@ -12,7 +12,6 @@ import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.dto.response.PageProfileRes;
 import fpt.aptech.ParkingApi.dto.response.UserDetailsRes;
 import fpt.aptech.ParkingApi.dto.response.ProfileRes;
-import fpt.aptech.ParkingApi.entities.Account;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
 import fpt.aptech.ParkingApi.repositorys.ParkingRepo;

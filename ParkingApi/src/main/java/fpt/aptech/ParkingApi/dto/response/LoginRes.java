@@ -15,6 +15,7 @@ public class LoginRes implements Serializable {
     private String token;
     private String username;
     private String fullname;
+    private double balance;
     private String email;
     private Roles role;
 
@@ -45,6 +46,14 @@ public class LoginRes implements Serializable {
         this.fullname = fullname;
     }
 
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -61,5 +70,4 @@ public class LoginRes implements Serializable {
         this.role = role;
     }
 
-    
 }

@@ -4,14 +4,21 @@
  */
 package fpt.aptech.ParkingApi.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author vantu
  */
-public class EditProfileReq {
+public class EditProfileReq implements Serializable {
 
     private Integer identitycard;
     private String fullname;
@@ -43,8 +50,9 @@ public class EditProfileReq {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
+    public void setDob(String dob) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
+        this.dob = LocalDate.parse(dob, formatter);
     }
 
     public String getEmail() {

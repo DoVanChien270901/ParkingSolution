@@ -126,3 +126,10 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function(){
+    $('#shop-item-name table tbody tr').click(function(){ 
+        var id = $(this).attr('value');
+        window.location.href = "booking-details?id="+id;
+    });
+});
+

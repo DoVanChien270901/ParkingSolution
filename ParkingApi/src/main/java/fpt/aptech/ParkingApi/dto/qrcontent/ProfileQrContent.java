@@ -9,13 +9,23 @@ package fpt.aptech.ParkingApi.dto.qrcontent;
  * @author CHIEN
  */
 public class ProfileQrContent {
+
+    private String username;
     private String fullname;
     private Double balance;
     private int identitycard;
 
     public ProfileQrContent() {
     }
-    
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getFullname() {
         return fullname;
     }
@@ -39,6 +49,5 @@ public class ProfileQrContent {
     public void setIdentitycard(int identitycard) {
         this.identitycard = identitycard;
     }
-    
-    
+
 }

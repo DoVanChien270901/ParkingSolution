@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import fpt.aptech.parkinggo.R;
+import fpt.aptech.parkinggo.callback.CustomProgressDialog;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -22,12 +26,20 @@ public class RegisterActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         // Title Bar
         actionBar.setTitle("Register");
+        CustomProgressDialog dialog = new CustomProgressDialog(RegisterActivity.this);
+        Button button = findViewById(R.id.a_login_btn_signin);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivityForResult(myIntent, 0);
+        startActivity(myIntent);
         return true;
     }
 }

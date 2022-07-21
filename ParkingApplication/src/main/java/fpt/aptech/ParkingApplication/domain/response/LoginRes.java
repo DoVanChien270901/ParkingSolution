@@ -13,6 +13,7 @@ public class LoginRes {
     private String token;
     private String username;
     private String fullname;
+    private Double balance;
     private String email;
     private Roles role;
 
@@ -41,6 +42,14 @@ public class LoginRes {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     public String getEmail() {

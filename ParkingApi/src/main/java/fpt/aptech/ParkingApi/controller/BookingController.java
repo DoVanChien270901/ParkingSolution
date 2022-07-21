@@ -14,7 +14,6 @@ import fpt.aptech.ParkingApi.entities.Booking;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
 import fpt.aptech.ParkingApi.interfaces.IBooking;
-import fpt.aptech.ParkingApi.interfaces.IParking;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
@@ -51,14 +50,14 @@ public class BookingController {
                 return new ResponseEntity("Insufficient balance", HttpStatus.METHOD_NOT_ALLOWED);
             }
         }
-        Booking booking = _bookingService.create(bookingReq, username);
+        Booking booking = _bookingService.create(bookingReq);
         //create qrcode
         Qrcode qrcode = new Qrcode();
         qrcode.setTitle(TitleQrCode.BOOKING.toString());
         qrcode.setCreatedate(LocalDateTime.now());
-        qrcode.setAccountid(new Profile(username));
+        qrcode.setAccountid(new Profile(bookingReq.getUsername()));
         BookingQrContent bookingQrContent = new BookingQrContent();
-        bookingQrContent.setUsername(username);
+        bookingQrContent.setUsername(bookingReq.getUsername());
         bookingQrContent.setBookingid(booking.getId());
         _qrcodeService.create(qrcode, bookingQrContent);
         return new ResponseEntity(booking.getId(),HttpStatus.OK);

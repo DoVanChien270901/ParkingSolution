@@ -466,6 +466,7 @@ public class TransactionService implements ITransaction {
 
     @Override
     public Transactioninformation getbyTransNo(String transno) {
+
         return _transactionRepository.getByTransNo(transno);
     }
 }

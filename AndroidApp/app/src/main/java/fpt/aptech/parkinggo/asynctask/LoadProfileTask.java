@@ -1,5 +1,6 @@
 package fpt.aptech.parkinggo.asynctask;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -17,63 +18,89 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import fpt.aptech.parkinggo.R;
+import fpt.aptech.parkinggo.callback.CallBack;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
 import fpt.aptech.parkinggo.domain.response.ProfileRes;
 import fpt.aptech.parkinggo.statics.Session;
 
 public class LoadProfileTask extends AsyncTask<Void, Void, ResponseEntity<?>> {
-    private View view;
-    private EditText fullName;
-    private EditText dob;
-    private EditText email;
-    private EditText iCard;
-    private EditText phone;
-    private EditText balance;
-    private ImageView qrcode;
-    public LoadProfileTask(View view) {
-        this.view = view;
+    private CallBack callBack;
+    private Activity activity;
+    public LoadProfileTask(Activity activity, final CallBack callBack) {
+        this.activity = activity;
+        this.callBack = callBack;
     }
-
-    @Override
-    protected void onPreExecute() {
-        fullName = view.findViewById(R.id.f_profile_et_fullname);
-        dob = view.findViewById(R.id.f_profile_et_dob);
-        email = view.findViewById(R.id.f_profile_et_email);
-        iCard = view.findViewById(R.id.f_profile_et_icard);
-        phone = view.findViewById(R.id.f_profile_et_phone);
-        balance = view.findViewById(R.id.f_profile_et_balance);
-        qrcode = view.findViewById(R.id.f_profile_imv_qrcode);
-
-    }
-
     @Override
     protected ResponseEntity<?> doInBackground(Void... voids) {
         LoginRes account = (LoginRes) Session.getSession();
         HttpEntity request = RestTemplateConfiguration.setRequest(account.getToken());
-        String uri = view.getResources().getString(R.string.URL_BASE)+"user";
+        String uri = activity.getString(R.string.URL_BASE)+"user";
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(uri, HttpMethod.GET, request, ProfileRes.class);
         return response;
     }
-
     @Override
     protected void onPostExecute(ResponseEntity<?> response) {
-        if (response.getStatusCode() == HttpStatus.OK){
-            ProfileRes profileRes = (ProfileRes) response.getBody();
-            fullName.setText(profileRes.getFullname());
-            //convert yyyy/mm/dd to dd/mm/yyyy
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-            dob.setText(formatter2.format(LocalDate.parse(profileRes.getDob(), formatter)));
-            email.setText(profileRes.getEmail());
-            iCard.setText(profileRes.getIdentitycard().toString());
-            phone.setText(profileRes.getPhone().toString());
-            balance.setText(profileRes.getBalance().toString());
-            Bitmap bmp = BitmapFactory.decodeByteArray(profileRes.getQrContent(), 0, profileRes.getQrContent().length);
-            qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
-        }else{
-            //no do thing
-        }
+            callBack.callback(response);
     }
+
+
+//    private View view;
+//    private EditText fullName;
+//    private EditText dob;
+//    private EditText email;
+//    private EditText iCard;
+//    private EditText phone;
+//    private EditText balance;
+//    private ImageView qrcode;
+//
+//    public LoadProfileTask() {
+//    }
+//
+//    public LoadProfileTask(View view) {
+//        this.view = view;
+//    }
+//
+//    @Override
+//    protected void onPreExecute() {
+//        fullName = view.findViewById(R.id.f_profile_et_fullname);
+//        dob = view.findViewById(R.id.f_profile_et_dob);
+//        email = view.findViewById(R.id.f_profile_et_email);
+//        iCard = view.findViewById(R.id.f_profile_et_icard);
+//        phone = view.findViewById(R.id.f_profile_et_phone);
+//        balance = view.findViewById(R.id.f_profile_et_balance);
+//        qrcode = view.findViewById(R.id.f_profile_imv_qrcode);
+//
+//    }
+//
+//    @Override
+//    protected ResponseEntity<?> doInBackground(Void... voids) {
+//        LoginRes account = (LoginRes) Session.getSession();
+//        HttpEntity request = RestTemplateConfiguration.setRequest(account.getToken());
+//        String uri = view.getResources().getString(R.string.URL_BASE)+"user";
+//        ResponseEntity<?> response = RestTemplateConfiguration
+//                .excuteRequest(uri, HttpMethod.GET, request, ProfileRes.class);
+//        return response;
+//    }
+//
+//    @Override
+//    protected void onPostExecute(ResponseEntity<?> response) {
+//        if (response.getStatusCode() == HttpStatus.OK){
+//            ProfileRes profileRes = (ProfileRes) response.getBody();
+//            fullName.setText(profileRes.getFullname());
+//            //convert yyyy/mm/dd to dd/mm/yyyy
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+//            dob.setText(formatter2.format(LocalDate.parse(profileRes.getDob(), formatter)));
+//            email.setText(profileRes.getEmail());
+//            iCard.setText(profileRes.getIdentitycard().toString());
+//            phone.setText(profileRes.getPhone().toString());
+//            balance.setText(profileRes.getBalance().toString());
+//            Bitmap bmp = BitmapFactory.decodeByteArray(profileRes.getQrcontent(), 0, profileRes.getQrcontent().length);
+//            qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
+//        }else{
+//            //no do thing
+//        }
+//    }
 }

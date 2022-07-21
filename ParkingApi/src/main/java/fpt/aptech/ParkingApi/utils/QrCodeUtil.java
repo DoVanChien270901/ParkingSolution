@@ -95,7 +95,7 @@ public class QrCodeUtil {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SERRET_KEY).parseClaimsJws(token).getBody();
     }
 

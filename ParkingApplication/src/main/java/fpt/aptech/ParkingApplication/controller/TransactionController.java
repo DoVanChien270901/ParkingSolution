@@ -20,6 +20,7 @@ import fpt.aptech.ParkingApplication.utils.ModelMapperUtil;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -45,7 +46,6 @@ public class TransactionController {
 
     @Autowired
     private ModelMapperUtil mapperUtil;
-
     @Autowired
     private RestTemplateConfiguration restTemplate;
 
@@ -55,7 +55,6 @@ public class TransactionController {
         String url = "https://www.google.com/";
         return "redirect:" + url;
     }
-
     @RequestMapping("/pay")
     public String pay(Model model) {
         return "user/e-payment-detail";
@@ -153,7 +152,6 @@ public class TransactionController {
             model.addAttribute("transactionlist", usertransactions);
             return "user/history";
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return "badrequest";
         }
     }

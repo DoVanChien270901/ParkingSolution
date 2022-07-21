@@ -16,8 +16,7 @@ public class EditProfileReq {
 
     private Integer identitycard;
     private String fullname;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate dob;
+    private String dob;
     private String email;
     private Integer phone;
 
@@ -40,11 +39,11 @@ public class EditProfileReq {
         this.fullname = fullname;
     }
 
-    public LocalDate getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

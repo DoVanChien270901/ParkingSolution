@@ -41,7 +41,7 @@
                                     <h2>// Direct Payment //</h2>
                                 </div>
                                 <div class="container amount">
-                                    <lable><i class="fa fa-wallet"></i> 30.000 VND</lable>
+                                    <lable><i class="fa fa-wallet"></i> <span th:text="${balance}"/> VND</lable>
                                 </div>
                                 <form th:action="@{/generator-qrcode}" method="GET">
                                     <div class="row payment">
@@ -65,13 +65,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div th:if="${displaycode}" class="col-12 col-sm-12 col-md-12 col-lg-4 col-qrcode pt-4">
-                                            <img class="qrcode mb-2" th:src="${displaycode}"/>
-                                            <p>Your QR Code</p>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 pt-4 row">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-4"></div>
+                                            <div th:if="${displaycode}" class="col-12 col-sm-12 col-md-12 col-lg-8 col-qrcode pt-4">
+                                                <img class="qrcode mb-2" th:src="${displaycode}"/>
+                                                <p class="text-center">Your QR Code</p> 
+                                            </div>
+                                            <div th:unless="${displaycode}" class="col-12 col-lg-8 col-md-12 col-sm-12 pt-6 col-no-qrcode">
+                                                <img class="no-qrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />
+                                            </div>
                                         </div>
-                                        <div th:unless="${displaycode}" class="col-12 col-lg-6 col-md-12 col-sm-12 pt-4 col-no-qrcode">
-                                            <img class="no-qrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />
-                                        </div>
+
                                         <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
                                             <div class="submit-payment d-flex justify-content-center">
                                                 <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-qrcode"></i> QR Code</button>

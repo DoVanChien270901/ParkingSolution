@@ -66,7 +66,6 @@ public class TransactionController {
             orderRequest.setAmount(rechargeReq.getAmount());
             orderRequest.setStype("e-Recharge");
             EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
-
             TransactionReq transactionReq = new TransactionReq();
             transactionReq.setAmount(rechargeReq.getAmount());
             transactionReq.setStype(orderRequest.getStype());
@@ -75,7 +74,6 @@ public class TransactionController {
             statusPaymentReq.setTransno(orderRequest.getTransno());
             transactionReq.setPaymentReq(statusPaymentReq);
             transactionRes.setTransactionReq(transactionReq);
-
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -114,7 +112,6 @@ public class TransactionController {
             statusPaymentReq.setTransno(orderRequest.getTransno());
             transactionReq.setPaymentReq(statusPaymentReq);
             transactionRes.setTransactionReq(transactionReq);
-
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (JSONException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -157,6 +154,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/user-transactions", method = RequestMethod.GET)
     public ResponseEntity<?> getTransactionHistory(@RequestHeader("Authorization") String token, @RequestParam("page") int page, @RequestParam("size") int size) {
+
         try {
 
             String username = _jwtTokenUtil.extracUsername(token.substring(7));
