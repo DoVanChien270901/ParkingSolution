@@ -37,7 +37,7 @@ import org.springframework.format.annotation.DateTimeFormat;
         name = "getListTransByUsername",
         query = "SELECT b.transno AS transno, b.amount AS amount, b.channel AS channel, b.datetime AS datetime, "
             + "b.stype AS stype, b.parkingname AS parkingname, b.statuscode AS statuscode "
-        + " FROM Transactioninformation b WHERE b.accountid = :username",
+        + " FROM Transactioninformation b WHERE b.accountid = :username ORDER BY b.datetime DESC",
         resultSetMapping = "CustomeResultTransactionList"
 )
 @SqlResultSetMapping(

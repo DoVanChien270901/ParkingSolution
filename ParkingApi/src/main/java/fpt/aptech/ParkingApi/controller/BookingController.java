@@ -61,7 +61,7 @@ public class BookingController {
         bookingQrContent.setUsername(username);
         bookingQrContent.setBookingid(booking.getId());
         _qrcodeService.create(qrcode, bookingQrContent);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(booking.getId(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list-booking", method = RequestMethod.GET)

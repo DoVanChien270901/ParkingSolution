@@ -79,16 +79,19 @@ public class TransactionController {
                 BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderRes.getTransactionReq().getParkingname());
                 NewBookingReq newBookingReq = new NewBookingReq(
                     orderRes.getTransactionReq().getUsername(),
-                    bookingReq.getStarttime(), bookingReq.getTimenumber(), bookingReq.getCarname(),
-                    bookingReq.getLisenceplates(), bookingReq.getParkingname(),
+                    bookingReq.getStarttime(), 
+                    bookingReq.getTimenumber(), 
+                    bookingReq.getCarname(),
+                    bookingReq.getLisenceplates(), 
+                    bookingReq.getParkingname(),
                     false
                 );
                 HttpEntity newbookingRequest = restTemplate.setRequest(newBookingReq);
-                ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, HttpStatus.class);
+                ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, Integer.class);
                 HttpStatus status = newbookingResponse.getStatusCode();
                 if (status.equals(HttpStatus.OK)) {
-                    model.addAttribute("transactionReq", orderRes.getTransactionReq());
-                    return "user/e-payment-detail";
+                    Integer id = (Integer) newbookingResponse.getBody();
+                    return "redirect:/booking-details?id="+id;
                 }
             } else {
                 model.addAttribute("transactionReq", orderRes.getTransactionReq());
