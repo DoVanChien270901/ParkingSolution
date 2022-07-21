@@ -1,25 +1,27 @@
 package fpt.aptech.parkinggo.domain.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.ext.JodaDeserializers;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ProfileRes implements  Serializable{
     private Integer identitycard;
     private String fullname;
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private String dob;
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    //@JsonFormat(pattern = "yyyy-MM-dd'T'HH: mm: ss.SSS", shape = JsonFormat.Shape.STRING)
+    private LocalDate dob;
     private Double balance;
     private String email;
     private Integer phone;
-    private byte[] qrContent;
+    private byte[] qrcontent;
 
     public ProfileRes() {
     }
@@ -40,12 +42,14 @@ public class ProfileRes implements  Serializable{
         this.fullname = fullname;
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
     public void setDob(String dob) {
-        this.dob = dob;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dob, formatter);
+        this.dob = localDate;
     }
 
     public Double getBalance() {
@@ -72,13 +76,11 @@ public class ProfileRes implements  Serializable{
         this.phone = phone;
     }
 
-    public byte[] getQrContent() {
-        return qrContent;
+    public byte[] getQrcontent() {
+        return qrcontent;
     }
 
-    public void setQrContent(byte[] qrContent) {
-        this.qrContent = qrContent;
+    public void setQrcontent(byte[] qrcontent) {
+        this.qrcontent = qrcontent;
     }
-
-
 }

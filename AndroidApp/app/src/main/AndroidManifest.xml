@@ -12,9 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-
-
-
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight" />
         <activity
             android:name=".activity.RegisterActivity"
             android:exported="false"

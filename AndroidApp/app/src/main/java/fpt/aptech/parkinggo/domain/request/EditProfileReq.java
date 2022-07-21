@@ -1,21 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package fpt.aptech.ParkingApplication.domain.request;
+package fpt.aptech.parkinggo.domain.request;
 
-import java.time.LocalDate;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- *
- * @author CHIEN
- */
-public class EditProfileReq {
+import java.io.Serializable;
+import java.time.LocalDate;
 
+public class EditProfileReq implements Serializable {
     private Integer identitycard;
     private String fullname;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private String dob;
     private String email;
     private Integer phone;
@@ -25,6 +20,14 @@ public class EditProfileReq {
 
     public Integer getIdentitycard() {
         return identitycard;
+    }
+
+    public EditProfileReq(Integer identitycard, String fullname, String dob, String email, Integer phone) {
+        this.identitycard = identitycard;
+        this.fullname = fullname;
+        this.dob = dob;
+        this.email = email;
+        this.phone = phone;
     }
 
     public void setIdentitycard(Integer identitycard) {

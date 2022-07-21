@@ -20,7 +20,7 @@ public class ProfileRes implements Serializable {
     private LocalDate dob;
     private Double balance;
     private String email;
-    private Integer phone;
+    private Integer phone;  
     private byte[] qrcontent;
 
     public ProfileRes() {
@@ -82,4 +82,4 @@ public class ProfileRes implements Serializable {
         this.qrcontent = qrcontent;
     }
 
-}
+}   

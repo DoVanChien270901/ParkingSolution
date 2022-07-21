@@ -30,53 +30,91 @@ fetch(api, requestOptions)
         })
         .catch((error) => console.log("error", error));
 
-function listElements(name, addr, calulate) {
+function listElements(parking, calulate) {
     const ul = document.querySelector('.list-items');
     const li = document.createElement('li');
     const div = document.createElement('div');
-    //const div1 = document.createElement('div');
     const a = document.createElement('a');
     const address = document.createElement('p');
     const radius = document.createElement('p');
-    const button = document.createElement('button');
-
+    const button = document.createElement('a');
+    const row14 = document.createElement('row');
+    const row24 = document.createElement('row');
+    const col14 = document.createElement('col');
+    const col24 = document.createElement('col');
+    const col34 = document.createElement('col');
+    const col44 = document.createElement('col');
+    const nop = document.createElement('p');
+    const rentcost = document.createElement('p');
     // div 
     div.classList.add('shop-item');
     div.setAttribute('id', 'shop-item');
-    // div 
-//    div1.setAttribute('id', 'item-parking');
-//    div1.setAttribute('value', name);
+    //div.setAttribute('value', parking.name);
 
     // name
-    a.innerHTML = name;
+    a.innerHTML = parking.name;
     a.href = '#';
     a.classList.add('shop-item-name');
     a.setAttribute('id', 'shop-item-name');
 
     // address
-    address.innerHTML = addr;
+    address.innerHTML = parking.address;
 
     // radius
-    radius.innerHTML = calulate.toFixed(3) + ' km ';
+    radius.setAttribute('id', 'radius');
+    radius.innerHTML = '<i class="fa fa-road"></i> ' + calulate.toFixed(3) + ' km ';
+
+    nop.setAttribute('id', 'nop');
+    nop.innerHTML = '<i class="fa fa-chair"></i> ' + parking.blank + "/" + parking.nop;
 
     // button booking
+    button.href = './booking?parkingname=' + parking.name;
     button.setAttribute('class', 'booking-list');
-    button.setAttribute('type', 'button');
-    //button.setAttribute('id', 'item-parking');
-    button.setAttribute('value', name);
-    button.innerHTML = '<i class="fa fa-parking"></i> ' + 'Booking';
-
+    //button.setAttribute('type', 'button');
+    button.innerHTML = 'Booking';
+    button.setAttribute('value', parking.name);
+    
+    // rentcost
+    rentcost.setAttribute('class', 'salary');
+    rentcost.innerHTML = '<i class="fa fa-money-check"></i> ' + parking.rentcost;
+    // row 
+    row14.classList.add('row');
+    row24.classList.add('row');
+    // col14 
+    col14.classList.add('col-6');
+    col14.classList.add('pt-2');
+    // col24
+    col24.classList.add('col-6');
+    col24.classList.add('pt-2');
+    // col34
+    col34.classList.add('col-6');
+    col34.classList.add('pt-2'); 
+    // col44
+    col44.classList.add('col-6');
+    col44.classList.add('p-2');
+    
     div.appendChild(a);
     div.appendChild(address);
-    div.appendChild(radius);
-    radius.appendChild(button);
+    // div row
+    div.appendChild(row14);
+    div.appendChild(row24);
+    // row 
+    row14.appendChild(col14);
+    row14.appendChild(col24);
+    row24.appendChild(col34);
+    row24.appendChild(col44);
+    col14.appendChild(radius);
+    col24.appendChild(nop);
+    col34.appendChild(rentcost);
+    col44.appendChild(button);
+    
     li.appendChild(div);
     ul.appendChild(li);
 }
-
-function contentElement(name, address) {
-    return '<div id="content-parking">' + '<strong>' + name + '</strong>' + '<br/>' + address + '<div class="p-1"></div>' +
-            '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>';
+function contentElement(parking) {
+    return '<div id="content-parking">' + '<strong>' + parking.name + '</strong>' + '<br/>' + parking.address + '<div class="p-1"></div>' +
+        '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>' + '&nbsp&nbsp' +
+        '<button type="button" class="booking-box" id=""><i class="fa fa-fa fa-parking"></i> Booking</button>';
 }
 
 function calculate(lat1, lat2, long1, long2) {
@@ -105,7 +143,7 @@ function showPlace(latpos, longpos) {
         var radius = 10.000;
         // show multiple marker
         if (cal < radius) {
-            listElements(parkingLocations[i].name, parkingLocations[i].address, cal);
+            listElements(parkingLocations[i], cal);
         }
         //console.log(req.des);
         var markerParking, i;
@@ -117,7 +155,7 @@ function showPlace(latpos, longpos) {
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
         };
-        var contentOnMarker = contentElement(parkingLocations[i]['name'], parkingLocations[i]['address']);
+        var contentOnMarker = contentElement(parkingLocations[i]);
         // create marker
         markerParking = new google.maps.Marker({
             position: new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']),
@@ -127,8 +165,12 @@ function showPlace(latpos, longpos) {
         });
         google.maps.event.addListener(markerParking, "click", (function (markerParking, i) {
             return function () {
+                var placePos = inforwindow.setPosition(this.position);
                 inforwindow.setContent(this.content);
-                inforwindow.open(map, markerParking);
+                inforwindow.open(map, placePos);
+                // inforwindow.setOptions({
+                //     pixelOffset: new google.maps.Size(5.55, -24.5)
+                // });
                 map.panTo(this.position);
                 showDirection(this.position);
             }
@@ -142,15 +184,13 @@ function showPlace(latpos, longpos) {
             for (var i in parkingLocations) {
                 if (idParking == parkingLocations[i]['name']) {
                     var posI = new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']);
-                    var contentOnShop = contentElement(parkingLocations[i]['name'], parkingLocations[i]['address']);
-                    markerParking = new google.maps.Marker({
-                        position: posI,
-                        map: map,
-                        icon: iconParking,
-                        content: contentOnShop
-                    });
-                    inforwindow.setContent(markerParking.content);
-                    inforwindow.open(map, markerParking);
+                    var contentOnShop = contentElement(parkingLocations[i]);
+                     var placeListPos = inforwindow.setPosition(posI)
+                    inforwindow.setContent(contentOnShop);
+                    // inforwindow.setOptions({
+                    //     pixelOffset: new google.maps.Size(5.55, -24.5)
+                    // });
+                    inforwindow.open(map);
                     map.panTo(posI);
                     showDirection(posI);
                 }
@@ -189,21 +229,17 @@ function showDirection(data) {
     });
 }
 
-function getPosition() {
-    navigator.geolocation.getCurrentPosition(function (position) {
-        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        map.setCenter(initialLocation);
-    });
-}
-
 function showMap() {
     inforwindow = new google.maps.InfoWindow();
+     inforwindow.setOptions({
+        pixelOffset: new google.maps.Size(5.55, -24.5)
+    });
     window.navigator.geolocation.getCurrentPosition(function (pos) {
         lat = pos.coords.latitude;
         long = pos.coords.longitude;
         map = new google.maps.Map(document.getElementById("map"), {
             center: {lat: lat, lng: long},
-            zoom: 14,
+            zoom: 15,
             fullscreenControl: false,
             streetViewControl: false,
         });
@@ -220,12 +256,18 @@ function showMap() {
                 strokeColor: '#ffffff'
             }
         });
+        document.getElementById("getLocation").addEventListener("click", function() {
+            map.setCenter(markerLocation.position);
+        });
         showPlace(lat, long);
     });
 }
+
 $(document).ready(function () {
     $('#shop-item booking-list').click(function () {
         var id = $(this).attr('value');
         console.log(id);
     });
 });
+
+

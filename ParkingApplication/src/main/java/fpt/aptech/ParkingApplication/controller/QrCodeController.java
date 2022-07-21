@@ -13,9 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author CHIEN
  */
 @Controller
-public class QrCode {
+public class QrCodeController {
     @RequestMapping("scan-qrcode/recharge")
-    public String page(Model model) {
+    public String scanRecharge(Model model) {
         return "handle/scan-qrcode-recharge";
+    }
+    @RequestMapping("scan-qrcode/booking")
+    public String scanBooking(Model model) {
+        return "handle/scan-qrcode-booking";
+    }
+    @RequestMapping("scan-qrcode/new-booking")
+    public String newBooking(Model model) {
+        return "handle/scan-qrcode-newbooking";
     }
 }

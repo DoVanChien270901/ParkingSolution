@@ -9,12 +9,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.text.DecimalFormat;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
@@ -30,6 +37,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     private TextView tvName;
     private TextView tvEmail;
+    private TextView tvBalance;
+    private ImageButton ibtnEdit;
+    private ImageView qrcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +56,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View header = navigationView.getHeaderView(0);
         tvName = header.findViewById(R.id.hd_tv_name);
         tvEmail = header.findViewById(R.id.hd_tv_email);
+        tvBalance = header.findViewById(R.id.hd_tv_balance);
+        qrcode = header.findViewById(R.id.f_profile_imv_qrcode);
         LoginRes loginRes = (LoginRes) Session.getSession();
         tvName.setText(loginRes.getFullname());
         tvEmail.setText(loginRes.getEmail());
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        tvBalance.setText(formatter.format(loginRes.getBalance()) + " VND");
+        Bitmap bmp = BitmapFactory.decodeByteArray(loginRes.getQrcode(), 0, loginRes.getQrcode().length);
+        qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
         /*--------------------------------Tool Bar--------------------------*/
         //setSupportActionBar(toolbar);
         /*--------------------------------Navigation Drawer Menu--------------------------*/
@@ -58,6 +74,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        /*-------------------------------- Event Edit Profile--------------------------*/
+        ibtnEdit = header.findViewById(R.id.hd_ibtn_edit);
+        ibtnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

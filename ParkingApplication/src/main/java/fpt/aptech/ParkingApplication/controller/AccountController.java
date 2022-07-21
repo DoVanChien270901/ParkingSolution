@@ -68,7 +68,7 @@ public class AccountController {
                         case admin:
                             return "redirect:/home/admin";
                         case handle:
-                            return "redirect:/home/handler";
+                            return "redirect:/home/handle";
                         default:
                             return "redirect:/login";
                     }

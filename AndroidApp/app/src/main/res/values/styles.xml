@@ -9,4 +9,9 @@
         <item name="windowNoTitle">true</item>
         <item name="android:fontFamily">@font/baloo</item>
     </style>
+    <style name="AppTheme.ActionBar">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/baloo</item>
+    </style>
 </resources>

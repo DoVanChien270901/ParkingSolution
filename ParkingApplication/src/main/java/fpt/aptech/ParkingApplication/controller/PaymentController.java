@@ -38,30 +38,22 @@ public class PaymentController {
     @RequestMapping("/d-payment")
     public String dpayment(Model model, HttpSession session) {
         LoginRes loginRes = (LoginRes) session.getAttribute("account");
-            String token = loginRes.getToken();
-            HttpEntity request = RestTemplateConfiguration.setRequest(token);
-            ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "user", HttpMethod.GET, request, ProfileRes.class);
-            ProfileRes profileRes = (ProfileRes) response.getBody();
-            model.addAttribute("balance", String.valueOf(profileRes.getBalance()));
+        model.addAttribute("balance", String.valueOf(loginRes.getBalance()));
         return "user/d-payment";
     }
 
     @RequestMapping("generator-qrcode")
     public String generatorQrcode(@RequestParam(value = "amount", required = true) double amount,
-            HttpSession session, Model model) {
-            LoginRes loginRes = (LoginRes) session.getAttribute("account");
-            String token = loginRes.getToken();
-            HttpEntity request = RestTemplateConfiguration.setRequest(token);
-            ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "user", HttpMethod.GET, request, ProfileRes.class);
-            ProfileRes profileRes = (ProfileRes) response.getBody();
-            model.addAttribute("balance", String.valueOf(profileRes.getBalance()));
-        ContentQrCodeForRecharge qrcontent = new ContentQrCodeForRecharge(loginRes.getUsername(), amount);
-
+        HttpSession session, Model model) {
+        LoginRes account = (LoginRes) session.getAttribute("account");
+        HttpEntity request = RestTemplateConfiguration.setRequest(account.getToken());
+        ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "qr-code/generated/payment?amount=" + amount, HttpMethod.POST, request, byte[].class);
         StringBuilder sb = new StringBuilder();
         sb.append("data:image/png;base64,");
-        sb.append(new String(Base64.getEncoder().encode(_qrCodeUtil.generQrCode(qrcontent, 650, 650))));
+        sb.append(new String(Base64.getEncoder().encode((byte[]) response.getBody())));
         sb.toString();
         model.addAttribute("displaycode", sb.toString());
+        model.addAttribute("balance", String.valueOf(account.getBalance()));
         return "user/d-payment";
     }
 

@@ -58,13 +58,13 @@
                             </a>
                         </li>                      
                         <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle">
+                            <a class="dropdown-toggle">
                                 <span class="micon dw dw-book"></span><span class="mtext">Scan QR Code</span>
                             </a>
                             <ul class="submenu">
                                 <li><a th:href="@{/scan-qrcode/recharge}">Recharge Wallet Parking</a></li>
-                                <li><a>?</a></li>
-                                <li><a>?</a></li>
+                                <li><a th:href="@{/scan-qrcode/booking}">Parking tickets</a></li>
+                                <li><a th:href="@{/scan-qrcode/new-booking}">New Booking</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -108,7 +108,8 @@
         <script th:src="@{/src/plugins/datatables/js/dataTables.responsive.min.js}"></script>
         <script th:src="@{/src/plugins/datatables/js/responsive.bootstrap4.min.js}"></script>
         <script th:src="@{/vendorsc/scripts/fix.js}"></script>
-        <script th:src="@{/vendorsc/scripts/show-hide.js}"></script>
+        <script th:src="@{/vendorsc/scripts/show-hide.js}"></script>    
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" layout:fragment="code-javascript"></script>
     </body>
 

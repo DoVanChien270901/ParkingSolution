@@ -5,6 +5,7 @@
 package fpt.aptech.ParkingApi.dto.request;
 
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -12,6 +13,8 @@ import java.time.LocalDateTime;
  */
 public class NewBookingReq {
 
+    private String username;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime starttime;
     private int timenumber;
     private String carname;
@@ -20,6 +23,14 @@ public class NewBookingReq {
     private boolean walletparking;
 
     public NewBookingReq() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public LocalDateTime getStarttime() {

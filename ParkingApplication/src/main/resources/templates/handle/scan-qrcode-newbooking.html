@@ -239,18 +239,18 @@
                 //call api get list parking
                 let myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
-
+                
                 var raw = JSON.stringify({
                     qrcontent: content
                 });
-
+                
                 var requestOptions = {
                     method: "POST",
                     headers: myHeaders,
                     body: raw,
                     redirect: "follow"
                 };
-                var api = "http://localhost:8080/qr-code/content-recharge";
+                var api = "http://localhost:8080/qr-code/content-profile";
                 fetch(api, requestOptions)
                         .then((response) => {
                             if (response.status == 200) {
@@ -266,123 +266,12 @@
                             }
                         })
                         .then((result) => {
-                            //formComfirmE(result.fullname, result.amount);
-                            alertFormComfirm(result.username, result.amount)
+                            window.location.href = "./new-booking?username=" +result.username;
                         })
                         .catch((error) => console.log("error", error));
                 console.log(this);
                 scanner.stop();
             });
-            function formComfirmE(name, amount) {
-                const main = document.querySelector('.form-comfirm');
-                const h3 = document.createElement('h3');
-                const label = document.createElement('label');
-                const accept = document.createElement('button');
-                const cancel = document.createElement('button');
-                const div = document.createElement('div');
-                h3.innerText = 'Comfirm Request';
-                label.innerText = 'User ' + name + ' requested to top up the wallet with an amount of ' + amount;
-
-                accept.setAttribute('type', 'button');
-                accept.setAttribute('class', 'btn btn-primary');
-                cancel.setAttribute('type', 'button');
-                cancel.setAttribute('class', 'btn btn-danger', '#form-comfirm-cancel');
-                accept.innerText = 'Accept';
-                cancel.innerText = 'Cancel';
-
-                div.setAttribute('class', 'd-flex justify-content-end col-ms-12 col-md-12 col-lg-12');
-
-                main.appendChild(h3);
-                main.appendChild(label);
-                div.appendChild(accept);
-                div.appendChild(cancel);
-                main.appendChild(div);
-                main.style.display = "block";
-
-                $(document).ready(function () {
-                    $('#form-comfirm div button').click(function () {
-                        var btnname = this.textContent;
-                        if (btnname == 'Accept') {
-                            console.log('click accept');
-                            Swal.fire(
-                                    'Good job!',
-                                    'You clicked the button!',
-                                    'success'
-                                    );
-                            //callApiRecharge(qrcontent);
-                        } else if (btnname == 'Cancel') {
-                            console.log('click cancel');
-                        }
-                    });
-                });
-            }
-            function callApiRecharge(requestbody) {
-                //call api get list parking
-                let myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/json");
-
-                var raw = JSON.stringify({
-                    qrcontent: requestbody
-                });
-                var requestOptions = {
-                    method: "POST",
-                    headers: myHeaders,
-                    body: raw,
-                    redirect: "follow"
-                };
-                var api = "http://localhost:8080/qr-code/scan-recharge";
-                fetch(api, requestOptions)
-                        .then((response) => {
-                            if (response.status == 200) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Successful recharge wallet',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                scanner.start();
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!!!',
-                                    text: 'Invalid qr code...',
-                                    confirmButtonText: 'Retry?'
-                                });
-                            }
-                        })
-                        .catch((error) => console.log("error", error));
-            }
-            function alertFormComfirm(name, amount) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger',
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    buttonsStyling: false
-                });
-
-                swalWithBootstrapButtons.fire({
-                    title: 'Confirm recharge request?',
-                    text: 'User ' + name + ' requested to top up the wallet with an amount of ' + amount + ' VND',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept!',
-                    cancelButtonText: 'Cancel!',
-                    reverseButtons: true
-                }
-                ).then((result) => {
-                    if (result.isConfirmed) {
-                        callApiRecharge(qrcontent);
-                    } else if (
-                            /* Read more about handling dismissals below */
-                            result.dismiss === Swal.DismissReason.cancel
-                            ) {
-                        scanner.start();
-                    }
-                }
-                );
-            }
         </script>
     </body>
 </html>
