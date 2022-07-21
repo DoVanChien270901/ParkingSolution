@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <!-- Basic Page Info -->
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/core.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/icon-font.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/src/plugins/datatables/css/dataTables.bootstrap4.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/src/plugins/datatables/css/responsive.bootstrap4.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/fix.css}">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+        <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="header-left">
+                <div class="menu-icon dw dw-menu"></div>
+            </div>
+            <div class="header-right">
+                <div class="user-info-dropdown">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                            <span class="user-icon">
+                                <img th:src="@{/vendorsc/images/male.jpg}" alt="">
+                            </span>
+                            <span class="user-name">Admin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                            <a class="dropdown-item" href=""><i class="dw dw-user1"></i> Profile</a>
+                            <a class="dropdown-item" href=""><i class="dw dw-logout"></i> Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="left-side-bar">
+            <div class="brand-logo">
+                <a href="">
+                    <img th:src="@{/vendorsc/images/icon.png}" alt="" class="light-logo">
+                    <span>arkingGo</span>
+                </a>
+                <div class="close-sidebar" data-toggle="left-sidebar-close">
+                    <i class="ion-close-round"></i>
+                </div>
+            </div>
+            <div class="menu-block customscroll">
+                <div class="sidebar-menu">
+                    <ul id="accordion-menu">
+                        <li>
+                            <a href="" class="dropdown-toggle no-arrow">
+                                <span class="micon dw dw-house-1"></span><span class="mtext">Dashboard</span>
+                            </a>
+                        </li>                      
+                        <li class="dropdown">
+                            <a class="dropdown-toggle">
+                                <span class="micon dw dw-book"></span><span class="mtext">Scan QR Code</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a th:href="@{/scan-qrcode/recharge}">Recharge Wallet Parking</a></li>
+                                <li><a th:href="@{/scan-qrcode/booking}">Parking tickets</a></li>
+                                <li><a th:href="@{/scan-qrcode/new-booking}">New Booking</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-book"></span><span class="mtext">Parking</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a th:href="@{list-parking}">View</a></li>
+                                <li><a th:href="@{parking-history}">History</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-money"></span><span class="mtext">Recharge</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="">View</a></li>
+                                <li><a href="">History</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="" class="dropdown-toggle no-arrow">
+                                <span class="micon dw dw-message"></span><span class="mtext">Feedback</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-menu-overlay"></div>
+        <!-- Admin Content Start -->
+        <div class="main-container" layout:fragment="handle-content"></div>
+        <!-- Admin Content End -->
+        <!-- JavaScript -->
+        <script th:src="@{/vendorsc/scripts/core.js}"></script>
+        <script th:src="@{/vendorsc/scripts/script.min.js}"></script>
+        <script th:src="@{/vendorsc/scripts/process.js}"></script>
+        <script th:src="@{/vendorsc/scripts/layout-settings.js}"></script>
+        <script th:src="@{/src/plugins/datatables/js/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/src/plugins/datatables/js/dataTables.bootstrap4.min.js}"></script>
+        <script th:src="@{/src/plugins/datatables/js/dataTables.responsive.min.js}"></script>
+        <script th:src="@{/src/plugins/datatables/js/responsive.bootstrap4.min.js}"></script>
+        <script th:src="@{/vendorsc/scripts/fix.js}"></script>
+        <script th:src="@{/vendorsc/scripts/show-hide.js}"></script>    
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript" layout:fragment="code-javascript"></script>
+    </body>
+
+</html>

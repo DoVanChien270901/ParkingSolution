@@ -24,4 +24,8 @@ public class HomeController {
     public String homeAdmin() {
         return "admin/index";
     }
+    @RequestMapping("/handle")
+    public String homeHandle() {
+        return "handle/index";
+    }
 }

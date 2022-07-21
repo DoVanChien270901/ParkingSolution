@@ -7,10 +7,13 @@ package fpt.aptech.ParkingApi.repositorys;
 import fpt.aptech.ParkingApi.dto.response.BookingDetailRes;
 import fpt.aptech.ParkingApi.dto.response.BookingRes;
 import fpt.aptech.ParkingApi.entities.Booking;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -18,8 +21,23 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author CHIEN-
  */
 public interface BookingRepo extends JpaRepository<Booking, Integer> {
+
     @Query(name = "getListBookingByUsername", nativeQuery = true)
-    List<BookingRes> getListBookingByUsername(@Param("username")String username);
+    List<BookingRes> getListBookingByUsername(@Param("username") String username);
+
     @Query(name = "getDetailBookingById", nativeQuery = true)
-    BookingDetailRes getDetailBookingById(@Param("id")int id);
+    BookingDetailRes getDetailBookingById(@Param("id") int id);
+
+    @Query(name = "Booking.findById")
+    Booking getBookingById(@Param("id") int id);
+
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query("UPDATE Booking b SET b.status = :status, b.checkin = :checkin WHERE b.id = :id")
+    int updateStatusAndCheckIn(@PathVariable("status") String status, @PathVariable("checkin") LocalDateTime checkin, @PathVariable("id") int id);
+    
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query("UPDATE Booking b SET b.status = :status, b.checkout = :checkout WHERE b.id = :id")
+    int updateStatusAndCheckOut(@PathVariable("status") String status, @PathVariable("checkout") LocalDateTime checkout, @PathVariable("id") int id);
 }

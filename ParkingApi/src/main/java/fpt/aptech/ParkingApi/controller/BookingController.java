@@ -41,23 +41,21 @@ public class BookingController {
     private JwtUtil _jwtUtil;
 
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
-    public ResponseEntity<?> newBooking(@RequestBody NewBookingReq bookingReq) {
-        //String username = _jwtUtil.extracUsername(token.substring(7));
-        String username = "username1";
+    public ResponseEntity<?> newBbookingooking(@RequestBody NewBookingReq bookingReq) {
         if (!bookingReq.isWalletparking()) {
-            boolean result = _profileServices.deductionBalanceForBooking(bookingReq.getTimenumber(), username, bookingReq.getParkingname());
+            boolean result = _profileServices.deductionBalanceForBooking(bookingReq.getTimenumber(), bookingReq.getUsername(), bookingReq.getParkingname());
             if (!result) {
                 return new ResponseEntity("Insufficient balance", HttpStatus.METHOD_NOT_ALLOWED);
             }
         }
-        Booking booking = _bookingService.create(bookingReq, username);
+        Booking booking = _bookingService.create(bookingReq);
         //create qrcode
         Qrcode qrcode = new Qrcode();
         qrcode.setTitle(TitleQrCode.BOOKING.toString());
         qrcode.setCreatedate(LocalDateTime.now());
-        qrcode.setAccountid(new Profile(username));
+        qrcode.setAccountid(new Profile(bookingReq.getUsername()));
         BookingQrContent bookingQrContent = new BookingQrContent();
-        bookingQrContent.setUsername(username);
+        bookingQrContent.setUsername(bookingReq.getUsername());
         bookingQrContent.setBookingid(booking.getId());
         _qrcodeService.create(qrcode, bookingQrContent);
         return new ResponseEntity(HttpStatus.OK);

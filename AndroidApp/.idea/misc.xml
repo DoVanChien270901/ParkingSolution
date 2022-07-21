@@ -7,6 +7,7 @@
         <entry key="..\:/ProjectSem4/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/ProjectSem4/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main_user.xml" value="0.1796875" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/boder_qrcode.xml" value="0.1" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/edit_icon.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/home_icon.xml" value="0.1705" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/logout_icon.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/loguot_icon.xml" value="0.1705" />
@@ -15,17 +16,24 @@
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/profile_icon.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/qr_code_icon.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/font/baloo.xml" value="0.18518518518518517" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_atv1.xml" value="0.12222222222222222" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.22" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_home.xml" value="0.1796875" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_login.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_login_at.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main_user.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_profile.xml" value="0.12222222222222222" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_profile_at.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_register.xml" value="0.14749893116716545" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_testavt1.xml" value="0.12222222222222222" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
-        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/header.xml" value="0.1796875" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/header.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/layout/progress_dialog_loadding.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/menu/actionbar_edit_profile_menu.xml" value="0.3671875" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/menu/user_main_menu.xml" value="0.1796875" />
+        <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.136" />
       </map>
     </option>
   </component>

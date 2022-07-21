@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.*;
  * @author CHIEN
  */
 @RestController
-@CrossOrigin
 public class AccountController {
 
     @Autowired
@@ -75,6 +74,7 @@ public class AccountController {
             res.setUsername(authenticateRequest.getUsername());
             res.setFullname(profile.getFullname());
             res.setEmail(profile.getEmail());
+            res.setBalance(profile.getBalance());
             return ResponseEntity.ok(res);
         } catch (UsernameNotFoundException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
@@ -102,6 +102,7 @@ public class AccountController {
                 res.setUsername(registerRequest.getUsername());
                 res.setRole(Roles.valueOf(role[0].toString()));
                 res.setFullname(profile.getFullname());
+                res.setBalance(profile.getBalance());
                 res.setEmail(profile.getEmail());
                 return ResponseEntity.ok(res);
             } else {

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.EditProfileActivity"
+    android:theme="@style/AppTheme.ActionBar"
+    android:id="@+id/a_editprofile_main_layout"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="650px"
+        android:layout_gravity="center"
+        android:background="#034981"
+        >
+
+        <ImageView
+            android:id="@+id/a_editprofile_imv_qrcode"
+            android:layout_width="420px"
+            android:layout_height="420px"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"></ImageView>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="full name"
+            android:textSize="50px"></TextView>
+        <EditText
+            android:id="@+id/a_editprofile_et_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Dỗ Văn Chiến" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="email"
+            android:textSize="50px"></TextView>
+        <EditText
+            android:id="@+id/a_editprofile_et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
+            android:ems="10"
+            android:text="vanchien270901@gmail.com" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="gender"
+            android:textSize="50px"></TextView>
+        <Spinner
+            android:id="@+id/a_editprofile_spn_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Male" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="day of birth"
+            android:textSize="50px"
+            ></TextView>
+        <EditText
+            android:id="@+id/a_editprofile_et_dob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="27/09/2001"
+            android:editable="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="phone"
+            android:textSize="50px"></TextView>
+        <EditText
+            android:id="@+id/a_editprofile_et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="4567325456" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="identity card"
+            android:textSize="50px"></TextView>
+        <EditText
+            android:id="@+id/a_editprofile_et_icard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="567934578" />
+    </LinearLayout>
+</LinearLayout>

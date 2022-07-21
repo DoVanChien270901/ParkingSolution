@@ -16,17 +16,19 @@ import android.widget.Toast;
 import fpt.aptech.parkinggo.R;
 
 import fpt.aptech.parkinggo.activity.HomeActivity;
+import fpt.aptech.parkinggo.callback.CustomProgressDialog;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.LoginReqBuilder;
 import fpt.aptech.parkinggo.domain.request.LoginReq;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
+import fpt.aptech.parkinggo.domain.response.ProfileRes;
 import fpt.aptech.parkinggo.statics.Session;
 
 public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
     private Activity activity;
     private EditText etUsername;
     private EditText etPassword;
-    private ProgressDialog progressDialog;
+    private CustomProgressDialog dialog;
     public LoginTask() {
     }
 
@@ -46,8 +48,8 @@ public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
             etPassword.setError("Password must be between 6 and 25 characters");
             this.cancel(true);
         }else{
-            progressDialog = new ProgressDialog(activity);
-            progressDialog.show();
+            dialog = new CustomProgressDialog(activity);
+            dialog.show();
         }
     }
 
@@ -60,9 +62,17 @@ public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
                 .setPassword(etPassword.getText().toString())
                 .createLoginReq();
         HttpEntity request = RestTemplateConfiguration.setRequest(loginReq);
-        String uri = activity.getString(R.string.URL_BASE)+"authenticate";
+        String uri = activity.getString(R.string.URL_BASE);
         ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(uri, HttpMethod.POST, request, LoginRes.class);
+                .excuteRequest(uri+"authenticate", HttpMethod.POST, request, LoginRes.class);
+        if (response.getStatusCode() ==HttpStatus.OK){
+            LoginRes loginRes = (LoginRes) response.getBody();
+            HttpEntity request1 = RestTemplateConfiguration.setRequest(loginRes.getToken());
+            ResponseEntity<?> response1 = RestTemplateConfiguration
+                    .excuteRequest(uri+"user", HttpMethod.GET, request1, ProfileRes.class);
+            loginRes.setQrcode(((ProfileRes)response1.getBody()).getQrcontent());
+            Session.setSession(loginRes);
+        }
         return response;
     }
 
@@ -78,18 +88,18 @@ public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
                 case handle: intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
                 default: intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
             }
-            progressDialog.dismiss();
+            dialog.dismiss();
             activity.startActivity(intent);
 //          Intent intent = new Intent(activity.getApplicationContext(), MainActivity.class);
         } else {
-            progressDialog.dismiss();
+            dialog.dismiss();
             Toast.makeText(activity.getApplicationContext(), "User name or password is valid", Toast.LENGTH_LONG).show();
         }
     }
 
-    @Override
-    protected void onProgressUpdate(Integer... values) {
-        //load animation
-        progressDialog.setProgress(values[0]);
-    }
+//    @Override
+//    protected void onProgressUpdate(Integer... values) {
+//        //load animation
+//        dialog.show();
+//    }
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".fragment.ProfileF">
 
@@ -190,12 +190,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp">
 
-        <ImageView
-            android:id="@+id/f_profile_imv_qrcode"
-            android:layout_width="650px"
-            android:layout_height="650px"
-            android:layout_gravity="center"
-            android:src="@drawable/logo"></ImageView>
+            <ImageView
+                android:id="@+id/f_profile_imv_qrcode"
+                android:layout_width="650px"
+                android:layout_height="650px"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"></ImageView>
     </FrameLayout>
 
 

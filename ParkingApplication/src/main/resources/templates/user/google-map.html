@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
+        <!-- Google Map Page Info -->
         <meta charset="utf-8">
         <title>ParkingGo | Google Map Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -34,7 +35,7 @@
                 <i class="fa fa-times"></i>
             </label>
             <label for="" class="location-btn">
-                <button onclick="getPosition()" id="getLocation">
+                <button id="getLocation">
                     <i class="fa fa-map-marker-alt"></i>
                 </button>
             </label>
@@ -55,19 +56,6 @@
                     <div id="list-google-map" class="list-google-map">
                         <p class="result-list">*List of Parking Lot</p>
                         <ul class="list-items"></ul>
-                        <nav aria-label="">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="fa fa-arrow-alt-circle-left"></i></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="fa fa-arrow-alt-circle-right"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </form>
             </nav>
@@ -90,7 +78,7 @@
         <script th:src="@{/assetsc/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js}"></script>
         <!-- JavaScript -->
         <script th:src="@{/assetsc/js/main.js}"></script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnhV4sgNAhuT-EchYl6tjM9L9FQqe5k9U&address=590%20cach%20mang%20thang%208&language=en&fbclid=IwAR1zFsITJV9jYpjNzKuZWM67XCKZqD76bSYVRRLcKyOOvruSZ446LguY0Ew&libraries=places&callback=showMap&v=weekly"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnhV4sgNAhuT-EchYl6tjM9L9FQqe5k9U&address=590%20cach%20mang%20thang%208&language=en&fbclid=IwAR1zFsITJV9jYpjNzKuZWM67XCKZqD76bSYVRRLcKyOOvruSZ446LguY0Ew&libraries=places&v=weekly"></script>
         <script th:src="@{/assetsc/js/map.js}"></script>
     </body>
 </html>

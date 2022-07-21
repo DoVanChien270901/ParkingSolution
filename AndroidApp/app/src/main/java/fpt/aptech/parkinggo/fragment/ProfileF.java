@@ -65,7 +65,7 @@ public class ProfileF extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        new LoadProfileTask(view).execute();
+        //new LoadProfileTask(view).execute();
         return view;
     }
 }

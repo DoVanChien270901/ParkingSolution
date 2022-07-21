@@ -95,8 +95,8 @@ public class Booking implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "starttime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date starttime;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime starttime;
     @Column(name = "timenumber")
     private Integer timenumber;
     @Column(name = "price")
@@ -138,11 +138,11 @@ public class Booking implements Serializable {
         this.id = id;
     }
 
-    public Date getStarttime() {
+    public LocalDateTime getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(Date starttime) {
+    public void setStarttime(LocalDateTime starttime) {
         this.starttime = starttime;
     }
 

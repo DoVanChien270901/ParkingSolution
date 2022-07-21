@@ -5,8 +5,9 @@
 package fpt.aptech.ParkingApi.interfaces;
 
 import fpt.aptech.ParkingApi.dto.qrcontent.ProfileQrContent;
-import fpt.aptech.ParkingApi.dto.request.RechargeByQrCodeReq;
+import fpt.aptech.ParkingApi.dto.request.ScanQrCodeReq;
 import fpt.aptech.ParkingApi.dto.response.QrCodeRes;
+import fpt.aptech.ParkingApi.dto.response.ScanBookingRes;
 import fpt.aptech.ParkingApi.entities.Qrcode;
 
 /**
@@ -18,4 +19,7 @@ public interface IQrCode {
     Boolean delete(Qrcode qrcode);
     Boolean edit(ProfileQrContent profileQrContent, String username, String title);
     QrCodeRes qrCodeRes(String accountid);
+    boolean RechargeByQrContent(ScanQrCodeReq scanQrCodeReq);
+    Object getContent(ScanQrCodeReq scanQrCodeReq);
+    boolean scanQrCodeBooking(ScanQrCodeReq scanQrCodeReq);
 }

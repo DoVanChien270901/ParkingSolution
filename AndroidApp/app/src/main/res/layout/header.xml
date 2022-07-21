@@ -1,26 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:orientation="vertical"
     android:background="#F8EE94"
     android:gravity="bottom"
-    android:paddingLeft="20dp">
+    android:paddingLeft="20dp"
+    >
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="-160dp"
-        android:src="@drawable/logo"></ImageView>
+    <FrameLayout
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:layout_gravity="center"
+        android:background="@drawable/boder_qrcode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.864">
+
+        <ImageView
+            android:id="@+id/f_profile_imv_qrcode"
+            android:layout_width="220px"
+            android:layout_height="220px"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"></ImageView>
+    </FrameLayout>
 
     <TextView
+        android:id="@+id/hd_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:textSize="20dp"
         android:fontFamily="@font/baloo"
-        android:id="@+id/hd_tv_name"
-        ></TextView>
+        android:paddingLeft="10dp"
+        android:text="Đỗ Văn Chiến"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.096"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.353"></TextView>
+
+    <TextView
+        android:id="@+id/hd_tv_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo"
+        android:paddingLeft="10dp"
+        android:text="10000 VND"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.650"></TextView>
 
     <TextView
         android:id="@+id/hd_tv_email"
@@ -28,5 +66,29 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/baloo"
         android:paddingLeft="10dp"
-        android:textSize="14sp"></TextView>
-</LinearLayout>
+
+        android:text="vanchien270901@gmail.com"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.520"></TextView>
+
+
+    <ImageButton
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.898"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.183"
+        android:id="@+id/hd_ibtn_edit"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/edit_icon"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

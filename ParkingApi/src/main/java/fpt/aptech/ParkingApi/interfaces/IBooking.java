@@ -14,7 +14,8 @@ import java.util.List;
  * @author CHIEN
  */
 public interface IBooking {
-    Booking create(NewBookingReq bookingReq, String username);
+    Booking create(NewBookingReq bookingReq);
     List<BookingRes> getListBookingByUsername(String username);
     BookingDetailRes getDetailBookingById(int id, String username);
+    ScanQrCodeBookingRes getBookingById(int id);
 }

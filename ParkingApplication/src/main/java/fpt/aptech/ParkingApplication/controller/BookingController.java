@@ -74,4 +74,12 @@ public class BookingController {
             return "badrequest";
         }
     }
+    @RequestMapping(value = "/new-booking", method = RequestMethod.GET)
+    public String newBooking(@RequestParam("username") String username) {
+        return "handle/booking";
+    }
+    @RequestMapping(value = "/booking", method = RequestMethod.GET)
+    public String newBooking() {
+        return "user/booking";
+    }
 }
