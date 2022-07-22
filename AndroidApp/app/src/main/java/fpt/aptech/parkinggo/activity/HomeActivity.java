@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -21,10 +22,16 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.springframework.http.ResponseEntity;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import fpt.aptech.parkinggo.R;
+import fpt.aptech.parkinggo.asynctask.LoadListParkingTask;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
+import fpt.aptech.parkinggo.domain.response.ParkingRes;
 import fpt.aptech.parkinggo.fragment.HomeF;
 import fpt.aptech.parkinggo.fragment.ProfileF;
 import fpt.aptech.parkinggo.statics.Session;
@@ -111,6 +118,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     replaceFragment(new ProfileF());
 
                 }break;
+                case "Map":
+                if (!currentTitleF.equals("Map")) {
+                    currentTitleF = "Map";
+                    //call api
+                    LoadListParkingTask task = new LoadListParkingTask(HomeActivity.this);
+                    ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
+                    try {
+                        ResponseEntity<?> res = task.execute().get();
+                        parkingRes = (ArrayList<ParkingRes>) res.getBody();
+                    } catch (Exception e) {
+
+                    }
+                    Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+                    intent.putExtra("list", parkingRes);
+                    startActivity(intent);
+                    return true;
+                }break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -122,4 +146,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         transaction.replace(R.id.content_frame, fragment);
         transaction.commit();
     }
+
 }

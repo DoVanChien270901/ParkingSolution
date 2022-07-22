@@ -60,12 +60,13 @@
             android:layout_height="wrap_content"
             android:hint="gender"
             android:textSize="50px"></TextView>
-        <Spinner
-            android:id="@+id/a_editprofile_spn_gender"
+        <EditText
+            android:id="@+id/a_editprofile_et_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
             android:ems="10"
-            android:text="Male" />
+            android:text="vanchien270901@gmail.com" />
 
         <TextView
             android:layout_width="wrap_content"

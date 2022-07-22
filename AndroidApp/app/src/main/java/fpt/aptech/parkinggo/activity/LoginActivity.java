@@ -12,7 +12,7 @@ import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.asynctask.LoginTask;
 
 public class LoginActivity extends AppCompatActivity {
-
+private String a;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
