@@ -1,7 +1,49 @@
 /* Form Login, Register, Reset Password, Forgot Password */
 #form-account-fix .login-box {
-    max-width: 520px;
+    max-width: 480px;
 }
+
+.form-account-register .login-box {
+    max-width: 540px !important;
+}
+
+// set logo with mouse hover normal
+.brand-logo a span {
+    cursor: context-menu;
+}
+
+input[type="date"], .form-check-radio label {
+    opacity: 0.75;
+}
+
+.form-account-register .login-box input[type="date"]:before {
+    content: attr(placeholder);
+    margin-top: -1.5px;
+}
+
+.form-check-radio {
+    -webkit-box-flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+    position: relative;
+    padding-top: 15px;
+}
+.form-check-radio .form-check {
+    background-color: #f4f4f4;
+    border: thin solid #e4e4e4;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form-check-radio .form-check input {
+    left: 25px;
+    top: 10.5px;
+}
+
+.form-check-radio .form-check label {
+    margin-left: 5px;
+}
+
 #form-account-fix .login-box .login-title {
     padding: 0 0 10px !important;
     margin-bottom: 0px !important;
@@ -16,6 +58,25 @@
     font-size:90%;
 }
 
+#form-account-fix .invalid-feedback {
+    display: block;
+    padding-left: 2px;
+}
+
+#form-account-fix .message-box {
+    width: 93.5%; 
+    color: #fff; 
+    background: #dc3545; 
+    display: none;
+    padding: 10px; 
+    position: absolute; 
+    z-index: 999;
+    font-size: 80%;
+}
+
+#form-account-fix .message-col-6 {
+    width: 87% !important;
+}
 
 /* Admin Manager */
 .left-side-bar .brand-logo .light-logo {

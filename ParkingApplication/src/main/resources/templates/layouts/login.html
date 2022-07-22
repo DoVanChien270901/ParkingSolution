@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
     <head>
-        <!-- Basic Page Info -->
+        <!-- Login Page Info -->
         <meta charset="utf-8">
         <title>ParkingGo | Login Page</title>
         <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
@@ -12,16 +11,14 @@
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/icon-font.min.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/style.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/fix.css}">
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
         <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
     </head>
-
     <body class="login-page">
         <!-- Login Start -->
         <div class="login-header box-shadow">
             <div class="container-fluid d-flex justify-content-between align-items-center">
                 <div class="brand-logo">
-                    <a href="">
+                    <a>
                         <img th:src="@{/vendorsc/images/icon.png}" alt="">
                         <span>arkingGo</span>
                     </a>
@@ -49,7 +46,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="input-group custom mt-0">
-                                            <input th:field="*{username}" type="text" class="form-control form-control-lg" placeholder="*Username">
+                                            <input th:field="*{username}" type="text" class="form-control form-control-md" placeholder="*Username">
                                             <div class="input-group-append custom">
                                                 <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                                             </div>
@@ -58,8 +55,8 @@
                                             <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                                         </div>
                                         <br/>
-                                        <div class="input-group custom mt-2">
-                                            <input th:field="*{password}" type="password" class="form-control form-control-lg" placeholder="*Password">
+                                        <div class="input-group custom mt-0">
+                                            <input th:field="*{password}" type="password" class="form-control form-control-md" placeholder="*Password">
                                             <div class="input-group-append custom">
                                                 <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
                                             </div>
@@ -79,11 +76,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="input-group mb-0">
-                                            <button class="btn btn-primary btn-lg btn-block" type="submit" >Sign In</button>
-                                        </div>
-                                        <br>
-                                        <div class="input-group mb-0">
-                                            <a class="btn btn-outline-danger btn-lg btn-block" href=""><i class="fa fa-google-plus"></i> Google</a>
+                                            <button class="btn btn-primary btn-md btn-block" type="submit" >Sign In</button>
                                         </div>
                                     </div>
                                 </div>
@@ -97,8 +90,5 @@
         <!-- JavaScript -->
         <script th:src="@{/vendorsc/scripts/core.js}"></script>
         <script th:src="@{/vendorsc/scripts/script.min.js}"></script>
-        <script th:src="@{/vendorsc/scripts/process.js}"></script>
-        <script th:src="@{/vendorsc/scripts/layout-settings.js}"></script>
     </body>
-
 </html>
