@@ -41,7 +41,7 @@
                             <div class="login-title">
                                 <h2 class="text-center text-primary">Login to Parking Go</h2>
                             </div>
-                            <label class="error-mes " role="alert" th:if="@{errorles}" th:value="${errormes}"></label>
+                            <label class="error-mes " role="alert" th:if="${errormes}" th:text="${errormes}"></label>
                             <form th:action="@{/account/login}" th:object="${authenticate}" method="POST">
                                 <div class="row">
                                     <div class="col-12 col-md-12">

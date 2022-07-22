@@ -43,6 +43,7 @@
                                 <h2 class="text-center text-primary">Register to Parking Go</h2>
                             </div>
                             <form th:action="@{/account/register}" th:object="${registerReq}" method="POST" name="form-register" onsubmit="return validateRegister()">
+                                <label class="error-mes " role="alert" th:if="${errormes}" th:text="${errormes}"></label>
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-12">
                                         <div class="input-group custom mt-4">

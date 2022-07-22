@@ -74,7 +74,7 @@ public class AccountController {
                     }
                 } else {
                     redirectAttributes.addFlashAttribute("authenticate", authenticateReq);
-                    redirectAttributes.addFlashAttribute("errormes", "User name or Password is valid!!");
+                    redirectAttributes.addFlashAttribute("errormes", "Username or password is valid");
                     return "redirect:/account/login";
                 }
             } catch (Exception e) {
@@ -91,23 +91,26 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("registerReq") RegisterReq registerReq, HttpSession session) {
+    public String register(@ModelAttribute("registerReq") RegisterReq registerReq, RedirectAttributes redirectAttributes , HttpSession session) {
         try {
             HttpEntity request = RestTemplateConfiguration.setRequest(registerReq);
             ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "register", HttpMethod.POST, request, LoginRes.class);
             try {
+                
                 if (response.getStatusCode() == HttpStatus.OK) {
                     LoginRes loginRes = (LoginRes) response.getBody();
                     session.setAttribute("account", loginRes);
                     return "redirect:/home/user";
                 } else {
-                    return "redirect:/register";
+                    redirectAttributes.addFlashAttribute("registerReq", registerReq);
+                    redirectAttributes.addFlashAttribute("errormes", "This account has already existed");
+                    return "redirect:/account/register";
                 }
             } catch (Exception e) {
-                return "redirect:/register";
+                return "redirect:/account/register";
             }
         } catch (Exception e) {
-            return "redirect:/register";
+            return "redirect:/account/register";
         }
     }
 //    @RequestMapping(value = "/profile", method = RequestMethod.GET)

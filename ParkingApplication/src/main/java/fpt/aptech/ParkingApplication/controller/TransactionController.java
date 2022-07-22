@@ -65,7 +65,7 @@ public class TransactionController {
         try {
             //check requestid - Momo: requestId , Zalopay: apptransid
             String requestid = allMap.get("requestId");
-            if (requestid.isEmpty()) {
+            if (requestid==null) {
                 requestid = allMap.get("apptransid");
             }
 
@@ -157,9 +157,11 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
-    public String createEBooking(Model model, HttpSession session) {
+    public String createEBooking(@RequestParam("parkingname") String parkingname, Model model, HttpSession session) {
         try {
-            model.addAttribute("bookingReq", new BookingReq());
+            BookingReq b = new BookingReq();
+            b.setParkingname(parkingname);
+            model.addAttribute("bookingReq", b);
             return "user/booking";
 //            return null;
         } catch (Exception e) {
@@ -172,7 +174,7 @@ public class TransactionController {
         try {
             if (bookingReq.getChannel().equals("Wallet")) {
                 HttpEntity request = restTemplate.setRequest(bookingReq);
-                ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, request, ResponseEntity.class);
+                ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, request, String.class);
                 if (response.getStatusCode().equals(HttpStatus.OK)) {
                     return "user/profile";
                 } else {
@@ -185,7 +187,6 @@ public class TransactionController {
                 ebookingReq.setChannel(bookingReq.getChannel());
                 ebookingReq.setParkingname(bookingReq.getParkingname());
                 ebookingReq.setTimenumber(bookingReq.getTimenumber());
-                ebookingReq.setParkingname("parking1");
 
                 HttpEntity request = restTemplate.setRequest(ebookingReq);
                 ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "e-booking", HttpMethod.POST, request, EPaymentRes.class);

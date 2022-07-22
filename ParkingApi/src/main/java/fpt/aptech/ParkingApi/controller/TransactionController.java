@@ -16,6 +16,11 @@ import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +52,13 @@ public class TransactionController {
         return "Test";
     }
 
+    public static String getCurrentTimeString(String format) {
+        Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT+7"));
+        SimpleDateFormat fmt = new SimpleDateFormat(format);
+        fmt.setCalendar(cal);
+        return fmt.format(cal.getTimeInMillis());
+    }
+
     @RequestMapping(value = "/e-recharge", method = RequestMethod.POST)
     public ResponseEntity<?> eRecharge(@RequestBody ERechargeReq rechargeReq) {
         //something code
@@ -62,7 +74,7 @@ public class TransactionController {
                 case "ATM":
                     orderRequest.setChannel(PaymentChannel.ATM);
             }
-            orderRequest.setTransno(String.valueOf(System.currentTimeMillis()));
+            orderRequest.setTransno(getCurrentTimeString("yyMMdd") + "_" + new Date().getTime());
             orderRequest.setAmount(rechargeReq.getAmount());
             orderRequest.setStype("e-Recharge");
             EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
@@ -96,8 +108,8 @@ public class TransactionController {
                 case "ATM":
                     orderRequest.setChannel(PaymentChannel.ATM);
             }
-            orderRequest.setTransno(String.valueOf(System.currentTimeMillis()));
-            Double amount  = _parkingRepo.getRencostByName(bookingReq.getParkingname()) * bookingReq.getTimenumber();
+            orderRequest.setTransno(getCurrentTimeString("yyMMdd") + "_" + new Date().getTime());
+            Double amount = _parkingRepo.getRencostByName(bookingReq.getParkingname()) * bookingReq.getTimenumber();
             orderRequest.setAmount(amount.longValue());
             orderRequest.setStype("e-Booking");
             EPaymentRes transactionRes = _transactionServices.createOrder(orderRequest);
