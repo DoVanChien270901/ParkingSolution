@@ -194,8 +194,7 @@
                 android:id="@+id/f_profile_imv_qrcode"
                 android:layout_width="650px"
                 android:layout_height="650px"
-                android:layout_gravity="center"
-                android:src="@drawable/logo"></ImageView>
+                android:layout_gravity="center"></ImageView>
     </FrameLayout>
 
 

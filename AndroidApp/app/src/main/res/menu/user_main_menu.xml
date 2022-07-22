@@ -16,8 +16,8 @@
                     android:title="Profile"></item>
                 <item
                     android:id="@+id/user_nav_profil"
-                    android:icon="@drawable/qr_code_icon"
-                    android:title="...?"></item>
+                    android:icon="@drawable/map_icon"
+                    android:title="Map"></item>
                 <item
                     android:id="@+id/user_nav_logout"
                     android:icon="@drawable/qr_code_icon"
