@@ -425,7 +425,7 @@ public class TransactionService implements ITransaction {
             transactionRes.setReturnCode(result.getInt("returncode"));
             transactionRes.setReturnMessage(result.getString("returnmessage"));
             transactionRes.setSignature(String.valueOf(result.getBoolean("isprocessing")));
-            transactionRes.setTransNo(String.valueOf(result.getLong("zptransid")));
+            transactionRes.setTransNo((checkStatusReq.getTransno()));
 
 //            Map<String, Object> kq = new HashMap<>();
 //            kq.put("returncode", result.get("returncode"));

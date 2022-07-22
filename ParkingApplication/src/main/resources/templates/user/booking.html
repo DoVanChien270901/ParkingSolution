@@ -12,16 +12,13 @@
             <div class="container-xxl py-5 booking-create">
                 <div class="container">
                     <div class="pb-4 pt-4">
-                        <h2 class="text-primary text-uppercase text-center">// Đong Phuong 4 Restaurant  //</h2>
+                        <h2 class="text-primary text-uppercase text-center" th:text="${bookingReq.parkingname}"></h2>
                         <marquee class="text-primary">309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam</marquee>
                     </div>
                     <form th:action="@{/booking}" th:object="${bookingReq}" method="POST">
                         
                         <div class="row g-4 mb-3 pb-3">
-                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <lable><i class="fa fa-car"></i> Parking Name</lable>
-                                <input  th:field="*{parkingname}" type="text" value="" class="form-control mb-4"/>
-                            </div>
+                            <input  th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>
                             <div class="row g-4 mb-3 pb-3">
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                     <lable><i class="fa fa-car"></i> Car Name</lable>
