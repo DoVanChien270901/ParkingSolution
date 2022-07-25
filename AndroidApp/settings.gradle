@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ParkingGO"
 include ':app'
+include ':zpdk-release'

@@ -178,7 +178,7 @@ public class TransactionController {
                 if (response.getStatusCode().equals(HttpStatus.OK)) {
                     return "user/profile";
                 } else {
-                    return "redirect:https://www.facebook.com/";
+                    return "badrequest";
                 }
             } else {
                 LoginRes loginRes = (LoginRes) session.getAttribute("account");

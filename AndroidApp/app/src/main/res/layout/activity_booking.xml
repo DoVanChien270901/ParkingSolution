@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:context=".activity.BookingActivity">
+
+    <TextView
+        android:id="@+id/a_booking_et_parkingname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="10dp"
+        android:freezesText="false"
+        android:text="Parkingname"
+        android:textAlignment="center"
+        android:textColor="#034981"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/a_booking_et_carname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Car Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/a_booking_et_lisenceplates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Lisenceplates"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/a_booking_et_timenum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Time Number"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/a_booking_et_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="DateTime"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp">
+
+        <RadioButton
+            android:id="@+id/a_booking_rb_momo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Momo" />
+
+        <RadioButton
+            android:id="@+id/a_booking_rb_zalopay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zalopay" />
+
+        <RadioButton
+            android:id="@+id/a_booking_rb_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Momo" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/a_booking_btn_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#3F51B5"
+        android:text="Book" />
+
+</LinearLayout>

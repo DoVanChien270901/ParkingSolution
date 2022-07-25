@@ -68,8 +68,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         LoginRes loginRes = (LoginRes) Session.getSession();
         tvName.setText(loginRes.getFullname());
         tvEmail.setText(loginRes.getEmail());
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
-        tvBalance.setText(formatter.format(loginRes.getBalance()) + " VND");
+//        DecimalFormat formatter = new DecimalFormat("###,###,###");
+//        tvBalance.setText(formatter.format(loginRes.getBalance()) + " VND");
+        tvBalance.setText(loginRes.getBalance() + " VND");
         Bitmap bmp = BitmapFactory.decodeByteArray(loginRes.getQrcode(), 0, loginRes.getQrcode().length);
         qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
         /*--------------------------------Tool Bar--------------------------*/

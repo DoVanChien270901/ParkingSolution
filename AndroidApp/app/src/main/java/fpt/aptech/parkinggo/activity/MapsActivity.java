@@ -266,6 +266,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 TextView snippet = bottomSheetView.findViewById(R.id.txtAddress);
                 ImageButton direction = bottomSheetView.findViewById(R.id.direction);
                 ImageButton getStart = bottomSheetView.findViewById(R.id.start);
+                ImageButton booking = bottomSheetView.findViewById(R.id.booking);
                 // Get Position and Put on Destination
                 destination = marker.getPosition();
                 // OnClick Direction
@@ -294,6 +295,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 startActivity(intent);
                             }
                         }
+                    }
+                });
+                // OnClick Booking
+                booking.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //booking detail Actitvity
+                        Intent intent = new Intent(MapsActivity.this, BookingActivity.class);
+                        intent.putExtra("parkingname", name.getText().toString());
+                        startActivity(intent);
                     }
                 });
                 // Set Text, ContentView

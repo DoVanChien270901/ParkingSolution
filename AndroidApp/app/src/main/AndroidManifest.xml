@@ -16,8 +16,11 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.BookingActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MapsActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false"
