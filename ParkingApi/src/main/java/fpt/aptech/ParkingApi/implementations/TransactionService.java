@@ -39,6 +39,7 @@ import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
 import fpt.aptech.ParkingApi.utils.MomoEncoderUtils;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -55,8 +56,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 @Service
@@ -135,16 +136,16 @@ public class TransactionService implements ITransaction {
 
         PageRequest pageRequest = PageRequest.of(page, size);
         
-        List<TransactionRes> trans = _transactionRepository.getListTransByUsername(username);
-        Page<TransactionRes> pageTrans = new PageImpl<>(trans, pageRequest, trans.size());
-        List<TransactionRes> listTrans = _mapper.mapList(pageTrans.getContent(), TransactionRes.class);
-
-        PageTransactionRes pageTransactionRes = new PageTransactionRes();
-        pageTransactionRes.setCurrentPage(pageTrans.getPageable().getPageNumber());
-        pageTransactionRes.setListTransaction(listTrans);
-        pageTransactionRes.setSize(pageTrans.getSize());
-        pageTransactionRes.setTotalPages(pageTrans.getTotalPages());
-        return pageTransactionRes;
+        List<TransactionRes> list = _transactionRepository.getListTransByUsername(username);
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageTransactionRes res = new PageTransactionRes();
+        res.setCurrentPage(page);
+        res.setSize(size);
+        res.setTotalPages(holder.getPageCount());
+        res.setListTransaction(holder.getPageList());
+        return res;
     }
 
     public EPaymentRes createMomo(CreateOrderReq orderRequest) {
@@ -469,4 +470,25 @@ public class TransactionService implements ITransaction {
 
         return _transactionRepository.getByTransNo(transno);
     }
+
+    @Override
+    public PageTransactionRes getByUserNameSearchDate(String username, LocalDate fromDate, LocalDate toDate,
+            int page, int size) {
+        LocalDateTime fromDateTime = fromDate.atStartOfDay();
+        fromDateTime = fromDate.atTime(00,00,00,0000);
+        LocalDateTime toDateTime = toDate.atStartOfDay();
+        toDateTime = toDate.atTime(00,00,00,0000);
+        
+        List<TransactionRes> list = _transactionRepository.getListTransByUsernameSearchDate(username, fromDateTime, toDateTime);
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageTransactionRes res = new PageTransactionRes();
+        res.setCurrentPage(page);
+        res.setSize(size);
+        res.setTotalPages(holder.getPageCount());
+        res.setListTransaction(holder.getPageList());
+        return res;
+    }
+    
 }

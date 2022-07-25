@@ -26,9 +26,14 @@
                                             <li><a class="dropdown-item" th:href="@{/e-payment}">Electronic Payment</a></li>
                                         </ul>
                                     </li>
-                                    <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/history}">History</a></li>
-                                    </div>
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">History<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu fade-up m-0">
+                                            <li><a class="dropdown-item" th:href="@{/history?page=0}">Transaction History</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/u/parking-history?page=0}">Parking History</a></li>
+                                        </ul>
+                                    </li>
                                     <div>
                                         <li class="nav-item nav-link"><a th:href="@{/list-booking}">Booking</a></li>
                                     </div>
@@ -74,7 +79,7 @@
                                             <lable><i class="fa fa-car"></i> Car Name</lable>
                                             <input type="text" th:value="${bookingDetailRes.carname}" class="form-control mb-4"/>
                                             <lable><i class="fa fa-clock"></i> Start Time</lable>
-                                            <input type="datetime" th:value="${bookingDetailRes.starttime}" class="form-control mb-4"/>
+                                            <input type="datetime" th:value="${#temporals.format(bookingDetailRes.starttime, 'dd-MM-yyyy HH:mm')}" class="form-control mb-4"/>
                                             <lable><i class="fa fa-times"></i> Timer Number</lable>
                                             <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control mb-4"/>
                                         </div>
@@ -90,6 +95,7 @@
                                             <!-- Cancel Start -->
                                             <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back to List</a>
                                             <button type="button" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><a class="a-back-to-booking-list" href=""><i class="fa fa-arrow-alt-circle-right"></i> Guide</a></button>
+                                            <a type="button" th:href="@{'/export/pdf?id=' + ${id}}" id="back-to-booking-list" class="btn btn-primary mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Export Receipt</a>
                                             <!-- Cancel End -->
                                         </div>
                                     </div>

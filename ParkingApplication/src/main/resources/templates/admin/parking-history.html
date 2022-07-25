@@ -35,8 +35,7 @@
                                     <div class="col-12 col-lg-12 col-md-12 col-sm-12 p-1">
                                         <select class="form-control">
                                             <option value="" selected="true">--- Choose Parking ---</option>
-                                            <option value="">Cao Thang Parking Lot</option>
-                                            <option value="">Dong Phuong A Parking Lot</option>
+                                            <option th:each="item : ${lParkingRes}" th:value="${item.name}" th:text="${item.name}"></option>
                                         </select>
                                     </div>
                                 </div>

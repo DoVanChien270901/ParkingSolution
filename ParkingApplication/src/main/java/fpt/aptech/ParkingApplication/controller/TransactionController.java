@@ -5,22 +5,42 @@
  */
 package fpt.aptech.ParkingApplication.controller;
 
+import com.itextpdf.text.Chapter;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Section;
+import com.itextpdf.text.TabStop;
+import com.itextpdf.text.pdf.CMYKColor;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.lowagie.text.PageSize;
 import fpt.aptech.ParkingApplication.configuration.RestTemplateConfiguration;
 import fpt.aptech.ParkingApplication.domain.request.ERechargeReq;
 import fpt.aptech.ParkingApplication.domain.request.BookingReq;
 import fpt.aptech.ParkingApplication.domain.request.EBookingReq;
 import fpt.aptech.ParkingApplication.domain.request.NewBookingReq;
+import fpt.aptech.ParkingApplication.domain.response.BookingDetailRes;
 import fpt.aptech.ParkingApplication.domain.response.EPaymentRes;
 import fpt.aptech.ParkingApplication.domain.response.LoginRes;
 import fpt.aptech.ParkingApplication.domain.response.PageTransactionRes;
+import fpt.aptech.ParkingApplication.domain.response.ParkingRes;
 
 import fpt.aptech.ParkingApplication.domain.response.ProfileRes;
 import fpt.aptech.ParkingApplication.domain.response.TransactionRes;
 import fpt.aptech.ParkingApplication.utils.ModelMapperUtil;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.text.TextAlignment;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -30,6 +50,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +77,7 @@ public class TransactionController {
         String url = "https://www.google.com/";
         return "redirect:" + url;
     }
+
     @RequestMapping("/pay")
     public String pay(Model model) {
         return "user/e-payment-detail";
@@ -65,7 +88,7 @@ public class TransactionController {
         try {
             //check requestid - Momo: requestId , Zalopay: apptransid
             String requestid = allMap.get("requestId");
-            if (requestid==null) {
+            if (requestid == null) {
                 requestid = allMap.get("apptransid");
             }
 
@@ -77,20 +100,20 @@ public class TransactionController {
                 // create booking
                 BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderRes.getTransactionReq().getParkingname());
                 NewBookingReq newBookingReq = new NewBookingReq(
-                    orderRes.getTransactionReq().getUsername(),
-                    bookingReq.getStarttime(), 
-                    bookingReq.getTimenumber(), 
-                    bookingReq.getCarname(),
-                    bookingReq.getLisenceplates(), 
-                    bookingReq.getParkingname(),
-                    false
+                        orderRes.getTransactionReq().getUsername(),
+                        bookingReq.getStarttime(),
+                        bookingReq.getTimenumber(),
+                        bookingReq.getCarname(),
+                        bookingReq.getLisenceplates(),
+                        bookingReq.getParkingname(),
+                        false
                 );
                 HttpEntity newbookingRequest = restTemplate.setRequest(newBookingReq);
                 ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, Integer.class);
                 HttpStatus status = newbookingResponse.getStatusCode();
                 if (status.equals(HttpStatus.OK)) {
                     Integer id = (Integer) newbookingResponse.getBody();
-                    return "redirect:/booking-details?id="+id;
+                    return "redirect:/booking-details?id=" + id;
                 }
             } else {
                 model.addAttribute("transactionReq", orderRes.getTransactionReq());
@@ -137,18 +160,55 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.GET)
-    public String userTransactions(Model model, HttpSession session) {
+    public String userTransactions(@RequestParam("page") int currentPage, Model model, HttpSession session) {
         try {
+            if (1 > currentPage) {
+                currentPage = 1;
+            }
             LoginRes loginRes = (LoginRes) session.getAttribute("account");
             String token = loginRes.getToken();
             HttpEntity request = restTemplate.setRequest(token);
 
-            int page = 5;
-            int size = 10;
-
-            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "user-transactions?page=" + page + "&size=" + size, HttpMethod.GET, request, PageTransactionRes.class);
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "user-transactions?page=" + (currentPage - 1) + "&size=10", HttpMethod.GET, request, PageTransactionRes.class);
             PageTransactionRes pageTransactionRes = (PageTransactionRes) response.getBody();
             List<TransactionRes> usertransactions = pageTransactionRes.getListTransaction();
+            if (currentPage > pageTransactionRes.getTotalPages()) {
+                currentPage = pageTransactionRes.getTotalPages();
+            }
+            model.addAttribute("current", currentPage);
+            int[] nav = new int[pageTransactionRes.getTotalPages()];
+            for (int i = 0; i <= (pageTransactionRes.getTotalPages() - 1); i++) {
+                nav[i] = i + 1;
+            }
+            model.addAttribute("pageList", nav);
+            model.addAttribute("transactionlist", usertransactions);
+            return "user/history";
+        } catch (Exception e) {
+            return "badrequest";
+        }
+    }
+
+    @RequestMapping(value = "/history/search", method = RequestMethod.GET)
+    public String userTransactionsSearch(@RequestParam("from-date") String fromDate, @RequestParam("to-date") String toDate, Model model, HttpSession session) {
+        try {
+            if (fromDate.isEmpty() || toDate.isEmpty()) {
+                return "redirect:/history?page=0";
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate fromLocalDate = LocalDate.parse(fromDate, formatter);
+            LocalDate toLocalDate = LocalDate.parse(toDate, formatter);
+            LoginRes loginRes = (LoginRes) session.getAttribute("account");
+            String token = loginRes.getToken();
+            HttpEntity request = restTemplate.setRequest(token);
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "user-transactions/search?from-date=" + fromLocalDate + "&to-date=" + toLocalDate + "&page=0&size=100", HttpMethod.GET, request, PageTransactionRes.class);
+            PageTransactionRes pageTransactionRes = (PageTransactionRes) response.getBody();
+            List<TransactionRes> usertransactions = pageTransactionRes.getListTransaction();
+            int[] nav = new int[pageTransactionRes.getTotalPages()];
+            for (int i = 0; i <= (pageTransactionRes.getTotalPages() - 1); i++) {
+                nav[i] = i + 1;
+            }
+            model.addAttribute("current", pageTransactionRes.getCurrentPage());
+            model.addAttribute("pageList", nav);
             model.addAttribute("transactionlist", usertransactions);
             return "user/history";
         } catch (Exception e) {
@@ -159,8 +219,14 @@ public class TransactionController {
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
     public String createEBooking(@RequestParam("parkingname") String parkingname, Model model, HttpSession session) {
         try {
+            
+            HttpEntity request = restTemplate.setRequest();
+                ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "parking/"+parkingname, HttpMethod.GET, request, ParkingRes.class);
+            ParkingRes parkingRes = (ParkingRes) response.getBody();
             BookingReq b = new BookingReq();
             b.setParkingname(parkingname);
+            model.addAttribute("rentcost", parkingRes.getRentcost());
+            model.addAttribute("address", parkingRes.getAddress());
             model.addAttribute("bookingReq", b);
             return "user/booking";
 //            return null;
@@ -173,10 +239,14 @@ public class TransactionController {
     public String createEBooking(@ModelAttribute("bookingReq") BookingReq bookingReq, HttpSession session) {
         try {
             if (bookingReq.getChannel().equals("Wallet")) {
-                HttpEntity request = restTemplate.setRequest(bookingReq);
+                LoginRes loginRes = (LoginRes) session.getAttribute("account");
+                NewBookingReq newBookingReq = new NewBookingReq(loginRes.getUsername(), bookingReq.getStarttime(),
+                        bookingReq.getTimenumber(), bookingReq.getCarname(), bookingReq.getLisenceplates(), bookingReq.getParkingname(), true);
+                HttpEntity request = restTemplate.setRequest(newBookingReq);
                 ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, request, String.class);
                 if (response.getStatusCode().equals(HttpStatus.OK)) {
-                    return "user/profile";
+                    int id = Integer.valueOf(response.getBody().toString());
+                    return "redirect:/booking-details?id=" + id;
                 } else {
                     return "redirect:https://www.facebook.com/";
                 }
@@ -203,5 +273,64 @@ public class TransactionController {
         } catch (Exception e) {
             return "badrequest";
         }
+    }
+
+    @RequestMapping(value = "/export/pdf", method = RequestMethod.GET)
+    public String exportPDF(@RequestParam("id") String id, HttpServletResponse response,
+            HttpSession session) throws IOException, DocumentException {
+        //call api
+        LoginRes loginRes = (LoginRes) session.getAttribute("account");
+        String token = loginRes.getToken();
+        HttpEntity request = RestTemplateConfiguration.setRequest(token);
+        ResponseEntity<?> responseApi = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "booking-details?id=" + id, HttpMethod.GET, request, BookingDetailRes.class);
+        BookingDetailRes bookingDetailRes = (BookingDetailRes) responseApi.getBody();
+
+        response.setContentType("aplication/pdf");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename = receipt.pdf";
+        response.setHeader(headerKey, headerValue);
+
+        //font
+        Font blueFont = FontFactory.getFont(FontFactory.HELVETICA, 20, Font.BOLD, new CMYKColor(255, 0, 0, 0));
+        Font signatureFont = FontFactory.getFont(FontFactory.COURIER, 12, Font.ITALIC, new CMYKColor(0, 255, 0, 0));
+        Font yellowFont = FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL, new CMYKColor(0, 0, 0, 100));
+
+        Document document = new Document(com.itextpdf.text.PageSize.A5);
+        PdfWriter.getInstance(document, response.getOutputStream());
+        document.open();
+        //content
+        //Create chapter and sections
+        Paragraph chapterTitle = new Paragraph("RECEIPT PARKING", blueFont);
+        chapterTitle.setAlignment(Element.ALIGN_CENTER);
+        Chapter chapter1 = new Chapter(chapterTitle, 1);
+        Paragraph chapterPname = new Paragraph("(" + bookingDetailRes.getParkingname() + ")");
+        chapterPname.setAlignment(Element.ALIGN_CENTER);
+        chapter1.add(chapterPname);
+        Paragraph chapterNo = new Paragraph("No. " + id);
+        chapter1.add(chapterNo);
+        Paragraph chapterDate = new Paragraph("Date: " + bookingDetailRes.getStarttime().toString());
+        chapter1.add(chapterDate);
+        Paragraph chapterTimenumber = new Paragraph("Time number: " + bookingDetailRes.getTimenumber());
+        chapter1.add(chapterTimenumber);
+        Paragraph chapterCarname = new Paragraph("Car name: " + bookingDetailRes.getCarname());
+        chapter1.add(chapterCarname);
+        Paragraph chapterLp = new Paragraph("Lisence Plates: " + bookingDetailRes.getLisenceplates());
+        chapter1.add(chapterLp);
+        DecimalFormat formatter = new DecimalFormat("###,###,###.00");
+
+
+        Paragraph chapterAmount = new Paragraph("Total Amount: " + formatter.format(bookingDetailRes.getPrice()) + " VND");
+        chapter1.add(chapterAmount);
+        Paragraph chapterSignature = new Paragraph("Signature       ");
+        chapterSignature.setAlignment(Element.ALIGN_RIGHT);
+        chapter1.add(chapterSignature);
+        Paragraph chapterSignature1 = new Paragraph("do van chien", signatureFont);
+        chapterSignature1.setAlignment(Element.ALIGN_RIGHT);
+        chapter1.add(chapterSignature1);
+        chapter1.setNumberDepth(0);
+        document.add(chapter1);
+        document.close();
+        return "redirect:/booking-details?id="+id;
     }
 }

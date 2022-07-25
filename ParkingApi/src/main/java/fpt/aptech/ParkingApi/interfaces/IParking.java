@@ -4,8 +4,10 @@
  */
 package fpt.aptech.ParkingApi.interfaces;
 
+import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingRes;
 import fpt.aptech.ParkingApi.entities.Parkinglocation;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -13,6 +15,10 @@ import java.util.List;
  * @author CHIEN
  */
 public interface IParking {
-    Parkinglocation getByParkingName(String parkingName);
+    ParkingRes getByParkingName(String parkingName);
     List<ParkingRes> listParking();
+    PageParkingHistoryRes getHistoryByUserName(String username, int page, int size);
+    PageParkingHistoryRes getHistoryByUserName(String username, LocalDate fromDate, LocalDate toDate, int page, int size);
+    PageParkingHistoryRes getHistory(LocalDate fromDate, LocalDate toDate, int page, int size);
+    PageParkingHistoryRes getHistory(int page, int size);
 }

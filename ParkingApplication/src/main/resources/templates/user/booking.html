@@ -13,10 +13,9 @@
                 <div class="container">
                     <div class="pb-4 pt-4">
                         <h2 class="text-primary text-uppercase text-center" th:text="${bookingReq.parkingname}"></h2>
-                        <marquee class="text-primary">309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam</marquee>
+                        <marquee class="text-primary" th:text="${address}"></marquee>
                     </div>
                     <form th:action="@{/booking}" th:object="${bookingReq}" method="POST">
-                        
                         <div class="row g-4 mb-3 pb-3">
                             <input  th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>
                             <div class="row g-4 mb-3 pb-3">
@@ -30,7 +29,7 @@
                                     <lable><i class="fa fa-id-card"></i> License Plates</lable>
                                     <input type="text" th:field="*{lisenceplates}" value="" class="form-control mb-4"/>
                                     <lable><i class="fa fa-times"></i> Timer Number</lable>
-                                    <input type="number" th:field="*{timenumber}" value="0" class="form-control mb-4"/>
+                                    <input type="number" th:field="*{timenumber}" th:onkeyup="|numberokd(${rentcost})|" id="number" class="form-control mb-4"/>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-12 col-sm-12 amount">
                                     <lable><i class="fa fa-wallet"></i> Choose Payment Method</lable>
@@ -59,7 +58,7 @@
                                 <div class="col-12 col-lg-6 col-md-12 col-sm-12">
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <input type="text" value="0 VND" class="form-control mb-4" readonly="true"/>
+                                    <input type="text" value="0 VND" id="amount" class="form-control mb-4" readonly="true"/>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12 button-edit">
                                     <!-- Cancel Start -->
@@ -73,5 +72,12 @@
             </div>
             <!-- Carousel End -->
         </section>
+        <script type="text/javascript" layout:fragment="code-javascript">
+            function numberokd(rentcost) {
+                var number = document.getElementById("number");
+                var amount = document.getElementById("amount");
+                amount.value = (number.value * rentcost).toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+            }
+        </script>
     </body>
 </html>

@@ -51,6 +51,7 @@ public class BookingController {
             sb.append("data:image/png;base64,");
             sb.append(new String(Base64.getEncoder().encode(bookingDetailRes.getQrcontent())));
             sb.toString();
+            model.addAttribute("id", id);
             model.addAttribute("displaycode", sb.toString());
             model.addAttribute("bookingDetailRes", bookingDetailRes);
             return "user/qrcode-booking";

@@ -7,6 +7,7 @@ package fpt.aptech.ParkingApi.repositorys;
 
 import fpt.aptech.ParkingApi.dto.response.TransactionRes;
 import fpt.aptech.ParkingApi.entities.Transactioninformation;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +22,9 @@ public interface TransactionRepo extends JpaRepository<Transactioninformation, S
 
     @Query("SELECT p FROM Transactioninformation p WHERE p.transno.transno = :transno")
     Transactioninformation getByTransNo(@PathVariable("transno") String transno);
+    @Query(name = "getListTransByUsernameSearchDate", nativeQuery = true)
+    List<TransactionRes> getListTransByUsernameSearchDate(@Param("username") String username, 
+            @Param("fromDate") LocalDateTime fromDate, @Param("toDate") LocalDateTime toDate);
     @Query(name = "getListTransByUsername", nativeQuery = true)
     List<TransactionRes> getListTransByUsername(@Param("username") String username);
 }

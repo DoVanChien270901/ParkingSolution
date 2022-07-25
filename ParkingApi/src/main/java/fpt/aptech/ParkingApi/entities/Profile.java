@@ -44,6 +44,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "profile")
 @XmlRootElement
 @NamedNativeQuery(
+        name = "listUserByRoleSortName",
+        query = "{CALL listUserByRoleSortName(:role, :fullname)}",
+        resultSetMapping = "ItemPageProfile"
+)
+@NamedNativeQuery(
         name = "getUserByRole",
         query = "{CALL listUserByRole(:role)}",
         resultSetMapping = "ItemPageProfile"
