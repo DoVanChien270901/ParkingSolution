@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,13 +19,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.NamedNativeQuery;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import fpt.aptech.ParkingApi.dto.response.ParkingHistoryRes;
 /**
  *
  * @author CHIEN
@@ -31,6 +35,32 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "parkinghistory")
 @XmlRootElement
+@NamedNativeQuery(
+        name = "getListParkingHistoryByUsername",
+        query = "SELECT p.id AS id, p.starttime AS starttime, p.timenumber AS timenumber, p.carname AS carname, p.lisenceplates AS lisenceplates, "
+            + "p.parkingname AS parkingname"
+        + " FROM parkinghistory p WHERE p.accountid = :username ORDER BY p.starttime DESC",
+        resultSetMapping = "CustomeResultParkingHistoryList"
+)
+@NamedNativeQuery(
+        name = "getListParkingHistoryByUsernameSearch",
+        query = "SELECT p.id AS id, p.starttime AS starttime, p.timenumber AS timenumber, p.carname AS carname, p.lisenceplates AS lisenceplates, "
+            + "p.parkingname AS parkingname"
+        + " FROM parkinghistory p WHERE p.accountid = :username and p.starttime >= :fromDate and p.starttime <= :toDate ORDER BY p.starttime DESC",
+        resultSetMapping = "CustomeResultParkingHistoryList"
+)
+@SqlResultSetMapping(
+        name = "CustomeResultParkingHistoryList",
+        classes = @ConstructorResult(targetClass = ParkingHistoryRes.class,
+                columns = {
+                    @ColumnResult(name = "id", type = Integer.class),
+                    @ColumnResult(name = "starttime", type = LocalDateTime.class),
+                    @ColumnResult(name = "timenumber", type = Integer.class),
+                    @ColumnResult(name = "carname", type = String.class),
+                    @ColumnResult(name = "lisenceplates", type = String.class),
+                    @ColumnResult(name = "parkingname", type = String.class)
+                })
+)
 @NamedQueries({
     @NamedQuery(name = "Parkinghistory.findAll", query = "SELECT p FROM Parkinghistory p"),
     @NamedQuery(name = "Parkinghistory.findById", query = "SELECT p FROM Parkinghistory p WHERE p.id = :id"),

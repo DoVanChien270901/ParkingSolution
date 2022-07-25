@@ -45,4 +45,6 @@ public interface ProfileRepo extends JpaRepository<Profile, Integer> {
     List<Profile> callProc(@Param("role")String role);
     @Query(name = "getUserByRole", nativeQuery = true)
     List<ItemPageProfile> getUserByRole(@Param("role")String role);
+    @Query(name = "listUserByRoleSortName", nativeQuery = true)
+    List<ItemPageProfile> listUserByRoleSortName(@Param("role")String role, @Param("fullname") String fullname);
 }

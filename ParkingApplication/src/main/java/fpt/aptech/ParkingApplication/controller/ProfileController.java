@@ -105,14 +105,41 @@ public class ProfileController {
         }
         HttpEntity request = restTemplate.setRequest();
         ResponseEntity<?> response = restTemplate
-                .excuteRequest(PATH_API + "list-users?page=" + (currentPage - 1) + "&size=1", HttpMethod.GET, request, PageProfileRes.class);
+                .excuteRequest(PATH_API + "list-users?page=" + (currentPage - 1) + "&size=10", HttpMethod.GET, request, PageProfileRes.class);
         PageProfileRes pageProfileRes = (PageProfileRes) response.getBody();
         model.addAttribute("listProfile", pageProfileRes.getListProfile());
         if (currentPage > pageProfileRes.getTotalPages()) {
             currentPage = pageProfileRes.getTotalPages();
         }
         model.addAttribute("current", currentPage);
-        int[] nav = nav(currentPage, pageProfileRes.getTotalPages());
+        int[] nav = new int[pageProfileRes.getTotalPages()];
+        for (int i = 0; i <= (pageProfileRes.getTotalPages()-1); i++) {
+            nav[i] = i+1;
+        }
+        //int[] nav = nav(currentPage, pageProfileRes.getTotalPages());
+        model.addAttribute("pageList", nav);
+        return "admin/user-manager";
+    }
+    @RequestMapping(value = "/list-user/search", method = RequestMethod.GET)
+    public String listSearchUser(@RequestParam("name")String name, Model model) {
+        if (name.isEmpty()) {
+            return "redirect:/list-user?page=0";
+        }
+        HttpEntity request = restTemplate.setRequest();
+        ResponseEntity<?> response = restTemplate
+                .excuteRequest(PATH_API + "list-users/search?name="+name+"&page=0" + "&size=100", HttpMethod.GET, request, PageProfileRes.class);
+        PageProfileRes pageProfileRes = (PageProfileRes) response.getBody();
+        model.addAttribute("listProfile", pageProfileRes.getListProfile());
+        int currentPage = pageProfileRes.getCurrentPage();
+        if (currentPage > pageProfileRes.getTotalPages()) {
+            currentPage = pageProfileRes.getTotalPages();
+        }
+        model.addAttribute("current", currentPage);
+        int[] nav = new int[pageProfileRes.getTotalPages()];
+        for (int i = 0; i <= (pageProfileRes.getTotalPages()-1); i++) {
+            nav[i] = i+1;
+        }
+        //int[] nav = nav(currentPage, pageProfileRes.getTotalPages());
         model.addAttribute("pageList", nav);
         return "admin/user-manager";
     }
@@ -128,40 +155,40 @@ public class ProfileController {
         return "admin/user-manager";
     }
 
-    private int[] nav(int currentPage, int totalPage) {
-        int[] nav = new int[10];
-        int step = (totalPage - (currentPage + 5)) / 5; // (total - (curent+5)) : 5
-        nav[0] = currentPage;
-        if (currentPage >= (totalPage - 5)) {
-            nav[9] = totalPage;
-            nav[8] = totalPage - 1;
-            nav[7] = totalPage - 2;
-            nav[6] = totalPage - 3;
-            nav[5] = totalPage - 4;
-            currentPage = totalPage - 4;
-            step = currentPage / 5;
-            for (int j = 4; j >= 0; j--) {
-                nav[j] = currentPage - step;
-                currentPage = currentPage - step;
-            }
-        } else if (step == 0) {
-            nav = new int[(totalPage - currentPage) + 1];
-            nav[0] = currentPage;
-            for (int i = 1; i < (nav.length); i++) {
-                nav[i] = ++currentPage;
-            }
-        } else {
-            for (int i = 1; i <= 9; i++) {
-                if (i <= 4) {
-                    currentPage++;
-                } else if (i == 9) {
-                    currentPage = totalPage;
-                } else {
-                    currentPage = currentPage + step;
-                }
-                nav[i] = currentPage;
-            }
-        }
-        return nav;
-    }
+//    private int[] nav(int currentPage, int totalPage) {
+//        int[] nav = new int[10];
+//        int step = (totalPage - (currentPage + 5)) / 5; // (total - (curent+5)) : 5
+//        nav[0] = currentPage;
+//        if (currentPage >= (totalPage - 5)) {
+//            nav[9] = totalPage;
+//            nav[8] = totalPage - 1;
+//            nav[7] = totalPage - 2;
+//            nav[6] = totalPage - 3;
+//            nav[5] = totalPage - 4;
+//            currentPage = totalPage - 4;
+//            step = currentPage / 5;
+//            for (int j = 4; j >= 0; j--) {
+//                nav[j] = currentPage - step;
+//                currentPage = currentPage - step;
+//            }
+//        } else if (step == 0) {
+//            nav = new int[(totalPage - currentPage) + 1];
+//            nav[0] = currentPage;
+//            for (int i = 1; i < (nav.length); i++) {
+//                nav[i] = ++currentPage;
+//            }
+//        } else {
+//            for (int i = 1; i <= 9; i++) {
+//                if (i <= 4) {
+//                    currentPage++;
+//                } else if (i == 9) {
+//                    currentPage = totalPage;
+//                } else {
+//                    currentPage = currentPage + step;
+//                }
+//                nav[i] = currentPage;
+//            }
+//        }
+//        return nav;
+//    }
 }

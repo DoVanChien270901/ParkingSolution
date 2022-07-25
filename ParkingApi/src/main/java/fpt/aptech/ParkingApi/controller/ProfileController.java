@@ -74,6 +74,15 @@ public class ProfileController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+    @RequestMapping(value = "/list-users/search", method = RequestMethod.GET)
+    public ResponseEntity<?> listusersByUserName(@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+        try {
+            PageProfileRes pageProfileRes = _profileService.getListUserByRole("user", name, page, size); // fisrt page = 0
+            return new ResponseEntity(pageProfileRes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 //    @RequestMapping(value = "/list-users", method = RequestMethod.GET)
 //    public ResponseEntity<?> listusers(@RequestParam("page") int page, @RequestParam("size") int size) {

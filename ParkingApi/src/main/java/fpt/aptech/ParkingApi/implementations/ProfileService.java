@@ -130,4 +130,18 @@ public class ProfileService implements IProfile {
         return pres;
     }
 
+    @Override
+    public PageProfileRes getListUserByRole(String role, String username, int page, int size) {
+        List<ItemPageProfile> list = _profileRepository.listUserByRoleSortName("user", username);
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageProfileRes pageProfileRes = new PageProfileRes();
+        pageProfileRes.setCurrentPage(page);
+        pageProfileRes.setSize(size);
+        pageProfileRes.setTotalPages(holder.getPageCount());
+        pageProfileRes.setListProfile(holder.getPageList());
+        return pageProfileRes;
+    }
+
 }

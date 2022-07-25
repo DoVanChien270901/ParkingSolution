@@ -28,9 +28,14 @@
                                             <li><a class="dropdown-item" th:href="@{/e-payment}">Electronic Payment</a></li>
                                         </ul>
                                     </li>
-                                    <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/history}">History</a></li>
-                                    </div>
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">History<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu fade-up m-0">
+                                            <li><a class="dropdown-item" th:href="@{/history?page=0}">Transaction History</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/u/parking-history?page=0}">Parking History</a></li>
+                                        </ul>
+                                    </li>
                                     <div>
                                         <li class="nav-item nav-link"><a th:href="@{/list-booking}">Booking</a></li>
                                     </div>
