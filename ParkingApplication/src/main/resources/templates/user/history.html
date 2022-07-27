@@ -25,9 +25,14 @@
                                             <li><a class="dropdown-item" th:href="@{/e-payment}"><i class="fa fa-arrow-right"></i> Electronic Payment</a></li>
                                         </ul>
                                     </li>
-                                    <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/history}"><i class="fa fa-history"></i> History</a></li>
-                                    </div>
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">History<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu fade-up m-0">
+                                            <li><a class="dropdown-item" th:href="@{/history?page=0}">Transaction History</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/u/parking-history?page=0}">Parking History</a></li>
+                                        </ul>
+                                    </li>
                                     <div>
                                         <li class="nav-item nav-link"><a th:href="@{/list-booking}"><i class="fa fa-parking"></i> Booking</a></li>
                                     </div>
@@ -42,15 +47,17 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-6">
                                         <div class="row">
-                                            <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                <input type="text" class="form-control" placeholder="From...">
-                                            </div>
-                                            <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                <input type="text" class="form-control" placeholder="To...">
-                                            </div>
-                                            <div class="col-2 col-lg-2 col-md-2 col-sm-2 p-1">
-                                                <button type="submit" class="btn btn-sm btn-primary m-1"><i class="fa fa-search"></i></button>
-                                            </div>
+                                            <form th:action="@{/history/search}" method="GET">
+                                                <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                    <input type="date" name="from-date" class="form-control" placeholder="From day...">
+                                                </div>
+                                                <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                    <input type="date" name="to-date" class="form-control" placeholder="To day...">
+                                                </div>
+                                                <div class="col-6 col-lg-2 col-md-2 col-sm-2 p-1">
+                                                    <button type="submit" class="btn btn-sm btn-primary m-1"><i class="fa fa-search"></i></button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-6"></div>
@@ -70,8 +77,8 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="trans : ${transactionlist}">
-                                                <th scope="row" th:text="${trans.transno}"></th>
-                                                <td type="number" th:text="${#numbers.formatInteger(trans.amount, 3, 'POINT')}"></td>
+                                                <td th:text="${trans.transno}"></td>
+                                                <td type="number" th:text="${#numbers.formatInteger (trans.amount, 3, 'POINT') + ' VND'}"></td>
                                                 <td type="date" th:text="${#temporals.format(trans.datetime, 'dd-MM-yyyy HH:mm')}"></td>
                                                 <td th:text="${trans.channel}"></td>
                                                 <td> 
@@ -81,12 +88,19 @@
                                                 <td th:text="${trans.parkingname}"></td>
                                                 <td>
                                                     <span th:if="${trans.statuscode == 0}" class="badge badge-success">Success!</span>
-                                                    <span th:unless="${trans.statuscode == 0}" class="badge badge-success">Failed!</span>
+                                                    <span th:unless="${trans.statuscode == 0}" class="badge badge-danger">Failed!</span>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                <nav aria-label="Page navigation example" class="d-flex justify-content-end">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" th:href="@{/history(page=${current - 1})}">Previous</a></li>
+                                        <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{/history(page=${item})}"></a></li>
+                                        <li class="page-item"><a class="page-link" th:href="@{/history(page=${current + 1})}">Next</a></li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>

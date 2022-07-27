@@ -17,12 +17,22 @@ import fpt.aptech.ParkingApi.entities.Profile;
  * @author CHIEN
  */
 public interface IProfile {
+
     PageProfileRes findAll(int page, int size);
+
     PageProfileRes getListUser(int page, int size);
+
     PageProfileRes getListUserByRole(String role, int page, int size);
+
+    PageProfileRes getListUserByRole(String role, String username, int page, int size);
+
     ProfileRes getByUserName(String username);
+
     UserDetailsRes profileDetailsByUsername(String username);
+
     Profile create(RegisterReq registerReq);
+
     boolean edit(EditProfileReq editProfileReq, String username);
+
     boolean deductionBalanceForBooking(int timenumber, String username, String parkingname);
 }

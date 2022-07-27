@@ -20,71 +20,61 @@
                             <h6>Search Booking Time</h6>
                         </div>
                         <div class="pt-1">
-                            <div class="pull-left">
-                                <div class="row">
-                                    <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
-                                        <input type="text" class="form-control" placeholder="Booking Time..."> 
-                                    </div>
-                                    <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
-                                        <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pull-right">
-                                <div class="row">
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 p-1">
-                                        <select class="form-control">
-                                            <option value="" selected="true">--- Choose Parking ---</option>
-                                            <option value="">Cao Thang Parking Lot</option>
-                                            <option value="">Dong Phuong A Parking Lot</option>
-                                        </select>
+                            <form th:action="@{/a/parking-history/search}" method="GET">
+                                <div class="pull-left">
+                                    <div class="row">
+                                        <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
+                                            <input type="date" name="from-date" class="form-control" placeholder="From Date..."> 
+                                        </div>
+                                        <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
+                                            <input type="date" name="to-date" class="form-control" placeholder="To Date..."> 
+                                        </div>
+                                        <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
+                                            <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="pull-right">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 p-1">
+                                            <select th:name="name" onchange="selected(value)" class="form-control">
+                                                <option value="all">--- Choose Parking ---</option>
+                                                <option th:each="item : ${lParkingRes}" th:value="${item.name}" th:text="${item.name}" th:selected="(${selected} == ${item.name})"></option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="p-1">
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr class="table-secondary">
-                                    <th scope="col">#</th>
+                                    <th scope="col">Id</th>
                                     <th scope="col">Booking Time</th>
                                     <th scope="col">Time Number</th>
                                     <th scope="col">Car Name</th>
                                     <th scope="col">License Plates</th>
-                                    <th scope="col">Account Id</th>
+                                    <th scope="col">Parking</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>07/02/2022 18:00:20</td>
-                                    <td>2 Hour</td>
-                                    <td>Ferrari</td>
-                                    <td>51D - 3999</td>
-                                    <td>user1234</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>07/02/2022 22:15:30</td>
-                                    <td>3 Hour</td>
-                                    <td>Ferrari</td>
-                                    <td>52F - 1234</td>
-                                    <td>user2256</td>
+                                <tr th:each="item : ${listParkingHistory}">
+                                    <td th:text="${item.id}"></td>
+                                    <td th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
+                                    <td th:text="${item.timenumber}"></td>
+                                    <td th:text="${item.carname}"></td>
+                                    <td th:text="${item.lisenceplates}"></td>
+                                    <td th:text="${item.parkingname}"></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <nav aria-label="">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="dw dw-left-arrow-4"></i></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="dw dw-right-arrow-4"></i></a>
-                                </li>
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-end">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" th:href="@{'/a/parking-history/'+${selected}(page=${current - 1})}">Previous</a></li>
+                                <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{/a/parking-history(page=${item})}"></a></li>
+                                <li class="page-item"><a class="page-link" th:href="@{'/a/parking-history/'+${selected}(page=${current + 1})}" >Next</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -95,6 +85,10 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" layout:fragment="code-javascript">
+            function selected(value) {
+                location.href = "/a/parking-history/" + value + "?page=0";
+            }
+        </script>
     </body>
-
 </html>

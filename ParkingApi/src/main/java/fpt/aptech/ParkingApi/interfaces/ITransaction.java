@@ -11,6 +11,7 @@ import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.entities.Transactioninformation;
+import java.time.LocalDate;
 
 /**
  *
@@ -27,6 +28,11 @@ public interface ITransaction {
     PageTransactionRes findAll(int page, int size);
 
     PageTransactionRes getByUserName(String username, int page, int size);
-    
+
+    PageTransactionRes getByUserNameSearchDate(String username, LocalDate formDate, LocalDate toDate,
+            int page, int size);
+
     Transactioninformation getbyTransNo(String transno);
+
+    PageTransactionRes getAllSearch(LocalDate formDate, LocalDate toDate, int page, int size);
 }

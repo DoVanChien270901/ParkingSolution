@@ -17,12 +17,14 @@ import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -154,7 +156,7 @@ public class TransactionController {
         }
     }
 
-    @RequestMapping(value = "/list-transaction", method = RequestMethod.GET)
+    @RequestMapping(value = "/all-transaction", method = RequestMethod.GET)
     public ResponseEntity<?> listTransaction(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
             PageTransactionRes pageTransactionRes = _transactionServices.findAll(page, size); // fisrt page = 0
@@ -166,11 +168,34 @@ public class TransactionController {
 
     @RequestMapping(value = "/user-transactions", method = RequestMethod.GET)
     public ResponseEntity<?> getTransactionHistory(@RequestHeader("Authorization") String token, @RequestParam("page") int page, @RequestParam("size") int size) {
-
         try {
-
             String username = _jwtTokenUtil.extracUsername(token.substring(7));
             PageTransactionRes transactionRes = _transactionServices.getByUserName(username, page, size);
+            return new ResponseEntity(transactionRes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(value = "/user-transactions/search", method = RequestMethod.GET)
+    public ResponseEntity<?> getTransactionHistory(@RequestHeader("Authorization") String token,
+            @RequestParam("from-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam("to-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+            @RequestParam("page")int page, @RequestParam("size") int size) {
+        try {
+            String username = _jwtTokenUtil.extracUsername(token.substring(7));
+            PageTransactionRes transactionRes = _transactionServices.getByUserNameSearchDate(username, fromDate, toDate, page, size);
+            return new ResponseEntity(transactionRes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(value = "/all-transactions/search", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllTransactionHistorySearch(
+            @RequestParam("from-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam("to-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+            @RequestParam("page")int page, @RequestParam("size") int size) {
+        try {
+            PageTransactionRes transactionRes = _transactionServices.getAllSearch(fromDate, toDate, page, size);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);

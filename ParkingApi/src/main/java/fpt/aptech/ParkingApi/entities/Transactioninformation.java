@@ -34,10 +34,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 @XmlRootElement
 //trans-list
 @NamedNativeQuery(
+        name = "getAllTransSearch",
+        query = "SELECT b.transno AS transno, b.amount AS amount, b.channel AS channel, b.datetime AS datetime, "
+            + "b.stype AS stype, b.parkingname AS parkingname, b.statuscode AS statuscode "
+        + " FROM Transactioninformation b WHERE b.datetime >= :fromDate and b.datetime <= :toDate ORDER BY b.datetime DESC",
+        resultSetMapping = "CustomeResultTransactionList"
+)
+@NamedNativeQuery(
+        name = "getAllTrans",
+        query = "SELECT b.transno AS transno, b.amount AS amount, b.channel AS channel, b.datetime AS datetime, "
+            + "b.stype AS stype, b.parkingname AS parkingname, b.statuscode AS statuscode "
+        + " FROM Transactioninformation b ORDER BY b.datetime DESC",
+        resultSetMapping = "CustomeResultTransactionList"
+)
+@NamedNativeQuery(
         name = "getListTransByUsername",
         query = "SELECT b.transno AS transno, b.amount AS amount, b.channel AS channel, b.datetime AS datetime, "
             + "b.stype AS stype, b.parkingname AS parkingname, b.statuscode AS statuscode "
         + " FROM Transactioninformation b WHERE b.accountid = :username ORDER BY b.datetime DESC",
+        resultSetMapping = "CustomeResultTransactionList"
+)
+@NamedNativeQuery(
+        name = "getListTransByUsernameSearchDate",
+        query = "SELECT b.transno AS transno, b.amount AS amount, b.channel AS channel, b.datetime AS datetime, "
+            + "b.stype AS stype, b.parkingname AS parkingname, b.statuscode AS statuscode "
+        + " FROM Transactioninformation b WHERE b.accountid = :username and b.datetime >= :fromDate and b.datetime <= :toDate ORDER BY b.datetime DESC",
         resultSetMapping = "CustomeResultTransactionList"
 )
 @SqlResultSetMapping(

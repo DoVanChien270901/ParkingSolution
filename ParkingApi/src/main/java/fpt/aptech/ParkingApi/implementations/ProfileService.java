@@ -88,8 +88,11 @@ public class ProfileService implements IProfile {
     public boolean edit(EditProfileReq editProfileReq, String username) {
         Profile profile = _profileRepository.getByUsername(username);
         if (profile != null) {
-            profile = _mapper.map(editProfileReq, Profile.class);
-            profile.setUsername(username);
+            profile.setFullname(editProfileReq.getFullname());
+            profile.setDob(editProfileReq.getDob());
+            profile.setIdentitycard(editProfileReq.getIdentitycard());
+            profile.setPhone(editProfileReq.getPhone());
+            profile.setEmail(editProfileReq.getEmail());
             _profileRepository.save(profile);
             return true;
         } else {
@@ -128,6 +131,20 @@ public class ProfileService implements IProfile {
         Profile profile = _profileRepository.getByUsername(username);
         UserDetailsRes pres = _mapper.map(profile, UserDetailsRes.class);
         return pres;
+    }
+
+    @Override
+    public PageProfileRes getListUserByRole(String role, String username, int page, int size) {
+        List<ItemPageProfile> list = _profileRepository.listUserByRoleSortName("user", username);
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageProfileRes pageProfileRes = new PageProfileRes();
+        pageProfileRes.setCurrentPage(page);
+        pageProfileRes.setSize(size);
+        pageProfileRes.setTotalPages(holder.getPageCount());
+        pageProfileRes.setListProfile(holder.getPageList());
+        return pageProfileRes;
     }
 
 }
