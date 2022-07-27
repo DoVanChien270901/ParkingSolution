@@ -490,5 +490,23 @@ public class TransactionService implements ITransaction {
         res.setListTransaction(holder.getPageList());
         return res;
     }
-    
+
+    @Override
+    public PageTransactionRes getAllSearch(LocalDate fromDate, LocalDate toDate, int page, int size) {
+        LocalDateTime fromDateTime = fromDate.atStartOfDay();
+        fromDateTime = fromDate.atTime(00,00,00,0000);
+        LocalDateTime toDateTime = toDate.atStartOfDay();
+        toDateTime = toDate.atTime(00,00,00,0000);
+        
+        List<TransactionRes> list = _transactionRepository.getAllTransSearch(fromDateTime, toDateTime);
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageTransactionRes res = new PageTransactionRes();
+        res.setCurrentPage(page);
+        res.setSize(size);
+        res.setTotalPages(holder.getPageCount());
+        res.setListTransaction(holder.getPageList());
+        return res;
+    }
 }

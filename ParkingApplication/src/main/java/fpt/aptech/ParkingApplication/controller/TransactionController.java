@@ -219,9 +219,9 @@ public class TransactionController {
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
     public String createEBooking(@RequestParam("parkingname") String parkingname, Model model, HttpSession session) {
         try {
-            
+
             HttpEntity request = restTemplate.setRequest();
-                ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "parking/"+parkingname, HttpMethod.GET, request, ParkingRes.class);
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "parking/" + parkingname, HttpMethod.GET, request, ParkingRes.class);
             ParkingRes parkingRes = (ParkingRes) response.getBody();
             BookingReq b = new BookingReq();
             b.setParkingname(parkingname);
@@ -275,6 +275,60 @@ public class TransactionController {
         }
     }
 
+    @RequestMapping(value = "/a/list-transaction", method = RequestMethod.GET)
+    public String adminAllTransaction(@RequestParam("page") int currentPage, Model model) {
+        try {
+            if (1 > currentPage) {
+                currentPage = 1;
+            }
+            HttpEntity request = restTemplate.setRequest();
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "all-transaction?page="
+                    + (currentPage - 1) + "&size=10", HttpMethod.GET, request, PageTransactionRes.class);
+            PageTransactionRes pageTransactionRes = (PageTransactionRes) response.getBody();
+            List<TransactionRes> usertransactions = pageTransactionRes.getListTransaction();
+            if (currentPage > pageTransactionRes.getTotalPages()) {
+                currentPage = pageTransactionRes.getTotalPages();
+            }
+            model.addAttribute("current", currentPage);
+            int[] nav = new int[pageTransactionRes.getTotalPages()];
+            for (int i = 0; i <= (pageTransactionRes.getTotalPages() - 1); i++) {
+                nav[i] = i + 1;
+            }
+            model.addAttribute("pageList", nav);
+            model.addAttribute("transactionlist", usertransactions);
+            return "admin/recharge-history";
+        } catch (Exception e) {
+            return "badrequest";
+        }
+    }
+
+    @RequestMapping(value = "/a/list-transaction/search", method = RequestMethod.GET)
+    public String allTransactionsSearch(@RequestParam("from-date") String fromDate,
+            @RequestParam("to-date") String toDate, Model model) {
+        try {
+            if (fromDate.isEmpty() || toDate.isEmpty()) {
+                return "redirect:/history?page=0";
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate fromLocalDate = LocalDate.parse(fromDate, formatter);
+            LocalDate toLocalDate = LocalDate.parse(toDate, formatter);
+            HttpEntity request = restTemplate.setRequest();
+             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "all-transactions/search?from-date=" + fromLocalDate + "&to-date=" + toLocalDate + "&page=0&size=1000", HttpMethod.GET, request, PageTransactionRes.class);
+            PageTransactionRes pageTransactionRes = (PageTransactionRes) response.getBody();
+            List<TransactionRes> usertransactions = pageTransactionRes.getListTransaction();
+            int[] nav = new int[pageTransactionRes.getTotalPages()];
+            for (int i = 0; i <= (pageTransactionRes.getTotalPages() - 1); i++) {
+                nav[i] = i + 1;
+            }
+            model.addAttribute("current", pageTransactionRes.getCurrentPage());
+            model.addAttribute("pageList", nav);
+            model.addAttribute("transactionlist", usertransactions);
+            return "admin/recharge-history";
+        } catch (Exception e) {
+            return "badrequest";
+        }
+    }
+    
     @RequestMapping(value = "/export/pdf", method = RequestMethod.GET)
     public String exportPDF(@RequestParam("id") String id, HttpServletResponse response,
             HttpSession session) throws IOException, DocumentException {
@@ -319,7 +373,6 @@ public class TransactionController {
         chapter1.add(chapterLp);
         DecimalFormat formatter = new DecimalFormat("###,###,###.00");
 
-
         Paragraph chapterAmount = new Paragraph("Total Amount: " + formatter.format(bookingDetailRes.getPrice()) + " VND");
         chapter1.add(chapterAmount);
         Paragraph chapterSignature = new Paragraph("Signature       ");
@@ -331,6 +384,6 @@ public class TransactionController {
         chapter1.setNumberDepth(0);
         document.add(chapter1);
         document.close();
-        return "redirect:/booking-details?id="+id;
+        return "redirect:/booking-details?id=" + id;
     }
 }

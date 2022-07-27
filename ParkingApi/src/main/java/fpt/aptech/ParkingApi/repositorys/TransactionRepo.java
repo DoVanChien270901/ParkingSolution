@@ -22,9 +22,18 @@ public interface TransactionRepo extends JpaRepository<Transactioninformation, S
 
     @Query("SELECT p FROM Transactioninformation p WHERE p.transno.transno = :transno")
     Transactioninformation getByTransNo(@PathVariable("transno") String transno);
+
     @Query(name = "getListTransByUsernameSearchDate", nativeQuery = true)
-    List<TransactionRes> getListTransByUsernameSearchDate(@Param("username") String username, 
+    List<TransactionRes> getListTransByUsernameSearchDate(@Param("username") String username,
             @Param("fromDate") LocalDateTime fromDate, @Param("toDate") LocalDateTime toDate);
+
     @Query(name = "getListTransByUsername", nativeQuery = true)
     List<TransactionRes> getListTransByUsername(@Param("username") String username);
+
+    @Query(name = "getAllTrans", nativeQuery = true)
+    List<TransactionRes> getAllTrans();
+
+    @Query(name = "getAllTransSearch", nativeQuery = true)
+    List<TransactionRes> getAllTransSearch(@Param("fromDate") LocalDateTime fromDate,
+            @Param("toDate") LocalDateTime toDate);
 }

@@ -48,15 +48,15 @@
                                     <div class="col-12 col-md-12 col-lg-6">
                                         <div class="row">
                                             <form th:action="@{/history/search}" method="GET">
-                                            <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                <input type="date" name="from-date" class="form-control" placeholder="From day...">
-                                            </div>
-                                            <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                <input type="date" name="to-date" class="form-control" placeholder="To day...">
-                                            </div>
-                                            <div class="col-6 col-lg-2 col-md-2 col-sm-2 p-1">
-                                                <button type="submit" class="btn btn-sm btn-primary m-1"><i class="fa fa-search"></i></button>
-                                            </div>
+                                                <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                    <input type="date" name="from-date" class="form-control" placeholder="From day...">
+                                                </div>
+                                                <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                    <input type="date" name="to-date" class="form-control" placeholder="To day...">
+                                                </div>
+                                                <div class="col-6 col-lg-2 col-md-2 col-sm-2 p-1">
+                                                    <button type="submit" class="btn btn-sm btn-primary m-1"><i class="fa fa-search"></i></button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                         <tbody>
                                             <tr th:each="trans : ${transactionlist}">
                                                 <td th:text="${trans.transno}"></td>
-                                                <td type="number" th:text="${#numbers.formatInteger(trans.amount, 3, 'POINT') + ' VND'}"></td>
+                                                <td type="number" th:text="${#numbers.formatInteger (trans.amount, 3, 'POINT') + ' VND'}"></td>
                                                 <td type="date" th:text="${#temporals.format(trans.datetime, 'dd-MM-yyyy HH:mm')}"></td>
                                                 <td th:text="${trans.channel}"></td>
                                                 <td> 
@@ -88,7 +88,7 @@
                                                 <td th:text="${trans.parkingname}"></td>
                                                 <td>
                                                     <span th:if="${trans.statuscode == 0}" class="badge badge-success">Success!</span>
-                                                    <span th:unless="${trans.statuscode == 0}" class="badge badge-success">Failed!</span>
+                                                    <span th:unless="${trans.statuscode == 0}" class="badge badge-danger">Failed!</span>
                                                 </td>
                                             </tr>
                                         </tbody>

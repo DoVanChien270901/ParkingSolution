@@ -4,6 +4,8 @@
  */
 package fpt.aptech.ParkingApi.interfaces;
 
+import fpt.aptech.ParkingApi.dto.request.AddParkingReq;
+import fpt.aptech.ParkingApi.dto.request.UpdateParkingReq;
 import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingRes;
 import fpt.aptech.ParkingApi.entities.Parkinglocation;
@@ -19,6 +21,11 @@ public interface IParking {
     List<ParkingRes> listParking();
     PageParkingHistoryRes getHistoryByUserName(String username, int page, int size);
     PageParkingHistoryRes getHistoryByUserName(String username, LocalDate fromDate, LocalDate toDate, int page, int size);
-    PageParkingHistoryRes getHistory(LocalDate fromDate, LocalDate toDate, int page, int size);
+    PageParkingHistoryRes getHistory(String parkingname, LocalDate fromDate, LocalDate toDate, int page, int size);
     PageParkingHistoryRes getHistory(int page, int size);
+    PageParkingHistoryRes getHistoryByName(String name, int page, int size);
+    boolean add(AddParkingReq parking);
+    void delete(String id);
+    boolean update(UpdateParkingReq parking);
+    List<ParkingRes> seachByName(String name);
 }

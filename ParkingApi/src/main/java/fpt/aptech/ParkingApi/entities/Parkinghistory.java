@@ -36,6 +36,20 @@ import fpt.aptech.ParkingApi.dto.response.ParkingHistoryRes;
 @Table(name = "parkinghistory")
 @XmlRootElement
 @NamedNativeQuery(
+        name = "getAllParkingHistorySearch",
+        query = "SELECT p.id AS id, p.starttime AS starttime, p.timenumber AS timenumber, p.carname AS carname, p.lisenceplates AS lisenceplates, "
+            + "p.parkingname AS parkingname"
+        + " FROM parkinghistory p WHERE p.parkingname = :parkingname and p.starttime >= :fromDate and p.starttime <= :toDate ORDER BY p.starttime DESC",
+        resultSetMapping = "CustomeResultParkingHistoryList"
+)
+@NamedNativeQuery(
+        name = "getListParkingHistoryByParkingName",
+        query = "SELECT p.id AS id, p.starttime AS starttime, p.timenumber AS timenumber, p.carname AS carname, p.lisenceplates AS lisenceplates, "
+            + "p.parkingname AS parkingname"
+        + " FROM parkinghistory p WHERE p.parkingname = :parkingname ORDER BY p.starttime DESC",
+        resultSetMapping = "CustomeResultParkingHistoryList"
+)
+@NamedNativeQuery(
         name = "getListParkingHistoryByUsername",
         query = "SELECT p.id AS id, p.starttime AS starttime, p.timenumber AS timenumber, p.carname AS carname, p.lisenceplates AS lisenceplates, "
             + "p.parkingname AS parkingname"
