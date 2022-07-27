@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link th:href="@{/assetsc/img/icon.png}" rel="icon">
@@ -23,7 +22,6 @@
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    
     <body>
         <!-- Nav Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
@@ -38,7 +36,6 @@
                     <a th:href="@{/home/user}" class="nav-item nav-link active"><i class="fa fa-home"></i> Home</a>
                     <a th:href="@{/map}" class="nav-item nav-link"><i class="fa fa-map-marker-alt"></i> Map</a>
                     <a href="" class="nav-item nav-link"><i class="fa fa-envelope"></i> Contact</a>
-                    <a href="" class="nav-item nav-link"><i class="fa fa-comment"></i> Feedback</a>
                 </div>
                 <div class="navbar-nav ms-auto p-4 p-lg-0 navbar-right">
                     <div class="nav-item dropdown has-user-menu">
@@ -68,17 +65,17 @@
                 <div class="row g-5">
                     <div class="col-lg-4 col-md-6">
                         <h4 class="text-light mb-4">Links</h4>
-                        <a class="btn btn-link" href="">Why Parking.Go ?</a>
+                        <a class="btn btn-link" href="">Why ParkingGo ?</a>
                         <a class="btn btn-link" href="">User Manual</a>
                         <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Service</a>
+                        <a class="btn btn-link" href="">Parking Mobile</a>
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <h4 class="text-light mb-4">Opening Hours</h4>
                         <h6 class="text-light">Monday - Friday:</h6>
-                        <p class="mb-4">09.00 AM - 09.00 PM</p>
+                        <p class="mb-4">07.00 AM - 12.00 PM</p>
                         <h6 class="text-light">Saturday - Sunday:</h6>
-                        <p class="mb-0">09.00 AM - 12.00 PM</p>
+                        <p class="mb-0">07.00 AM - 10.30 PM</p>
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <h4 class="text-light mb-4">Address</h4>
@@ -98,7 +95,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Parking.Go</a>, All Right Reserved. Designed By <a class="border-bottom" href="">T1.2008.A0</a>
+                            &copy; <a class="border-bottom" href="#">ParkingGo</a>, All Right Reserved. Designed By <a class="border-bottom" href="">T1.2008.A0</a>
                             <br>Distributed By: <a class="border-bottom" href="" target="_blank">FPT Aptech</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
@@ -115,7 +112,6 @@
         </div>
         <!-- Footer End -->
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -130,6 +126,11 @@
         <script th:src="@{/assetsc/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js}"></script>
         <!-- JavaScript -->
         <script th:src="@{/assetsc/js/main.js}"></script>
+        <script th:src="@{/assetsc/js/profile.js}"></script>
+        <script type="text/javascript" layout:fragment="validate-profile"></script>
+        <script type="text/javascript" layout:fragment="validate-direct-payment"></script>
+        <script type="text/javascript" layout:fragment="validate-electronic-payment"></script>
+        <!-- dữ cái này lại cho t -->
         <script type="text/javascript" layout:fragment="code-javascript"></script>
     </body>
 </html>

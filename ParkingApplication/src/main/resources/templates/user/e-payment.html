@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Parking.Go | Electronic Payment Page</title>
+        <title>ParkingGo | Electronic Payment Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
 
@@ -18,14 +18,14 @@
                             <div class="col-lg-12">
                                 <ul class="nav nav-tabs">
                                     <div class="">
-                                        <li class="nav-item nav-link"><a th:href="@{/profile}">Profile</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/profile}"><i class="fa fa-user"></i> Profile</a></li>
                                     </div>
                                     <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Wallet Payment<span class="caret"></span>
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet"></i> Wallet Payment<span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu fade-up m-0">
-                                            <li><a class="dropdown-item" th:href="@{/d-payment}">Direct Payment</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/e-payment}">Electronic Payment</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/d-payment}"><i class="fa fa-arrow-right"></i> Direct Payment</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/e-payment}"><i class="fa fa-arrow-right"></i> Electronic Payment</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
@@ -37,62 +37,72 @@
                                         </ul>
                                     </li>
                                     <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}">Booking</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}"><i class="fa fa-parking"></i> Booking</a></li>
                                     </div>
                                 </ul>
                             </div>
                         </div>
-                        <div class="container" id="electronice-payment">
+                        <div class="container" id="electronic-payment">
                             <div class="row g-4 mb-3 pb-3 recharge">
                                 <div class="pb-1 pt-4">
-                                    <h2>// Electronic Payment //</h2>
+                                    <h2 class="h3">// Electronic Payment //</h2>
                                 </div>
-                                <div th:if="${balance}" class="container amount">
-                                    <lable><i class="fa fa-wallet"></i> <span th:text="${balance}"/> VND</lable>
+                                <div th:if="${balance}" class="container show-wallet">
+                                    <label><i class="fa fa-wallet"></i> <span id="format-amount" name="format-amount" th:text="${balance}"/> đ</label>
                                 </div>
-                                <form th:action="@{/e-payment}" th:object="${rechargeReq}" method="POST">
-                                    <div class="row payment">
-                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4 form-check">
-                                            <lable>Choose Payment Method:</lable>
-                                            <div class="class-momo p-2">
-                                                <img class="momo" th:src="@{/assetsc/img/momo.png}">
-                                                <span class="p-1">
-                                                    Momo
-                                                </span>
-                                                <input style="width: 40px;" type="radio" name="" th:field="*{channel}" value="Momo"> 
-                                            </div>
-                                            <div class="class-zalopay p-2">
-                                                <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
-                                                <span class="p-1">
-                                                    ZaloPay
-                                                </span>
-                                                <input style="width: 22.5px;" type="radio" name=""  th:field="*{channel}" value="Zalopay"> 
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-4">
-                                            <lable>Input Amount: </lable>
-                                            <input class="form-control" id="" name="" type="number" placeholder="0" th:field="*{amount}"/>
-                                            <div class="p-2 select-amount">
-                                                <div class="row pt-4">
-                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="20.000 VND" />
-                                                    </div>
-                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="50.000 VND" />
-                                                    </div>
-                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="100.000 VND" />
-                                                    </div>
-                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="150.000 VND" />
+                                <form th:action="@{/e-payment}" th:object="${rechargeReq}" method="POST" id="form-electronic-payment" onsubmit="return validateElectronicPayment()">
+                                    <div class="row">
+                                        <!-- Payment Method Start -->
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-2 col-payment-method">
+                                            <label class="label-payment-method mb-2 h3">Choose Payment Method:</label>
+                                            <div class="row row-form-check-radio-for-payment">
+                                                <div class="form-momo mb-3 p-3 col-6 col-md-6 col-lg-6">
+                                                    <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
+                                                    <span class="title-momo">Momo</span>
+                                                    <input type="radio" id="radio-momo" th:field="*{channel}" value="Momo"> 
+                                                </div>
+                                                <div class="form-zalopay mb-3 p-3 col-6 col-md-6 col-lg-6">
+                                                    <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
+                                                    <span class="title-zalopay">ZaloPay</span>
+                                                    <input type="radio" id="radio-zalopay" th:field="*{channel}" value="Zalopay"> 
+                                                </div>
+                                                <div class="input-group box-error-payment-method">
+                                                    <div class="invalid-feedback mess-box-payment-method error-payment-method" id="error-payment-method">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
-                                            <div class="submit-payment d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-money-check"></i> Payment</button>
+                                        <!-- Payment Method End -->
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-2">
+                                            <label class="label-input-payment h3">Input Payment:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend" id="label-wallet">
+                                                    <div id="basic-addon1" class="input-group-text">
+                                                        <span><i class="fa fa-wallet"></i></span>
+                                                    </div>
+                                                </div>
+                                                <input class="form-control amount-ep" id="amount-ep" type="number" placeholder="0" th:field="*{amount}"/>
+                                                <div class="invalid-feedback mess-box-electronic-payment error-amount-ep" id="error-amount-ep"></div>
                                             </div>
+                                            <div class="p-2 select-amount">
+                                                <div class="row pt-2 mb-4">
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" onclick="changeSelectAmountElec(2)" class="btn btn-sm btn-success p-2" value="20.000 đ" />
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" onclick="changeSelectAmountElec(5)" class="btn btn-sm btn-success p-2" value="50.000 đ" />
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" onclick="changeSelectAmountElec(10)" class="btn btn-sm btn-success p-2" value="100.000 đ" />
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" onclick="changeSelectAmountElec(20)" class="btn btn-sm btn-success p-2" value="200.000 đ" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-4 col-btn-electronic-payment">
+                                            <button type="submit" class="btn btn-primary btn-electronic-payment btn-md mt-0 mb-2"><i class="fa fa-money-check"></i> Payment</button>
                                         </div>
                                     </div>
                                 </form>
@@ -102,5 +112,105 @@
                 </div>
             </div>
         </section>
+        <script type="text/javascript" layout:fragment="validate-electronic-payment">
+            // query selector
+            const qs_epayment = document.querySelector('.error-amount-ep');
+            const qs_radio_payment = document.querySelector('.error-payment-method');
+            // create span
+            const span_epayment = document.createElement('span');
+            const span_radio_payment = document.createElement('span');
+
+            // get forms
+            var epayment = document.forms['form-electronic-payment']['amount-ep'];
+            var radio_momo = document.forms['form-electronic-payment']['radio-momo'];
+            var radio_zalopay = document.forms['form-electronic-payment']['radio-zalopay'];
+
+            var momo = document.getElementById('radio-momo');
+            var zalopay = document.getElementById('radio-zalopay');
+
+            // get id error
+            var epayment_error = document.getElementById('error-amount-ep');
+            var radio_payment_error = document.getElementById('error-payment-method');
+
+            // add event
+            epayment.addEventListener('change', epayment_verify);
+            radio_momo.addEventListener('change', radio_momo_verify);
+            radio_zalopay.addEventListener('change', radio_zalopay_verify);
+
+
+            function validateElectronicPayment() {
+
+                // Radio Payment Method 
+                if (momo.checked == false && zalopay.checked == false) {
+                    radio_payment_error.style.display = "block";
+                    span_radio_payment.innerHTML = "Please choose a payment method !";
+                    qs_radio_payment.appendChild(span_radio_payment);
+                    return false;
+                }
+
+                // Amount Electronic Payment 
+                if (epayment.value.length === 0 || epayment.value.length == '') {
+                    epayment.style.border = "1px solid #dc3545";
+                    epayment_error.style.display = "block";
+                    span_epayment.innerHTML = "Amount can not be left blank !";
+                    qs_epayment.appendChild(span_epayment);
+                    epayment.focus();
+                    return false;
+                }
+                if (epayment.value.length <= 3 || epayment.value.length >= 11) {
+                    epayment.style.border = "1px solid #dc3545";
+                    epayment_error.style.display = "block";
+                    span_epayment.innerHTML = "Amount must be between 4 and 10 numbers ";
+                    qs_epayment.appendChild(span_epayment);
+                    epayment.focus();
+                    return false;
+                }
+                if (parseInt(epayment.value) <= 999 || parseInt(epayment.value) > 5000000) {
+                    epayment.style.border = "1px solid #dc3545";
+                    epayment_error.style.display = "block";
+                    span_epayment.innerHTML = "Amount must be between 1.000 đ and 5.000.000 đ ";
+                    qs_epayment.appendChild(span_epayment);
+                    epayment.focus();
+                    return false;
+                }
+            }
+
+            function epayment_verify() {
+                if (epayment.value.length > 3 && epayment.value.length < 11 && parseInt(epayment.value) > 999 && parseInt(epayment.value) <= 5000000) {
+                    epayment.style.border = "1px solid #28a745";
+                    epayment_error.style.display = "none";
+                    return true;
+                }
+            }
+
+            function radio_momo_verify() {
+                if (momo.checked == true || zalopay.checked == true || checkMomo() || checkZaloPay()) {
+                    radio_payment_error.style.display = "none";
+                    return true;
+                }
+            }
+
+            function radio_zalopay_verify() {
+                if (momo.checked == true || zalopay.checked == true || checkMomo() || checkZaloPay()) {
+                    radio_payment_error.style.display = "none";
+                    return true;
+                }
+            }
+
+            function checkMomo() {
+                momo.checked = true;
+                radio_payment_error.style.display = "none";
+            }
+
+            function checkZaloPay() {
+                zalopay.checked = true;
+                radio_payment_error.style.display = "none";
+            }
+
+            //var text = document.getElementById('format-amount');
+            //var formatted = new Intl.NumberFormat().format(text.textContent);
+            //console.log(formatted);
+            //text.replaceChild(formatted);
+        </script>
     </body>
 </html>

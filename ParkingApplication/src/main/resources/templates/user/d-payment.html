@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Parking.Go | Direct Payment Page</title>
+        <title>ParkingGo | Direct Payment Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
 
@@ -16,14 +16,14 @@
                             <div class="col-lg-12">
                                 <ul class="nav nav-tabs">
                                     <div class="">
-                                        <li class="nav-item nav-link"><a th:href="@{/profile}">Profile</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/profile}"><i class="fa fa-user"></i> Profile</a></li>
                                     </div>
                                     <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Wallet Payment<span class="caret"></span>
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet"></i> Wallet Payment<span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu fade-up m-0">
-                                            <li><a class="dropdown-item" th:href="@{/d-payment}">Direct Payment</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/e-payment}">Electronic Payment</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/d-payment}"><i class="fa fa-arrow-right"></i> Direct Payment</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/e-payment}"><i class="fa fa-arrow-right"></i> Electronic Payment</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
@@ -35,7 +35,7 @@
                                         </ul>
                                     </li>
                                     <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}">Booking</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}"><i class="fa fa-parking"></i> Booking</a></li>
                                     </div>
                                 </ul>
                             </div>
@@ -43,48 +43,52 @@
                         <div class="container" id="direct-payment">
                             <div class="row g-4 mb-3 pb-3 recharge">
                                 <div class="pb-1 pt-4">
-                                    <h2>// Direct Payment //</h2>
+                                    <h2 class="h3">// Direct Payment //</h2>
                                 </div>
-                                <div class="container amount">
-                                    <lable><i class="fa fa-wallet"></i> <span th:text="${balance}"/> VND</lable>
+                                <div class="container show-wallet">
+                                    <label><i class="fa fa-wallet"></i> <span th:text="${balance}"/> đ</label>
                                 </div>
-                                <form th:action="@{/generator-qrcode}" method="GET">
+                                <form th:action="@{/generator-qrcode}" method="GET" id="form-direct-payment" class="form-direct-payment">
                                     <div class="row payment">
-                                        <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-4">
-                                            <lable>Input Amount: </lable>
-                                            <input class="form-control" th:name="amount" type="number" value="0"/>
+                                        <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
+                                            <label class="label-input-payment mb-2 h3">Input Payment:</label>
+                                            <div class="input-group pt-3">
+                                                <div class="input-group-prepend" id="label-wallet">
+                                                    <div id="basic-addon1" class="input-group-text">
+                                                        <span><i class="fa fa-wallet"></i></span>
+                                                    </div>
+                                                </div>
+                                                <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp" placeholder="0"/>
+                                                <div class="invalid-feedback mess-box-direct-payment error-amount-dp" id="error-amount-dp">
+                                                </div>
+                                            </div>
                                             <div class="p-2 select-amount">
-                                                <div class="row pt-4">
+                                                <div class="row pt-2 mb-4">
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="20.000 VND" />
+                                                        <input type="button" id="" onclick="changeSelectAmount(2)" class="btn btn-sm btn-success p-2" value="20.000 đ">
                                                     </div>
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="50.000 VND" />
+                                                        <input type="button" id="" onclick="changeSelectAmount(5)" class="btn btn-sm btn-success p-2" value="50.000 đ">
                                                     </div>
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="100.000 VND" />
+                                                        <input type="button" id="" onclick="changeSelectAmount(10)" class="btn btn-sm btn-success p-2" value="100.000 đ">
                                                     </div>
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" class="btn btn-sm btn-success p-2" value="150.000 VND" />
+                                                        <input type="button" id="" onclick="changeSelectAmount(20)" class="btn btn-sm btn-success p-2" value="200.000 đ" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 pt-4 row">
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-4"></div>
-                                            <div th:if="${displaycode}" class="col-12 col-sm-12 col-md-12 col-lg-8 col-qrcode pt-4">
-                                                <img class="qrcode mb-2" th:src="${displaycode}"/>
-                                                <p class="text-center">Your QR Code</p> 
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 pt-2">
+                                            <div th:if="${displaycode}" class="col-direct-payment-qrcode pt-2">
+                                                <img class="direct-payment-qrcode get-qrcode mb-2" th:src="${displaycode}"/>
                                             </div>
-                                            <div th:unless="${displaycode}" class="col-12 col-lg-8 col-md-12 col-sm-12 pt-6 col-no-qrcode">
-                                                <img class="no-qrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />
+                                            <div th:unless="${displaycode}" class="col-direct-payment-qrcode pt-2">
+                                                <img class="direct-payment-qrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />
                                             </div>
                                         </div>
-
-                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-4">
-                                            <div class="submit-payment d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-primary btn-sm mt-0 mb-2 me-2 p-2"><i class="fa fa-qrcode"></i> QR Code</button>
-                                            </div>
+                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-4 col-btn-qrcode-direct-payment">
+                                            <button type="submit" class="btn btn-primary btn-qrcode-direct-payment btn-md mt-0 mb-2"><i class="fa fa-qrcode"></i> QR Code</button>
                                         </div>
                                     </div>
                                 </form>
@@ -94,5 +98,8 @@
                 </div>
             </div>
         </section>
+        <script type="text/javascript" layout:fragment="validate-direct-payment">
+
+        </script>
     </body>
 </html>

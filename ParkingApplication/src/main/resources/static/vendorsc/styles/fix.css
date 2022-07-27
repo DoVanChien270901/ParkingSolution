@@ -1,4 +1,5 @@
 /* Form Login, Register, Reset Password, Forgot Password */
+
 #form-account-fix .login-box {
     max-width: 480px;
 }
@@ -7,18 +8,20 @@
     max-width: 540px !important;
 }
 
-// set logo with mouse hover normal
-.brand-logo a span {
+/* Set Logo With Mouse Hover Normal */
+
+.brand-logo a {
     cursor: context-menu;
 }
 
-input[type="date"], .form-check-radio label {
+input[type="date"],
+.form-check-radio label {
     opacity: 0.75;
 }
 
 .form-account-register .login-box input[type="date"]:before {
     content: attr(placeholder);
-    margin-top: -1.5px;
+    margin-top: -0.4px;
 }
 
 .form-check-radio {
@@ -28,6 +31,7 @@ input[type="date"], .form-check-radio label {
     position: relative;
     padding-top: 15px;
 }
+
 .form-check-radio .form-check {
     background-color: #f4f4f4;
     border: thin solid #e4e4e4;
@@ -45,17 +49,18 @@ input[type="date"], .form-check-radio label {
 }
 
 #form-account-fix .login-box .login-title {
-    padding: 0 0 10px !important;
+    padding: 0 0 15px !important;
     margin-bottom: 0px !important;
 }
+
 #form-account-fix .login-box form div.input-group {
     position: flex !important;
     margin-bottom: 0px !important;
 }
 
 #form-account-fix .title-reset-password,
-#form-account-fix .title-forgot-password{
-    font-size:90%;
+#form-account-fix .title-forgot-password {
+    font-size: 90%;
 }
 
 #form-account-fix .invalid-feedback {
@@ -64,21 +69,30 @@ input[type="date"], .form-check-radio label {
 }
 
 #form-account-fix .message-box {
-    width: 93.5%; 
-    color: #fff; 
-    background: #dc3545; 
+    width: 100%;
+    color: #fff;
+    background: #dc3545;
     display: none;
-    padding: 10px; 
-    position: absolute; 
     z-index: 999;
+    position: absolute;
+    padding: 10px;
     font-size: 80%;
 }
 
+#form-account-fix .check-message-box label {
+    font-size: 14px;
+}
+
 #form-account-fix .message-col-6 {
-    width: 87% !important;
+    width: 100%;
+}
+
+#form-account-fix .forgot-password a {
+    font-size: 14px;
 }
 
 /* Admin Manager */
+
 .left-side-bar .brand-logo .light-logo {
     width: 40px;
     padding: 0px;
@@ -119,12 +133,20 @@ input[type="date"], .form-check-radio label {
     color: #fff;
 }
 
-.modal-content .modal-body .text-center img {
-    width: 80px;
+.col-profile-admin button {
+    text-transform: capitalize;
 }
 
 .tab-wizard2 {
     display: relative;
+}
+
+#timeline .profile-edit-list input:hover {
+    cursor: context-menu;
+}
+
+#list-user table tbody tr {
+    cursor: pointer;
 }
 
 .login-box {
@@ -144,10 +166,9 @@ input[type="date"], .form-check-radio label {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-width: 85%;
-    border: 1px solid #202020;
-    padding: 5px;
-    border-radius: 5px;
+    max-width: 75%;
+    /* border: 1px solid #202020; */
+    padding: 0px;
 }
 
 .momo,
@@ -156,10 +177,9 @@ input[type="date"], .form-check-radio label {
 }
 
 .update-profile,
-.update-parking, 
+.update-parking,
 .cancel-return-parking-list {
     text-transform: capitalize;
-    width: 200px;
 }
 
 .invalid-feedback {
@@ -171,6 +191,7 @@ input[type="date"], .form-check-radio label {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .custom input[type=number] {
     -moz-appearance: textfield;
 }
@@ -179,45 +200,36 @@ input[type="date"], .form-check-radio label {
     display: none;
 }
 
-@media screen and (max-width:1200px){
-    .update-profile{
-        width: 250px;
-    }
+/* chart */
+.curve_chart {
+    width: 100%;
+}
+@media screen and (max-width:1200px) {
+  
 }
 
 @media screen and (max-width:991.20px) {
-    .update-profile{
-        width: 250px;
-    }
+
 }
 
 @media screen and (max-width:768px) {
     .register-page-wrap .login-box {
         max-width: 450px;
     }
-    .update-profile,
-    .update-parking, 
+    .update-parking,
     .cancel-return-parking-list {
         width: 220px;
     }
 }
 
-@media screen and (min-width:567px){
-    .col-update-profile,
-    .col-create-parking {
-        justify-content: center;
-        display: flex;
-    }
+@media screen and (min-width:567px) { 
+    
 }
 
-@media screen and (max-width:567px){
-    .update-profile,
-    .update-parking, 
+
+@media screen and (max-width:567px) {
+    .update-parking,
     .cancel-return-parking-list {
         width: 100%;
     }
-
-}
-#list-user table tbody tr{
-    cursor: pointer;
 }

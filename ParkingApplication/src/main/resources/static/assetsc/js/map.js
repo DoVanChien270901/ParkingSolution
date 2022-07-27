@@ -19,6 +19,7 @@ var requestOptions = {
     body: null,
     redirect: "follow",
 };
+
 var api = "http://localhost:8080/list-parking";
 fetch(api, requestOptions)
         .then((response) => {
@@ -38,14 +39,14 @@ function listElements(parking, calulate) {
     const address = document.createElement('p');
     const radius = document.createElement('p');
     const button = document.createElement('a');
-    const row14 = document.createElement('row');
-    const row24 = document.createElement('row');
-    const col14 = document.createElement('col');
-    const col24 = document.createElement('col');
-    const col34 = document.createElement('col');
-    const col44 = document.createElement('col');
     const nop = document.createElement('p');
     const rentcost = document.createElement('p');
+    const row = document.createElement('row');
+    const col1 = document.createElement('col');
+    const col2 = document.createElement('col');
+    const col3 = document.createElement('col');
+    const col4 = document.createElement('col');
+
     // div 
     div.classList.add('shop-item');
     div.setAttribute('id', 'shop-item');
@@ -58,14 +59,15 @@ function listElements(parking, calulate) {
     a.setAttribute('id', 'shop-item-name');
 
     // address
+    address.setAttribute('class', 'pt-2');
     address.innerHTML = parking.address;
 
     // radius
     radius.setAttribute('id', 'radius');
-    radius.innerHTML = '<i class="fa fa-road"></i> ' + calulate.toFixed(3) + ' km ';
+    radius.innerHTML = '<i class="fa fa-map-marker-alt"></i> ' + calulate.toFixed(3) + ' km ';
 
     nop.setAttribute('id', 'nop');
-    nop.innerHTML = '<i class="fa fa-chair"></i> ' + parking.blank + "/" + parking.nop;
+    nop.innerHTML = '<i class="fa fa-parking"></i> ' + parking.blank + "/" + parking.nop + " slot";
 
     // button booking
     button.href = './booking?parkingname=' + parking.name;
@@ -73,48 +75,47 @@ function listElements(parking, calulate) {
     //button.setAttribute('type', 'button');
     button.innerHTML = 'Booking';
     button.setAttribute('value', parking.name);
-    
+
     // rentcost
     rentcost.setAttribute('class', 'salary');
-    rentcost.innerHTML = '<i class="fa fa-money-check"></i> ' + parking.rentcost;
+    rentcost.innerHTML = '<i class="fa fa-wallet"></i> ' + Intl.NumberFormat().format(parking.rentcost) + ' đ/h';
     // row 
-    row14.classList.add('row');
-    row24.classList.add('row');
-    // col14 
-    col14.classList.add('col-6');
-    col14.classList.add('pt-2');
-    // col24
-    col24.classList.add('col-6');
-    col24.classList.add('pt-2');
-    // col34
-    col34.classList.add('col-6');
-    col34.classList.add('pt-2'); 
-    // col44
-    col44.classList.add('col-6');
-    col44.classList.add('p-2');
-    
+    row.classList.add('row');
+    row.classList.add('row-shop-item')
+
+    // col1
+    col1.classList.add('col-12');
+    col1.classList.add('pt-0');
+    // col2
+    col2.classList.add('col-12');
+    col2.classList.add('pt-0');
+    // col3
+    col3.classList.add('col-6');
+    col3.classList.add('pt-0');
+    // col4
+    col4.classList.add('col-6');
+    col4.classList.add('p-3');
+
     div.appendChild(a);
     div.appendChild(address);
     // div row
-    div.appendChild(row14);
-    div.appendChild(row24);
-    // row 
-    row14.appendChild(col14);
-    row14.appendChild(col24);
-    row24.appendChild(col34);
-    row24.appendChild(col44);
-    col14.appendChild(radius);
-    col24.appendChild(nop);
-    col34.appendChild(rentcost);
-    col44.appendChild(button);
-    
+    div.appendChild(row);
+    row.appendChild(col1);
+    row.appendChild(col2);
+    row.appendChild(col3);
+    row.appendChild(col4);
+    col1.appendChild(radius);
+    col2.appendChild(nop);
+    col3.appendChild(rentcost);
+    col4.appendChild(button);
+
     li.appendChild(div);
     ul.appendChild(li);
 }
 function contentElement(parking) {
-    return '<div id="content-parking">' + '<strong>' + parking.name + '</strong>' + '<br/>' + parking.address + '<div class="p-1"></div>' +
-        '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>' + '&nbsp&nbsp' +
-        '<button type="button" class="booking-box" id=""><i class="fa fa-fa fa-parking"></i> Booking</button>';
+    return '<div id="content-parking">' + '<strong>' + parking.name + '</strong>' + '<div class="pt-2" style="color:#000;">' + parking.address + '</div>' + '<div class="p-1"></div>' +
+            '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>' + '&nbsp&nbsp' +
+            '<a href="./booking?parkingname=' + parking.name + '" type="button" class="booking-box"><i class="fa fa-fa fa-parking"></i> Booking</a>';
 }
 
 function calculate(lat1, lat2, long1, long2) {
@@ -185,7 +186,7 @@ function showPlace(latpos, longpos) {
                 if (idParking == parkingLocations[i]['name']) {
                     var posI = new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']);
                     var contentOnShop = contentElement(parkingLocations[i]);
-                     var placeListPos = inforwindow.setPosition(posI)
+                    var placeListPos = inforwindow.setPosition(posI)
                     inforwindow.setContent(contentOnShop);
                     // inforwindow.setOptions({
                     //     pixelOffset: new google.maps.Size(5.55, -24.5)
@@ -231,7 +232,7 @@ function showDirection(data) {
 
 function showMap() {
     inforwindow = new google.maps.InfoWindow();
-     inforwindow.setOptions({
+    inforwindow.setOptions({
         pixelOffset: new google.maps.Size(5.55, -24.5)
     });
     window.navigator.geolocation.getCurrentPosition(function (pos) {
@@ -256,7 +257,7 @@ function showMap() {
                 strokeColor: '#ffffff'
             }
         });
-        document.getElementById("getLocation").addEventListener("click", function() {
+        document.getElementById("getLocation").addEventListener("click", function () {
             map.setCenter(markerLocation.position);
         });
         showPlace(lat, long);
