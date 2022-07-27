@@ -1,0 +1,349 @@
+/* Google Map CSS */
+.wrapper-google-map {
+    height: 100%;
+    width: 300px;
+    position: relative;
+}
+
+.wrapper-google-map .menu-btn {
+    position: absolute;
+    left: 185px;
+    top: 10px;
+    background: #fff;
+    color: black;
+    height: 40px;
+    width: 40px;
+    z-index: 9999;
+    box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* .wrapper-google-map .selectRadius {
+    position: absolute;
+    z-index: 9999;
+    top: 11px;
+    left: 275px;
+    width: 140px;
+    height: 145px;
+    border-radius: 2px;
+    align-items: center;
+    justify-content: center;
+} */
+
+#btn:checked~.menu-btn {
+    left: 301px;
+    top: 13.8px;
+}
+
+.wrapper-google-map .menu-btn i {
+    position: absolute;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.wrapper-google-map .menu-btn i.fa-times {
+    opacity: 0;
+}
+
+#btn:checked~.menu-btn i.fa-times {
+    opacity: 1;
+    transform: rotate(-180deg);
+}
+
+#btn:checked~.menu-btn i.fa-bars {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+#btn:checked~#sidebar {
+    left: 0;
+}
+
+#sidebar .title {
+    background: #1b00ff;
+    border-bottom: 1px solid #1b00ff;
+    font-style: 'Arial', sans-serif !important;
+}
+
+#sidebar .title h4 {
+    line-height: 65px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.content-google-map {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    width: 100%;
+    text-align: center;
+}
+
+#map {
+    width: 100%;
+    height: 100vh;
+}
+
+#sidebar {
+    position: fixed;
+    background: #fff;
+    height: 100%;
+    width: 320px;
+    left: -320px;
+    transition: all 0.3s ease;
+    overflow-y: scroll;
+}
+
+#sidebar::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #1b00ff;
+}
+
+.wrapper-google-map .location-btn {
+    position: absolute;
+    left: 230px;
+    top: 10px;
+}
+
+.wrapper-google-map .location-btn button {
+    background: #fff;
+    color: black;
+    height: 40px;
+    width: 40px;
+    box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#content-parking {
+    max-width: 250px;
+    text-align: left;
+    color: #000000;
+}
+
+.gm-style-iw-c {
+    text-align: left;
+}
+
+#content-parking strong {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#content-parking .direction {
+    background-color: #1b00ff;
+    color: #fff;
+    border-radius: 2px;
+    border: 0;
+    outline: 0;
+    padding: 5px;
+    font-size: 13px;
+    padding: 7px;
+}
+
+#content-parking .booking-box {
+    background-color: #198754;
+    color: #fff;
+    border-radius: 2px;
+    border: 0;
+    outline: 0;
+    padding: 5px;
+    font-size: 13px;
+    padding: 7px;
+
+}
+
+.shop-item .booking-list {
+    text-align: center;
+    text-decoration: none;
+    background-color: #198754;
+    color: #fff !important;
+    padding: 5px;
+    font-weight: 500 !important;
+    font-size: 12px;
+    width: 100% !important;
+    height: 35px !important;
+    float: right !important; 
+    border-radius: 2px !important;
+}
+
+#sidebar .shop-item .row-shop-item col p { 
+    font-size: 14px;
+}
+
+#sidebar .shop-item .row-shop-item col .fa-map-marker-alt {
+    color: #dc3545;
+}
+
+#sidebar .shop-item .row-shop-item col .fa-parking {
+    color: #1b00ff;
+}
+
+#sidebar .shop-item .row-shop-item col .fa-wallet {
+    color: #198754;
+}
+
+#content-parking .direction:hover {
+    background-color: #1502bd;
+}
+
+#content-parking .booking-box:hover {
+    background-color: #157347;
+}
+
+.shop-item .booking-list:hover {
+    background-color: #157347;
+}
+
+#sidebar .form-direction input,
+#sidebar .form-direction select {
+    background-color: #1b00ff;
+    border: 0;
+    outline: 0;
+    color: #fff;
+}
+
+#sidebar .form-direction {
+    color: #fff;
+}
+
+#sidebar .form-direction input:focus,
+#sidebar .form-direction select:focus {
+    outline: 0;
+}
+
+#sidebar .form-direction .form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.wrapper-google-map ul.list-items,
+.wrapper-google-map ul.list-items2 {
+    padding: 0rem 1rem;
+    list-style-type: none;
+}
+
+#sidebar .list-items .shop-item a,
+#sidebar .list-items2 .shop-item a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #1b00ff;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+#sidebar .list-items .shop-item p,
+#sidebar .list-items2 .shop-item p {
+    font-size: 14px;
+    color: #404040;
+}
+
+#sidebar .list-items .shop-item,
+#sidebar .list-items2 .shop-item {
+    margin: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#sidebar .list-items li:last-child .shop-item,
+#sidebar .list-items2 li:last-child .shop-item {
+    border: none;
+}
+
+#sidebar .list-google-map ul.list-items,
+#sidebar .list-google-map ul.list-items2 {
+    list-style: none;
+}
+
+#sidebar .list-items,
+#sidebar .list-items2 {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+}
+
+#sidebar .list-items li:first-child,
+#sidebar .list-items2 li:first-child {
+    border-top: none;
+}
+
+#sidebar .list-items li a,
+#sidebar .list-items2 li a {
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+#sidebar .list-items li a i,
+#sidebar .list-items2 li a i {
+    margin-right: 20px;
+}
+
+#sidebar .result-list {
+    padding-left: 1rem;
+    margin-top: 1rem;
+    font-size: 16px;
+    font-style: italic;
+    color: #dc3545;
+    font-weight: 600;
+    font-family: 'Arial', sans-serif;
+}
+
+#sidebar .title h4 button {
+    position: absolute;
+    left: 10px;
+    background-color: #1b00ff;
+    color: #fff;
+    border: 0;
+    outline: 0;
+}
+
+#list-google-map .page-item a:hover {
+    color: #1502bd;
+}
+
+.currentLocation {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#remove-list-marker {
+    outline: 0;
+    border: 0;
+    float: right;
+    height: 24px;
+    margin-top: -1px;
+}
+
+#remove-list-marker:focus {
+    outline: 0;
+    border: 0;
+}

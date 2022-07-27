@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
-        <!-- Register Page Info -->
         <meta charset="utf-8">
         <title>ParkingGo | Register Page</title>
         <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
@@ -43,18 +42,25 @@
                                 <h2 class="text-center text-primary">Register to Parking Go</h2>
                             </div>
                             <form th:action="@{/account/register}" th:object="${registerReq}" method="POST" name="form-register" onsubmit="return validateRegister()">
-                                <label class="error-mes " role="alert" th:if="${errormes}" th:text="${errormes}"></label>
                                 <div class="row">
+                                    <div class="col-12 col-md-12 col-mess-all">
+                                        <div class="invalid-feedback check-message-box">
+                                            <label class="error-mes" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+                                        </div>
+                                    </div>
                                     <div class="col-12 col-md-12 col-lg-12">
-                                        <div class="input-group custom mt-4">
+                                        <div class="input-group custom mt-2">
                                             <input autocomplete="off" th:field="*{username}" name="username" type="text" class="form-control form-control-md" placeholder="*Username">
                                             <div class="input-group-append custom">
                                                 <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                                             </div>
                                         </div>   
-                                        <div class="invalid-feedback message-box" id="error-username">
-                                            <span>Username must be between 6 and 25 characters</span>
-                                        </div>
+                                        <div class="row">
+                                            <div class="col-12" style="margin-left: -15px;">
+                                                <div class="invalid-feedback message-box error-username" id="error-username">  
+                                                </div>
+                                            </div>
+                                        </div>  
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-12">
                                         <div class="input-group custom mt-4">
@@ -63,8 +69,11 @@
                                                 <span class="input-group-text"><i class="icon-copy dw dw-padlock1"></i></span>
                                             </div>
                                         </div>
-                                        <div class="invalid-feedback message-box" id="error-password">
-                                            <span>Password must be between 6 and 12 characters</span>
+                                        <div class="row">
+                                            <div class="col-12" style="margin-left: -15px;">
+                                                <div class="invalid-feedback message-box error-password" id="error-password">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-6">
@@ -74,8 +83,11 @@
                                                 <span class="input-group-text"><i class="icon-copy dw dw-user2"></i></span>
                                             </div>
                                         </div>
-                                        <div class="invalid-feedback message-box message-col-6" id="error-fullname">
-                                            <span>Full name must be 3 or more characters</span>
+                                        <div class="row">
+                                            <div class="col-12" style="margin-left: -15px;">
+                                                <div class="invalid-feedback message-box message-col-6 error-fullname" id="error-fullname">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-6">
@@ -85,8 +97,11 @@
                                                 <span class="input-group-text"><i class="icon-copy dw dw-phone-call"></i></span>
                                             </div>
                                         </div>
-                                        <div class="invalid-feedback message-box message-col-6" id="error-phone">
-                                            <span>Phone must enter 10 numbers</span>
+                                        <div class="row">
+                                            <div class="col-12" style="margin-left: -15px;">
+                                                <div class="invalid-feedback message-box message-col-6 error-phone" id="error-phone">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-6">
@@ -94,11 +109,14 @@
                                         <div class="input-group custom mt-4">
                                             <input autocomplete="off" th:field="*{dob}" type="date" name="dob" placeholder="*Date:&nbsp;" class="form-control form-control-md">
                                         </div>
-                                        <div class="invalid-feedback message-box message-col-6" id="error-dob">
-                                            <span>Date can not be left blank</span>
+                                        <div class="row">
+                                            <div class="col-12" style="margin-left: -15px;">
+                                                <div class="invalid-feedback message-box message-col-6 error-dob" id="error-dob">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                   <div class="col-12 col-md-12 col-lg-6">
+                                    <div class="col-12 col-md-12 col-lg-6">
                                         <!--<label>Gender</label>-->
                                         <div class="input-group custom form-check-radio row">
                                             <div class="form-check mt-2 col-6">
@@ -114,23 +132,29 @@
                                     <div class="col-12 col-md-12 col-lg-12">
                                         <div class="input-group custom mt-4">
                                             <input autocomplete="off" th:field="*{identitycard}" type="number" name="identitycard" class="form-control form-control-md" placeholder="*Identity Card">
-                                             <div class="input-group-append custom">
+                                            <div class="input-group-append custom">
                                                 <span class="input-group-text"><i class="icon-copy dw dw-id-card2"></i></span>
                                             </div>
                                         </div>
-                                        <div class="invalid-feedback message-box" id="error-identitycard">
-                                            <span>Identity card must enter 10 numbers</span>
+                                        <div class="row">
+                                            <div class="col-12" style="margin-left: -15px;">
+                                                <div class="invalid-feedback message-box error-identitycard" id="error-identitycard">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-12">
                                         <div class="input-group custom mt-4">    
-                                            <input autocomplete="off" th:field="*{email}" type="email" name="email" class="form-control form-control-md" placeholder="*Email">
+                                            <input autocomplete="off" th:field="*{email}" type="text" name="email" class="form-control form-control-md" placeholder="*Email">
                                             <div class="input-group-append custom">
                                                 <span class="input-group-text"><i class="icon-copy dw dw-email"></i></span>
                                             </div>
                                         </div>
-                                        <div class="invalid-feedback message-box" id="error-email">
-                                            <span>Email  must be 9 or more characters</span>
+                                        <div class="row">
+                                            <div class="col-12" style="margin-left: -15px;">
+                                                <div class="invalid-feedback message-box error-email " id="error-email">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

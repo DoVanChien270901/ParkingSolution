@@ -3,7 +3,7 @@
       layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>Parking.Go | Index Page</title>
+        <title>ParkingGo | Booking Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
     <body>
@@ -13,61 +13,83 @@
                 <div class="container">
                     <div class="pb-4 pt-4">
                         <h2 class="text-primary text-uppercase text-center" th:text="${bookingReq.parkingname}"></h2>
-                        <marquee class="text-primary">309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam</marquee>
+                        <!--<marquee class="text-primary">309 Dong Hung Thuan 29, Dong Hung Thuan, District 12, Ho Chi Minh City, Vietnam</marquee>-->
                     </div>
-                    <form th:action="@{/booking}" th:object="${bookingReq}" method="POST">
-                        
+                    <form th:action="@{/booking}" th:object="${bookingReq}" method="POST" id="form-parking-booking">
+                        <input th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none;"/>
                         <div class="row g-4 mb-3 pb-3">
-                            <input  th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>
-                            <div class="row g-4 mb-3 pb-3">
-                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <lable><i class="fa fa-car"></i> Car Name</lable>
-                                    <input  th:field="*{carname}" type="text" value="" class="form-control mb-4"/>
-                                    <lable><i class="fa fa-clock"></i> Start Time</lable>
-                                    <input type="datetime-local" th:field="*{starttime}" value="" class="form-control mb-4"/>
+                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                <div class="input-group mb-3 pt-3">
+                                    <div class="input-group-prepend" id="label-transport">
+                                        <div id="basic-addon1" class="input-group-text">
+                                            <span><i class="fa fa-car"></i></span>
+                                        </div>
+                                    </div>
+                                    <input  th:field="*{carname}" type="text" placeholder="Input Car" class="form-control"/>
                                 </div>
-                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <lable><i class="fa fa-id-card"></i> License Plates</lable>
-                                    <input type="text" th:field="*{lisenceplates}" value="" class="form-control mb-4"/>
-                                    <lable><i class="fa fa-times"></i> Timer Number</lable>
-                                    <input type="number" th:field="*{timenumber}" value="0" class="form-control mb-4"/>
+                                <div class="input-group pt-3">
+                                    <div class="input-group-prepend" id="label-start-time">
+                                        <div id="basic-addon1" class="input-group-text">
+                                            <span><i class="far fa-clock"></i></span>
+                                        </div>
+                                    </div>
+                                    <input type="datetime-local" th:field="*{starttime}" class="form-control"/>
                                 </div>
-                                <div class="col-12 col-lg-6 col-md-12 col-sm-12 amount">
-                                    <lable><i class="fa fa-wallet"></i> Choose Payment Method</lable>
-                                    <div class="p-2">
-                                        <div class="row">
-                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                                <img class="momo" th:src="@{/assetsc/img/momo.png}">
-                                                <span class="p-1">
-                                                    Momo
-                                                </span>
-                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Momo"  name="payment" checked="true"> 
-                                            </div>
-                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                                <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
-                                                <span class="p-1">ZaloPay</span>
-                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Zalopay" name="payment"> 
-                                            </div>
-                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                                <img class="wallet" th:src="@{/assetsc/img/wallet.png}">
-                                                <span class="p-1">Wallet</span>
-                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Wallet"  name="payment"> 
-                                            </div>
+                            </div>
+                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                <div class="input-group mb-3 pt-3">
+                                    <div class="input-group-prepend" id="label-lisence-plates">
+                                        <div id="basic-addon1" class="input-group-text">
+                                            <span><i class="fas fa-pen-square"></i></span>
+                                        </div>
+                                    </div>
+                                    <input type="text" th:field="*{lisenceplates}" placeholder="Input Lisence Plates" class="form-control"/>
+                                </div>     
+                                <div class="input-group mb-3 pt-3">
+                                    <div class="input-group-prepend" id="label-time-number">
+                                        <div id="basic-addon1" class="input-group-text">
+                                            <span><i class="fas fa-stopwatch"></i></span>
+                                        </div>
+                                    </div>
+                                    <input type="number" th:field="*{timenumber}" placeholder="0" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 col-md-12 col-sm-12">
+                                <label class="label-payment-method mb-2 h3">Choose Payment Method:</label>
+                                <div class="row row-form-check-radio-for-payment">
+                                    <div class="form-momo mb-3 p-2 col-6 col-md-6 col-lg-4">
+                                        <img class="momo" th:src="@{/assetsc/img/momo.png}">
+                                        <span class="title-momo">Momo</span>
+                                        <input name="data-radio" type="radio" id="radio-momo" th:field="*{channel}" value="momo"> 
+                                    </div>
+                                    <div class="form-zalopay mb-3 p-2 col-6 col-md-6 col-lg-4">
+                                        <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
+                                        <span class="title-zalopay">ZaloPay</span>
+                                        <input name="data-radio" type="radio" id="radio-zalopay" th:field="*{channel}" value="zalopay"> 
+                                    </div>
+                                    <div class="form-wallet mb-3 p-2 col-6 col-md-6 col-lg-4">
+                                        <img class="wallet" th:src="@{/assetsc/img/wallet.png}">
+                                        <span class="p-1">Wallet</span>
+                                        <input name="data-radio" type="radio" th:field="*{channel}" value="Wallet"> 
+                                    </div>
+                                    <div class="input-group box-error-payment-method">
+                                        <div class="invalid-feedback mess-box-payment-method error-payment-method" id="error-payment-method">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6 col-md-12 col-sm-12">
-                                </div>
-                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <input type="text" value="0 VND" class="form-control mb-4" readonly="true"/>
-                                </div>
-                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 button-edit">
-                                    <!-- Cancel Start -->
-                                    <button type="submit" id="save-booking" class="btn btn-success mt-0 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Booking</button>
-                                    <button type="button" id="back-to-google-map" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back</button>
-                                    <!-- Cancel End -->
-                                </div>
+
                             </div>
+                            <div class="col-12 col-lg-6 col-md-12 col-sm-12"></div>
+                            <div class="col-12 col-lg-6 col-md-12 col-sm-12">
+                                <input type="number" value="0" class="form-control mb-4" readonly="true"/>
+                            </div>
+                            <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-btn-parking-booking">
+                                <!-- Cancel Start -->
+                                <button type="submit" id="save-parking-booking" class="btn btn-success mt-0 mb-2 me-2"><i class="fa fa-check-circle"></i> Booking</button>
+                                <button type="button" id="back-to-google-map" class="btn btn-danger mt-0 mb-2 me-2"><i class="fa fa-arrow-left"></i> Back</button>
+                                <!-- Cancel End -->
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

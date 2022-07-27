@@ -3,7 +3,7 @@
       layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>Parking.Go | QR Code Booking Page</title>
+        <title>ParkingGo | QR Code Booking Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
 
@@ -16,21 +16,21 @@
                             <div class="col-lg-12">
                                 <ul class="nav nav-tabs">
                                     <div class="">
-                                        <li class="nav-item nav-link"><a th:href="@{/profile}">Profile</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/profile}"><i class="fa fa-user"></i> Profile</a></li>
                                     </div>
                                     <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Wallet Payment<span class="caret"></span>
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet"></i> Wallet Payment<span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu fade-up m-0">
-                                            <li><a class="dropdown-item" th:href="@{/d-payment}">Direct Payment</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/e-payment}">Electronic Payment</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/d-payment}"><i class="fa fa-arrow-right"></i> Direct Payment</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/e-payment}"><i class="fa fa-arrow-right"></i> Electronic Payment</a></li>
                                         </ul>
                                     </li>
                                     <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/history}">History</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/history}"><i class="fa fa-history"></i> History</a></li>
                                     </div>
                                     <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}">Booking</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}"><i class="fa fa-parking"></i> Booking</a></li>
                                     </div>
                                 </ul>
                             </div>
@@ -38,22 +38,22 @@
                         <div class="container" id="booking">
                             <div th:if="${listBookingRes}" class="row g-4 mb-3 pb-3" id="booking-list">
                                 <div class="pb-1 pt-4">
-                                    <h2>// List Booking //</h2>
+                                    <h2 class="h3">// List Booking //</h2>
                                 </div>
                                 <div class="table-responsive-md">
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-striped table-hover">
                                         <thead>
-                                            <tr>
-                                                <th scope="col">Id</th>
+                                            <tr class="">
+                                                <th scope="col">#</th>
                                                 <th scope="col">Parking</th>
                                                 <th scope="col">Amount</th>
                                                 <th scope="col">Date Time</th>
-                                                 <th scope="col">Time Number</th>
+                                                <th scope="col">Time Number</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="item : ${listBookingRes}" th:value="${item.getId()}">
-                                                <td id="bookingid" th:text="${item.getId()}"></td>
+                                                <th scope="row" id="bookingid" th:text="${item.getId()}"></th>
                                                 <td th:text="${item.getParkingname()}"></td>
                                                 <td th:text="${item.getPrice()}"></td>
                                                 <td th:text="${item.getStarttime()}"></td>
@@ -67,32 +67,32 @@
                                 <div class="pb-4 pt-4">
                                     <h2>// Booking Details //</h2>
                                 </div>
-                                    <div class="row g-4 mb-3 pb-3">
-                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                            <lable><i class="fa fa-parking"></i> Parking</lable>
-                                            <input type="text" th:value="${bookingDetailRes.parkingname}" class="form-control mb-4"/>
-                                            <lable><i class="fa fa-car"></i> Car Name</lable>
-                                            <input type="text" th:value="${bookingDetailRes.carname}" class="form-control mb-4"/>
-                                            <lable><i class="fa fa-clock"></i> Start Time</lable>
-                                            <input type="datetime" th:value="${bookingDetailRes.starttime}" class="form-control mb-4"/>
-                                            <lable><i class="fa fa-times"></i> Timer Number</lable>
-                                            <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control mb-4"/>
-                                        </div>
-                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                            <lable><i class="fa fa-id-card"></i> License Plates</lable>
-                                            <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control mb-4"/>
-                                            <lable><i class="fa fa-wallet"></i> Amount</lable>
-                                            <input type="number" th:value="${bookingDetailRes.price}" class="form-control mb-4"/>
-                                            <img class="qrcode mb-2" th:src="${displaycode}" />
-                                            <p class="text-center">Your Qr Code</p>
-                                        </div>
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 button-edit">
-                                            <!-- Cancel Start -->
-                                            <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back to List</a>
-                                            <button type="button" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><a class="a-back-to-booking-list" href=""><i class="fa fa-arrow-alt-circle-right"></i> Guide</a></button>
-                                            <!-- Cancel End -->
-                                        </div>
+                                <div class="row g-4 mb-3 pb-3">
+                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                        <lable><i class="fa fa-parking"></i> Parking</lable>
+                                        <input type="text" th:value="${bookingDetailRes.parkingname}" class="form-control mb-4"/>
+                                        <lable><i class="fa fa-car"></i> Car Name</lable>
+                                        <input type="text" th:value="${bookingDetailRes.carname}" class="form-control mb-4"/>
+                                        <lable><i class="fa fa-clock"></i> Start Time</lable>
+                                        <input type="datetime" th:value="${bookingDetailRes.starttime}" class="form-control mb-4"/>
+                                        <lable><i class="fa fa-times"></i> Timer Number</lable>
+                                        <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control mb-4"/>
                                     </div>
+                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                        <lable><i class="fa fa-id-card"></i> License Plates</lable>
+                                        <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control mb-4"/>
+                                        <lable><i class="fa fa-wallet"></i> Amount</lable>
+                                        <input type="number" th:value="${bookingDetailRes.price}" class="form-control mb-4"/>
+                                        <img class="qrcode mb-2" th:src="${displaycode}" />
+                                        <p class="text-center">Your Qr Code</p>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 button-edit">
+                                        <!-- Cancel Start -->
+                                        <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back to List</a>
+                                        <button type="button" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><a class="a-back-to-booking-list" href=""><i class="fa fa-arrow-alt-circle-right"></i> Guide</a></button>
+                                        <!-- Cancel End -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
