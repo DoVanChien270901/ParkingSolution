@@ -156,7 +156,7 @@ public class TransactionController {
         }
     }
 
-    @RequestMapping(value = "/list-transaction", method = RequestMethod.GET)
+    @RequestMapping(value = "/all-transaction", method = RequestMethod.GET)
     public ResponseEntity<?> listTransaction(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
             PageTransactionRes pageTransactionRes = _transactionServices.findAll(page, size); // fisrt page = 0
@@ -184,6 +184,18 @@ public class TransactionController {
         try {
             String username = _jwtTokenUtil.extracUsername(token.substring(7));
             PageTransactionRes transactionRes = _transactionServices.getByUserNameSearchDate(username, fromDate, toDate, page, size);
+            return new ResponseEntity(transactionRes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(value = "/all-transactions/search", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllTransactionHistorySearch(
+            @RequestParam("from-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam("to-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+            @RequestParam("page")int page, @RequestParam("size") int size) {
+        try {
+            PageTransactionRes transactionRes = _transactionServices.getAllSearch(fromDate, toDate, page, size);
             return new ResponseEntity(transactionRes, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);

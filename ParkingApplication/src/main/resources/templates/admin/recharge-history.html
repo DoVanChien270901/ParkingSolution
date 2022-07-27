@@ -22,15 +22,17 @@
                         <div class="pt-1">
                             <div class="pull-left">
                                 <div class="row">
-                                    <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
-                                        <input type="text" class="form-control" placeholder="From...">
-                                    </div>
-                                    <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
-                                        <input type="text" class="form-control" placeholder="To...">
-                                    </div>
-                                    <div class="col-12 col-lg-2 col-md-2 col-sm-2 p-1">
-                                        <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
-                                    </div>
+                                    <form th:action="@{/a/list-transaction/search}">
+                                        <div class="col-12 col-lg-12 col-md-5 col-sm-5 p-1">
+                                            <input type="date" name="from-date" class="form-control" placeholder="From...">
+                                        </div>
+                                        <div class="col-12 col-lg-12 col-md-5 col-sm-5 p-1">
+                                            <input type="date" name="to-date" class="form-control" placeholder="To...">
+                                        </div>
+                                        <div class="col-12 col-lg-1 2 col-md-2 col-sm-2 p-1">
+                                            <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -39,53 +41,43 @@
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr class="table-secondary">
-                                    <th scope="col">#</th>
+                                    <th scope="col">No</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">DateTime</th>
-                                    <th scope="col">Transaction</th>
-                                    <th scope="col">Account</th>
+                                    <th scope="col">Channel</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>300</td>
-                                    <td>07/02/2022 18:00:20</td>
-                                    <td class="form-inline">
-                                        <img class="momo" th:src="@{/vendorsc/images/momo.png}">
-                                        <span class="p-1">Momo</span>
+                                <tr th:each="item : ${transactionlist}">
+                                    <th th:text="${item.transno}"></th>
+                                    <td th:text="${#numbers.formatInteger(item.amount, 3 ,'COMMA')}+ ' VND'"></td>
+                                    <td th:text="${#temporals.format(item.datetime, 'dd-MM-yyyy HH:mm')}"></td>
+                                    <td th:text="${item.channel}"></td>
+                                    <td th:text="${item.stype}"></td>
+                                    <td>
+                                        <span th:if="${item.statuscode == 0}" class="badge badge-success">Success!</span>
+                                        <span th:unless="${item.statuscode == 0}" class="badge badge-danger">Failed!</span>
                                     </td>
-                                    <td>users123467</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>250</td>
-                                    <td>07/02/2022 16:20:53</td>
-                                    <td class="form-inline">
-                                        <img class="zalopay" th:src="@{/vendorsc/images/zalopay.png}">
-                                        <span class="p-1">ZaloPay</span>
-                                    </td>
-                                    <td>noname3945</td>
+                                    <!--                                    <td class="form-inline">
+                                                                            <img class="zalopay" th:src="@{/vendorsc/images/zalopay.png}">
+                                                                            <span class="p-1">ZaloPay</span>
+                                                                        </td>-->
                                 </tr>
                             </tbody>
                         </table>
-                        <nav aria-label="">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="dw dw-left-arrow-4"></i></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="dw dw-right-arrow-4"></i></a>
-                                </li>
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-end">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" th:href="@{/a/list-transaction(page=${current - 1})}">Previous</a></li>
+                                <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{/a/list-transaction(page=${item})}"></a></li>
+                                <li class="page-item"><a class="page-link" th:href="@{/a/list-transaction(page=${current + 1})}">Next</a></li>
                             </ul>
                         </nav>
                     </div>
                 </div>
                 <!-- basic table  End -->
-                <div class="footer-wrap pd-20 mb-20 card-box">
+                .3  <div class="footer-wrap pd-20 mb-20 card-box">
                     ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
                 </div>
             </div>

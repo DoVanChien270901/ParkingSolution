@@ -28,8 +28,11 @@ public interface ITransaction {
     PageTransactionRes findAll(int page, int size);
 
     PageTransactionRes getByUserName(String username, int page, int size);
+
     PageTransactionRes getByUserNameSearchDate(String username, LocalDate formDate, LocalDate toDate,
             int page, int size);
-    
+
     Transactioninformation getbyTransNo(String transno);
+
+    PageTransactionRes getAllSearch(LocalDate formDate, LocalDate toDate, int page, int size);
 }

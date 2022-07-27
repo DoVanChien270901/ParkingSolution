@@ -52,7 +52,7 @@
                                         <lable><i class="fa fa-calendar-alt"></i> Date of Birth</lable>
                                         <input type="date" class="mb-4 form-control" th:value="${profile.getDob()}" th:field="*{dob}"id="dob" readonly="true">
                                         <lable><i class="fa fa-wallet"></i> Balance</lable>
-                                        <input type="text" th:field="*{balance}" class="form-control" readonly="true">
+                                            <input type="text" th:value="${#numbers.formatInteger(profile.balance, 3, 'COMMA') + ' VND'}" class="form-control" readonly="true">
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
                                         <lable><i class="fa fa-phone-alt"></i> Phone</lable>

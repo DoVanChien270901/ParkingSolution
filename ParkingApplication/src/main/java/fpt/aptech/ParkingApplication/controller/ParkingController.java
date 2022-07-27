@@ -5,21 +5,31 @@
 package fpt.aptech.ParkingApplication.controller;
 
 import fpt.aptech.ParkingApplication.configuration.RestTemplateConfiguration;
+import fpt.aptech.ParkingApplication.domain.request.AddParkingReq;
+import fpt.aptech.ParkingApplication.domain.request.UpdateParkingReq;
 import fpt.aptech.ParkingApplication.domain.response.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -27,24 +37,45 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class ParkingController {
-    
+
     @Value("${spring.data.rest.base-path}")
     private String PATH_API;
-    
-    @RequestMapping("/list-parking")
-    public String listParking() {
+
+    @RequestMapping("/a/list-parking")
+    public String listParking(Model model) {
+        HttpEntity request = RestTemplateConfiguration.setRequest();
+        HttpEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
+        ParkingRes[] res = (ParkingRes[]) response.getBody();
+        model.addAttribute("listParking", res);
         return "admin/parking-manager";
     }
-    @RequestMapping("/parking-history")
-    public String history() {
-        return "admin/parking-history";
+
+    @RequestMapping("/list-parking/search")
+    public String listParking(@RequestParam("keyword") String key, Model model) {
+        if (key.isEmpty()) {
+            return "redirect:/list-parking";
+        } else {
+            HttpEntity request = RestTemplateConfiguration.setRequest();
+            HttpEntity<?> response = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "parking?search=" + key, HttpMethod.GET, request, ParkingRes[].class);
+            ParkingRes[] res = (ParkingRes[]) response.getBody();
+            model.addAttribute("listParking", res);
+            return "admin/parking-manager";
+        }
     }
+
+//    @RequestMapping("/a/parking-history")
+//    public String history() {
+//        return "admin/parking-history";
+//    }
     @RequestMapping(value = "/map", method = RequestMethod.GET)
     public String map() {
         return "user/google-map";
     }
+
     @RequestMapping(value = "/u/parking-history", method = RequestMethod.GET)
-    public String getParkingHistory(@RequestParam("page")int currentPage, Model model, HttpSession session) {
+    public String getParkingHistory(@RequestParam("page") int currentPage, Model model, HttpSession session) {
         try {
             if (1 > currentPage) {
                 currentPage = 1;
@@ -52,7 +83,8 @@ public class ParkingController {
             LoginRes loginRes = (LoginRes) session.getAttribute("account");
             String token = loginRes.getToken();
             HttpEntity request = RestTemplateConfiguration.setRequest(token);
-            ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "parking-history?page=" + (currentPage - 1) + "&size=10", HttpMethod.GET, request, PageParkingHistoryRes.class);
+            ResponseEntity<?> response = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "parking-history?page=" + (currentPage - 1) + "&size=10", HttpMethod.GET, request, PageParkingHistoryRes.class);
             PageParkingHistoryRes pageParkingHistoryRes = (PageParkingHistoryRes) response.getBody();
             List<ParkingHistoryRes> parkingHistoryRes = pageParkingHistoryRes.getListParkingHistory();
             if (currentPage > pageParkingHistoryRes.getTotalPages()) {
@@ -70,8 +102,7 @@ public class ParkingController {
             return "badrequest";
         }
     }
-    
-    
+
     @RequestMapping(value = "/u/parking-history/search", method = RequestMethod.GET)
     public String parkingHistorySearch(@RequestParam("from-date") String fromDate, @RequestParam("to-date") String toDate, Model model, HttpSession session) {
         try {
@@ -84,14 +115,17 @@ public class ParkingController {
             LoginRes loginRes = (LoginRes) session.getAttribute("account");
             String token = loginRes.getToken();
             HttpEntity request = RestTemplateConfiguration.setRequest(token);
-            ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "parking-history/search?from-date=" + fromLocalDate + "&to-date=" + toLocalDate + "&page=0&size=100", HttpMethod.GET, request, PageParkingHistoryRes.class);
+            ResponseEntity<?> response = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "parking-history/search?from-date="
+                            + fromLocalDate + "&to-date=" + toLocalDate
+                            + "&page=0&size=100", HttpMethod.GET, request, PageParkingHistoryRes.class);
             PageParkingHistoryRes pageParkingHistoryRes = (PageParkingHistoryRes) response.getBody();
             List<ParkingHistoryRes> parkingHistoryRes = pageParkingHistoryRes.getListParkingHistory();
             int[] nav = new int[pageParkingHistoryRes.getTotalPages()];
             for (int i = 0; i <= (pageParkingHistoryRes.getTotalPages() - 1); i++) {
                 nav[i] = i + 1;
             }
-             model.addAttribute("current", pageParkingHistoryRes.getCurrentPage());
+            model.addAttribute("current", pageParkingHistoryRes.getCurrentPage());
             model.addAttribute("pageList", nav);
             model.addAttribute("parkinghistorylist", parkingHistoryRes);
             return "user/parking-history";
@@ -99,13 +133,162 @@ public class ParkingController {
             return "badrequest";
         }
     }
-    @RequestMapping(value = "/a/parking-history", method = RequestMethod.GET)
-    public String parkingHistory(Model model) {
+
+    @RequestMapping(value = "/a/parking-history/{name}", method = RequestMethod.GET)
+    public String parkingHistory(Model model, @PathVariable("name") String name, @RequestParam("page") int currentPage) {
+        //get select box
         HttpEntity request = RestTemplateConfiguration.setRequest();
-            ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
-            ParkingRes[] parkingRes = (ParkingRes[]) response.getBody();
-            model.addAttribute("lParkingRes", parkingRes);
-            
-            return "admin/parking-history";
+        ResponseEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
+        ParkingRes[] parkingRes = (ParkingRes[]) response.getBody();
+        model.addAttribute("lParkingRes", parkingRes);
+        //get content page
+        if (1 > currentPage) {
+            currentPage = 1;
+        }
+        PageParkingHistoryRes pageParkingHistoryRes = new PageParkingHistoryRes();
+        if (name.equals("all")) {
+            ResponseEntity<?> responseContent = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "all-parking-history?page=" + (currentPage - 1) + "&size=10",
+                            HttpMethod.GET, request, PageParkingHistoryRes.class);
+            pageParkingHistoryRes = (PageParkingHistoryRes) responseContent.getBody();
+            model.addAttribute("listParkingHistory", pageParkingHistoryRes.getListParkingHistory());
+        } else {
+            ResponseEntity<?> responseContent = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "parking-history/" + name + "?page=" + (currentPage - 1) + "&size=10",
+                            HttpMethod.GET, request, PageParkingHistoryRes.class);
+            pageParkingHistoryRes = (PageParkingHistoryRes) responseContent.getBody();
+            model.addAttribute("listParkingHistory", pageParkingHistoryRes.getListParkingHistory());
+        }
+
+        if (currentPage > pageParkingHistoryRes.getTotalPages()) {
+            currentPage = pageParkingHistoryRes.getTotalPages();
+        }
+        model.addAttribute("current", currentPage);
+        int[] nav = new int[pageParkingHistoryRes.getTotalPages()];
+        for (int i = 0; i <= (pageParkingHistoryRes.getTotalPages() - 1); i++) {
+            nav[i] = i + 1;
+        }
+        model.addAttribute("selected", name);
+        model.addAttribute("pageList", nav);
+        return "admin/parking-history";
+    }
+
+    @RequestMapping(value = "/a/parking-history/search", method = RequestMethod.GET)
+    public String parkingHistoryFromParkingName(Model model,
+            @RequestParam("from-date") String fromDate,
+            @RequestParam("to-date") String toDate,
+            @RequestParam("name") String name) {
+        if (fromDate.isEmpty() || toDate.isEmpty()) {
+            return "redirect:/u/parking-history?page=0";
+        }
+        //get select box
+            HttpEntity request = RestTemplateConfiguration.setRequest();
+        ResponseEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
+        ParkingRes[] parkingRes = (ParkingRes[]) response.getBody();
+        model.addAttribute("lParkingRes", parkingRes);
+        //get content page
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fromLocalDate = LocalDate.parse(fromDate, formatter);
+        LocalDate toLocalDate = LocalDate.parse(toDate, formatter);
+        ResponseEntity<?> responseContent = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "all-parking-history/search?name=" + name + "&from-date="
+                        + fromDate + "&to-date=" + toDate + "&page=0" + "&size=100",
+                        HttpMethod.GET, request, PageParkingHistoryRes.class);
+        PageParkingHistoryRes pageParkingHistoryRes = (PageParkingHistoryRes) responseContent.getBody();
+        model.addAttribute("listParkingHistory", pageParkingHistoryRes.getListParkingHistory());
+        model.addAttribute("current", pageParkingHistoryRes.getCurrentPage());
+        int[] nav = new int[pageParkingHistoryRes.getTotalPages()];
+        for (int i = 0; i <= (pageParkingHistoryRes.getTotalPages() - 1); i++) {
+            nav[i] = i + 1;
+        }
+        model.addAttribute("selected", name);
+        model.addAttribute("pageList", nav);
+        return "admin/parking-history";
+    }
+
+    @RequestMapping(value = "/a/parking-history/", method = RequestMethod.GET)
+    public String parkingHistoryFromParkingName(Model model, @RequestParam("name") String name, @RequestParam("page") int currentPage) {
+        //get select box
+        HttpEntity request = RestTemplateConfiguration.setRequest();
+        ResponseEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
+        ParkingRes[] parkingRes = (ParkingRes[]) response.getBody();
+        model.addAttribute("lParkingRes", parkingRes);
+        //get content page
+        if (1 > currentPage) {
+            currentPage = 1;
+        }
+        ResponseEntity<?> responseContent = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "parking-history/" + name + "?page=" + (currentPage - 1) + "&size=10",
+                        HttpMethod.GET, request, PageParkingHistoryRes.class);
+        PageParkingHistoryRes pageParkingHistoryRes = (PageParkingHistoryRes) responseContent.getBody();
+        model.addAttribute("listParkingHistory", pageParkingHistoryRes.getListParkingHistory());
+        if (currentPage > pageParkingHistoryRes.getTotalPages()) {
+            currentPage = pageParkingHistoryRes.getTotalPages();
+        }
+        model.addAttribute("current", currentPage);
+        int[] nav = new int[pageParkingHistoryRes.getTotalPages()];
+        for (int i = 0; i <= (pageParkingHistoryRes.getTotalPages() - 1); i++) {
+            nav[i] = i + 1;
+        }
+
+        model.addAttribute("selected", name);
+        model.addAttribute("pageList", nav);
+        return "admin/parking-history";
+    }
+
+    @RequestMapping(value = "/a/parking/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam("id") String id) {
+        HttpEntity request = RestTemplateConfiguration.setRequest();
+        ResponseEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "parking/" + id, HttpMethod.DELETE, request, String.class);
+        return "redirect:/list-parking";
+    }
+
+    @RequestMapping(value = "/a/parking/add", method = RequestMethod.GET)
+    public String creatpre(@ModelAttribute("addParkingReq") AddParkingReq addParkingReq) {
+        return "admin/parking-manager";
+    }
+
+    @RequestMapping(value = "/a/parking/add", method = RequestMethod.POST)
+    public String createpost(@ModelAttribute("addParkingReq") AddParkingReq addParkingReq, RedirectAttributes redirectAttributes) {
+        HttpEntity request = RestTemplateConfiguration.setRequest(addParkingReq);
+        ResponseEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "parking", HttpMethod.POST, request, String.class);
+        if (response.getStatusCode() == HttpStatus.CREATED) {
+            return "redirect:/list-parking";
+        } else {
+            redirectAttributes.addFlashAttribute("errormes", "Parking name is already");
+            redirectAttributes.addFlashAttribute("addParkingReq", addParkingReq);
+            return "redirect:/a/parking/add";
+        }
+
+    }
+
+    @RequestMapping(value = "/a/parking/update", method = RequestMethod.GET)
+    public String updatepre(@RequestParam("id") String name, Model model) {
+        HttpEntity request = RestTemplateConfiguration.setRequest();
+        ResponseEntity<?> response = RestTemplateConfiguration.
+                excuteRequest(PATH_API + "parking/" + name, HttpMethod.GET, request, ParkingRes.class);
+        ParkingRes parkingRes = (ParkingRes) response.getBody();
+        model.addAttribute("updateParkingReq", parkingRes);
+        return "admin/parking-manager";
+    }
+
+    @RequestMapping(value = "/a/parking/update", method = RequestMethod.POST)
+    public String updatepost(@ModelAttribute("addParkingReq") UpdateParkingReq updateParkingReq, RedirectAttributes redirectAttributes) {
+        HttpEntity request = RestTemplateConfiguration.setRequest(updateParkingReq);
+        ResponseEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "parking", HttpMethod.PUT, request, String.class);
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return "redirect:/list-parking";
+        } else {
+            redirectAttributes.addFlashAttribute("errormes", "Parking name is already");
+            redirectAttributes.addFlashAttribute("addParkingReq", updateParkingReq);
+            return "redirect:/a/parking/add";
+        }
+
     }
 }

@@ -88,8 +88,11 @@ public class ProfileService implements IProfile {
     public boolean edit(EditProfileReq editProfileReq, String username) {
         Profile profile = _profileRepository.getByUsername(username);
         if (profile != null) {
-            profile = _mapper.map(editProfileReq, Profile.class);
-            profile.setUsername(username);
+            profile.setFullname(editProfileReq.getFullname());
+            profile.setDob(editProfileReq.getDob());
+            profile.setIdentitycard(editProfileReq.getIdentitycard());
+            profile.setPhone(editProfileReq.getPhone());
+            profile.setEmail(editProfileReq.getEmail());
             _profileRepository.save(profile);
             return true;
         } else {

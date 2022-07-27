@@ -4,6 +4,8 @@
  */
 package fpt.aptech.ParkingApi.implementations;
 
+import fpt.aptech.ParkingApi.dto.request.AddParkingReq;
+import fpt.aptech.ParkingApi.dto.request.UpdateParkingReq;
 import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingRes;
@@ -41,7 +43,7 @@ public class ParkingService implements IParking {
 
     @Override
     public ParkingRes getByParkingName(String parkingName) {
-        ParkingRes res = _mapper.map(_parkingRepo.getByName(parkingName), ParkingRes.class);    
+        ParkingRes res = _mapper.map(_parkingRepo.getByName(parkingName), ParkingRes.class);
         return res;
     }
 
@@ -69,10 +71,10 @@ public class ParkingService implements IParking {
     @Override
     public PageParkingHistoryRes getHistoryByUserName(String username, LocalDate fromDate, LocalDate toDate, int page, int size) {
         LocalDateTime fromDateTime = fromDate.atStartOfDay();
-        fromDateTime = fromDate.atTime(00,00,00,0000);
+        fromDateTime = fromDate.atTime(00, 00, 00, 0000);
         LocalDateTime toDateTime = toDate.atStartOfDay();
-        toDateTime = toDate.atTime(00,00,00,0000);
-        
+        toDateTime = toDate.atTime(00, 00, 00, 0000);
+
         List<ParkingHistoryRes> list = _parkingHistoryRepo.getListParkingHistoryByUsernameSearch(username, fromDateTime, toDateTime);
         PagedListHolder holder = new PagedListHolder(list);
         holder.setPageSize(size);
@@ -92,7 +94,7 @@ public class ParkingService implements IParking {
         List<ParkingHistoryRes> list = new ArrayList<>();
         for (Parkinghistory item : list1) {
             ParkingHistoryRes parkingHistoryRes = new ParkingHistoryRes(item.getId(), item.getStarttime(),
-            item.getTimenumber(), item.getCarname(), item.getLisenceplates(), item.getParkingname().getName());
+                    item.getTimenumber(), item.getCarname(), item.getLisenceplates(), item.getParkingname().getName());
             list.add(parkingHistoryRes);
         }
         PagedListHolder holder = new PagedListHolder(list);
@@ -107,8 +109,78 @@ public class ParkingService implements IParking {
     }
 
     @Override
-    public PageParkingHistoryRes getHistory(LocalDate fromDate, LocalDate toDate, int page, int size) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PageParkingHistoryRes getHistory(String parkingname, LocalDate fromDate, LocalDate toDate, int page, int size) {
+        LocalDateTime fromDateTime = fromDate.atStartOfDay();
+        fromDateTime = fromDate.atTime(00, 00, 00, 0000);
+        LocalDateTime toDateTime = toDate.atStartOfDay();
+        toDateTime = toDate.atTime(00, 00, 00, 0000);
+
+        List<ParkingHistoryRes> list = _parkingHistoryRepo.getAllParkingHistorySearch(parkingname ,fromDateTime, toDateTime);
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageParkingHistoryRes res = new PageParkingHistoryRes();
+        res.setCurrentPage(page);
+        res.setSize(size);
+        res.setTotalPages(holder.getPageCount());
+        res.setListParkingHistory(holder.getPageList());
+        return res;
+    }
+
+    @Override
+    public boolean add(AddParkingReq parking) {
+        Parkinglocation parkinglocation = _parkingRepo.getByName(parking.getName());
+        if (parkinglocation == null) {
+            parkinglocation = _mapper.map(parking, Parkinglocation.class);
+            _parkingRepo.save(parkinglocation);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void delete(String id) {
+        _parkingRepo.deleteById(id);
+    }
+
+    @Override
+    public boolean update(UpdateParkingReq parking) {
+        Parkinglocation parkinglocation = _parkingRepo.getByName(parking.getName());
+        if (parkinglocation != null) {
+            parkinglocation.setName(parking.getName());
+            parkinglocation.setLatitude(parking.getLatitude());
+            parkinglocation.setLongtitude(parking.getLongtitude());
+            parkinglocation.setAddress(parking.getAddress());
+            parkinglocation.setNop(parking.getNop());
+            parkinglocation.setRentcost(parking.getRentcost());
+            _parkingRepo.save(parkinglocation);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<ParkingRes> seachByName(String name) {
+        List<Parkinglocation> parkinglocations = _parkingRepo.searchParkingByName(name);
+        List<ParkingRes> res = _mapper.mapList(parkinglocations, ParkingRes.class);
+        return res;
+    }
+
+    @Override
+    public PageParkingHistoryRes getHistoryByName(String name, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        List<ParkingHistoryRes> list = _parkingHistoryRepo.getListParkingHistoryByParkingName(name);
+        PagedListHolder holder = new PagedListHolder(list);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageParkingHistoryRes res = new PageParkingHistoryRes();
+        res.setCurrentPage(page);
+        res.setSize(size);
+        res.setTotalPages(holder.getPageCount());
+        res.setListParkingHistory(holder.getPageList());
+        return res;
     }
     
 }
