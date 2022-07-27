@@ -60,8 +60,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    //zpdk zap
+    //zpdk zalopay
     implementation project(path: ':zpdk-release')
+    //momopay
+    implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
 
 
     //call api

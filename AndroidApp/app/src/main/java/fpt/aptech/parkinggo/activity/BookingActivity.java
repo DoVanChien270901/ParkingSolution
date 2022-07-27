@@ -96,52 +96,11 @@ public class BookingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                ZaloPaySDK.getInstance().payOrder(BookingActivity.this, bookingRes.getSignature(), "parkinggo://app", new PayOrderListener() {
-                    @Override
-                    public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                new AlertDialog.Builder(BookingActivity.this)
-                                        .setTitle("Payment Success")
-                                        .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
-                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .setNegativeButton("Cancel", null).show();
-                            }
-
-                        });
-                    }
-
-                    @Override
-                    public void onPaymentCanceled(String zpTransToken, String appTransID) {
-                        new AlertDialog.Builder(BookingActivity.this)
-                                .setTitle("User Cancel Payment")
-                                .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .setNegativeButton("Cancel", null).show();
-                    }
-
-                    @Override
-                    public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
-                        new AlertDialog.Builder(BookingActivity.this)
-                                .setTitle("Payment Fail")
-                                .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .setNegativeButton("Cancel", null).show();
-                    }
-                });
+                if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Zalopay")){
+                    createZalopay(bookingRes);
+                }else if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Momo")){
+//                    createMomopay(bookingRes);
+                }
             }
         });
     }
@@ -177,4 +136,52 @@ public class BookingActivity extends AppCompatActivity {
         new DatePickerDialog(BookingActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    private void createZalopay(EBookingRes bookingRes){
+        ZaloPaySDK.getInstance().payOrder(BookingActivity.this, bookingRes.getSignature(), "parkinggo://app", new PayOrderListener() {
+            @Override
+            public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(BookingActivity.this)
+                                .setTitle("Payment Success")
+                                .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .setNegativeButton("Cancel", null).show();
+                    }
+
+                });
+            }
+
+            @Override
+            public void onPaymentCanceled(String zpTransToken, String appTransID) {
+                new AlertDialog.Builder(BookingActivity.this)
+                        .setTitle("User Cancel Payment")
+                        .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setNegativeButton("Cancel", null).show();
+            }
+
+            @Override
+            public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
+                new AlertDialog.Builder(BookingActivity.this)
+                        .setTitle("Payment Fail")
+                        .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setNegativeButton("Cancel", null).show();
+            }
+        });
+    }
 }
