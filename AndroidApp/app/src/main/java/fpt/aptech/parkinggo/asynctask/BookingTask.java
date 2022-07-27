@@ -3,22 +3,29 @@ package fpt.aptech.parkinggo.asynctask;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.activity.BookingActivity;
+import fpt.aptech.parkinggo.activity.HomeActivity;
+import fpt.aptech.parkinggo.activity.LoginActivity;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.EBookingReqBuilder;
 import fpt.aptech.parkinggo.domain.request.EBookingReq;
 import fpt.aptech.parkinggo.domain.response.EBookingRes;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
+import fpt.aptech.parkinggo.statics.Session;
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
 import vn.zalopay.sdk.listeners.PayOrderListener;
@@ -62,57 +69,9 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
         String uri = activity.getString(R.string.URL_BASE);
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(uri + "e-booking", HttpMethod.POST, request, EBookingRes.class);
-
-        EBookingRes eBookingRes = (EBookingRes) response.getBody();
-        String token = eBookingRes.getSignature();
-
-        ZaloPaySDK.getInstance().payOrder((Activity) activity.getApplicationContext(), token, "demozpdk://app", new PayOrderListener() {
-            @Override
-            public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        new AlertDialog.Builder(activity.getApplicationContext())
-                                .setTitle("Payment Success")
-                                .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .setNegativeButton("Cancel", null).show();
-                    }
-
-                });
-            }
-
-            @Override
-            public void onPaymentCanceled(String zpTransToken, String appTransID) {
-                new AlertDialog.Builder(activity.getApplicationContext())
-                        .setTitle("User Cancel Payment")
-                        .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setNegativeButton("Cancel", null).show();
-            }
-
-            @Override
-            public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
-                new AlertDialog.Builder(activity.getApplicationContext())
-                        .setTitle("Payment Fail")
-                        .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setNegativeButton("Cancel", null).show();
-            }
-        });
-
-        return null;
+        return response;
     }
+
+    @Override
+    protected void onPostExecute(ResponseEntity<?> response) {}
 }

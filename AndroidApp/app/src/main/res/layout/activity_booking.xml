@@ -93,5 +93,4 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="#3F51B5"
         android:text="Book" />
-
 </LinearLayout>
