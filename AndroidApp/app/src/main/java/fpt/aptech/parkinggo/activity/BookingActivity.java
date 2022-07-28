@@ -2,7 +2,6 @@ package fpt.aptech.parkinggo.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -18,22 +17,20 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.asynctask.BookingTask;
-import fpt.aptech.parkinggo.asynctask.LoginTask;
-import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
-import fpt.aptech.parkinggo.domain.modelbuilder.EBookingReqBuilder;
-import fpt.aptech.parkinggo.domain.request.EBookingReq;
+import fpt.aptech.parkinggo.asynctask.CreatePaymentTask;
+import fpt.aptech.parkinggo.asynctask.PaymentTask;
 import fpt.aptech.parkinggo.domain.response.EBookingRes;
-import fpt.aptech.parkinggo.statics.Session;
+import vn.momo.momo_partner.AppMoMoLib;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
@@ -52,6 +49,17 @@ public class BookingActivity extends AppCompatActivity {
     private RadioButton rbMomo;
     private RadioButton rbZalopay;
     private RadioButton rbWallet;
+
+
+    //MOMo
+    private Integer fee = 0;
+    int environment = 0;//developer default
+    private String merchantName = "vinhvizg";
+    private String merchantCode = "MOMOS40J20220512";
+    private String merchantNameLabel = "Nhà cung cấp";
+    private String description = "Thanh toán Ebooking";
+
+    EBookingRes bookingRes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,68 +89,39 @@ public class BookingActivity extends AppCompatActivity {
 
         // ZaloPay SDK Init
         ZaloPaySDK.init(2553, Environment.SANDBOX);
+        // Momopay init
+        AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
 
         //Booking
         btnBook = findViewById(R.id.a_booking_btn_book);
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BookingTask BookingTask = new BookingTask(BookingActivity.this);
-                EBookingRes bookingRes = null;
+                CreatePaymentTask CreatePaymentTask = new CreatePaymentTask(BookingActivity.this);
                 try {
-                    ResponseEntity<?> res = BookingTask.execute().get();
+                    ResponseEntity<?> res = CreatePaymentTask.execute().get();
                     bookingRes = (EBookingRes) res.getBody();
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Zalopay")){
+                if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Zalopay")) {
                     createZalopay(bookingRes);
-                }else if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Momo")){
-//                    createMomopay(bookingRes);
+                } else if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Momo")) {
+                    createMomopay(bookingRes);
                 }
             }
         });
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        ZaloPaySDK.getInstance().onResult(intent);
-    }
-
-    private void showDateDialog(EditText etDatetime) {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, day);
-
-                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY, hour);
-                        calendar.set(Calendar.MINUTE, minute);
-
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yy-mm-dd HH:mm");
-                        BookingActivity.this.etDatetime.setText(dateFormat.format(calendar.getTime()));
-                    }
-                };
-                new TimePickerDialog(BookingActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
-            }
-        };
-        new DatePickerDialog(BookingActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    private void createZalopay(EBookingRes bookingRes){
+    private void createZalopay(EBookingRes bookingRes) {
         ZaloPaySDK.getInstance().payOrder(BookingActivity.this, bookingRes.getSignature(), "parkinggo://app", new PayOrderListener() {
             @Override
             public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        onPaymentSucces();
                         new AlertDialog.Builder(BookingActivity.this)
                                 .setTitle("Payment Success")
                                 .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
@@ -184,4 +163,136 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
     }
+
+    //Get token through MoMo app
+    private void createMomopay(EBookingRes bookingRes) {
+        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
+        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
+
+        Integer amount = Math.toIntExact(bookingRes.getTransactionReq().getAmount());
+
+        Map<String, Object> eventValue = new HashMap<>();
+        //client Required
+        eventValue.put("merchantname", merchantName); //Tên đối tác. được đăng ký tại https://business.momo.vn. VD: Google, Apple, Tiki , CGV Cinemas
+        eventValue.put("merchantcode", merchantCode); //Mã đối tác, được cung cấp bởi MoMo tại https://business.momo.vn
+        eventValue.put("amount", amount); //Kiểu integer
+        eventValue.put("orderId", bookingRes.getTransNo()); //uniqueue id cho BillId, giá trị duy nhất cho mỗi BILL
+        eventValue.put("orderLabel", "Mã đơn hàng"); //gán nhãn
+
+        //client Optional - bill info
+        eventValue.put("merchantnamelabel", "Dịch vụ");//gán nhãn
+        eventValue.put("fee", fee); //Kiểu integer
+        eventValue.put("description", description); //mô tả đơn hàng - short description
+
+        //client extra data
+        eventValue.put("requestId", merchantCode + "merchant_billId_" + System.currentTimeMillis());
+        eventValue.put("partnerCode", merchantCode);
+        //Example extra data
+//        JSONObject objExtraData = new JSONObject();
+//        try {
+//            objExtraData.put("site_code", "008");
+//            objExtraData.put("site_name", "CGV Cresent Mall");
+//            objExtraData.put("screen_code", 0);
+//            objExtraData.put("screen_name", "Special");
+//            objExtraData.put("movie_name", "Kẻ Trộm Mặt Trăng 3");
+//            objExtraData.put("movie_format", "2D");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        eventValue.put("extraData", objExtraData.toString());
+
+        eventValue.put("extra", "");
+        AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
+
+    }
+
+    //Get token callback from MoMo app an submit to server side
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
+            if (data != null) {
+                if (data.getIntExtra("status", -1) == 0) {
+                    //TOKEN IS AVAILABLE
+//                    tvMessage.setText("message: " + "Get token " + data.getStringExtra("message"));
+//                    String token = data.getStringExtra("data"); //Token response
+//                    String phoneNumber = data.getStringExtra("phonenumber");
+//                    String env = data.getStringExtra("env");
+//                    if (env == null) {
+//                        env = "app";
+//                    }
+                    onPaymentSucces();
+//                    if (token != null && !token.equals("")) {
+//                        // TODO: send phoneNumber & token to your server side to process payment with MoMo server
+//                        // IF Momo topup success, continue to process your order
+//                    } else {
+//                        tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
+//                    }
+                }
+//                else if (data.getIntExtra("status", -1) == 1) {
+//                    //TOKEN FAIL
+//                    String message = data.getStringExtra("message") != null ? data.getStringExtra("message") : "Thất bại";
+//                    tvMessage.setText("message: " + message);
+//                } else if (data.getIntExtra("status", -1) == 2) {
+//                    //TOKEN FAIL
+//                    tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
+//                } else {
+//                    //TOKEN FAIL
+//                    tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
+//                }
+            }
+//            else {
+//                tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
+//            }
+        } else {
+//            tvMessage.setText("message: " + this.getString(R.string.not_receive_info_err));
+        }
+    }
+
+
+    protected void onPaymentSucces() {
+        PaymentTask paymentTask = new PaymentTask(BookingActivity.this, bookingRes);
+        BookingTask bookingTask = new BookingTask(BookingActivity.this, bookingRes);
+        try {
+//            ResponseEntity<?> res = paymentTask.execute().get();
+//            Integer bookingId = (Integer) res.getBody();
+            ResponseEntity<?> res2 = paymentTask.execute().get();
+            Integer bookingId = (Integer) res2.getBody();
+//            TransactionReq eBookingRes = (TransactionReq) res.getBody();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ZaloPaySDK.getInstance().onResult(intent);
+    }
+
+    private void showDateDialog(EditText etDatetime) {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hour);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        BookingActivity.this.etDatetime.setText(dateFormat.format(calendar.getTime()));
+                    }
+                };
+                new TimePickerDialog(BookingActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+            }
+        };
+        new DatePickerDialog(BookingActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
 }

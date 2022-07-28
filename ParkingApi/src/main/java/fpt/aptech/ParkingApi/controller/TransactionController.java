@@ -13,6 +13,7 @@ import fpt.aptech.ParkingApi.dto.request.ERechargeReq;
 import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
+import fpt.aptech.ParkingApi.entities.Transactioninformation;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
@@ -92,7 +93,6 @@ public class TransactionController {
         }
     }
 
-    //doit
     @RequestMapping(value = "/e-booking", method = RequestMethod.POST)
     public ResponseEntity<?> eBooking(@RequestBody EBookingReq bookingReq) {
         //something code
@@ -149,6 +149,22 @@ public class TransactionController {
             } else {
                 return new ResponseEntity("giao dich da thanh toan", HttpStatus.BAD_REQUEST);
             }
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/createTransaction", method = RequestMethod.POST)
+    public ResponseEntity<?> createTransaction(@RequestBody TransactionReq transactionReq) {
+        try {
+            //Dont checkstatus
+            if (_transactionServices.getbyTransNo(transactionReq.getPaymentReq().getTransno()) != null) {
+                return new ResponseEntity(transactionReq, HttpStatus.BAD_REQUEST);
+            }            
+            if (_transactionServices.create(transactionReq, 0) != null) {
+                return new ResponseEntity(transactionReq, HttpStatus.OK);
+            }
+            return new ResponseEntity(transactionReq , HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
