@@ -42,11 +42,11 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user"></i> User</a>
                         <div th:if="${session.account}"  class="dropdown-menu dropdown-menu-right fade-up m-0 user-menu">
                             <a th:href="@{/profile}" class="dropdown-item" th:text="${session.account.getFullname().toString()}"></a>
-                            <a th:href="@{/account/register}" class="dropdown-item">Logout</a>
+                            <a th:href="@{/account/logout}" class="dropdown-item">Logout</a>
                         </div>
                         <div th:unless="${session.account}" class="dropdown-menu dropdown-menu-right fade-up m-0 user-menu">
                             <a th:href="@{/account/login}" class="dropdown-item">Login</a>
-                            <a th:href="@{/account/register}" class="dropdown-item">Register</a>
+                            <a th:href="@{/account/logout}" class="dropdown-item">Register</a>
                         </div>
                     </div>
                 </div>

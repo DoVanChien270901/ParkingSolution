@@ -51,10 +51,10 @@ public class ParkingController {
         return "admin/parking-manager";
     }
 
-    @RequestMapping("/list-parking/search")
+    @RequestMapping("/a/list-parking/search")
     public String listParking(@RequestParam("keyword") String key, Model model) {
         if (key.isEmpty()) {
-            return "redirect:/list-parking";
+            return "redirect:/a/list-parking";
         } else {
             HttpEntity request = RestTemplateConfiguration.setRequest();
             HttpEntity<?> response = RestTemplateConfiguration
@@ -65,10 +65,6 @@ public class ParkingController {
         }
     }
 
-//    @RequestMapping("/a/parking-history")
-//    public String history() {
-//        return "admin/parking-history";
-//    }
     @RequestMapping(value = "/map", method = RequestMethod.GET)
     public String map() {
         return "user/google-map";
@@ -180,7 +176,7 @@ public class ParkingController {
             @RequestParam("to-date") String toDate,
             @RequestParam("name") String name) {
         if (fromDate.isEmpty() || toDate.isEmpty()) {
-            return "redirect:/u/parking-history?page=0";
+            return "redirect:/a/parking-history/all?page=0";
         }
         //get select box
             HttpEntity request = RestTemplateConfiguration.setRequest();
@@ -221,7 +217,7 @@ public class ParkingController {
             currentPage = 1;
         }
         ResponseEntity<?> responseContent = RestTemplateConfiguration
-                .excuteRequest(PATH_API + "parking-history/" + name + "?page=" + (currentPage - 1) + "&size=10",
+                .excuteRequest(PATH_API + "par  king-history/" + name + "?page=" + (currentPage - 1) + "&size=10",
                         HttpMethod.GET, request, PageParkingHistoryRes.class);
         PageParkingHistoryRes pageParkingHistoryRes = (PageParkingHistoryRes) responseContent.getBody();
         model.addAttribute("listParkingHistory", pageParkingHistoryRes.getListParkingHistory());

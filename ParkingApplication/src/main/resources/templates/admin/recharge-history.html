@@ -19,21 +19,21 @@
                         <div class="p-1">
                             <h6>Search By Date</h6>
                         </div>
-                        <div class="pt-1">
+                        <div class="pt-1 form-check-inline">
                             <div class="pull-left">
-                                <div class="row">
-                                    <form th:action="@{/a/list-transaction/search}">
-                                        <div class="col-12 col-lg-12 col-md-5 col-sm-5 p-1">
+                                <form th:action="@{/a/list-transaction/search}">
+                                    <div class="row form-inline">
+                                        <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
                                             <input type="date" name="from-date" class="form-control" placeholder="From...">
                                         </div>
-                                        <div class="col-12 col-lg-12 col-md-5 col-sm-5 p-1">
+                                        <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
                                             <input type="date" name="to-date" class="form-control" placeholder="To...">
                                         </div>
-                                        <div class="col-12 col-lg-1 2 col-md-2 col-sm-2 p-1">
+                                        <div class="col-12 col-lg-2 col-md-2 col-sm-2 p-1">
                                             <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -42,9 +42,10 @@ public class AccountController {
 //    private IntercepterConfiguration intercepterConfiguration;
 //    @Autowired
 //    private HttpSession session;
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-        return "admin/index";
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String test(HttpSession session) {
+        session.invalidate();
+        return "redirect:/account/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
