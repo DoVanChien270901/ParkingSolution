@@ -94,24 +94,10 @@
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 button-edit">
                                             <!-- Cancel Start -->
                                             <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back to List</a>
-                                            <button type="button" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><a class="a-back-to-booking-list" href=""><i class="fa fa-arrow-alt-circle-right"></i> Guide</a></button>
+                                            <a type="button" th:href="@{/map}" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-alt-circle-right"></i> Guide</a>
                                             <a type="button" th:href="@{'/export/pdf?id=' + ${id}}" id="back-to-booking-list" class="btn btn-primary mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Export Receipt</a>
                                             <!-- Cancel End -->
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                        <lable><i class="fa fa-id-card"></i> License Plates</lable>
-                                        <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control mb-4"/>
-                                        <lable><i class="fa fa-wallet"></i> Amount</lable>
-                                        <input type="number" th:value="${bookingDetailRes.price}" class="form-control mb-4"/>
-                                        <img class="qrcode mb-2" th:src="${displaycode}" />
-                                        <p class="text-center">Your Qr Code</p>
-                                    </div>
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 button-edit">
-                                        <!-- Cancel Start -->
-                                        <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back to List</a>
-                                        <button type="button" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><a class="a-back-to-booking-list" href=""><i class="fa fa-arrow-alt-circle-right"></i> Guide</a></button>
-                                        <!-- Cancel End -->
                                     </div>
                                 </div>
                             </div>

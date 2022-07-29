@@ -6,6 +6,7 @@ package fpt.aptech.ParkingApi.controller;
 
 import fpt.aptech.ParkingApi.dto.enumm.TitleQrCode;
 import fpt.aptech.ParkingApi.dto.qrcontent.BookingQrContent;
+import fpt.aptech.ParkingApi.dto.request.AddRevenueReq;
 import fpt.aptech.ParkingApi.dto.request.NewBookingReq;
 import fpt.aptech.ParkingApi.dto.response.BookingDetailRes;
 import fpt.aptech.ParkingApi.dto.response.BookingRes;
@@ -16,7 +17,9 @@ import fpt.aptech.ParkingApi.entities.Qrcode;
 import fpt.aptech.ParkingApi.interfaces.IBooking;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
+import fpt.aptech.ParkingApi.interfaces.IRevenue;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class BookingController {
 
+    @Autowired
+    private IRevenue _revenueServices;
     @Autowired
     private IProfile _profileServices;
     @Autowired
@@ -60,6 +65,9 @@ public class BookingController {
         bookingQrContent.setUsername(bookingReq.getUsername());
         bookingQrContent.setBookingid(booking.getId());
         _qrcodeService.create(qrcode, bookingQrContent);
+        //add revenue
+        AddRevenueReq addRevenueReq = new AddRevenueReq(LocalDate.now(), (booking.getPrice()/100*20),bookingReq.getParkingname());
+        _revenueServices.add(addRevenueReq);
         return new ResponseEntity(booking.getId(),HttpStatus.OK);
     }
 

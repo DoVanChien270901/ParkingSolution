@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout.html}">
+
+    <head>
+        <meta charset="utf-8">
+        <title>ParkingGo | Dashboard Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            .chart-content {
+                max-width: 1500px;
+                margin: auto;
+                text-align: center;
+            }
+            .chart-content label{
+                font-size: 30px;
+                color: red;
+            }
+            #myChart{
+                display: inline !important;
+                font-size: 22px;
+            }
+        </style>    
+    </head>
+
+    <body>
+        <div class="main-container" layout:fragment="admin-content">
+            <div class="xs-pd-20-10 pd-ltr-20">
+                <div class="title pb-20">
+                    <h2 class="h3 p-1 mb-0">Dashboard</h2>
+                </div>
+                <div class="row pb-10">
+                    <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                        <div class="card-box height-100-p widget-style3">
+                            <div class="d-flex flex-wrap">
+                                <div class="widget-data">
+                                    <div class="weight-700 font-24 text-dark">0</div>
+                                    <div class="font-14 text-secondary weight-500">User</div>
+                                </div>
+                                <div class="widget-icon">
+                                    <div class="icon" data-color="#00eccf"><i class="icon-copy dw dw-user-1"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                        <div class="card-box height-100-p widget-style3">
+                            <div class="d-flex flex-wrap">
+                                <div class="widget-data">
+                                    <div class="weight-700 font-24 text-dark">0</div>
+                                    <div class="font-14 text-secondary weight-500">Parking</div>
+                                </div>
+                                <div class="widget-icon">
+                                    <div class="icon" data-color="#ff5b5b"><span class="icon-copy ti-location-pin"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                        <div class="card-box height-100-p widget-style3">
+                            <div class="d-flex flex-wrap">
+                                <div class="widget-data">
+                                    <div class="weight-700 font-24 text-dark">0.00</div>
+                                    <div class="font-14 text-secondary weight-500">Recharge</div>
+                                </div>
+                                <div class="widget-icon">
+                                    <div class="icon" data-color="#09cc06"><i class="icon-copy fa fa-money" aria-hidden="true"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                        <div class="card-box height-100-p widget-style3">
+                            <div class="d-flex flex-wrap">
+                                <div class="widget-data">
+                                    <div class="weight-700 font-24 text-dark">0+</div>
+                                    <div class="font-14 text-secondary weight-500">Feedback</div>
+                                </div>
+                                <div class="widget-icon">
+                                    <div class="icon" data-color="#ffc107"><i class="icon-copy fa fa-mail-reply" aria-hidden="true"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="justify-content-end">
+                    <form th:action="@{/a/revenue/day}" method="get">
+                        <div class="row">
+                            <div class="col-12 col-lg-7 col-md-12 col-sm-12 p-1">
+                            </div>
+                            <div class="col-12 col-lg-5 col-md-12 col-sm-12 p-1 form-inline">
+                                <label class="form-label" for="monthofyear">Month Of Year: </label>
+                                <input class="form-control ml-2" type="month" id="monthofyear" name="monthofyear" th:value="${monthofyear}"> 
+                                <select id="mySelect" class="form-control ml-2" th:name="type">
+                                    <option value="line">Line Chart</option>
+                                    <option value="bar">Bar Chart</option>
+                                </select>
+                                <button class="btn btn-success ml-2" type="submit">submit</button>
+                            </div>
+                        </div>  
+                    </form>
+                </div>
+                <div class="chart-content">
+                    <canvas class="justify-content-center" id="myChart"></canvas>
+                    <label th:if="${errormes}" th:text="${errormes}"></label>
+                </div>
+                <div class="footer-wrap pd-20 mb-20 card-box">
+                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                </div>
+            </div>
+        </div>
+        <script th:inline="javascript" layout:fragment="code-javascript">   
+            if (([[${errormes}]])) {
+            //
+            } else{
+            loadChartByMonth();
+            if ([[${type}]] == "bar") {
+            const mySelect = document.querySelector('#mySelect');
+            mySelect.options[1].selected = true;
+            }
+            }
+
+            function loadChartByMonth() {
+            var data = ([[${data}]]);
+            for (var item in data) {
+            for (var i = data[item].data.length - 1; i > 0; i--) {
+            if (data[item].data[i] != 0) {
+            data[item].data.splice(i + 1, data[item].data.length - 1);
+            break;
+            }
+            }
+            }
+            var dayNumber = new Date(2022, 7, 0).getDate();
+            var labels = new Array();
+            for (var i = 0; i < dayNumber + 1; i++) {
+            labels.push(i);
+            }
+            const dataparent = {
+            labels: labels,
+                    datasets: data,
+            };
+            const config = {
+            type: ([[${type}]]),
+                    data: dataparent,
+                    options: {
+                    responsive: true,
+                            plugins: {
+                            legend: {
+                            position: 'bottom',
+                                    labels: {
+                                    // This more specific font property overrides the global property
+                                    font: {
+                                    size: 18,
+                                    },
+                                            color: 'rgb(0, 0, 0)',
+                                    }
+                            },
+                                    title: {
+                                    display: true,
+                                            text: 'CHART REVENUE FORM ' + ([[${monthofyear}]]),
+                                            color: 'rgb(0, 0, 0)',
+                                            font: {
+                                            size: 20,
+                                            }
+                                    },
+                            }
+                    },
+            };
+            const myChart = new Chart(document.getElementById("myChart"), config);
+            }
+        </script>
+    </body>
+
+</html>

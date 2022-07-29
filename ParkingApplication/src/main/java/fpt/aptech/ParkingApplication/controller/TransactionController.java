@@ -307,7 +307,7 @@ public class TransactionController {
             @RequestParam("to-date") String toDate, Model model) {
         try {
             if (fromDate.isEmpty() || toDate.isEmpty()) {
-                return "redirect:/history?page=0";
+                return "redirect:/a/list-transaction?page=0";
             }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate fromLocalDate = LocalDate.parse(fromDate, formatter);

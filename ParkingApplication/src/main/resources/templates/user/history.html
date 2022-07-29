@@ -45,9 +45,9 @@
                                     <h2 class="h3">// History //</h2>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12 col-md-12 col-lg-6">
-                                        <div class="row">
-                                            <form th:action="@{/history/search}" method="GET">
+                                    <div class="col-12 col-md-12 col-lg-6"> 
+                                        <form th:action="@{/history/search}" method="GET">
+                                            <div class="row form-inline">
                                                 <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
                                                     <input type="date" name="from-date" class="form-control" placeholder="From day...">
                                                 </div>
@@ -57,8 +57,8 @@
                                                 <div class="col-6 col-lg-2 col-md-2 col-sm-2 p-1">
                                                     <button type="submit" class="btn btn-sm btn-primary m-1"><i class="fa fa-search"></i></button>
                                                 </div>
-                                            </form>
-                                        </div>
+                                            </div>  
+                                        </form>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-6"></div>
                                 </div>
@@ -66,7 +66,7 @@
                                     <table class="table table-bordered table-striped table-hover">
                                         <thead>
                                             <tr class="">
-                                                <th scope="col">#</th>
+                                                <th scope="col">No</th>
                                                 <th scope="col">Amount</th>
                                                 <th scope="col">Date Time</th>
                                                 <th scope="col">Channel</th>
