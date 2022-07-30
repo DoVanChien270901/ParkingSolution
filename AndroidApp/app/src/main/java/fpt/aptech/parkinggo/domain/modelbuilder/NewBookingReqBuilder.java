@@ -1,12 +1,13 @@
 package fpt.aptech.parkinggo.domain.modelbuilder;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import fpt.aptech.parkinggo.domain.request.NewBookingReq;
 
 public class NewBookingReqBuilder {
     private String username;
-    private LocalDateTime starttime;
+    private String starttime;
     private int timenumber;
     private String carname;
     private String lisenceplates;
@@ -18,8 +19,8 @@ public class NewBookingReqBuilder {
         return this;
     }
 
-    public NewBookingReqBuilder setStarttime(LocalDateTime starttime) {
-        this.starttime = starttime;
+    public NewBookingReqBuilder setStarttime(String starttime) {
+        this.starttime = LocalDateTime.parse(starttime,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString();
         return this;
     }
 

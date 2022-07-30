@@ -44,10 +44,7 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
         EditText etLisenceplates = activity.findViewById(R.id.a_booking_et_lisenceplates);
         EditText etStarttime = activity.findViewById(R.id.a_booking_et_date);
 
-        String str = etStarttime.getText().toString()+":00";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-
+        String datetime = etStarttime.getText().toString();
 
         NewBookingReq newBookingReq = new NewBookingReqBuilder()
                 .setParkingname(bookingRes.getTransactionReq().getParkingname())
@@ -55,7 +52,7 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
                 .setTimenumber(Integer.parseInt(etTimenum.getText().toString()))
                 .setCarname(etCarname.getText().toString())
                 .setLisenceplates(etLisenceplates.getText().toString())
-                .setStarttime(dateTime)
+                .setStarttime(datetime)
                 .setWalletparking(false)
                 .createBookEReq();
 
@@ -63,5 +60,10 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(uri + "booking", HttpMethod.POST, request, Integer.class);
         return response;
+    }
+
+    @Override
+    protected void onPostExecute(ResponseEntity<?> response) {
+        super.onPostExecute(response);
     }
 }

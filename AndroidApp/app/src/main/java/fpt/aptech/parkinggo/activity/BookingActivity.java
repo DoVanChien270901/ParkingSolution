@@ -254,10 +254,10 @@ public class BookingActivity extends AppCompatActivity {
         PaymentTask paymentTask = new PaymentTask(BookingActivity.this, bookingRes);
         BookingTask bookingTask = new BookingTask(BookingActivity.this, bookingRes);
         try {
-//            ResponseEntity<?> res = paymentTask.execute().get();
-//            Integer bookingId = (Integer) res.getBody();
-            ResponseEntity<?> res2 = paymentTask.execute().get();
-            Integer bookingId = (Integer) res2.getBody();
+            ResponseEntity<?> res = bookingTask.execute().get();
+            Integer bookingId = (Integer) res.getBody();
+//            ResponseEntity<?> res2 = paymentTask.execute().get();
+//            Integer bookingId = (Integer) res2.getBody();
 //            TransactionReq eBookingRes = (TransactionReq) res.getBody();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
