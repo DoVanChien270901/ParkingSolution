@@ -1,4 +1,4 @@
-/* Form Login, Register, Reset Password, Forgot Password */
+/* Form Login, Register, Forgot Password */
 
 #form-account-fix .login-box {
     max-width: 480px;
@@ -10,18 +10,21 @@
 
 /* Set Logo With Mouse Hover Normal */
 
-.brand-logo a {
+.brand-logo a, #timeline .profile-edit-list input:hover {
     cursor: context-menu;
 }
 
-input[type="date"],
-.form-check-radio label {
+input[type="date"], .form-check-radio label {
     opacity: 0.75;
+}
+
+.form-account-register .col-margin-left-15 {
+    margin-left: -15px;
 }
 
 .form-account-register .login-box input[type="date"]:before {
     content: attr(placeholder);
-    margin-top: -0.4px;
+    margin-top: 0px;
 }
 
 .form-check-radio {
@@ -40,12 +43,13 @@ input[type="date"],
 }
 
 .form-check-radio .form-check input {
-    left: 25px;
+    left: 32px;
     top: 10.5px;
 }
 
 .form-check-radio .form-check label {
-    margin-left: 5px;
+    font-size: 95%;
+    margin-left: 10px;
 }
 
 #form-account-fix .login-box .login-title {
@@ -54,7 +58,7 @@ input[type="date"],
 }
 
 #form-account-fix .login-box form div.input-group {
-    position: flex !important;
+    display: flex !important;
     margin-bottom: 0px !important;
 }
 
@@ -68,8 +72,15 @@ input[type="date"],
     padding-left: 2px;
 }
 
-#form-account-fix .message-box {
+#form-account-fix .message-box, #form-account-fix .message-col-6 {
     width: 100%;
+}
+
+#form-account-fix .check-message-box label {
+    font-size: 14px;
+}
+
+#form-account-fix .message-box {
     color: #fff;
     background: #dc3545;
     display: none;
@@ -79,34 +90,18 @@ input[type="date"],
     font-size: 80%;
 }
 
-#form-account-fix .check-message-box label {
-    font-size: 14px;
-}
-
-#form-account-fix .message-col-6 {
-    width: 100%;
-}
-
 #form-account-fix .forgot-password a {
     font-size: 14px;
 }
 
 /* Admin Manager */
 
-.left-side-bar .brand-logo .light-logo {
+.left-side-bar .brand-logo .light-logo, .login-page .brand-logo img, .login-header .brand-logo img {
     width: 40px;
     padding: 0px;
 }
 
-.login-page .brand-logo img,
-.login-header .brand-logo img {
-    width: 40px;
-    padding: 0px;
-}
-
-.left-side-bar .brand-logo span,
-.login-page .brand-logo span,
-.login-header .brand-logo span {
+.left-side-bar .brand-logo span, .login-page .brand-logo span, .login-header .brand-logo span {
     font-size: 1.4rem;
     font-weight: 800;
     margin-top: 24px;
@@ -133,28 +128,16 @@ input[type="date"],
     color: #fff;
 }
 
-.col-profile-admin button {
+.col-profile-admin button, .update-profile, .update-parking, .cancel-return-parking-list {
     text-transform: capitalize;
 }
 
 .tab-wizard2 {
-    display: relative;
-}
-
-#timeline .profile-edit-list input:hover {
-    cursor: context-menu;
+    position: relative;
 }
 
 #list-user table tbody tr {
     cursor: pointer;
-}
-
-.login-box {
-    max-width: 450px;
-}
-
-.register-page-wrap .login-box {
-    max-width: 450px;
 }
 
 .form-control:disabled,
@@ -170,22 +153,6 @@ input[type="date"],
     /* border: 1px solid #202020; */
     padding: 0px;
 }
-
-.momo,
-.zalopay {
-    width: 40px;
-}
-
-.update-profile,
-.update-parking,
-.cancel-return-parking-list {
-    text-transform: capitalize;
-}
-
-.invalid-feedback {
-    display: inline;
-}
-
 .custom input::-webkit-outer-spin-button,
 .custom input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -200,36 +167,23 @@ input[type="date"],
     display: none;
 }
 
-/* chart */
-.curve_chart {
-    width: 100%;
-}
-@media screen and (max-width:1200px) {
-  
-}
+@media screen and (min-width:567px) {}
 
-@media screen and (max-width:991.20px) {
+@media screen and (max-width:1200px) {}
 
-}
+@media screen and (max-width:991.20px) {}
 
 @media screen and (max-width:768px) {
     .register-page-wrap .login-box {
         max-width: 450px;
     }
-    .update-parking,
-    .cancel-return-parking-list {
+    .update-parking, .cancel-return-parking-list {
         width: 220px;
     }
 }
 
-@media screen and (min-width:567px) { 
-    
-}
-
-
 @media screen and (max-width:567px) {
-    .update-parking,
-    .cancel-return-parking-list {
+    .update-parking, .cancel-return-parking-list {
         width: 100%;
     }
 }

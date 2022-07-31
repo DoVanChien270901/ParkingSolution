@@ -1,0 +1,884 @@
+/* Fix CSS */
+
+#navbar-fix .navbar-brand span {
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-overflow: nowrap;
+    vertical-align: middle;
+    display: block;
+    margin-left: 0;
+}
+
+#navbar-fix .navbar-brand, #navbar-fix .has-user-menu .class-user {
+    cursor: context-menu;
+}
+
+#navbar-fix .navbar-brand img {
+    width: 40px;
+    padding: 0px;
+    max-width: 180px !important;
+}
+
+#navbar-fix .navbar-light .navbar-toggler:focus {
+    box-shadow: 0;
+}
+
+#navbar-fix #navbarCollapse a {
+    font-size: 16px;
+    display: inline-block;
+}
+
+#navbar-fix #navbarCollapse a:hover {
+    transition: .3s; 
+}
+
+/*#navbar-fix #navbarCollapse a i {
+    border-radius: 50%;
+    width: 42px;
+    height: 40px;
+    text-align: center;
+    background-color: #fff;
+    padding: 12px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.5);
+}*/
+
+#footer-refix .btn-social {
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+#navbar-fix .has-user-menu .session-name{
+    text-transform: capitalize;
+}
+
+#navbar-fix .has-user-menu .user-menu a:hover {
+    background-color: #1b00ff;
+    color: #fff;
+}
+
+#footer-refix .address .fa-github {
+    color: #202020 !important;
+}
+
+#footer-refix .address .fa-twitter {
+    color: #87ceeb !important;
+}
+
+#footer-refix .address .fa-youtube {
+    color: #dc3545 !important;
+}
+
+#footer-refix .address .fa-facebook-f {
+    color: #1b00ff !important;
+}
+
+/* Index Page */
+#header-carousel .carousel-inner .btn-get-mobile-app {
+    background-color: #fff;
+    color: #1b00ff;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+    font-weight: 700;
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    display: inline-block;
+    transition: .5s ease-out; 
+}
+
+#header-carousel .carousel-inner .btn-get-mobile-app, .btn-contact-parking-go {
+    font-size: 17px;
+}
+
+#header-carousel .carousel-inner .btn-get-mobile-app:hover {
+    color: #fff;
+    background-color: #1b00ff;
+}
+
+#header-carousel .carousel-inner .btn-get-mobile-app:focus {
+    border: 0;
+    outline: 0;
+    box-shadow: 0;
+}
+
+#header-carousel .carousel-inner .img-fluid {
+    max-width: 70%;
+}
+
+.btn-contact-parking-go {
+    background-color: #1b00ff;
+    color: #fff;
+    border: none;
+    outline: none;
+    font-weight: 700;
+    line-height: 1.5;
+    display: inline-block;
+    border-radius: 2px;
+    transition: .5s ease-out;
+}
+
+.btn-contact-parking-go:hover {
+    color: #fff;
+    background-color: #1502bd;
+}
+
+/* CSS All Profile From User */
+
+
+.nav-profile-manager .nav li a {
+    color: #000;
+    font-weight: 600;
+}
+
+.nav-profile-manager .nav .nav-link a:hover {
+    transition: 0.3s;
+    color: #1b00ff;
+}
+
+.nav-profile-manager .nav .dropdown-toggle {
+    cursor: context-menu;
+}
+
+.nav-profile-manager .nav .dropdown-menu .dropdown-profile {
+    display: block;
+    padding: 0.25rem 1rem;
+    clear: both;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: #fff;
+    color: #000;
+}
+
+.nav-profile-manager .nav .dropdown-menu .dropdown-profile:hover {
+    background-color: #1b00ff;
+    color: #fff;
+    transition: 0.3s;
+}
+
+table tr th {
+    font-size: 14px;
+    color: var(--dark);
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    background: none;
+    border: none !important;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+#form_profile #basic-addon1, 
+#form-direct-payment #basic-addon1, 
+#form-electronic-payment #basic-addon1 {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 2px;
+}
+
+#form_profile input, 
+#form-direct-payment input, 
+#form-electronic-payment input {
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+#form_profile #label-fullname #basic-addon1, 
+#form_profile #label-dob #basic-addon1,
+#form_profile #label-wallet #basic-addon1, 
+#form_profile #label-phone #basic-addon1, 
+#form_profile #label-email #basic-addon1, 
+#form_profile #label-identitycard #basic-addon1, 
+#form-parking-booking #label-transport #basic-addon1,
+#form-parking-booking #label-lisence-plates #basic-addon1,
+#form-parking-booking #label-start-time #basic-addon1,
+#form-parking-booking #label-time-number #basic-addon1 ,
+#contactForm #label-transport #basic-addon1, 
+#contactForm #label-lisence-plates #basic-addon1,
+#contactForm #label-start-time #basic-addon1, 
+#contactForm #label-time-number #basic-addon1 {
+    color:#fff;
+    width: 100%; 
+    display: block;
+}
+
+#form_profile #label-fullname #basic-addon1,
+#form-parking-booking #label-transport #basic-addon1,
+#contactForm #label-transport #basic-addon1 {
+    background-color: #dc3545;
+}
+
+#form_profile #label-dob #basic-addon1,
+#form-parking-booking #label-start-time #basic-addon1,
+#contactForm #label-start-time #basic-addon1{
+    background-color: #1b00ff;
+}
+
+#form_profile #label-wallet #basic-addon1 {
+    background-color: #198754;
+}
+
+#form_profile #label-phone #basic-addon1,
+#form-parking-booking #label-time-number #basic-addon1,
+#contactForm #label-time-number #basic-addon1{
+    background-color: #FF9A19;
+}
+
+#form_profile #label-email #basic-addon1 {
+    background-color: #0dcaf0;
+}
+
+#form_profile #label-identitycard #basic-addon1,
+#form-parking-booking #label-lisence-plates #basic-addon1, 
+#contactForm #label-lisence-plates #basic-addon1{
+    background-color: #06283D;
+}
+
+#form_profile #label-fullname #basic-addon1 span,
+#form_profile #label-dob #basic-addon1 span, 
+#form_profile #label-wallet #basic-addon1 span,
+#form_profile #label-phone #basic-addon1 span,
+#form_profile #label-email #basic-addon1 span, 
+#form_profile #label-identitycard #basic-addon1 span, 
+#form-parking-booking #label-transport #basic-addon1 span,
+#form-parking-booking #label-lisence-plates #basic-addon1 span,
+#form-parking-booking #label-start-time #basic-addon1 span,
+#form-parking-booking #label-time-number #basic-addon1 span, 
+#contactForm #basic-addon1 span{
+    font-size: 14px;
+}
+
+#form_profile .qrcode , .qrcode{ 
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 42%;
+    border: 3px solid #202020;
+    padding: 0px;
+    display: block;
+}
+
+#form_profile .title-qrcode , 
+#form-direct-payment .title-direct-payment-qrcode {
+    text-align: center;
+    font-style: italic;
+}
+
+#form_profile .col-profile-button-edit {
+    width: 100% !important;
+}
+
+#form_profile .col-profile-button-edit button, 
+#form_profile .col-profile-button-edit a, 
+#form-direct-payment .btn-qrcode-direct-payment, 
+#form-electronic-payment .btn-electronic-payment, 
+#form-parking-booking #save-parking-booking, 
+#form-parking-booking #back-to-google-map, 
+.form-parking-booking #save-parking-booking, 
+.form-parking-booking #back-to-google-map{
+    text-transform: capitalize;
+    width: 190px;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    line-height: 1.5;
+    padding: 0.375rem 0.75rem;
+    display: inline-block;
+    transition: .5s ease-out;
+    text-align: center;
+    font-size: 16px;
+}
+
+#form_profile .col-profile-button-edit #settings-profile, 
+#form-direct-payment .btn-qrcode-direct-payment, 
+#form-electronic-payment .btn-electronic-payment{
+    background-color: #1b00ff;
+    color: #fff;
+}
+
+#form_profile .col-profile-button-edit #update-profile,
+#form-direct-payment .select-amount input, 
+#form-electronic-payment .select-amount input {
+    background-color: #198754;
+    color: #fff;
+}
+
+#form_profile .col-profile-button-edit #cancel-profile {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+#form_profile .col-profile-button-edit #settings-profile:hover,
+#form-direct-payment .btn-qrcode-direct-payment:hover, 
+#form-electronic-payment .btn-electronic-payment:hover{
+    background-color: #1502bd;
+}
+
+#form_profile .col-profile-button-edit #update-profile:hover,
+#form-direct-payment .select-amount input:hover, 
+#form-electronic-payment .select-amount input:hover {
+    background-color: #157347;
+}
+
+#form_profile .col-profile-button-edit #cancel-profile:hover {
+    background-color: #bb2d3b;
+}
+
+#form_profile .col-profile-button-edit .btn-save-profile,  
+#form_profile .col-profile-button-edit .btn-cancel-profile{
+    display: none;
+}
+
+#form_profile .invalid-feedback,
+#form-direct-payment .invalid-feedback,
+#form-electronic-payment .invalid-feedback{
+    display: block;
+    padding-left: 2px;
+    margin-top: 42px;
+}
+
+#form_profile .mess-box {
+    width: 100%;
+    color: #fff;
+    background: #dc3545;
+    display: none;
+    z-index: 999;
+    position: absolute;
+    padding: 10px;
+    font-size: 80%;
+}
+
+#form-direct-payment .mess-box-direct-payment,
+#form-electronic-payment .mess-box-electronic-payment {
+    width: 100%;
+    color: #fff;
+    background: #dc3545;
+    display: none;
+    z-index: 999;
+    position: absolute;
+    padding: 10px;
+    font-size: 80%;
+}
+
+#form-electronic-payment .mess-box-payment-method {
+    width: 100%;
+    color: #fff;
+    background: #dc3545;
+    display: none;
+    z-index: 999;
+    position: absolute;
+    padding: 10px;
+    font-size: 80%;
+}
+
+#form-electronic-payment .box-error-payment-method .invalid-feedback {
+    padding-left: 10px;
+    margin-top: -10px;
+    margin-left: -12px;
+}
+
+.col-direct-payment-qrcode .direct-payment-qrcode {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 25%;
+    padding: 0px;
+    display: block;
+}
+
+.col-direct-payment-qrcode .get-qrcode {
+    border: 3px solid #202020;
+}
+
+#direct-payment .show-wallet label,
+#electronic-payment .show-wallet label {
+    float: right;
+    font-size: 17px;
+}
+
+#form-direct-payment #label-wallet #basic-addon1 {
+    color:#fff;
+    width: 100%; 
+    display: block;
+    background-color: #198754;
+}
+
+#form-electronic-payment #label-wallet #basic-addon1 {
+    color:#fff;
+    width: 100%; 
+    display: block;
+    background-color: #198754;
+}
+
+#form-direct-payment .select-amount input, 
+#form-electronic-payment .select-amount input {
+    text-transform: none;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#form-electronic-payment .label-payment-method,
+#form-electronic-payment .label-input-payment, 
+#form-direct-payment .label-input-payment,
+#form-parking-booking .label-payment-method{
+    font-size: 17px;
+    font-weight: 600;
+    font-family: 'Arial', sans-serif;
+    color: #000;
+}
+
+#form-electronic-payment .label-input-payment {
+    margin-bottom: 18.5px !important;
+}
+
+#form-electronic-payment .momo, 
+#form-electronic-payment .zalopay,
+#form-parking-booking .momo,
+#form-parking-booking .zalopay,
+#form-parking-booking .wallet {
+    width: 50px;
+    cursor: pointer;
+}
+
+#form-electronic-payment .form-momo,
+#form-electronic-payment .form-zalopay,
+#form-parking-booking .form-momo,
+#form-parking-booking .form-zalopay,
+#form-parking-booking .form-wallet{
+    padding: 5px 0;
+}
+
+/* Radio */
+#form-electronic-payment .form-momo input[type="radio"],
+#form-electronic-payment .form-zalopay input[type="radio"],
+#form-parking-booking .form-momo input[type="radio"],
+#form-parking-booking .form-zalopay input[type="radio"],
+#form-parking-booking .form-wallet input[type="radio"]{
+    width: 20px;
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Chrome, Safari, Opera */
+    transform: scale(1.2);
+}
+
+#form-electronic-payment .row-form-check-radio-for-payment {
+    padding: 12px;
+}
+
+#form-electronic-payment .row-form-check-radio-for-payment .form-momo,
+#form-electronic-payment .row-form-check-radio-for-payment .form-zalopay{
+    background-color: #f4f4f4;
+    border: thin solid #e4e4e4;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#e-payment-detail .icon-success-e-payment {
+    width: 50%;
+}
+
+#form-e-payment-detail .invoice-box {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    line-height: 24px;
+    font-family: 'Arial', sans-serif;
+}
+
+#form-e-payment-detail .invoice-box table tr td,
+#form-e-payment-detail .invoice-box table tr th {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#form-e-payment-detail .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+}
+#form-e-payment-detail .invoice-box table td {
+    padding: 5px;
+    vertical-align: top;
+}
+
+#form-e-payment-detail .invoice-box table tr td:nth-child(2){
+    text-align: right;
+}
+
+.btn {
+    font-family: 'Inter', sans-serif;
+}
+
+.wallet {
+    width: 40px;
+}
+
+.tab-content h2 {
+    color: #1b00ff;
+}
+
+.tab-pane th {
+    color: #1b00ff;
+    font-family: var(--bs-font-sans-serif);
+}
+
+.form-control:disabled,
+.form-control:read-only {
+    background-color: #fff;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+#booking-list .table-hover tbody tr:hover{
+    cursor: pointer;
+}
+
+@media all and (min-width: 992px) {
+    .navbar .has-megamenu,
+    .navbar .has-user-menu {
+        position: static!important;
+    }
+    .navbar .megamenu {
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+    .navbar .user-menu {
+        left: auto;
+        right: 0;
+        margin-top: 0;
+    }
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 52%;
+        transform: translatex(-52%);
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#form-transaction-history #form-select-date input[type="date"]:before,
+#form-parking-history #form-select-date input[type="date"]:before{
+    content: attr(placeholder);
+    margin-top: 0px;
+}
+
+#form-transaction-history #form-select-date .btn-search, 
+#form-parking-history #form-select-date .btn-search{
+    background-color: #1b00ff;
+    color: #fff;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    line-height: 1.5;
+    padding: 0.375rem 0.75rem;
+    display: inline-block;
+    transition: .5s ease-out;
+    text-align: center;
+    font-size: 16px;
+}
+
+#form-transaction-history #form-select-date .btn-search:hover,
+#form-parking-history #form-select-date .btn-search:hover{
+    background-color: #1502bd;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    padding: 7px;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+.badge-success {
+    color: #fff;
+    background-color: #198754;
+}
+
+.table-res-history .table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/*.table-res-history .table th{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}*/
+
+.table-res-history .table td, 
+.table-res-history .table th {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 15px;
+}
+
+.table-res-history .table th {
+    background-color: rgba(0,0,0,.075);
+    color: #000;
+    padding: 0.75rem;
+    vertical-align: top;
+    border-bottom: none;
+    border-top: 1px solid #dee2e6;
+}
+
+.table tbody tr:nth-child(even){
+    background-color: #f5f5f5;
+}
+
+.table-res-history .table tbody tr .id-table {
+    font-weight: 600;
+    color: #000;
+}
+
+.table-res-history .table tbody tr td {
+    color: #000;
+}
+
+.table-res-history .table tbody .type-history span b {
+    font-style: italic;
+}
+
+.content {
+    padding: 7rem 0; 
+}
+
+.form-parking-booking .heading {
+    font-size: 2.5rem;
+    font-weight: 900; 
+}
+
+.form-parking-booking  #save-parking-booking{
+    background-color: #198754;
+    color: #fff;
+}
+
+.form-parking-booking  #save-parking-booking:hover {
+    background-color: #157347;
+}
+
+.form-parking-booking #back-to-google-map {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.form-parking-booking #back-to-google-map:hover {
+    background-color: #bb2d3b;
+}
+
+.form-parking-booking .contact-wrap {
+    -webkit-box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2); 
+}
+
+.form-parking-booking .contact-wrap .col-form-label {
+    font-size: 14px;
+    color: #b3b3b3;
+    margin: 0 0 10px 0;
+    display: inline-block;
+    padding: 0; 
+}
+
+.form-parking-booking .contact-wrap .form, .contact-wrap .contact-info {
+    padding: 30px; 
+}
+
+.form-parking-booking .contact-wrap .contact-info {
+    color: rgba(255, 255, 255, 0.5); 
+}
+
+.form-parking-booking .contact-wrap .contact-info ul li {
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.5); 
+}
+
+.form-parking-booking .contact-wrap .contact-info ul li .wrap-icon {
+    font-size: 20px;
+    color: #fff;
+    margin-top: 5px; 
+}
+
+.form-parking-booking .contact-wrap .form {
+    background: #fff; 
+}
+
+.form-parking-booking .contact-wrap .form h3 {
+    color: #35477d;
+    font-size: 20px;
+    margin-bottom: 30px; 
+}
+
+.form-parking-booking .contact-wrap .contact-info {
+    background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url("/assetsc/img/futurparking.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+.form-parking-booking .contact-wrap .contact-info h3 {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 30px; 
+    font-weight: 600;
+}
+
+.form-parking-booking .contact-wrap .contact-info p {
+    color: #fff;
+}
+
+.form-parking-booking .submitting {
+    float: left;
+    width: 100%;
+    padding: 10px 0;
+    display: none;
+    font-weight: bold;
+    font-size: 12px;
+    color: #000; 
+}
+
+@media screen and (max-width: 1200px) {
+    .col-direct-payment-qrcode .direct-payment-qrcode {
+        max-width: 35%;
+    }
+    #form_profile .qrcode, .qrcode{
+        max-width: 50%;
+    }
+}
+
+@media screen and (max-width: 991.20px) {
+    #form_profile .col-profile-button-edit, 
+    #form-direct-payment .col-btn-qrcode-direct-payment, 
+    #form-electronic-payment .col-btn-electronic-payment,
+    #form-parking-booking .col-btn-parking-booking, 
+    .form-parking-booking .col-btn-parking-booking {
+        display: flex; 
+        justify-content: center;
+    }
+
+    #form_profile .col-profile-button-edit button, 
+    #form_profile .col-profile-button-edit a,
+    #form-direct-payment .btn-qrcode-direct-payment
+    #form-electronic-payment .btn-electronic-payment,
+    #form-parking-booking #save-parking-booking, 
+    #form-parking-booking #back-to-google-map, 
+    .form-parking-booking #save-parking-booking, 
+    .form-parking-booking #back-to-google-map{
+        width: 255px;
+    }
+
+    .navbar.fixed-top .navbar-collapse,
+    .navbar.sticky-top .navbar-collapse {
+        overflow-y: auto;
+        max-height: 90vh;
+        margin-top: 10px;
+    }
+
+    #form_profile .qrcode, .qrcode{
+        max-width: 25%;
+    }
+
+    .col-direct-payment-qrcode .direct-payment-qrcode {
+        max-width: 25%;
+    }
+
+    .nav-profile-manager .nav .dropdown-toggle, 
+    #navbar-fix .navbar-brand, #navbar-fix .has-user-menu .class-user  {
+        cursor: pointer;
+    }
+
+    .table-res-history .table thead {
+        display: none;
+    }
+
+    .table-res-history .table, 
+    .table-res-history .table tbody, 
+    .table-res-history .table tr, 
+    .table-res-history .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-res-history .table tr {
+        margin-bottom: 15px;
+    }
+
+    .table-res-history .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table-res-history .table td:before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    #form_profile .qrcode , .qrcode{
+        max-width: 40%;
+    }
+
+    #form_profile .col-profile-button-edit button, 
+    #form_profile .col-profile-button-edit a, 
+    #form-direct-payment .btn-qrcode-direct-payment, 
+    #form-electronic-payment .btn-electronic-payment,
+    #form-parking-booking #save-parking-booking, 
+    #form-parking-booking #back-to-google-map, 
+    .form-parking-booking #save-parking-booking, 
+    .form-parking-booking #back-to-google-map{
+        width: 100%;
+    }
+
+    .col-direct-payment-qrcode .direct-payment-qrcode {
+        max-width: 35%;
+    }
+}
+
+@media screen and (max-width:567px){
+    #form_profile .col-profile-button-edit button, 
+    #form_profile .col-profile-button-edit a, 
+    #form-direct-payment .btn-qrcode-direct-payment, 
+    #form-electronic-payment .btn-electronic-payment,
+    #form-parking-booking #save-parking-booking, 
+    #form-parking-booking #back-to-google-map, 
+    .form-parking-booking #save-parking-booking, 
+    .form-parking-booking #back-to-google-map{
+        width: 100%;
+    }
+}

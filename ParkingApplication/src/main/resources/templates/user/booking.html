@@ -8,79 +8,125 @@
     </head>
     <body>
         <section layout:fragment="user-content">
-            <!-- Carousel Start -->
-            <div class="container-xxl py-5 booking-create">
+            <div class="content form-parking-booking" id="form-parking-booking">
                 <div class="container">
-                    <div class="pb-4 pt-4">
-                        <h2 class="text-primary text-uppercase text-center" th:text="${bookingReq.parkingname}"></h2>
-                        <marquee class="text-primary" th:text="${address}"></marquee>
-                    </div>
-                    <form id="form-parking-booking" th:action="@{/booking}" th:object="${bookingReq}" method="POST">
-                        <div class="row g-4 mb-3 pb-3">
-                            <input  th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>
-                            <div class="row g-4 mb-3 pb-3">
-                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <lable><i class="fa fa-car"></i> Car Name</lable>
-                                    <input  th:field="*{carname}" type="text" value="" class="form-control mb-4"/>
-                                    <lable><i class="fa fa-clock"></i> Start Time</lable>
-                                    <input type="datetime-local" th:field="*{starttime}" value="" class="form-control mb-4"/>
-                                </div>
-                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <lable><i class="fa fa-id-card"></i> License Plates</lable>
-                                    <input type="text" th:field="*{lisenceplates}" value="" class="form-control mb-4"/>
-                                    <lable><i class="fa fa-times"></i> Timer Number</lable>
-                                    <input type="number" th:field="*{timenumber}" th:onkeyup="|numberokd(${rentcost})|" id="number" class="form-control mb-4"/>
-                                </div>
-                                <div class="col-12 col-lg-6 col-md-12 col-sm-12 amount">
-                                    <lable><i class="fa fa-wallet"></i> Choose Payment Method</lable>
-                                    <div class="p-2">
-                                        <div class="row">
-                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                                <img class="momo" th:src="@{/assetsc/img/momo.png}">
-                                                <span class="p-1">
-                                                    Momo
-                                                </span>
-                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Momo"  name="payment" checked="true"> 
+                    <div class="row align-items-stretch no-gutters contact-wrap">
+                        <div class="col-md-12 col-12 col-lg-7 col-sm-12">
+                            <div class="form h-100">
+                                <form class="mb-5" th:action="@{/booking}" th:object="${bookingReq}" method="POST" id="contactForm" name="contactForm">
+                                    <div class="row">
+                                        <input th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="input-group mb-0 pt-2">
+                                                <div class="input-group-prepend" id="label-transport">
+                                                    <div id="basic-addon1" class="input-group-text">
+                                                        <span><i class="fa fa-car"></i></span>
+                                                    </div>
+                                                </div>
+                                                <input  th:field="*{carname}" type="text" value="" class="form-control mb-4"/>
                                             </div>
-                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                                <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}">
-                                                <span class="p-1">ZaloPay</span>
-                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Zalopay" name="payment"> 
-                                            </div>
-                                            <div class="col-6 col-lg-4 col-md-4 col-sm-6 p-2">
-                                                <img class="wallet" th:src="@{/assetsc/img/wallet.png}">
-                                                <span class="p-1">Wallet</span>
-                                                <input style="width: 20px;" class="" type="radio" th:field="*{channel}" value="Wallet"  name="payment"> 
+                                        </div>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="input-group mb-0 pt-2">
+                                                <div class="input-group-prepend" id="label-start-time">
+                                                    <div id="basic-addon1" class="input-group-text">
+                                                        <span><i class="fa fa-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                                <input type="datetime-local" th:field="*{starttime}" value="" class="form-control mb-4"/>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-btn-parking-booking">
-                                <div class="row">
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                        <input type="text" value="0 VND" id="amount" class="form-control mb-4" readonly="true"/>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="input-group mb-0 pt-2">
+                                                <div class="input-group-prepend" id="label-lisence-plates">
+                                                    <div id="basic-addon1" class="input-group-text">
+                                                        <span><i class="fa fa-id-card"></i></span>
+                                                    </div>
+                                                </div>
+                                                <input type="text" th:field="*{lisenceplates}" value="" class="form-control mb-4"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="input-group mb-0 pt-2">
+                                                <div class="input-group-prepend" id="label-time-number">
+                                                    <div id="basic-addon1" class="input-group-text">
+                                                        <span><i class="fas fa-stopwatch"></i></span>
+                                                    </div>
+                                                </div>
+                                                <input type="number" th:field="*{timenumber}" th:onkeyup="|numberokd(${rentcost})|" id="number" class="form-control mb-4"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                        <button type="submit" id="save-parking-booking" class="btn btn-success mt-0 mb-2 me-2"><i class="fa fa-check-circle"></i> Booking</button>
-                                        <a type="button" th:href="@{/map}" id="back-to-google-map" class="btn btn-danger mt-0 mb-2 me-2"><i class="fa fa-arrow-left"></i> Back</a>
+                                    <h3 style="font-size: 17px;">Choose Payment Method:</h3>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12 col-lg-12 col-sm-12 form-group mb-3">
+                                            <div class="row row-form-check-radio-for-payment">
+                                                <div class="form-momo mb-3 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
+                                                    <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
+                                                    <span class="title-momo">Momo</span>
+                                                    <input type="radio" id="radio-momo" th:field="*{channel}" value="Momo" name="payment" checked="true"> 
+                                                </div>
+                                                <div class="form-zalopay mb-3 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
+                                                    <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
+                                                    <span class="title-zalopay">ZaloPay</span>
+                                                    <input type="radio" id="radio-zalopay" th:field="*{channel}" value="Zalopay" name="payment"> 
+                                                </div>
+                                                <div class="form-wallet mb-3 p-2 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
+                                                    <img class="wallet" th:src="@{/assetsc/img/wallet.png}" onclick="checkWallet()">
+                                                    <span class="title-wallet">Wallet</span>
+                                                    <input style="margin-left:6px;" type="radio" id="radio-wallet" th:field="*{channel}" value="Wallet"  name="payment"> 
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- Cancel Start -->
-
-                                <!-- Cancel End -->
+                                    <div class="row">
+                                        <div class="col-md-12 form-group mb-3">
+                                            <input type="text" value="0 VND" id="amount" class="form-control mb-4" readonly="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group mb-3 col-btn-parking-booking">
+                                            <button type="submit" id="save-parking-booking" class="mt-0 mb-2 me-2">
+                                                <i class="fa fa-check-circle"></i>&nbsp;Booking</button>
+                                            <a type="button" th:href="@{/map}" id="back-to-google-map" class="mt-0 mb-2 me-2">
+                                                <i class="fa fa-arrow-left"></i>&nbsp;Back</a>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                        <div class="col-md-12 col-lg-5 col-12 col-sm-12">
+                            <div class="contact-info h-100">
+                                <h3 th:text="${bookingReq.parkingname}"></h3>
+                                <p class="mb-5"><i class="fa fa-map-marker-alt"></i>
+                                    <span th:text="${address}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Carousel End -->
         </section>
         <script type="text/javascript" layout:fragment="code-javascript">
+            var momo = document.getElementById('radio-momo');
+            var zalopay = document.getElementById('radio-zalopay');
+            var wallet = document.getElementById('radio-wallet');
             function numberokd(rentcost) {
                 var number = document.getElementById("number");
                 var amount = document.getElementById("amount");
                 amount.value = (number.value * rentcost).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+            }
+             function checkMomo() {
+                momo.checked = true;
+            }
+
+            function checkZaloPay() {
+                zalopay.checked = true;
+            }
+            function checkWallet(){
+                wallet.checked = true;
             }
         </script>
     </body>

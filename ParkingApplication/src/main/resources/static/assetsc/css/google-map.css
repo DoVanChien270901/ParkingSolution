@@ -160,6 +160,8 @@
     padding: 5px;
     font-size: 13px;
     padding: 7px;
+    font-weight: 400 !important;
+    transition: .3s ease-out;
 }
 
 #content-parking .booking-box {
@@ -168,10 +170,22 @@
     border-radius: 2px;
     border: 0;
     outline: 0;
-    padding: 5px;
     font-size: 13px;
     padding: 7px;
+    font-weight: 400 !important;
+    transition: .3s ease-out;
+}
 
+#content-parking .booking-box-full {
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 2px;
+    border: 0;
+    outline: 0;
+    font-size: 13px;
+    padding: 7px;
+    font-weight: 400 !important;
+    cursor: context-menu;
 }
 
 .shop-item .booking-list {
@@ -179,28 +193,42 @@
     text-decoration: none;
     background-color: #198754;
     color: #fff !important;
-    padding: 5px;
+    padding: 6px;
     font-weight: 500 !important;
-    font-size: 12px;
-    width: 100% !important;
+    font-size: 14.5px !important;
+    width: 120px !important;
     height: 35px !important;
     float: right !important; 
     border-radius: 2px !important;
+    transition: .3s ease-out;
 }
 
 #sidebar .shop-item .row-shop-item col p { 
     font-size: 14px;
 }
 
+#sidebar .shop-item .row-shop-item col .fa {
+    border-radius: 50%;
+    width: 38px;
+    height: 36px;
+    text-align: center;
+    background-color: #fff;
+    padding: 10px;
+    /*box-shadow: 2px 2px 5px rgba(0,0,0,.5);*/
+}
+
 #sidebar .shop-item .row-shop-item col .fa-map-marker-alt {
+    border: 1px solid #dc3545;
     color: #dc3545;
 }
 
 #sidebar .shop-item .row-shop-item col .fa-parking {
+    border: 1px solid #1b00ff;
     color: #1b00ff;
 }
 
 #sidebar .shop-item .row-shop-item col .fa-wallet {
+    border: 1px solid #198754;
     color: #198754;
 }
 
@@ -239,45 +267,50 @@
     box-shadow: none;
 }
 
-.wrapper-google-map ul.list-items,
-.wrapper-google-map ul.list-items2 {
+.wrapper-google-map ul.list-items {
     padding: 0rem 1rem;
     list-style-type: none;
 }
 
-#sidebar .list-items .shop-item a,
-#sidebar .list-items2 .shop-item a {
+#sidebar .list-items .shop-item .shop-item-name {
     text-decoration: none;
     font-size: 16px;
     color: #1b00ff;
-    font-weight: 600;
+    font-weight: 700;
+    line-height: 1.5;
     text-transform: capitalize;
+    transition: .3s;
 }
 
-#sidebar .list-items .shop-item p,
-#sidebar .list-items2 .shop-item p {
+#sidebar .list-items .shop-item .shop-item-name:hover {
+    letter-spacing: .3px;
+    box-shadow: none;
+}
+
+#sidebar .list-items .shop-item #shop-item-address, 
+#sidebar .shop-item .row-shop-item col p{
     font-size: 14px;
-    color: #404040;
+    color: #000;
 }
 
-#sidebar .list-items .shop-item,
-#sidebar .list-items2 .shop-item {
+#sidebar .list-items .shop-item #shop-item-address b {
+    font-weight: 700;
+}
+
+#sidebar .list-items .shop-item {
     margin: 1rem 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-#sidebar .list-items li:last-child .shop-item,
-#sidebar .list-items2 li:last-child .shop-item {
+#sidebar .list-items li:last-child .shop-item{
     border: none;
 }
 
-#sidebar .list-google-map ul.list-items,
-#sidebar .list-google-map ul.list-items2 {
+#sidebar .list-google-map ul.list-items {
     list-style: none;
 }
 
-#sidebar .list-items,
-#sidebar .list-items2 {
+#sidebar .list-items {
     position: relative;
     background: #fff;
     width: 100%;
@@ -290,8 +323,7 @@
     border-top: none;
 }
 
-#sidebar .list-items li a,
-#sidebar .list-items2 li a {
+#sidebar .list-items li a {
     color: #f2f2f2;
     text-decoration: none;
     font-size: 18px;
@@ -301,19 +333,8 @@
     display: block;
 }
 
-#sidebar .list-items li a i,
-#sidebar .list-items2 li a i {
+#sidebar .list-items li a i {
     margin-right: 20px;
-}
-
-#sidebar .result-list {
-    padding-left: 1rem;
-    margin-top: 1rem;
-    font-size: 16px;
-    font-style: italic;
-    color: #dc3545;
-    font-weight: 600;
-    font-family: 'Arial', sans-serif;
 }
 
 #sidebar .title h4 button {
