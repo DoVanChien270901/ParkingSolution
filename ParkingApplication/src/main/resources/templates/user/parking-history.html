@@ -80,7 +80,7 @@
                                             <tr th:each="item : ${parkinghistorylist}">
                                                 <td class="id-table col-lg-2" data-label="#" th:text="${item.id}"></td>
                                                 <td data-label="Date Time" type="date" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
-                                                <td class="col-lg-1" data-label="Time Number" th:text="${item.timenumber}"></td> 
+                                                <td class="col-lg-2" data-label="Time Number" th:text="${item.timenumber}"></td> 
                                                 <td data-label="Car Name" th:text="${item.carname}"></td>
                                                 <td data-label="License Plates" th:text="${item.lisenceplates}"></td>   
                                                 <td data-label="Parking Name" th:text="${item.parkingname}"></td>

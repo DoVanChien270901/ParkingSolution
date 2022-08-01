@@ -53,13 +53,8 @@
                                 <form th:action="@{/generator-qrcode}" method="GET" id="form-direct-payment" class="form-direct-payment">
                                     <div class="row payment">
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment mb-2">Input Payment:</label>
-                                            <div class="input-group pt-2">
-                                                <div class="input-group-prepend" id="label-wallet">
-                                                    <div id="basic-addon1" class="input-group-text">
-                                                        <span><i class="fa fa-wallet"></i></span>
-                                                    </div>
-                                                </div>
+                                            <label class="label-input-payment mb-2 h3"><i class="fa fa-wallet"></i>&nbsp;Input Payment:</label>
+                                            <div class="input-group pt-2">    
                                                 <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp" placeholder="0"/>
                                                 <div class="invalid-feedback mess-box-direct-payment error-amount-dp" id="error-amount-dp"></div>
                                             </div>
@@ -88,7 +83,7 @@
                                                 <img class="direct-payment-qrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-4 col-btn-qrcode-direct-payment">
+                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-2 mb-2 col-btn-qrcode-direct-payment">
                                             <button type="submit" class="btn-qrcode-direct-payment btn-md mt-0 mb-2 p-2"><i class="fa fa-qrcode"></i> QR Code</button>
                                         </div>
                                     </div>

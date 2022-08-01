@@ -6,7 +6,6 @@
         <title>ParkingGo | QR Code Booking Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
-
     <body>  
         <section layout:fragment="user-content">
             <div class="container-xxl py-5">
@@ -64,49 +63,56 @@
                                                 <td data-label="Parking Name" th:text="${item.getParkingname()}"></td>
                                                 <td data-label="Amount" th:text="${item.getPrice()}"></td>
                                                 <td data-label="Date Time" th:text="${item.getStarttime()}"></td>
-                                                <td data-label="Time Number" class="col-lg-3" th:text="${item.getTimenumber()}"></td>
+                                                <td data-label="Time Number" class="col-lg-2" th:text="${item.getTimenumber()}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div th:if="${bookingDetailRes}" class="row booking-create" id="booking-create">
-                                <div class="pb-4 pt-4">
-                                    <h2>// Booking Details //</h2>
+                            <div th:if="${bookingDetailRes}" class="row booking-create row g-4 mb-3 pb-3" id="booking-create">
+                                <div class="pb-1 pt-4">
+                                    <h2 class="text-primary">// Booking Details //</h2>
                                 </div>
-                                <div class="row g-4 mb-3 pb-3">
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                        <lable><i class="fa fa-parking"></i> Parking</lable>
-                                        <input type="text" th:value="${bookingDetailRes.parkingname}" class="form-control mb-4"/>
-                                        <lable><i class="fa fa-car"></i> Car Name</lable>
-                                        <input type="text" th:value="${bookingDetailRes.carname}" class="form-control mb-4"/>
-                                        <lable><i class="fa fa-clock"></i> Start Time</lable>
-                                        <input type="datetime" th:value="${#temporals.format(bookingDetailRes.starttime, 'dd-MM-yyyy HH:mm')}" class="form-control mb-4"/>
-                                        <lable><i class="fa fa-times"></i> Timer Number</lable>
-                                        <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control mb-4"/>
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="p-1"><i class="fa fa-parking"></i>&nbsp;Parking Name:</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" th:value="${bookingDetailRes.parkingname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                        <lable><i class="fa fa-id-card"></i> License Plates</lable>
-                                        <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control mb-4"/>
-                                        <lable><i class="fa fa-wallet"></i> Amount</lable>
-                                        <input type="number" th:value="${bookingDetailRes.price}" class="form-control mb-4"/>
-                                        <img class="qrcode mb-2" th:src="${displaycode}" />
-                                        <p class="text-center">Your Qr Code</p>
+                                    <label class="p-1"><i class="fa fa-car"></i>&nbsp;Car Name:</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" th:value="${bookingDetailRes.carname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 button-edit">
-                                        <!-- Cancel Start -->
-                                        <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Back to List</a>
-                                        <a type="button" th:href="@{/map}" id="guide-direction" class="btn btn-success mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-alt-circle-right"></i> Guide</a>
-                                        <a type="button" th:href="@{'/export/pdf?id=' + ${id}}" id="back-to-booking-list" class="btn btn-primary mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i> Export Receipt</a>
-                                        <!-- Cancel End -->
+                                    <label class="p-1"><i class="fa fa-clock"></i>&nbsp;Start Time:</label>
+                                    <div class="input-group mb-3">
+                                        <input type="datetime" th:value="${#temporals.format(bookingDetailRes.starttime, 'dd-MM-yyyy HH:mm')}" class="form-control" readonly="true"/>
                                     </div>
+                                    <label class="p-1"><i class="fa fa-stopwatch"></i>&nbsp;Time Number:</label>
+                                    <div class="input-group">
+                                        <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control" readonly="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="p-1"><i class="fa fa-id-card"></i>&nbsp;License Plates:</label>
+                                    <div class="input-group mb-3">                                     
+                                        <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control" readonly="true"/>
+                                    </div>
+                                    <label class="p-1"><i class="fa fa-id-card"></i>&nbsp;Amount:</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" th:value="${#numbers.formatInteger(bookingDetailRes.price, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true"/>
+                                    </div>
+                                    <img class="qrcode-booking mb-2" th:src="${displaycode}" />
+                                    <p class="text-center title-qrcode-booking">Your Qr Code</p>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-2 mb-2 col-button-edit-qrcode-booking button-edit">
+                                    <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i>&nbsp;Back to List</a>
+                                    <a type="button" th:href="@{/map}" id="guide-direction" class="mt-0 mb-2 me-2 p-2"><i class="far fa-map"></i>&nbsp;Guide</a>
+                                    <a type="button" th:href="@{'/export/pdf?id=' + ${id}}" id="export-receipt" class="mt-0 mb-2  me-2 p-2"><i class="fa fa-print"></i>&nbsp;Receipt</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     </body>
 </html>

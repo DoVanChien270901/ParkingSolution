@@ -171,83 +171,58 @@ table tr th {
     border-top-right-radius: 0px;
 }
 
-#form_profile #basic-addon1, 
-#form-direct-payment #basic-addon1, 
-#form-electronic-payment #basic-addon1 {
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 2px;
+#form_profile label {
+    font-weight: 600;
+    color: #000;
+    font-size: 15px;
 }
 
 #form_profile input, 
 #form-direct-payment input, 
-#form-electronic-payment input {
-    border-bottom-right-radius: 2px;
-    border-top-right-radius: 2px;
+#form-electronic-payment input,
+#booking-create input, 
+#form-parking-booking input{
+    border-radius: 2px;
 }
 
-#form_profile #label-fullname #basic-addon1, 
-#form_profile #label-dob #basic-addon1,
-#form_profile #label-wallet #basic-addon1, 
-#form_profile #label-phone #basic-addon1, 
-#form_profile #label-email #basic-addon1, 
-#form_profile #label-identitycard #basic-addon1, 
-#form-parking-booking #label-transport #basic-addon1,
-#form-parking-booking #label-lisence-plates #basic-addon1,
-#form-parking-booking #label-start-time #basic-addon1,
-#form-parking-booking #label-time-number #basic-addon1 ,
-#contactForm #label-transport #basic-addon1, 
+#form_profile .fa-user,
+#form-parking-booking .fa-car,
+#contactForm #label-transport #basic-addon1,
+#booking-create #label-transport #basic-addon1{
+    color: #dc3545;
+}
+
+#form_profile .fa-calendar,
+#form-parking-booking .fa-clock,
+#contactForm #label-start-time #basic-addon1,
+#booking-create #label-start-time #basic-addon1{
+   color: #1b00ff;
+}
+
+#form_profile .fa-wallet,
+#form-direct-payment .fa-wallet,
+#form-electronic-payment .fa-wallet,
+#booking-create #label-wallet #basic-addon1{
+   color: #198754;
+}
+
+#form_profile .fa-phone-alt,
+#form-parking-booking .fa-stopwatch,
+#contactForm #label-time-number #basic-addon1, 
+#booking-create #label-time-number #basic-addon1{
+   color: #FF9A19;
+}
+
+#form_profile .fa-envelope,
+#booking-create #label-parking #basic-addon1{
+   color: #0dcaf0;
+}
+
+#form_profile .fa-id-card,
+#form-parking-booking .fa-id-card, 
 #contactForm #label-lisence-plates #basic-addon1,
-#contactForm #label-start-time #basic-addon1, 
-#contactForm #label-time-number #basic-addon1 {
-    color:#fff;
-    width: 100%; 
-    display: block;
-}
-
-#form_profile #label-fullname #basic-addon1,
-#form-parking-booking #label-transport #basic-addon1,
-#contactForm #label-transport #basic-addon1 {
-    background-color: #dc3545;
-}
-
-#form_profile #label-dob #basic-addon1,
-#form-parking-booking #label-start-time #basic-addon1,
-#contactForm #label-start-time #basic-addon1{
-    background-color: #1b00ff;
-}
-
-#form_profile #label-wallet #basic-addon1 {
-    background-color: #198754;
-}
-
-#form_profile #label-phone #basic-addon1,
-#form-parking-booking #label-time-number #basic-addon1,
-#contactForm #label-time-number #basic-addon1{
-    background-color: #FF9A19;
-}
-
-#form_profile #label-email #basic-addon1 {
-    background-color: #0dcaf0;
-}
-
-#form_profile #label-identitycard #basic-addon1,
-#form-parking-booking #label-lisence-plates #basic-addon1, 
-#contactForm #label-lisence-plates #basic-addon1{
-    background-color: #06283D;
-}
-
-#form_profile #label-fullname #basic-addon1 span,
-#form_profile #label-dob #basic-addon1 span, 
-#form_profile #label-wallet #basic-addon1 span,
-#form_profile #label-phone #basic-addon1 span,
-#form_profile #label-email #basic-addon1 span, 
-#form_profile #label-identitycard #basic-addon1 span, 
-#form-parking-booking #label-transport #basic-addon1 span,
-#form-parking-booking #label-lisence-plates #basic-addon1 span,
-#form-parking-booking #label-start-time #basic-addon1 span,
-#form-parking-booking #label-time-number #basic-addon1 span, 
-#contactForm #basic-addon1 span{
-    font-size: 14px;
+#booking-create #label-lisence-plates #basic-addon1{
+   color: #06283D;
 }
 
 #form_profile .qrcode , .qrcode{ 
@@ -259,8 +234,18 @@ table tr th {
     display: block;
 }
 
+#booking-create .qrcode-booking {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30%;
+    border: 3px solid #202020;
+    padding: 0px;
+    display: block;
+}
+
 #form_profile .title-qrcode , 
-#form-direct-payment .title-direct-payment-qrcode {
+#form-direct-payment .title-direct-payment-qrcode,
+#booking-create .title-qrcode-booking{
     text-align: center;
     font-style: italic;
 }
@@ -276,7 +261,10 @@ table tr th {
 #form-parking-booking #save-parking-booking, 
 #form-parking-booking #back-to-google-map, 
 .form-parking-booking #save-parking-booking, 
-.form-parking-booking #back-to-google-map{
+.form-parking-booking #back-to-google-map, 
+#booking-create .col-button-edit-qrcode-booking #back-to-booking-list, 
+#booking-create .col-button-edit-qrcode-booking #guide-direction, 
+#booking-create .col-button-edit-qrcode-booking #export-receipt{
     text-transform: capitalize;
     width: 190px;
     border-radius: 2px;
@@ -293,36 +281,42 @@ table tr th {
 
 #form_profile .col-profile-button-edit #settings-profile, 
 #form-direct-payment .btn-qrcode-direct-payment, 
-#form-electronic-payment .btn-electronic-payment{
+#form-electronic-payment .btn-electronic-payment, 
+#booking-create .col-button-edit-qrcode-booking #export-receipt{
     background-color: #1b00ff;
     color: #fff;
 }
 
 #form_profile .col-profile-button-edit #update-profile,
 #form-direct-payment .select-amount input, 
-#form-electronic-payment .select-amount input {
+#form-electronic-payment .select-amount input, 
+#booking-create .col-button-edit-qrcode-booking #guide-direction{
     background-color: #198754;
     color: #fff;
 }
 
-#form_profile .col-profile-button-edit #cancel-profile {
+#form_profile .col-profile-button-edit #cancel-profile, 
+#booking-create .col-button-edit-qrcode-booking #back-to-booking-list{
     background-color: #dc3545;
     color: #fff;
 }
 
 #form_profile .col-profile-button-edit #settings-profile:hover,
 #form-direct-payment .btn-qrcode-direct-payment:hover, 
-#form-electronic-payment .btn-electronic-payment:hover{
+#form-electronic-payment .btn-electronic-payment:hover, 
+#booking-create .col-button-edit-qrcode-booking #export-receipt:hover{
     background-color: #1502bd;
 }
 
 #form_profile .col-profile-button-edit #update-profile:hover,
 #form-direct-payment .select-amount input:hover, 
-#form-electronic-payment .select-amount input:hover {
+#form-electronic-payment .select-amount input:hover, 
+#booking-create .col-button-edit-qrcode-booking #guide-direction:hover{
     background-color: #157347;
 }
 
-#form_profile .col-profile-button-edit #cancel-profile:hover {
+#form_profile .col-profile-button-edit #cancel-profile:hover, 
+#booking-create .col-button-edit-qrcode-booking #back-to-booking-list:hover{
     background-color: #bb2d3b;
 }
 
@@ -424,8 +418,15 @@ table tr th {
 #form-electronic-payment .label-payment-method,
 #form-electronic-payment .label-input-payment, 
 #form-direct-payment .label-input-payment,
-#form-parking-booking .label-payment-method{
-    font-size: 17px;
+#form-parking-booking .label-payment-method {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Arial', sans-serif;
+    color: #000;
+}
+
+#form-parking-booking lable {
+    font-size: 15px;
     font-weight: 600;
     font-family: 'Arial', sans-serif;
     color: #000;
@@ -508,6 +509,12 @@ table tr th {
 
 #form-e-payment-detail .invoice-box table tr td:nth-child(2){
     text-align: right;
+}
+
+#booking-create label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
 }
 
 .btn {
@@ -739,8 +746,15 @@ input[type=number] {
 }
 
 .form-parking-booking .contact-wrap .contact-info {
-    background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url("/assetsc/img/futurparking.jpg") center center no-repeat;
-    background-size: cover;
+    /*background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url("/assetsc/img/futurparking.jpg") center center no-repeat;
+    background-size: cover;*/
+    background-color: gray;
+}
+
+#form-parking-booking label {
+    font-weight: 600; 
+    color:#000; 
+    font-size: 15px;
 }
 
 .form-parking-booking .contact-wrap .contact-info h3 {
@@ -771,6 +785,9 @@ input[type=number] {
     #form_profile .qrcode, .qrcode{
         max-width: 50%;
     }
+    #booking-create .qrcode-booking {
+        max-width: 40%;
+    }
 }
 
 @media screen and (max-width: 991.20px) {
@@ -778,7 +795,8 @@ input[type=number] {
     #form-direct-payment .col-btn-qrcode-direct-payment, 
     #form-electronic-payment .col-btn-electronic-payment,
     #form-parking-booking .col-btn-parking-booking, 
-    .form-parking-booking .col-btn-parking-booking {
+    .form-parking-booking .col-btn-parking-booking,
+    #booking-create .col-button-edit-qrcode-booking{
         display: flex; 
         justify-content: center;
     }
@@ -790,7 +808,10 @@ input[type=number] {
     #form-parking-booking #save-parking-booking, 
     #form-parking-booking #back-to-google-map, 
     .form-parking-booking #save-parking-booking, 
-    .form-parking-booking #back-to-google-map{
+    .form-parking-booking #back-to-google-map, 
+    #booking-create .col-button-edit-qrcode-booking #back-to-booking-list, 
+    #booking-create .col-button-edit-qrcode-booking #guide-direction, 
+    #booking-create .col-button-edit-qrcode-booking #export-receipt{
         width: 255px;
     }
 
@@ -826,6 +847,10 @@ input[type=number] {
         width: 100%;
     }
 
+    #booking-create .qrcode-booking {
+        max-width: 48%;
+    }
+
     .table-res-history .table tr {
         margin-bottom: 15px;
     }
@@ -850,7 +875,8 @@ input[type=number] {
 }
 
 @media screen and (max-width: 768px) {
-    #form_profile .qrcode , .qrcode{
+    #form_profile .qrcode , .qrcode, 
+    #booking-create .qrcode-booking{
         max-width: 40%;
     }
 
@@ -861,7 +887,10 @@ input[type=number] {
     #form-parking-booking #save-parking-booking, 
     #form-parking-booking #back-to-google-map, 
     .form-parking-booking #save-parking-booking, 
-    .form-parking-booking #back-to-google-map{
+    .form-parking-booking #back-to-google-map, 
+    #booking-create .col-button-edit-qrcode-booking #back-to-booking-list, 
+    #booking-create .col-button-edit-qrcode-booking #guide-direction, 
+    #booking-create .col-button-edit-qrcode-booking #export-receipt{
         width: 100%;
     }
 
@@ -878,7 +907,10 @@ input[type=number] {
     #form-parking-booking #save-parking-booking, 
     #form-parking-booking #back-to-google-map, 
     .form-parking-booking #save-parking-booking, 
-    .form-parking-booking #back-to-google-map{
+    .form-parking-booking #back-to-google-map, 
+    #booking-create .col-button-edit-qrcode-booking #back-to-booking-list, 
+    #booking-create .col-button-edit-qrcode-booking #guide-direction, 
+    #booking-create .col-button-edit-qrcode-booking #export-receipt{
         width: 100%;
     }
 }

@@ -15,52 +15,36 @@
                             <div class="form h-100">
                                 <form class="mb-5" th:action="@{/booking}" th:object="${bookingReq}" method="POST" id="contactForm" name="contactForm">
                                     <div class="row">
-                                        <input th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>
-                                        <div class="col-md-6 form-group mb-3">
-                                            <div class="input-group mb-0 pt-2">
-                                                <div class="input-group-prepend" id="label-transport">
-                                                    <div id="basic-addon1" class="input-group-text">
-                                                        <span><i class="fa fa-car"></i></span>
-                                                    </div>
-                                                </div>
+                                        <input th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>    
+                                        <div class="col-md-6 form-group mb-1">
+                                            <label class="p-1"><i class="fa fa-car"></i>&nbsp;Car Name:</label>
+                                            <div class="input-group mb-0 pt-0">
                                                 <input  th:field="*{carname}" type="text" value="" class="form-control mb-4"/>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 form-group mb-3">
-                                            <div class="input-group mb-0 pt-2">
-                                                <div class="input-group-prepend" id="label-start-time">
-                                                    <div id="basic-addon1" class="input-group-text">
-                                                        <span><i class="fa fa-clock"></i></span>
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-6 form-group mb-0">
+                                            <label class="p-1"><i class="fa fa-clock"></i>&nbsp;Start Time:</label>
+                                            <div class="input-group mb-0 pt-0">
                                                 <input type="datetime-local" th:field="*{starttime}" value="" class="form-control mb-4"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6 form-group mb-3">
-                                            <div class="input-group mb-0 pt-2">
-                                                <div class="input-group-prepend" id="label-lisence-plates">
-                                                    <div id="basic-addon1" class="input-group-text">
-                                                        <span><i class="fa fa-id-card"></i></span>
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-6 form-group mb-0">
+                                            <label class="p-1"><i class="fa fa-id-card"></i>&nbsp;License Plates:</label>
+                                            <div class="input-group mb-0 pt-0">
                                                 <input type="text" th:field="*{lisenceplates}" value="" class="form-control mb-4"/>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 form-group mb-3">
-                                            <div class="input-group mb-0 pt-2">
-                                                <div class="input-group-prepend" id="label-time-number">
-                                                    <div id="basic-addon1" class="input-group-text">
-                                                        <span><i class="fas fa-stopwatch"></i></span>
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-6 form-group mb-0">
+                                            <label class="p-1"><i class="fas fa-stopwatch"></i>&nbsp;Time Number:</label>
+                                            <div class="input-group mb-0 pt-0">
                                                 <input type="number" th:field="*{timenumber}" th:onkeyup="|numberokd(${rentcost})|" id="number" class="form-control mb-4"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <h3 style="font-size: 17px;">Choose Payment Method:</h3>
-                                    <div class="row">
+                                    <h3 style="font-size: 15px;">Choose Payment Method:</h3>
+                                    <div class="row">                       
                                         <div class="col-md-12 col-12 col-lg-12 col-sm-12 form-group mb-3">
                                             <div class="row row-form-check-radio-for-payment">
                                                 <div class="form-momo mb-3 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">

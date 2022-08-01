@@ -48,58 +48,34 @@
                             <form th:action="@{/profile}" th:object="${profile}" id="form_profile" class="form_profile" method="POST" onsubmit="return validateProfile()">
                                 <div class="row g-4 mb-3 pb-3">
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-fullname">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-user"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="fa fa-user"></i>&nbsp;Username:</label>
+                                        <div class="input-group mb-4 pt-0">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{fullname}" id="fullname-profile" readonly="true">  
                                             <div class="invalid-feedback mess-box error-fname" id="error-fname"></div>
                                         </div>
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-dob">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="fa fa-calendar"></i>&nbsp;Date Time:</label>
+                                        <div class="input-group mb-4 pt-0">
                                             <input autocomplete="off" type="date" class="form-control" th:value="${profile.getDob()}" th:field="*{dob}" id="dob-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-dob" id="error-dob"></div>
                                         </div>
-                                        <div class="input-group pt-3">
-                                            <div class="input-group-prepend" id="label-wallet">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-wallet"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="fa fa-wallet"></i>&nbsp;Balance:</label>
+                                        <div class="input-group pt-0">
                                             <input type="text" th:value="${#numbers.formatInteger(profile.balance, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-phone">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-phone-alt"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="fa fa-phone-alt"></i>&nbsp;Phone:</label>
+                                        <div class="input-group mb-4 pt-0">
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{phone}" id="phone-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-phone" id="error-phone"></div>                 
                                         </div>
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-identitycard">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-id-card"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="fa fa-id-card"></i>&nbsp;License Plates:</label>
+                                        <div class="input-group mb-4 pt-0">                         
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{identitycard}" id="identitycard-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-identitycard" id="error-identitycard"></div>
                                         </div>
-                                        <div class="input-group pt-3">
-                                            <div class="input-group-prepend" id="label-email">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-envelope"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="fa fa-envelope"></i>&nbsp;Email:</label>
+                                        <div class="input-group pt-0">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{email}"  id="email-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-email" id="error-email"></div>
                                         </div>                                   
@@ -109,9 +85,9 @@
                                         <p class="title-qrcode">Your QR Code</p>
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-profile-button-edit">
-                                        <button type="button" id="settings-profile" onclick="disable()" class="btn-settings-profile mt-0 mb-2 p-2"><i class="fa fa-cog"></i> Settings</button>
+                                        <button type="button" id="settings-profile" onclick="disable()" class="btn-settings-profile mt-2 mb-2 p-2"><i class="fa fa-cog"></i> Settings</button>
                                         <button type="submit" id="update-profile" class="btn-save-profile mt-0 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Update</button>
-                                        <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn-cancel-profile btn- mt-0 mb-2 p-2"><i class="fa fa-arrow-left"></i> Cancel</a>
+                                        <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn-cancel-profile mt-0 mb-2 p-2"><i class="fa fa-arrow-left"></i> Cancel</a>
                                     </div>
                                 </div>
                             </form>
