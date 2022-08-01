@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="container" id="form-qrcode-booking">
-                            <div th:if="${listBookingRes}" class="row g-4 mb-3 pb-3" id="booking-list">
+                            <div th:if="${listBookingRes}" class="row g-4 mb-3 pb-3" id="booking">
                                 <div class="pb-1 pt-4">
                                     <h2 class="h2 text-primary">// List Booking //</h2>
                                 </div>
@@ -58,13 +58,13 @@
                                                 <th>Time Number</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="cursor: pointer;">
                                             <tr th:each="item : ${listBookingRes}" th:value="${item.getId()}">
                                                 <td data-label="#" class="id-table col-lg-2" id="bookingid" th:text="${item.getId()}"></td>
                                                 <td data-label="Parking Name" th:text="${item.getParkingname()}"></td>
                                                 <td data-label="Amount" th:text="${item.getPrice()}"></td>
                                                 <td data-label="Date Time" th:text="${item.getStarttime()}"></td>
-                                                <td data-label="Time Number" class="col-lg-1" th:text="${item.getTimenumber()}"></td>
+                                                <td data-label="Time Number" class="col-lg-3" th:text="${item.getTimenumber()}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
