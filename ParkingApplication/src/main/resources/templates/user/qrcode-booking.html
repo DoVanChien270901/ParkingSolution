@@ -61,7 +61,7 @@
                                             <tr th:each="item : ${listBookingRes}" th:value="${item.getId()}">
                                                 <td data-label="#" class="id-table col-lg-2" id="bookingid" th:text="${item.getId()}"></td>
                                                 <td data-label="Parking Name" th:text="${item.getParkingname()}"></td>
-                                                <td data-label="Amount" th:text="${item.getPrice()}"></td>
+                                                <td data-label="Amount" th:text="${#numbers.formatInteger(item.getPrice(), 1, 'COMMA') + ' VND'}"></td>
                                                 <td data-label="Date Time" th:text="${item.getStarttime()}"></td>
                                                 <td data-label="Time Number" class="col-lg-2" th:text="${item.getTimenumber()}"></td>
                                             </tr>
@@ -82,21 +82,21 @@
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${bookingDetailRes.carname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="p-1"><i class="fa fa-clock"></i>&nbsp;Start Time:</label>
+                                    <label class="p-1"><i class="far fa-clock"></i>&nbsp;Start Time:</label>
                                     <div class="input-group mb-3">
                                         <input type="datetime" th:value="${#temporals.format(bookingDetailRes.starttime, 'dd-MM-yyyy HH:mm')}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="p-1"><i class="fa fa-stopwatch"></i>&nbsp;Time Number:</label>
+                                    <label class="p-1"><i class="far fa-hourglass"></i>&nbsp;Time Number:</label>
                                     <div class="input-group">
                                         <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <label class="p-1"><i class="fa fa-id-card"></i>&nbsp;License Plates:</label>
+                                    <label class="p-1"><i class="far fa-id-card"></i>&nbsp;License Plates:</label>
                                     <div class="input-group mb-3">                                     
                                         <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="p-1"><i class="fa fa-id-card"></i>&nbsp;Amount:</label>
+                                    <label class="p-1"><i class="fa fa-wallet"></i>&nbsp;Amount:</label>
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${#numbers.formatInteger(bookingDetailRes.price, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true"/>
                                     </div>

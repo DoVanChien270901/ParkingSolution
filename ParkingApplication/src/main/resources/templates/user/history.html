@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
         <title>ParkingGo | History Transaction Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
-
     <body>  
         <section layout:fragment="user-content">
             <div class="container-xxl py-5">
@@ -51,7 +51,7 @@
                                         <form th:action="@{/history/search}" method="GET" id="form-select-date">
                                             <div class="row form-inline">
                                                 <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                    <input type="date" name="from-tdate" class="form-control" placeholder="From:&nbsp;">
+                                                    <input type="date" name="from-date" class="form-control" placeholder="From:&nbsp;">
                                                 </div>
                                                 <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
                                                     <input type="date" name="to-date" class="form-control" placeholder="To:&nbsp;">

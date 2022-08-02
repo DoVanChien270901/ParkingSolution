@@ -96,12 +96,16 @@ input[type="date"], .form-check-radio label {
 
 /* Admin Manager */
 
-.left-side-bar .brand-logo .light-logo, .login-page .brand-logo img, .login-header .brand-logo img {
+.left-side-bar .brand-logo .light-logo, 
+.login-page .brand-logo img, 
+.login-header .brand-logo img {
     width: 40px;
     padding: 0px;
 }
 
-.left-side-bar .brand-logo span, .login-page .brand-logo span, .login-header .brand-logo span {
+.left-side-bar .brand-logo span, 
+.login-page .brand-logo span, 
+.login-header .brand-logo span {
     font-size: 1.4rem;
     font-weight: 800;
     margin-top: 24px;
@@ -110,10 +114,6 @@ input[type="date"], .form-check-radio label {
 .login-page .brand-logo span,
 .login-header .brand-logo span {
     color: #1b00ff;
-}
-
-.action-center button {
-    font-size: 12px;
 }
 
 .login-menu ul li a {
@@ -128,7 +128,10 @@ input[type="date"], .form-check-radio label {
     color: #fff;
 }
 
-.col-profile-admin button, .update-profile, .update-parking, .cancel-return-parking-list {
+.col-profile-admin button, 
+.update-profile, 
+.update-parking, 
+.cancel-return-parking-list {
     text-transform: capitalize;
 }
 
@@ -145,14 +148,6 @@ input[type="date"], .form-check-radio label {
     background-color: #fff;
 }
 
-.qrcode {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 75%;
-    /* border: 1px solid #202020; */
-    padding: 0px;
-}
 .custom input::-webkit-outer-spin-button,
 .custom input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -165,20 +160,135 @@ input[type="date"], .form-check-radio label {
 
 #list-create {
     display: none;
+}   
+
+.profile-edit-list #back-to-booking-list,
+.col-create-parking input, 
+.col-create-parking a{
+    width: 170px;
+    font-size: 14px;
 }
 
-@media screen and (min-width:567px) {}
+input[type="date"]:before{
+    content: attr(placeholder);
+    margin-top: 0px;
+}
 
-@media screen and (max-width:1200px) {}
+.table-res .table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-@media screen and (max-width:991.20px) {}
+input {
+    border-radius: 2px;
+}
 
-@media screen and (max-width:768px) {
+/*.table-res-history .table th{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}*/
+
+.table-res .table td, 
+.table-res .table th {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 15px;
+}
+
+.table-res .table th {
+    background-color: rgba(0,0,0,.075);
+    color: #000;
+    padding: 0.75rem;
+    vertical-align: top;
+    border-bottom: none;
+    border-top: 1px solid #dee2e6;
+}
+
+.table tbody tr:nth-child(even){
+    background-color: #f5f5f5;
+}
+
+.table-res .table tbody tr .id-table {
+    font-weight: 600;
+    color: #000;
+}
+
+.table-res .table tbody tr td {
+    color: #000;
+}
+
+.chart-content {
+    max-width: 1500px;
+    margin: auto;
+    text-align: center;
+}
+
+.chart-content label{
+    font-size: 26px;
+    color: red;
+}
+
+#myChart{
+    display: inline !important;
+    font-size: 20px;
+}
+
+
+@media screen and (max-width:991.20px) {
+    .table-res .table thead {
+        display: none;
+    }
+
+    .table-res .table, 
+    .table-res .table tbody, 
+    .table-res .table tr, 
+    .table-res .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-res .table tr {
+        margin-bottom: 15px;
+    }
+
+    .table-res .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table-res .table td:before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+    .profile-edit-list #back-to-booking-list {
+        max-width: 100%;
+    }
+
+}
+
+@media screen and (max-width:768px) {    
     .register-page-wrap .login-box {
         max-width: 450px;
     }
     .update-parking, .cancel-return-parking-list {
         width: 220px;
+    }
+
+    .col-create-parking,
+    .col-button-edit{
+        display: flex;
+        justify-content: center; 
+        width: 100%;
     }
 }
 
@@ -186,4 +296,4 @@ input[type="date"], .form-check-radio label {
     .update-parking, .cancel-return-parking-list {
         width: 100%;
     }
-}
+

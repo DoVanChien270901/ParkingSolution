@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
     <head>
-        <!-- Basic Page Info -->
         <meta charset="utf-8">
         <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -14,7 +12,6 @@
         <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
-
     <body>
         <div class="header">
             <div class="header-left">
@@ -30,7 +27,7 @@
                             <span class="user-name">Admin</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a class="dropdown-item" href=""><i class="dw dw-user1"></i> Profile</a>
+                            <!--<a class="dropdown-item" href=""><i class="dw dw-user1"></i> Profile</a>-->
                             <a class="dropdown-item" th:href="@{/account/logout}"><i class="dw dw-logout"></i> Log Out</a>
                         </div>
                     </div>
@@ -52,11 +49,11 @@
                     <ul id="accordion-menu">
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                                <span class="micon dw dw-book"></span><span class="mtext">Revenue Chart</span>
+                                <span class="micon dw dw-bar-chart-1"></span><span class="mtext">Revenue Chart</span>
                             </a>
                             <ul class="submenu">
-                                <li><a th:href="@{/a/revenue/month}">Month of year</a></li>
-                                <li><a th:href="@{/a/revenue/day}">Day of month</a></li>
+                                <li><a th:href="@{/a/revenue/month}">Month of Year</a></li>
+                                <li><a th:href="@{/a/revenue/day}">Day of Month</a></li>
                             </ul>
                         </li>                      
                         <li>
@@ -66,7 +63,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                                <span class="micon dw dw-house-1"></span><span class="mtext">Parking</span>
+                                <span class="micon dw dw-map"></span><span class="mtext">Parking</span>
                             </a>
                             <ul class="submenu">
                                 <li><a th:href="@{/a/list-parking}">View</a></li>
@@ -75,12 +72,7 @@
                         </li>
                         <li>
                             <a href="/a/list-transaction?page=0" class="dropdown-toggle no-arrow">
-                                <span class="micon dw dw-money"></span><span class="mtext">Transaction History</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-toggle no-arrow">
-                                <span class="micon dw dw-message"></span><span class="mtext">Feedback</span>
+                                <span class="micon dw dw-money-1"></span><span class="mtext">Transaction History</span>
                             </a>
                         </li>
                     </ul>

@@ -156,13 +156,6 @@
     transition: 0.3s;
 }
 
-table tr th {
-    font-size: 14px;
-    color: var(--dark);
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-}
-
 .nav-tabs .nav-link {
     margin-bottom: -1px;
     background: none;
@@ -171,58 +164,13 @@ table tr th {
     border-top-right-radius: 0px;
 }
 
-#form_profile label {
-    font-weight: 600;
-    color: #000;
-    font-size: 15px;
-}
-
-#form_profile input, 
+#form_profile input,
 #form-direct-payment input, 
-#form-electronic-payment input,
-#booking-create input, 
-#form-parking-booking input{
+#form-electronic-payment input, 
+#form-parking-booking input, 
+.booking-create input,
+#form-qrcode-booking input{
     border-radius: 2px;
-}
-
-#form_profile .fa-user,
-#form-parking-booking .fa-car,
-#contactForm #label-transport #basic-addon1,
-#booking-create #label-transport #basic-addon1{
-    color: #dc3545;
-}
-
-#form_profile .fa-calendar,
-#form-parking-booking .fa-clock,
-#contactForm #label-start-time #basic-addon1,
-#booking-create #label-start-time #basic-addon1{
-   color: #1b00ff;
-}
-
-#form_profile .fa-wallet,
-#form-direct-payment .fa-wallet,
-#form-electronic-payment .fa-wallet,
-#booking-create #label-wallet #basic-addon1{
-   color: #198754;
-}
-
-#form_profile .fa-phone-alt,
-#form-parking-booking .fa-stopwatch,
-#contactForm #label-time-number #basic-addon1, 
-#booking-create #label-time-number #basic-addon1{
-   color: #FF9A19;
-}
-
-#form_profile .fa-envelope,
-#booking-create #label-parking #basic-addon1{
-   color: #0dcaf0;
-}
-
-#form_profile .fa-id-card,
-#form-parking-booking .fa-id-card, 
-#contactForm #label-lisence-plates #basic-addon1,
-#booking-create #label-lisence-plates #basic-addon1{
-   color: #06283D;
 }
 
 #form_profile .qrcode , .qrcode{ 
@@ -266,7 +214,7 @@ table tr th {
 #booking-create .col-button-edit-qrcode-booking #guide-direction, 
 #booking-create .col-button-edit-qrcode-booking #export-receipt{
     text-transform: capitalize;
-    width: 190px;
+    width: 170px;
     border-radius: 2px;
     border: none;
     outline: none;
@@ -373,6 +321,33 @@ table tr th {
     margin-left: -12px;
 }
 
+#form-direct-payment .invalid-error-mess-d-payment {
+    padding-left: 10px;
+    margin-top: 8px;
+    margin-left: -10px;
+
+}
+
+#form-parking-booking .invalid-error-mess-parking-booking {
+    padding-left: 10px;
+    margin-top: 8px;
+    margin-left: -10px;
+}
+
+#form-parking-booking .invalid-error-mess-parking-booking {
+    display: block;
+}
+
+#form-direct-payment .invalid-error-mess-d-payment label, 
+.error-mess, 
+#form-parking-booking .invalid-error-mess-parking-booking label{
+    color: #dc3545;
+
+}
+#form-direct-payment .invalid-error-mess-d-payment label {
+    font-size: 100%;
+}
+
 .col-direct-payment-qrcode .direct-payment-qrcode {
     margin-left: auto;
     margin-right: auto;
@@ -388,21 +363,6 @@ table tr th {
 #direct-payment .show-wallet label,
 #electronic-payment .show-wallet label {
     float: right;
-    font-size: 17px;
-}
-
-#form-direct-payment #label-wallet #basic-addon1 {
-    color:#fff;
-    width: 100%; 
-    display: block;
-    background-color: #198754;
-}
-
-#form-electronic-payment #label-wallet #basic-addon1 {
-    color:#fff;
-    width: 100%; 
-    display: block;
-    background-color: #198754;
 }
 
 #form-direct-payment .select-amount input, 
@@ -413,23 +373,6 @@ table tr th {
     border: 0;
     font-size: 14px;
     font-weight: 600;
-}
-
-#form-electronic-payment .label-payment-method,
-#form-electronic-payment .label-input-payment, 
-#form-direct-payment .label-input-payment,
-#form-parking-booking .label-payment-method {
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Arial', sans-serif;
-    color: #000;
-}
-
-#form-parking-booking lable {
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Arial', sans-serif;
-    color: #000;
 }
 
 #form-electronic-payment .label-input-payment {
@@ -511,10 +454,13 @@ table tr th {
     text-align: right;
 }
 
-#booking-create label {
-    font-size: 15px;
-    font-weight: 600;
+label, 
+#form-electronic-payment label, 
+#form-direct-payment label {
+    font-size: 16px;
     color: #000;
+    font-family: 'Arial', sans-serif;
+    font-weight: 500;
 }
 
 .btn {
@@ -751,12 +697,6 @@ input[type=number] {
     background-color: gray;
 }
 
-#form-parking-booking label {
-    font-weight: 600; 
-    color:#000; 
-    font-size: 15px;
-}
-
 .form-parking-booking .contact-wrap .contact-info h3 {
     color: #fff;
     font-size: 22px;
@@ -803,7 +743,7 @@ input[type=number] {
 
     #form_profile .col-profile-button-edit button, 
     #form_profile .col-profile-button-edit a,
-    #form-direct-payment .btn-qrcode-direct-payment
+    #form-direct-payment .btn-qrcode-direct-payment,
     #form-electronic-payment .btn-electronic-payment,
     #form-parking-booking #save-parking-booking, 
     #form-parking-booking #back-to-google-map, 

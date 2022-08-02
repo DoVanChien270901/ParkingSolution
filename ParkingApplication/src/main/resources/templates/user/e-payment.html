@@ -53,7 +53,7 @@
                                     <div class="row">
                                         <!-- Payment Method Start -->
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2 col-payment-method">
-                                            <label class="label-payment-method mb-2 h3">Choose Payment Method:</label>
+                                            <label class="label-payment-method mb-2"  style="color:#35477d; font-weight: 600;">Choose Payment Method:</label>
                                             <div class="row row-form-check-radio-for-payment">
                                                 <div class="form-momo mb-3 p-3 col-6 col-md-6 col-lg-6">
                                                     <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
@@ -73,13 +73,13 @@
                                         </div>
                                         <!-- Payment Method End -->
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment h3"><i class="fa fa-wallet"></i>&nbsp;Input Payment:</label>
+                                            <label class="label-input-payment h3"  style="color:#35477d; font-weight: 600;">Input Payment:</label>
                                             <div class="input-group">
                                                 <input class="form-control amount-ep" id="amount-ep" type="number" placeholder="0" th:field="*{amount}"/>
                                                 <div class="invalid-feedback mess-box-electronic-payment error-amount-ep" id="error-amount-ep"></div>
                                             </div>
                                             <div class="p-2 select-amount">
-                                                <div class="row pt-2 mb-4">
+                                                <div class="row pt-3 mb-4 pb-4">
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
                                                         <input type="button" onclick="changeSelectAmountElec(2)" class="p-2" value="20.000 VND" />
                                                     </div>
@@ -95,7 +95,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-2 mb-2  col-btn-electronic-payment">
+                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-2 mb-2 col-btn-electronic-payment">
                                             <button type="submit" class="btn-electronic-payment btn-md mt-0 mb-2 p-2"><i class="fa fa-money-check"></i> Payment</button>
                                         </div>
                                     </div>
