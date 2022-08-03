@@ -18,4 +18,7 @@ public interface IBooking {
     List<BookingRes> getListBookingByUsername(String username);
     BookingDetailRes getDetailBookingById(int id, String username);
     ScanQrCodeBookingRes getBookingById(int id);
+    PageBookingRes findAll(int page, int size);
+    List<String> getLocationCode(String Parkingname);
+    PageBookingRes getByParkingName(String Parkingname, int page, int size);
 }

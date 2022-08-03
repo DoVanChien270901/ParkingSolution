@@ -14,6 +14,7 @@ public class ParkingRes {
     private String latitude;
     private String longtitude;
     private String address;
+    private int columnofrow;
     private int nop;
     private int blank;
     private double rentcost;
@@ -51,6 +52,14 @@ public class ParkingRes {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getColumnofrow() {
+        return columnofrow;
+    }
+
+    public void setColumnofrow(int columnofrow) {
+        this.columnofrow = columnofrow;
     }
 
     public int getNop() {

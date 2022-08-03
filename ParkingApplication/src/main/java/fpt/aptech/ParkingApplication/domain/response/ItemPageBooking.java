@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fpt.aptech.ParkingApplication.domain.request;
+package fpt.aptech.ParkingApplication.domain.response;
 
 import java.time.LocalDateTime;
 
@@ -10,41 +10,38 @@ import java.time.LocalDateTime;
  *
  * @author CHIEN
  */
-public class NewBookingReq {
-
-    private String username;
+public class ItemPageBooking {
+    private int id;
     private LocalDateTime starttime;
     private int timenumber;
     private String locationcode;
+    private double price;
     private String carname;
     private String lisenceplates;
-    private String parkingname;
-    private boolean walletparking;
 
-    public NewBookingReq() {
+    public ItemPageBooking() {
     }
 
-    public NewBookingReq(String username, LocalDateTime starttime, int timenumber, String locationcode, String carname, String lisenceplates, String parkingname, boolean walletparking) {
-        this.username = username;
+    public ItemPageBooking(int id, LocalDateTime starttime, int timenumber, String locationcode, double price, String carname, String lisenceplates) {
+        this.id = id;
         this.starttime = starttime;
         this.timenumber = timenumber;
         this.locationcode = locationcode;
+        this.price = price;
         this.carname = carname;
         this.lisenceplates = lisenceplates;
-        this.parkingname = parkingname;
-        this.walletparking = walletparking;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public LocalDateTime getStarttime() {
         return starttime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setStarttime(LocalDateTime starttime) {
@@ -67,6 +64,14 @@ public class NewBookingReq {
         this.locationcode = locationcode;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public String getCarname() {
         return carname;
     }
@@ -81,22 +86,6 @@ public class NewBookingReq {
 
     public void setLisenceplates(String lisenceplates) {
         this.lisenceplates = lisenceplates;
-    }
-
-    public String getParkingname() {
-        return parkingname;
-    }
-
-    public void setParkingname(String parkingname) {
-        this.parkingname = parkingname;
-    }
-
-    public boolean isWalletparking() {
-        return walletparking;
-    }
-
-    public void setWalletparking(boolean walletparking) {
-        this.walletparking = walletparking;
     }
 
 }

@@ -21,6 +21,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -178,8 +179,11 @@ public class ParkingController {
         if (fromDate.isEmpty() || toDate.isEmpty()) {
             return "redirect:/a/parking-history/all?page=0";
         }
+        //
+        model.addAttribute("fromDate", fromDate);
+        model.addAttribute("toDate", fromDate);
         //get select box
-            HttpEntity request = RestTemplateConfiguration.setRequest();
+        HttpEntity request = RestTemplateConfiguration.setRequest();
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
         ParkingRes[] parkingRes = (ParkingRes[]) response.getBody();
@@ -286,5 +290,51 @@ public class ParkingController {
             return "redirect:/a/parking/add";
         }
 
+    }
+
+    @RequestMapping(value = "/h/status-parking/{name}", method = RequestMethod.GET)
+    public String viewParkingStatus(@PathVariable("name") String name,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page, Model model) {
+        if (page<1) {
+            page =1;
+        }
+        HttpEntity request = RestTemplateConfiguration.setRequest();
+        HttpEntity<?> responseListParking = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
+        ParkingRes[] parkingRes = (ParkingRes[]) responseListParking.getBody();
+        model.addAttribute("listParking", parkingRes);
+        if (name.equals("all")) {
+            model.addAttribute("selected", "all");
+            ResponseEntity<?> response = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "load-status-parking", HttpMethod.GET, request, LoadStatusParking[].class);
+            LoadStatusParking[] loadStatusParkings = (LoadStatusParking[]) response.getBody();
+            model.addAttribute("loadStatusParkings", loadStatusParkings);
+            return "handle/parking-status";
+        } else {
+            //call get list booking
+            ResponseEntity<?> responseListBooking = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "list-booking/" + name + "?page=" + page + "&size=10", HttpMethod.GET, request, PageBookingRes.class);
+            PageBookingRes pageBookingRes = (PageBookingRes) responseListBooking.getBody();
+            model.addAttribute("bookingRes", pageBookingRes.getListBooking());
+            //
+            model.addAttribute("selected", name);
+            //arr panigation
+            if (page > pageBookingRes.getTotalPages()) {
+                page = pageBookingRes.getTotalPages();
+            }
+            model.addAttribute("current", page);
+            int[] nav = new int[pageBookingRes.getTotalPages()];
+            for (int i = 0; i <= (pageBookingRes.getTotalPages() - 1); i++) {
+                nav[i] = i + 1;
+            }
+            model.addAttribute("pageList", nav);
+            //
+            ResponseEntity<?> response = RestTemplateConfiguration
+                    .excuteRequest(PATH_API + "load-status-parking/" + name, HttpMethod.GET, request, LoadStatusParking.class);
+            LoadStatusParking loadStatusParking = (LoadStatusParking) response.getBody();
+            LoadStatusParking[] loadStatusParkings = {loadStatusParking};
+            model.addAttribute("loadStatusParkings", loadStatusParkings);
+            return "handle/parking-status";
+        }
     }
 }

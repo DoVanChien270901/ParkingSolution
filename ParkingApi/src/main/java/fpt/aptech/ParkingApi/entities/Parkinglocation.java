@@ -54,6 +54,8 @@ public class Parkinglocation implements Serializable {
     @Size(max = 255)
     @Column(name = "address")
     private String address;
+    @Column(name = "columnofrow")
+    private Integer columnofrow;
     @Column(name = "nop")
     private Integer nop;
     @Column(name = "blank")
@@ -111,6 +113,14 @@ public class Parkinglocation implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getColumnofrow() {
+        return columnofrow;
+    }
+
+    public void setColumnofrow(Integer columnofrow) {
+        this.columnofrow = columnofrow;
     }
 
     public Integer getNop() {

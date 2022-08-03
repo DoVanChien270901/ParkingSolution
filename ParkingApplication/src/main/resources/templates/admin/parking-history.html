@@ -24,10 +24,10 @@
                                 <div class="pull-left">
                                     <div class="row form-inline">
                                         <div class="col-8 col-lg-5 col-md-10 col-sm-10 p-1">
-                                            <input type="date" name="from-date" class="form-control" placeholder="From Date..."> 
+                                            <input type="date" name="from-date" th:value="${fromDate}" class="form-control" placeholder="From Date..."> 
                                         </div>
                                         <div class="col-8 col-lg-5 col-md-10 col-sm-10 p-1">
-                                            <input type="date" name="to-date" class="form-control" placeholder="To Date..."> 
+                                            <input type="date" name="to-date" th:value="${toDate}" class="form-control" placeholder="To Date..."> 
                                         </div>
                                         <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
                                             <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>

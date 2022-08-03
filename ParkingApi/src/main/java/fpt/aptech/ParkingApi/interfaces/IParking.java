@@ -6,12 +6,11 @@ package fpt.aptech.ParkingApi.interfaces;
 
 import fpt.aptech.ParkingApi.dto.request.AddParkingReq;
 import fpt.aptech.ParkingApi.dto.request.UpdateParkingReq;
+import fpt.aptech.ParkingApi.dto.response.LoadStatusParking;
 import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingRes;
-import fpt.aptech.ParkingApi.entities.Parkinglocation;
 import java.time.LocalDate;
 import java.util.List;
-
 /**
  *
  * @author CHIEN
@@ -28,4 +27,8 @@ public interface IParking {
     void delete(String id);
     boolean update(UpdateParkingReq parking);
     List<ParkingRes> seachByName(String name);
+    int fillOneSlot(String name);
+    int freeOneSlot(String name);
+    List<LoadStatusParking> allStatusParking();
+    LoadStatusParking StatusParkingByName(String parkingname);
 }

@@ -7,7 +7,9 @@ package fpt.aptech.ParkingApi.repositorys;
 import fpt.aptech.ParkingApi.entities.Parkinglocation;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -24,5 +26,15 @@ public interface ParkingRepo extends JpaRepository<Parkinglocation, String> {
 
     @Query("SELECT p FROM Parkinglocation p WHERE p.name LIKE %:parkingname%")
     List<Parkinglocation> searchParkingByName(@PathVariable("parkingname") String parkingname);
-    
+
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query(value = "UPDATE Parkinglocation SET blank = blank +1 WHERE p.name = :name", nativeQuery = true)
+    int plusOneBlank(@PathVariable("name") String name);
+
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query(value = "UPDATE Parkinglocation SET blank = blank -1 WHERE name = :name", nativeQuery = true)
+    int minusOneBlank(@PathVariable("username") String name);
+
 }

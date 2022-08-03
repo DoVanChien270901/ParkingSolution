@@ -9,12 +9,15 @@ import fpt.aptech.ParkingApi.dto.qrcontent.BookingQrContent;
 import fpt.aptech.ParkingApi.dto.request.AddRevenueReq;
 import fpt.aptech.ParkingApi.dto.request.NewBookingReq;
 import fpt.aptech.ParkingApi.dto.response.BookingDetailRes;
+import fpt.aptech.ParkingApi.dto.response.BookingOfParkingRes;
 import fpt.aptech.ParkingApi.dto.response.BookingRes;
 import fpt.aptech.ParkingApi.dto.response.ListBookingRes;
+import fpt.aptech.ParkingApi.dto.response.PageBookingRes;
 import fpt.aptech.ParkingApi.entities.Booking;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
 import fpt.aptech.ParkingApi.interfaces.IBooking;
+import fpt.aptech.ParkingApi.interfaces.IParking;
 import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.interfaces.IQrCode;
 import fpt.aptech.ParkingApi.interfaces.IRevenue;
@@ -23,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +44,8 @@ public class BookingController {
     private IProfile _profileServices;
     @Autowired
     private IQrCode _qrcodeService;
+    @Autowired
+    private IParking _parkingServices;
     @Autowired
     private IBooking _bookingService;
     @Autowired
@@ -66,9 +72,11 @@ public class BookingController {
         bookingQrContent.setBookingid(booking.getId());
         _qrcodeService.create(qrcode, bookingQrContent);
         //add revenue
-        AddRevenueReq addRevenueReq = new AddRevenueReq(LocalDate.now(), (booking.getPrice()/100*20),bookingReq.getParkingname());
+        AddRevenueReq addRevenueReq = new AddRevenueReq(LocalDate.now(), (booking.getPrice() / 100 * 20), bookingReq.getParkingname());
         _revenueServices.add(addRevenueReq);
-        return new ResponseEntity(booking.getId(),HttpStatus.OK);
+        //update blank
+        _parkingServices.fillOneSlot(bookingReq.getParkingname());
+        return new ResponseEntity(booking.getId(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list-booking", method = RequestMethod.GET)
@@ -83,6 +91,25 @@ public class BookingController {
     public ResponseEntity<?> bookingDetails(@RequestParam("id") int id, @RequestHeader("Authorization") String token) {
         String username = _jwtUtil.extracUsername(token.substring(7));
         BookingDetailRes res = _bookingService.getDetailBookingById(id, username);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list-all-booking", method = RequestMethod.GET)
+    public ResponseEntity<?> listAllBooking(int page, int size) {
+        PageBookingRes res = _bookingService.findAll(page, size);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/booking-location-code", method = RequestMethod.GET)
+    public ResponseEntity<?> getListLocationCode(@RequestParam("parkingname") String parkingName) {
+        List<String> res = _bookingService.getLocationCode(parkingName);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list-booking/{parkingname}", method = RequestMethod.GET)
+    public ResponseEntity<?> getListBookingByParkingName(@PathVariable("parkingname") String parkingName,
+            @Param("page")int page, @Param("size") int size) {
+        PageBookingRes res = _bookingService.getByParkingName(parkingName, page, size);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 }

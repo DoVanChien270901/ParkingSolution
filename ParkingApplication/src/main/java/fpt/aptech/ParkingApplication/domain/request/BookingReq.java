@@ -14,6 +14,7 @@ public class BookingReq {
 
     private LocalDateTime starttime;
     private int timenumber;
+    private String locationcode;
     private String carname;
     private String lisenceplates;
     private String parkingname;
@@ -44,6 +45,14 @@ public class BookingReq {
 
     public void setTimenumber(int timenumber) {
         this.timenumber = timenumber;
+    }
+
+    public String getLocationcode() {
+        return locationcode;
+    }
+
+    public void setLocationcode(String locationcode) {
+        this.locationcode = locationcode;
     }
 
     public String getCarname() {
