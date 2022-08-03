@@ -13,71 +13,63 @@
                 <div class="title pb-20">
                     <h2 class="h2 p-1 mb-0">Recharge History</h2>
                 </div>
-                <!-- basic table  Start -->
                 <div class="pd-20 card-box mb-30" id="list-index">
-                    <div class="clearfix mb-20">
-                        <div class="p-1">
-                            <h6>Search By Date</h6>
-                        </div>
-                        <div class="pt-1 form-check-inline">
+                    <div class="clearfix mb-20 p-1">
+                        <h6>Search By Date</h6>
+                        <div class="pt-2 form-check-inline">
                             <div class="pull-left">
                                 <form th:action="@{/a/list-transaction/search}">
                                     <div class="row form-inline">
-                                        <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
-                                            <input type="date" name="from-date" class="form-control" placeholder="From...">
+                                        <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
+                                            <input type="date" name="from-date" class="form-control" placeholder="From:&nbsp;">
                                         </div>
-                                        <div class="col-12 col-lg-5 col-md-5 col-sm-5 p-1">
-                                            <input type="date" name="to-date" class="form-control" placeholder="To...">
+                                        <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
+                                            <input type="date" name="to-date" class="form-control ml-2" placeholder="To:&nbsp;">
                                         </div>
-                                        <div class="col-12 col-lg-2 col-md-2 col-sm-2 p-1">
-                                            <button type="submit" class="btn btn-sm btn-primary m-1"><i class="dw dw-search2 search-icon"></i></button>
+                                        <div class="col-2 col-lg-2 col-md-2 col-sm-2">
+                                            <button type="submit" class="btn btn-sm btn-primary ml-2"><i class="dw dw-search2 search-icon"></i></button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="p-1">
-                        <table class="table table-responsive-md">
+                    <div class="table-res p-1">
+                        <table class="table">
                             <thead>
-                                <tr class="table-secondary">
-                                    <th scope="col">No</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">DateTime</th>
-                                    <th scope="col">Channel</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Status</th>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Amount</th>
+                                    <th>Date Time</th>
+                                    <th>Channel</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="item : ${transactionlist}">
-                                    <th th:text="${item.transno}"></th>
-                                    <td th:text="${#numbers.formatInteger(item.amount, 3 ,'COMMA')}+ ' VND'"></td>
-                                    <td th:text="${#temporals.format(item.datetime, 'dd-MM-yyyy HH:mm')}"></td>
-                                    <td th:text="${item.channel}"></td>
-                                    <td th:text="${item.stype}"></td>
-                                    <td>
+                                    <td data-label="#" class="id-table col-lg-2" th:text="${item.transno}"></td>
+                                    <td data-label="Amount" th:text="${#numbers.formatInteger(item.amount, 1 ,'COMMA')}+ ' VND'"></td>
+                                    <td data-label="Date Time" th:text="${#temporals.format(item.datetime, 'dd-MM-yyyy HH:mm')}"></td>
+                                    <td data-label="Channel" th:text="${item.channel}"></td>
+                                    <td data-label="Type" th:text="${item.stype}"></td>
+                                    <td data-label="Status">
                                         <span th:if="${item.statuscode == 0}" class="badge badge-success">Success!</span>
                                         <span th:unless="${item.statuscode == 0}" class="badge badge-danger">Failed!</span>
                                     </td>
-                                    <!--                                    <td class="form-inline">
-                                                                            <img class="zalopay" th:src="@{/vendorsc/images/zalopay.png}">
-                                                                            <span class="p-1">ZaloPay</span>
-                                                                        </td>-->
                                 </tr>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example" class="d-flex justify-content-end">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" th:href="@{/a/list-transaction(page=${current - 1})}">Previous</a></li>
+                                <li class="page-item"><a class="page-link" th:href="@{/a/list-transaction(page=${current - 1})}"><i class="dw dw-left-arrow-4"></i></a></li>
                                 <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{/a/list-transaction(page=${item})}"></a></li>
-                                <li class="page-item"><a class="page-link" th:href="@{/a/list-transaction(page=${current + 1})}">Next</a></li>
+                                <li class="page-item"><a class="page-link" th:href="@{/a/list-transaction(page=${current + 1})}"><i class="dw dw-right-arrow-4"></i></a></li>
                             </ul>
                         </nav>
                     </div>
                 </div>
-                <!-- basic table  End -->
-                .3  <div class="footer-wrap pd-20 mb-20 card-box">
+                <div class="footer-wrap pd-20 mb-20 card-box">
                     ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
                 </div>
             </div>

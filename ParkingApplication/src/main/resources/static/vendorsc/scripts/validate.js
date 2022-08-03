@@ -1,8 +1,9 @@
 //* Validate Register *//
 
 // Regex 
-let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+let regex_email = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
 let regex_only_text = new RegExp('^[a-zA-Z_ ]*$');
+
 // Query Selector 
 const qs_username = document.querySelector('.error-username');
 const qs_password = document.querySelector('.error-password');
@@ -29,7 +30,6 @@ var phone = document.forms['form-register']['phone'];
 var dob = document.forms['form-register']['dob'];
 var email = document.forms['form-register']['email'];
 var identitycard = document.forms['form-register']['identitycard'];
-
 
 // error
 var username_error = document.getElementById('error-username');
@@ -60,7 +60,7 @@ function validateRegister() {
         qs_username.appendChild(span_username);
         username.focus();
         return false;
-    } else if (username.value.length <= 6 || username.value.length > 25) {
+    } else if (username.value.length <= 5 || username.value.length >= 26) {
         username.style.border = "1px solid #dc3545";
         username_error.style.display = "block";
         span_username.innerHTML = "Username must be between 6 and 25 characters";
@@ -78,7 +78,7 @@ function validateRegister() {
         password.focus();
         return false;
     }
-    if (password.value.length <= 6 || password.value.length > 12) {
+    if (password.value.length <= 5 || password.value.length >= 13) {
         password.style.border = "1px solid #dc3545";
         password_error.style.display = "block";
         span_password.innerHTML = "Password must be between 6 and 12 characters";
@@ -96,7 +96,7 @@ function validateRegister() {
         fullname.focus();
         return false;
     }
-    if (fullname.value.length <= 4 || fullname.value.length > 25) {
+    if (fullname.value.length <= 3 || fullname.value.length >= 26) {
         fullname.style.border = "1px solid #dc3545";
         fullname_error.style.display = "block";
         span_fullname.innerHTML = "Fullname must be between 4 and 25 characters !";
@@ -134,7 +134,8 @@ function validateRegister() {
 
     // dob 
     if (!dob.value) {
-        dob.style.border = "1px solid #dc3545";
+        dob.style.border = "1px solid #dc3545"; 
+        dob.style.opacity = "1";
         dob_error.style.display = "block";
         span_dob.innerHTML = 'Date can not be left blank !';
         qs_dob.appendChild(span_dob);
@@ -143,6 +144,7 @@ function validateRegister() {
     }
     if (checkYear.getFullYear() <= 1969 || checkYear >= getYear) {
         dob.style.border = "1px solid #dc3545";
+        dob.style.opacity = "1";
         dob_error.style.display = "block";
         span_dob.innerHTML = 'Year must be from 1970 to current year !';
         qs_dob.appendChild(span_dob);
@@ -177,7 +179,7 @@ function validateRegister() {
         email.focus();
         return false;
     }
-    if (regex.test(email.value) == false) {
+    if (regex_email.test(email.value) == false) {
         email.style.border = "1px solid #dc3545";
         email_error.style.display = "block";
         span_email.innerHTML = 'Invalid Email';
@@ -196,7 +198,7 @@ function username_verify() {
 }
 
 function password_verify() {
-    if (password.value.length > 6 && password.value.length <= 12) {
+    if (password.value.length >= 6 && password.value.length <= 12) {
         password.style.border = "1px solid #28a745";
         password_error.style.display = "none";
         return true;
@@ -204,7 +206,7 @@ function password_verify() {
 }
 
 function fullname_verify() {
-    if (fullname.value.length > 4 && fullname.value.length <= 25) {
+    if (fullname.value.length >= 4 && fullname.value.length <= 25) {
         fullname.style.border = "1px solid #28a745";
         fullname_error.style.display = "none";
         return true;
@@ -216,6 +218,7 @@ function dob_verify() {
     const getYear = new Date();
     if (dob.value && checkYear.getFullYear() > 1969 && checkYear < getYear) {
         dob.style.border = "1px solid #28a745";
+        dob.style.opacity = "1";
         dob_error.style.display = "none";
         return true;
     }
@@ -238,7 +241,7 @@ function identitycard_verify() {
 }
 
 function email_verify() {
-    if (email.value.length > 3) {
+    if (regex_email.test(email.value) == true || email.value.length >= 5) {
         email.style.border = "1px solid #28a745";
         email_error.style.display = "none";
         return true;

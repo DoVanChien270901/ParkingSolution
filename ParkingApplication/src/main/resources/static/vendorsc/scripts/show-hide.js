@@ -9,6 +9,8 @@
 //        $('#list-index').show();
 //    });
 //});
+
+
 $(document).ready(function () {
     $('#list-user table tbody tr').click(function () {
         var username = $(this).attr('value');

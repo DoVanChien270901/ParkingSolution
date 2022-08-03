@@ -1,121 +1,93 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
-
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
         <title>ParkingGo | Profile Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
-
     <body>
         <section layout:fragment="user-content">
             <div class="container-xxl py-5">
                 <div class="container">
-                    <div class="nav-profile manager">
+                    <div class="nav-profile-manager">
                         <div class="row">
                             <div class="col-lg-12">
-                                <ul class="nav nav-tabs">
-                                    <div class="">
-                                        <li class="nav-item nav-link"><a th:href="@{/profile}"><i class="fa fa-user"></i> Profile</a></li>
+                                <ul class="nav">
+                                    <div>
+                                        <li class="nav-item nav-link"><a th:href="@{/profile}"><i class="fa fa-user"></i>&nbsp;Profile</a></li>
                                     </div>
                                     <li class="dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet"></i> Wallet Payment<span class="caret"></span>
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet"></i>&nbsp;Wallet Payment
+                                            <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu fade-up m-0">
-                                            <li><a class="dropdown-item" th:href="@{/d-payment}"><i class="fa fa-arrow-right"></i> Direct Payment</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/e-payment}"><i class="fa fa-arrow-right"></i> Electronic Payment</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/d-payment}">Direct Payment</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/e-payment}">Electronic Payment</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">History<span class="caret"></span>
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-history"></i>&nbsp;History
+                                            <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu fade-up m-0">
-                                            <li><a class="dropdown-item" th:href="@{/history?page=0}">Transaction History</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/u/parking-history?page=0}">Parking History</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/history?page=0}">Transaction History</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/u/parking-history?page=0}">Parking History</a></li>
                                         </ul>
                                     </li>
                                     <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}"><i class="fa fa-parking"></i> Booking</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}"><i class="fa fa-parking"></i>&nbsp;Booking</a></li>
                                     </div>
                                 </ul>
                             </div>
                         </div>
                         <div class="container profile">
                             <div class="pb-4 pt-4">
-                                <h2 class="h3">// Profile Information //</h2>
+                                <h2 class="h2 text-primary">// Profile Information //</h2>
                             </div>
                             <form th:action="@{/profile}" th:object="${profile}" id="form_profile" class="form_profile" method="POST" onsubmit="return validateProfile()">
                                 <div class="row g-4 mb-3 pb-3">
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-fullname">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-user"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="far fa-user-circle"></i>&nbsp;Username:</label>
+                                        <div class="input-group mb-4 pt-0">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{fullname}" id="fullname-profile" readonly="true">  
-                                            <div class="invalid-feedback mess-box error-fname" id="error-fname">
-                                            </div>
+                                            <div class="invalid-feedback mess-box error-fname" id="error-fname"></div>
                                         </div>
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-dob">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="far fa-calendar"></i>&nbsp;Date Time:</label>
+                                        <div class="input-group mb-4 pt-0">
                                             <input autocomplete="off" type="date" class="form-control" th:value="${profile.getDob()}" th:field="*{dob}" id="dob-profile" readonly="true">
-                                            <div class="invalid-feedback mess-box error-dob" id="error-dob">
-                                            </div>
+                                            <div class="invalid-feedback mess-box error-dob" id="error-dob"></div>
                                         </div>
-                                        <div class="input-group pt-3">
-                                            <div class="input-group-prepend" id="label-wallet">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-wallet"></i></span>
-                                                </div>
-                                            </div>
-                                            <input type="text" th:value="${#numbers.formatInteger(profile.balance, 3, 'COMMA') + ' VND'}" class="form-control" readonly="true">
+                                        <label class="p-1"><i class="fa fa-wallet"></i>&nbsp;Balance:</label>
+                                        <div class="input-group pt-0">
+                                            <input type="text" th:value="${#numbers.formatInteger(profile.balance, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-phone">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-phone-alt"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="fa fa-phone-alt"></i>&nbsp;Phone:</label>
+                                        <div class="input-group mb-4 pt-0">
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{phone}" id="phone-profile" readonly="true">
-                                            <div class="invalid-feedback mess-box error-phone" id="error-phone">
-                                            </div>
+                                            <div class="invalid-feedback mess-box error-phone" id="error-phone"></div>                 
                                         </div>
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-identitycard">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-id-card"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="far fa-id-card"></i>&nbsp;License Plates:</label>
+                                        <div class="input-group mb-4 pt-0">                         
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{identitycard}" id="identitycard-profile" readonly="true">
-                                            <div class="invalid-feedback mess-box error-identitycard" id="error-identitycard">
-                                            </div>
+                                            <div class="invalid-feedback mess-box error-identitycard" id="error-identitycard"></div>
                                         </div>
-                                        <div class="input-group mb-3 pt-3">
-                                            <div class="input-group-prepend" id="label-email">
-                                                <div id="basic-addon1" class="input-group-text">
-                                                    <span><i class="fa fa-envelope"></i></span>
-                                                </div>
-                                            </div>
+                                        <label class="p-1"><i class="far fa-envelope"></i>&nbsp;Email:</label>
+                                        <div class="input-group pt-0">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{email}"  id="email-profile" readonly="true">
-                                            <div class="invalid-feedback mess-box error-email" id="error-email">
-                                            </div>
+                                            <div class="invalid-feedback mess-box error-email" id="error-email"></div>
                                         </div>                                   
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-4 pt-2">
                                         <img class="qrcode mb-2" th:src="${displaycode}"/>
                                         <p class="title-qrcode">Your QR Code</p>
                                     </div>
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-profile-button-edit mt-4">
-                                        <button type="button" id="settings-profile" onclick="disable()" class="btn btn-settings-profile btn-primary mt-0 mb-2"><i class="fa fa-cog"></i> Settings</button>
-                                        <button type="submit" id="update-profile" class="btn btn-success btn-save-profile mt-0 mb-2 me-2"><i class="fa fa-check-circle"></i> Update</button>
-                                        <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn btn-danger btn-cancel-profile btn- mt-0 mb-2"><i class="fa fa-arrow-left"></i> Cancel</a>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-profile-button-edit">
+                                        <button type="button" id="settings-profile" onclick="disable()" class="btn-settings-profile mt-2 mb-2 me-2 p-2"><i class="fa fa-cog"></i> Settings</button>
+                                        <button type="submit" id="update-profile" class="btn-save-profile mt-2 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Update</button>
+                                        <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn-cancel-profile mt-2 mb-2 p-2"><i class="fa fa-arrow-left"></i> Cancel</a>
                                     </div>
                                 </div>
                             </form>
@@ -124,10 +96,9 @@
                 </div>
             </div>
         </section>
-        <script type="text/javascript" layout:fragment="validate-profile">
-            /* Validate Profile */
+        <script type="text/javascript" layout:fragment="code-javascript">
             // Regex 
-            let regex_email = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+            let regex_email = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
             let regex_only_text = new RegExp('^[a-zA-Z_ ]*$');
 
             // Query Selector 
@@ -166,7 +137,6 @@
             identitycard.addEventListener('change', identitycard_verify);
 
             function validateProfile() {
-
                 var checkYear = new Date(dob.value);
                 const getYear = new Date();
 
@@ -179,7 +149,7 @@
                     fullname.focus();
                     return false;
                 }
-                if (fullname.value.length <= 4 || fullname.value.length > 25) {
+                if (fullname.value.length <= 3 || fullname.value.length >= 26) {
                     fullname.style.border = "1px solid #dc3545";
                     fullname_error.style.display = "block";
                     span_fullname.innerHTML = "Fullname must be between 4 and 25 characters !";
@@ -271,7 +241,7 @@
             }
 
             function fullname_verify() {
-                if (fullname.value.length > 4 && fullname.value.length <= 25) {
+                if (fullname.value.length >= 4 && fullname.value.length <= 25) {
                     fullname.style.border = "1px solid #28a745";
                     fullname_error.style.display = "none";
                     return true;
@@ -296,9 +266,8 @@
                 }
             }
 
-
             function email_verify() {
-                if (email.value.length > 3) {
+                if (regex_email.test(email.value) == true) {
                     email.style.border = "1px solid #28a745";
                     email_error.style.display = "none";
                     return true;

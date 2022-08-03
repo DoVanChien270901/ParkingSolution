@@ -8,13 +8,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/core.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/icon-font.min.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/src/plugins/jquery-steps/jquery.steps.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/style.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/fix.css}">
         <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
     </head>
+    <!-- Register Start -->
     <body class="login-page">
-        <!-- Register Start -->
         <div class="login-header box-shadow">
             <div class="container-fluid d-flex justify-content-between align-items-center">
                 <div class="brand-logo">
@@ -56,9 +55,8 @@
                                             </div>
                                         </div>   
                                         <div class="row">
-                                            <div class="col-12" style="margin-left: -15px;">
-                                                <div class="invalid-feedback message-box error-username" id="error-username">  
-                                                </div>
+                                            <div class="col-12 col-margin-left-15">
+                                                <div class="invalid-feedback message-box error-username" id="error-username"></div> 
                                             </div>
                                         </div>  
                                     </div>
@@ -70,9 +68,8 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-12" style="margin-left: -15px;">
-                                                <div class="invalid-feedback message-box error-password" id="error-password">
-                                                </div>
+                                            <div class="col-12 col-margin-left-15">
+                                                <div class="invalid-feedback message-box error-password" id="error-password"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,9 +81,8 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-12" style="margin-left: -15px;">
-                                                <div class="invalid-feedback message-box message-col-6 error-fullname" id="error-fullname">
-                                                </div>
+                                            <div class="col-12 col-margin-left-15">
+                                                <div class="invalid-feedback message-box message-col-6 error-fullname" id="error-fullname"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -98,9 +94,8 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-12" style="margin-left: -15px;">
-                                                <div class="invalid-feedback message-box message-col-6 error-phone" id="error-phone">
-                                                </div>
+                                            <div class="col-12 col-margin-left-15">
+                                                <div class="invalid-feedback message-box message-col-6 error-phone" id="error-phone"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -110,9 +105,8 @@
                                             <input autocomplete="off" th:field="*{dob}" type="date" name="dob" placeholder="*Date:&nbsp;" class="form-control form-control-md">
                                         </div>
                                         <div class="row">
-                                            <div class="col-12" style="margin-left: -15px;">
-                                                <div class="invalid-feedback message-box message-col-6 error-dob" id="error-dob">
-                                                </div>
+                                            <div class="col-12 col-margin-left-15">
+                                                <div class="invalid-feedback message-box message-col-6 error-dob" id="error-dob"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -137,9 +131,8 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-12" style="margin-left: -15px;">
-                                                <div class="invalid-feedback message-box error-identitycard" id="error-identitycard">
-                                                </div>
+                                            <div class="col-12 col-margin-left-15">
+                                                <div class="invalid-feedback message-box error-identitycard" id="error-identitycard"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -151,9 +144,8 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-12" style="margin-left: -15px;">
-                                                <div class="invalid-feedback message-box error-email " id="error-email">
-                                                </div>
+                                            <div class="col-12 col-margin-left-15">
+                                                <div class="invalid-feedback message-box error-email " id="error-email"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -171,10 +163,10 @@
                 </div>
             </div>
         </div>
-        <!-- Register End -->
         <!-- JavaScript -->
         <script th:src="@{/vendorsc/scripts/core.js}"></script>
         <script th:src="@{/vendorsc/scripts/script.min.js}"></script>
         <script th:src="@{/vendorsc/scripts/validate.js}"></script>
     </body>
+    <!-- Register End -->
 </html>

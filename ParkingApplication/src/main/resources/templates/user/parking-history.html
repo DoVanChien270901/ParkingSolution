@@ -1,95 +1,98 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
         <title>Parking.Go | History Transaction Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
-
     <body>  
         <section layout:fragment="user-content">
             <div class="container-xxl py-5">
                 <div class="container">
-                    <div class="nav-profile manager">
+                    <div class="nav-profile-manager">
                         <div class="row">
                             <div class="col-lg-12">
-                                <ul class="nav nav-tabs">
-                                    <div class="">
-                                        <li class="nav-item nav-link"><a th:href="@{/profile}">Profile</a></li>
+                                <ul class="nav">
+                                    <div>
+                                        <li class="nav-item nav-link"><a th:href="@{/profile}"><i class="fa fa-user"></i>&nbsp;Profile</a></li>
                                     </div>
                                     <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Wallet Payment<span class="caret"></span>
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet"></i>&nbsp;Wallet Payment
+                                            <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu fade-up m-0">
-                                            <li><a class="dropdown-item" th:href="@{/d-payment}">Direct Payment</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/e-payment}">Electronic Payment</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/d-payment}">Direct Payment</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/e-payment}">Electronic Payment</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">History<span class="caret"></span>
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-history"></i>&nbsp;History
+                                            <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu fade-up m-0">
-                                            <li><a class="dropdown-item" th:href="@{/history?page=0}">Transaction History</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/u/parking-history?page=0}">Parking History</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/history?page=0}">Transaction History</a></li>
+                                            <li><a class="dropdown-profile" th:href="@{/u/parking-history?page=0}">Parking History</a></li>
                                         </ul>
                                     </li>
                                     <div>
-                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}">Booking</a></li>
+                                        <li class="nav-item nav-link"><a th:href="@{/list-booking}"><i class="fa fa-parking"></i>&nbsp;Booking</a></li>
                                     </div>
                                 </ul>
                             </div>
                         </div>
-                        <div class="container" id="history">
+                        <div class="container" id="form-parking-history">
                             <div class="row g-4 mb-3 pb-3">
                                 <div class="pb-1 pt-4">
-                                    <h2>// History //</h2>
+                                    <h2 class="h2 text-primary">// Parking History //</h2>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-6">
-                                        <div class="row">
-                                            <form th:action="@{/u/parking-history/search}" method="GET">
-                                            <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                <input type="date" name="from-date" class="form-control" placeholder="From date...">
+                                        <form th:action="@{/u/parking-history/search}" method="GET" id="form-select-date">
+                                            <div class="row"> 
+                                                <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                    <input type="date" name="from-date" class="form-control" placeholder="From:&nbsp;">
+                                                </div>
+                                                <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
+                                                    <input type="date" name="to-date" class="form-control" placeholder="To:&nbsp;">
+                                                </div>
+                                                <div class="col-2 col-lg-2 col-md-2 col-sm-2 p-1">
+                                                    <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
+                                                </div>
                                             </div>
-                                            <div class="col-6 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                <input type="date" name="to-date" class="form-control" placeholder="To date...">
-                                            </div>
-                                            <div class="col-6 col-lg-2 col-md-2 col-sm-2 p-1">
-                                                <button type="submit" class="btn btn-sm btn-primary m-1"><i class="fa fa-search"></i></button>
-                                            </div>
-                                            </form>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-6"></div>
                                 </div>
-                                <div class="table-responsive-md">
-                                    <table class="table table-bordered">
+                                <div class="table-res-history">
+                                    <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Date Time</th>
-                                                <th scope="col">Time Number</th>
-                                                <th scope="col">Car Name</th>
-                                                <th scope="col">License Plates</th>
-                                                <th scope="col">Parking Name</th>
+                                                <th>#</th>
+                                                <th>Date Time</th>
+                                                <th>Time Number</th>
+                                                <th>Car Name</th>
+                                                <th>License Plates</th>
+                                                <th>Parking Name</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="item : ${parkinghistorylist}">
-                                                <td th:text="${item.id}"></td>
-                                                <td type="date" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
-                                                <td th:text="${item.timenumber}"></td> 
-                                                <td th:text="${item.carname}"></td>
-                                                <td th:text="${item.lisenceplates}"></td>                                                
+                                                <td class="id-table col-lg-2" data-label="#" th:text="${item.id}"></td>
+                                                <td data-label="Date Time" type="date" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
+                                                <td class="col-lg-2" data-label="Time Number" th:text="${item.timenumber}"></td> 
+                                                <td data-label="Car Name" th:text="${item.carname}"></td>
+                                                <td data-label="License Plates" th:text="${item.lisenceplates}"></td>   
+                                                <td data-label="Parking Name" th:text="${item.parkingname}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <nav aria-label="Page navigation example" class="d-flex justify-content-end">
                                     <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" th:href="@{/u/parking-history(page=${current - 1})}">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" th:href="@{/u/parking-history(page=${current - 1})}"><i class="fas fa-arrow-left"></i></a></li>
                                         <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{/u/parking-history(page=${item})}"></a></li>
-                                        <li class="page-item"><a class="page-link" th:href="@{/u/parking-history(page=${current + 1})}">Next</a></li>
+                                        <li class="page-item"><a class="page-link" th:href="@{/u/parking-history(page=${current + 1})}"><i class="fa fa-arrow-right"></i></a></li>
                                     </ul>
                                 </nav>
                             </div>

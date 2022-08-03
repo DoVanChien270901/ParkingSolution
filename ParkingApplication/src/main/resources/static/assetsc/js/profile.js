@@ -24,11 +24,8 @@ jQuery(document).ready(function () {
     });
 });
 
-
 function changeSelectAmount(value) {
     document.getElementById("amount-dp").value = (10000 * value);
 }
 
-function changeSelectAmountElec(value) {
-    document.getElementById("amount-ep").value = (10000 * value);
-}
+
