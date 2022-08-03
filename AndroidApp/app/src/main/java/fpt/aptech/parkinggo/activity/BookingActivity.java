@@ -28,7 +28,6 @@ import java.util.concurrent.ExecutionException;
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.asynctask.BookingTask;
 import fpt.aptech.parkinggo.asynctask.CreatePaymentTask;
-import fpt.aptech.parkinggo.asynctask.PaymentTask;
 import fpt.aptech.parkinggo.domain.response.EBookingRes;
 import vn.momo.momo_partner.AppMoMoLib;
 import vn.zalopay.sdk.Environment;
@@ -118,19 +117,12 @@ public class BookingActivity extends AppCompatActivity {
         ZaloPaySDK.getInstance().payOrder(BookingActivity.this, bookingRes.getSignature(), "parkinggo://app", new PayOrderListener() {
             @Override
             public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
+                onPaymentSucces();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        onPaymentSucces();
-                        new AlertDialog.Builder(BookingActivity.this)
-                                .setTitle("Payment Success")
-                                .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .setNegativeButton("Cancel", null).show();
+                        Intent intent = new Intent(BookingActivity.this, HomeActivity.class);
+                        startActivity(intent);
                     }
 
                 });
@@ -251,17 +243,8 @@ public class BookingActivity extends AppCompatActivity {
 
 
     protected void onPaymentSucces() {
-        PaymentTask paymentTask = new PaymentTask(BookingActivity.this, bookingRes);
         BookingTask bookingTask = new BookingTask(BookingActivity.this, bookingRes);
-        try {
-            ResponseEntity<?> res = bookingTask.execute().get();
-            Integer bookingId = (Integer) res.getBody();
-//            ResponseEntity<?> res2 = paymentTask.execute().get();
-//            Integer bookingId = (Integer) res2.getBody();
-//            TransactionReq eBookingRes = (TransactionReq) res.getBody();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        bookingTask.execute();
     }
 
     @Override

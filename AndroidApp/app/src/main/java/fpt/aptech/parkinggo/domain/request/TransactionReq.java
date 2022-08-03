@@ -10,6 +10,14 @@ public class TransactionReq {
     public TransactionReq() {
     }
 
+    public TransactionReq(String username, String parkingname, CheckStatusPaymentReq paymentReq, String stype, Long amount) {
+        this.username = username;
+        this.parkingname = parkingname;
+        this.paymentReq = paymentReq;
+        this.stype = stype;
+        this.amount = amount;
+    }
+
     public String getUsername() {
         return username;
     }
