@@ -5,6 +5,28 @@
         <meta charset="utf-8">
         <title>ParkingGo | Booking Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <style>
+            #table-select table {
+                text-align: center;
+                border-collapse: separate;
+                border-spacing: 10px;
+            }
+            #yes {
+                border: 2px green solid;
+                color: green;
+                cursor: pointer;
+            }
+            #no {
+                border: 2px red solid;
+                color: red;
+            }
+            #yes,
+            #no {
+                width: 40px;
+                height: 40px;
+            }
+
+        </style>
     </head>
     <body>
         <section layout:fragment="user-content">
@@ -45,6 +67,8 @@
                                                     <label>Check Validate !</label>
                                                 </div>
                                             </div>
+                                     <!--                                    selected slot-->
+                                            <input type="text" id="code" th:field="*{locationcode}" style="display: none" value="">
                                         </div>
                                         <div class="col-md-6 form-group mb-4">
                                             <label class="p-1"><i class="far fa-hourglass"></i>&nbsp;Time Number:</label>
@@ -108,15 +132,68 @@
                     </div>
                 </div>
             </div>
+            <div id="table-select">
+            </div>
+            <!-- Carousel End -->
         </section>
-        <script type="text/javascript" layout:fragment="code-javascript">
+        <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
+            function clearActive() {
+                var tableSelect = document.getElementById("table-select");
+                var arrTr = tableSelect.children[0].children[0];
+                    for (var j = 0; j < arrTr.children.length; j++) {
+                        var arrTd = tableSelect.children[0].children[0].children[j];
+                            for (var i = 0; i < arrTd.children.length; i++) {
+                                if (arrTd.children[i].id == 'yes') {
+                                arrTd.children[i].style.color = 'green';
+                                arrTd.children[i].style.border = '2px green solid';
+                            }
+                        }
+                    }
+            }
+            $(document).ready(function () {
+                $('#table-select #yes').click(function () {
+                    clearActive();
+                    this.style.color = 'blue';
+                    this.style.border = '2px blue solid';
+                    document.getElementById("code").value = this.textContent;
+                });
+            });
+            loadTableSelectSlot([[${arrCode}]])
+                    function loadTableSelectSlot(arr) {
+                        var arr1 = ([[${listCodeBooked}]]);
+                        var tableSelect = document.getElementById("table-select");
+                        var table = "<table><tbody><tr>";
+                        var call = 0;
+                        for (var i = 1; i < arr.length + 1; i++) {
+                            for (var j = 0; j < arr1.length; j++) {
+                                if (arr[i - 1] == arr1[j]) {
+                                    table += '<td id="no">' + arr[i - 1] + "</td>";
+                                    if (i != 0 && i % ([[${columnOfRow}]]) == 0) {
+                                        table += "</tr><tr>";
+                                    }
+                                    call = 1;
+                                    break;
+                                }
+                            }
+                            if (call == 0) {
+                                table += '<td id="yes">' + arr[i - 1] + "</td>";
+                                if (i != 0 && i % ([[${columnOfRow}]]) == 0) {
+                                    table += "</tr><tr>";
+                                }
+                                } else {
+                                    call = 0;
+                                }
+                        }
+                        table += "</tbody></table>";
+                        tableSelect.innerHTML = table;
+                    }
             var momo = document.getElementById('radio-momo');
             var zalopay = document.getElementById('radio-zalopay');
             var wallet = document.getElementById('radio-wallet');
             function numberokd(rentcost) {
-                var number = document.getElementById("number");
-                var amount = document.getElementById("amount");
-                amount.value = (number.value * rentcost).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+            var number = document.getElementById("number");
+            var amount = document.getElementById("amount");
+            amount.value = (number.value * rentcost).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
             }
             function checkMomo() {
                 momo.checked = true;

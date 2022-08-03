@@ -7,6 +7,7 @@ package fpt.aptech.ParkingApi.controller;
 import fpt.aptech.ParkingApi.dto.request.AddParkingReq;
 import fpt.aptech.ParkingApi.dto.request.UpdateParkingReq;
 import fpt.aptech.ParkingApi.dto.response.BookingRes;
+import fpt.aptech.ParkingApi.dto.response.LoadStatusParking;
 import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingRes;
@@ -128,5 +129,15 @@ public class ParkingController {
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+    @RequestMapping(value = "/load-status-parking", method = RequestMethod.GET)
+    public ResponseEntity<?> loadStatusParking() {
+        List<LoadStatusParking> res = _parkingService.allStatusParking();
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/load-status-parking/{name}", method = RequestMethod.GET)
+    public ResponseEntity<?> loadStatusParking(@PathVariable("name")String name) {
+        LoadStatusParking res = _parkingService.StatusParkingByName(name);
+        return new ResponseEntity(res, HttpStatus.OK);
     }
 }

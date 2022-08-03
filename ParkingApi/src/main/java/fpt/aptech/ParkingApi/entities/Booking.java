@@ -31,6 +31,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.NamedNativeQuery;
 import org.springframework.format.annotation.DateTimeFormat;
+import fpt.aptech.ParkingApi.dto.response.*;
 
 /**
  *
@@ -39,7 +40,51 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "booking")
 @XmlRootElement
-//booking-list
+//list-booking-by-parking
+@NamedNativeQuery(
+        name = "getListBookingByParkingName",
+        query = "SELECT b.id AS id, b.starttime AS starttime, b.timenumber AS timenumber, "
+        + "b.locationcode AS locationcode, b.price AS price, b.carname AS carname, "
+        + "b.lisenceplates AS lisenceplates"
+        + " FROM Booking b WHERE b.parkingname = :parkingname",
+        resultSetMapping = "CustomeResultAllBooking"
+)
+//@SqlResultSetMapping(
+//        name = "CustomeResultListBookingByParkingName",
+//        classes = @ConstructorResult(targetClass = BookingOfParkingRes.class,
+//                columns = {
+//                    @ColumnResult(name = "id", type = Integer.class),
+//                    @ColumnResult(name = "starttime", type = LocalDateTime.class),
+//                    @ColumnResult(name = "timenumber", type = Integer.class),
+//                    @ColumnResult(name = "price", type = Double.class),
+//                    @ColumnResult(name = "carname", type = String.class),
+//                    @ColumnResult(name = "lisenceplates", type = String.class),
+//                    @ColumnResult(name = "locationcode", type = String.class)
+//                })
+//)
+//booking-all-list
+@NamedNativeQuery(
+        name = "getListAllBooking",
+        query = "SELECT b.id AS id, b.starttime AS starttime, b.timenumber AS timenumber, "
+        + "b.locationcode AS locationcode, b.price AS price, b.carname AS carname, "
+        + "b.lisenceplates AS lisenceplates"
+        + " FROM Booking b",
+        resultSetMapping = "CustomeResultAllBooking"
+)
+@SqlResultSetMapping(
+        name = "CustomeResultAllBooking",
+        classes = @ConstructorResult(targetClass = ItemPageBooking.class,
+                columns = {
+                    @ColumnResult(name = "id", type = Integer.class),
+                    @ColumnResult(name = "starttime", type = LocalDateTime.class),
+                    @ColumnResult(name = "timenumber", type = Integer.class),
+                    @ColumnResult(name = "locationcode", type = String.class),
+                    @ColumnResult(name = "price", type = Double.class),
+                    @ColumnResult(name = "carname", type = String.class),
+                    @ColumnResult(name = "lisenceplates", type = String.class)
+                })
+)
+//booking-list-of-user?
 @NamedNativeQuery(
         name = "getListBookingByUsername",
         query = "SELECT b.id AS id, b.starttime AS starttime, b.timenumber AS timenumber, b.price AS price, b.parkingname AS parkingname "
@@ -99,6 +144,9 @@ public class Booking implements Serializable {
     private LocalDateTime starttime;
     @Column(name = "timenumber")
     private Integer timenumber;
+    @Size(max = 5)
+    @Column(name = "locationcode")
+    private String locationcode;
     @Column(name = "price")
     private double price;
     @Size(max = 255)
@@ -152,6 +200,14 @@ public class Booking implements Serializable {
 
     public void setTimenumber(Integer timenumber) {
         this.timenumber = timenumber;
+    }
+
+    public String getLocationcode() {
+        return locationcode;
+    }
+
+    public void setLocationcode(String locationcode) {
+        this.locationcode = locationcode;
     }
 
     public double getPrice() {

@@ -16,12 +16,12 @@ public class NewBookingReq {
     private String username;
     private LocalDateTime starttime;
     private int timenumber;
+    private String locationcode;
     private String carname;
     private String lisenceplates;
     private String parkingname;
     private boolean walletparking;
 
-    
     public NewBookingReq() {
     }
 
@@ -47,6 +47,14 @@ public class NewBookingReq {
 
     public void setTimenumber(int timenumber) {
         this.timenumber = timenumber;
+    }
+
+    public String getLocationcode() {
+        return locationcode;
+    }
+
+    public void setLocationcode(String locationcode) {
+        this.locationcode = locationcode;
     }
 
     public String getCarname() {

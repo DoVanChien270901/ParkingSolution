@@ -119,7 +119,7 @@ public class QrCodeController {
     public ResponseEntity<?> scanQrCodeBooking(@RequestBody ScanQrCodeReq scanQrCodeReq) {
         boolean result = _qrCodeService.scanQrCodeBooking(scanQrCodeReq);
         if (result) {
-            return ResponseEntity.ok("Update Balence Successful!");
+            return ResponseEntity.ok("Successful!");
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
