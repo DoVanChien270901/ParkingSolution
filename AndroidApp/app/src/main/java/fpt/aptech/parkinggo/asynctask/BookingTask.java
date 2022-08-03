@@ -45,10 +45,10 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
         bookingRes.getTransactionReq().setUsername(loginRes.getUsername());
         HttpEntity request2 = RestTemplateConfiguration.setRequest(bookingRes.getTransactionReq());
         ResponseEntity<?> response2 = RestTemplateConfiguration
-                .excuteRequest(uri + "createTransaction", HttpMethod.POST, request2, TransactionReq.class);
-        TransactionReq transactionReq = (TransactionReq) response2.getBody();
+                .excuteRequest(uri + "createTransaction", HttpMethod.POST, request2, String.class);
+//        TransactionReq transactionReq = (TransactionReq) response2.getBody();
 
-        //booking
+//        //booking
         EditText etTimenum = activity.findViewById(R.id.a_booking_et_timenum);
         EditText etCarname = activity.findViewById(R.id.a_booking_et_carname);
         EditText etLisenceplates = activity.findViewById(R.id.a_booking_et_lisenceplates);

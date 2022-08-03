@@ -156,15 +156,18 @@ public class TransactionController {
 
     @RequestMapping(value = "/createTransaction", method = RequestMethod.POST)
     public ResponseEntity<?> createTransaction(@RequestBody TransactionReq transactionReq) {
+        String s = null;
         try {
             //Dont checkstatus
             if (_transactionServices.getbyTransNo(transactionReq.getPaymentReq().getTransno()) != null) {
-                return new ResponseEntity(transactionReq, HttpStatus.BAD_REQUEST);
+                s = "issaved";
+                return new ResponseEntity(s, HttpStatus.BAD_REQUEST);
             }            
             if (_transactionServices.create(transactionReq, 0) != null) {
-                return new ResponseEntity(transactionReq, HttpStatus.OK);
+                s = "success";
+                return new ResponseEntity(s, HttpStatus.OK);
             }
-            return new ResponseEntity(transactionReq , HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(s , HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

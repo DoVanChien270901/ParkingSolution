@@ -100,14 +100,13 @@ public class BookingActivity extends AppCompatActivity {
                 try {
                     ResponseEntity<?> res = CreatePaymentTask.execute().get();
                     bookingRes = (EBookingRes) res.getBody();
+                    if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Zalopay")) {
+                        createZalopay(bookingRes);
+                    } else if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Momo")) {
+                        createMomopay(bookingRes);
+                    }
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
-                }
-
-                if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Zalopay")) {
-                    createZalopay(bookingRes);
-                } else if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Momo")) {
-                    createMomopay(bookingRes);
                 }
             }
         });
@@ -118,14 +117,6 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
                 onPaymentSucces();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(BookingActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                    }
-
-                });
             }
 
             @Override
@@ -245,6 +236,16 @@ public class BookingActivity extends AppCompatActivity {
     protected void onPaymentSucces() {
         BookingTask bookingTask = new BookingTask(BookingActivity.this, bookingRes);
         bookingTask.execute();
+        new AlertDialog.Builder(BookingActivity.this)
+                .setTitle("Payment Success")
+                .setMessage("Thank for your order")
+                .setPositiveButton("Go HomePage", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(BookingActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
+                }).show();
     }
 
     @Override
