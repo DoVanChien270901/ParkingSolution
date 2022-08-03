@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -83,47 +84,47 @@ public class TransactionController {
         return "user/e-payment-detail";
     }
 
-    @RequestMapping(value = "/e-payment-detail", method = RequestMethod.GET)
-    public String ePaymentDetail(@RequestParam Map<String, String> allMap, Model model, HttpSession session) {
-        try {
-            //check requestid - Momo: requestId , Zalopay: apptransid
-            String requestid = allMap.get("requestId");
-            if (requestid == null) {
-                requestid = allMap.get("apptransid");
-            }
-
-            EPaymentRes orderRes = (EPaymentRes) session.getAttribute(requestid);
-            HttpEntity transRequest = restTemplate.setRequest(orderRes.getTransactionReq());
-            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "checkStatus", HttpMethod.POST, transRequest, EPaymentRes.class);
-            EPaymentRes orderResponse = (EPaymentRes) response.getBody();
-            if (orderResponse.getReturnCode().equals(0) && orderRes.getTransactionReq().getStype().equals("e-Booking")) {
-                // create booking
-                BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderRes.getTransactionReq().getParkingname());
-                NewBookingReq newBookingReq = new NewBookingReq(
-                        orderRes.getTransactionReq().getUsername(),
-                        bookingReq.getStarttime(),
-                        bookingReq.getTimenumber(),
-                        bookingReq.getCarname(),
-                        bookingReq.getLisenceplates(),
-                        bookingReq.getParkingname(),
-                        false
-                );
-                HttpEntity newbookingRequest = restTemplate.setRequest(newBookingReq);
-                ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, Integer.class);
-                HttpStatus status = newbookingResponse.getStatusCode();
-                if (status.equals(HttpStatus.OK)) {
-                    Integer id = (Integer) newbookingResponse.getBody();
-                    return "redirect:/booking-details?id=" + id;
-                }
-            } else {
-                model.addAttribute("transactionReq", orderRes.getTransactionReq());
-                return "user/e-payment-detail";
-            }
-            return "user/e-payment-detail";
-        } catch (Exception e) {
-            return "badrequest";
-        }
-    }
+//    @RequestMapping(value = "/e-payment-detail", method = RequestMethod.GET)
+//    public String ePaymentDetail(@RequestParam Map<String, String> allMap, Model model, HttpSession session) {
+//        try {
+//            //check requestid - Momo: requestId , Zalopay: apptransid
+//            String requestid = allMap.get("requestId");
+//            if (requestid == null) {
+//                requestid = allMap.get("apptransid");
+//            }
+//
+//            EPaymentRes orderRes = (EPaymentRes) session.getAttribute(requestid);
+//            HttpEntity transRequest = restTemplate.setRequest(orderRes.getTransactionReq());
+//            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "checkStatus", HttpMethod.POST, transRequest, EPaymentRes.class);
+//            EPaymentRes orderResponse = (EPaymentRes) response.getBody();
+//            if (orderResponse.getReturnCode().equals(0) && orderRes.getTransactionReq().getStype().equals("e-Booking")) {
+//                // create booking
+//                BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderRes.getTransactionReq().getParkingname());
+//                NewBookingReq newBookingReq = new NewBookingReq(
+//                        orderRes.getTransactionReq().getUsername(),
+//                        bookingReq.getStarttime(),
+//                        bookingReq.getTimenumber(),
+//                        bookingReq.getCarname(),
+//                        bookingReq.getLisenceplates(),
+//                        bookingReq.getParkingname(),
+//                        false
+//                );
+//                HttpEntity newbookingRequest = restTemplate.setRequest(newBookingReq);
+//                ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, Integer.class);
+//                HttpStatus status = newbookingResponse.getStatusCode();
+//                if (status.equals(HttpStatus.OK)) {
+//                    Integer id = (Integer) newbookingResponse.getBody();
+//                    return "redirect:/booking-details?id=" + id;
+//                }
+//            } else {
+//                model.addAttribute("transactionReq", orderRes.getTransactionReq());
+//                return "user/e-payment-detail";
+//            }
+//            return "user/e-payment-detail";
+//        } catch (Exception e) {
+//            return "badrequest";
+//        }
+//    }
 
     @RequestMapping(value = "/e-payment", method = RequestMethod.GET)
     public String ePayment(Model model, HttpSession session) {
@@ -219,17 +220,34 @@ public class TransactionController {
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
     public String createEBooking(@RequestParam("parkingname") String parkingname, Model model, HttpSession session) {
         try {
-
             HttpEntity request = restTemplate.setRequest();
             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "parking/" + parkingname, HttpMethod.GET, request, ParkingRes.class);
             ParkingRes parkingRes = (ParkingRes) response.getBody();
             BookingReq b = new BookingReq();
             b.setParkingname(parkingname);
+            String code = "A";
+            int step = 1;
+            String[] arrCode = new String[parkingRes.getNop()];
+            for (int i = 0; i < parkingRes.getNop(); i++) {
+                if (i != 0 && (i % parkingRes.getColumnofrow() == 0)) {
+                    int charValue = code.charAt(0);
+                    code = String.valueOf((char) (charValue + 1));
+                    step = 1;
+                }
+                arrCode[i] = (code + (step));
+                step++;
+            }
+            //call list location code booked
+            ResponseEntity<?> response1 = restTemplate.excuteRequest(PATH_API + 
+                    "booking-location-code?parkingname="+ parkingname,
+                    HttpMethod.GET, request, String[].class);
+            model.addAttribute("listCodeBooked", response1.getBody());
+            model.addAttribute("arrCode", arrCode);
+            model.addAttribute("columnOfRow", parkingRes.getColumnofrow());
             model.addAttribute("rentcost", parkingRes.getRentcost());
             model.addAttribute("address", parkingRes.getAddress());
             model.addAttribute("bookingReq", b);
             return "user/booking";
-//            return null;
         } catch (Exception e) {
             return "badrequest";
         }
@@ -240,8 +258,10 @@ public class TransactionController {
         try {
             if (bookingReq.getChannel().equals("Wallet")) {
                 LoginRes loginRes = (LoginRes) session.getAttribute("account");
-                NewBookingReq newBookingReq = new NewBookingReq(loginRes.getUsername(), bookingReq.getStarttime(),
-                        bookingReq.getTimenumber(), bookingReq.getCarname(), bookingReq.getLisenceplates(), bookingReq.getParkingname(), true);
+                NewBookingReq newBookingReq = new NewBookingReq(loginRes.getUsername(),
+                        bookingReq.getStarttime(), bookingReq.getTimenumber(),
+                        bookingReq.getLocationcode(), bookingReq.getCarname(),
+                        bookingReq.getLisenceplates(), bookingReq.getParkingname(), true);
                 HttpEntity request = restTemplate.setRequest(newBookingReq);
                 ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, request, String.class);
                 if (response.getStatusCode().equals(HttpStatus.OK)) {
@@ -313,7 +333,7 @@ public class TransactionController {
             LocalDate fromLocalDate = LocalDate.parse(fromDate, formatter);
             LocalDate toLocalDate = LocalDate.parse(toDate, formatter);
             HttpEntity request = restTemplate.setRequest();
-             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "all-transactions/search?from-date=" + fromLocalDate + "&to-date=" + toLocalDate + "&page=0&size=1000", HttpMethod.GET, request, PageTransactionRes.class);
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "all-transactions/search?from-date=" + fromLocalDate + "&to-date=" + toLocalDate + "&page=0&size=1000", HttpMethod.GET, request, PageTransactionRes.class);
             PageTransactionRes pageTransactionRes = (PageTransactionRes) response.getBody();
             List<TransactionRes> usertransactions = pageTransactionRes.getListTransaction();
             int[] nav = new int[pageTransactionRes.getTotalPages()];
@@ -328,7 +348,7 @@ public class TransactionController {
             return "badrequest";
         }
     }
-    
+
     @RequestMapping(value = "/export/pdf", method = RequestMethod.GET)
     public String exportPDF(@RequestParam("id") String id, HttpServletResponse response,
             HttpSession session) throws IOException, DocumentException {

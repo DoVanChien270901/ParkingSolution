@@ -5,7 +5,9 @@
 package fpt.aptech.ParkingApi.repositorys;
 
 import fpt.aptech.ParkingApi.dto.response.BookingDetailRes;
+import fpt.aptech.ParkingApi.dto.response.BookingOfParkingRes;
 import fpt.aptech.ParkingApi.dto.response.BookingRes;
+import fpt.aptech.ParkingApi.dto.response.ItemPageBooking;
 import fpt.aptech.ParkingApi.entities.Booking;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,9 +37,18 @@ public interface BookingRepo extends JpaRepository<Booking, Integer> {
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("UPDATE Booking b SET b.status = :status, b.checkin = :checkin WHERE b.id = :id")
     int updateStatusAndCheckIn(@PathVariable("status") String status, @PathVariable("checkin") LocalDateTime checkin, @PathVariable("id") int id);
-    
+
     @Transactional
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("UPDATE Booking b SET b.status = :status, b.checkout = :checkout WHERE b.id = :id")
     int updateStatusAndCheckOut(@PathVariable("status") String status, @PathVariable("checkout") LocalDateTime checkout, @PathVariable("id") int id);
+
+    @Query(name = "getListAllBooking", nativeQuery = true)
+    List<ItemPageBooking> getListAllBooking();
+
+    @Query(value = "SELECT b.locationcode FROM Booking b WHERE b.parkingname = :parkingname", nativeQuery = true)
+    List<String> getLocationCodeByParkingName(@Param("parkingname") String useranme);
+    
+    @Query(name = "getListBookingByParkingName", nativeQuery = true)
+    List<ItemPageBooking> getListBookingByParkingName(@Param("parkingname") String parkingname);
 }

@@ -79,4 +79,5 @@ public class BookingController {
     public String newBooking(@RequestParam("username") String username) {
         return "handle/booking";
     }
+   
 }

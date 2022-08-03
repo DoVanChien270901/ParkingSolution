@@ -9,7 +9,12 @@ import fpt.aptech.ParkingApi.dto.qrcontent.BookingQrContent;
 import fpt.aptech.ParkingApi.dto.request.NewBookingReq;
 import fpt.aptech.ParkingApi.dto.response.ScanQrCodeBookingRes;
 import fpt.aptech.ParkingApi.dto.response.BookingDetailRes;
+import fpt.aptech.ParkingApi.dto.response.BookingOfParkingRes;
 import fpt.aptech.ParkingApi.dto.response.BookingRes;
+import fpt.aptech.ParkingApi.dto.response.ItemPageBooking;
+import fpt.aptech.ParkingApi.dto.response.PageBookingRes;
+import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
+import fpt.aptech.ParkingApi.dto.response.ParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ScanBookingRes;
 import fpt.aptech.ParkingApi.entities.*;
 import fpt.aptech.ParkingApi.interfaces.IBooking;
@@ -24,6 +29,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 /**
@@ -97,4 +104,37 @@ public class BookingService implements IBooking {
         return res;
     }
 
+    @Override
+    public PageBookingRes findAll(int page, int size) {
+        List<ItemPageBooking> item = _bookingRepo.getListAllBooking();
+        PagedListHolder holder = new PagedListHolder(item);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageBookingRes res = new PageBookingRes();
+        res.setCurrentPage(page);
+        res.setSize(size);
+        res.setTotalPages(holder.getPageCount());
+        res.setListBooking(holder.getPageList());
+        return res;
+    }
+
+    @Override
+    public List<String> getLocationCode(String Parkingname) {
+        return _bookingRepo.getLocationCodeByParkingName(Parkingname);
+    }
+
+    @Override
+    public PageBookingRes getByParkingName(String Parkingname, int page, int size) {
+        List<ItemPageBooking> item = _bookingRepo.getListBookingByParkingName(Parkingname);
+        PagedListHolder holder = new PagedListHolder(item);
+        holder.setPageSize(size);
+        holder.setPage(page);
+        PageBookingRes res = new PageBookingRes();
+        res.setCurrentPage(page);
+        res.setSize(size);
+        res.setTotalPages(holder.getPageCount());
+        res.setListBooking(holder.getPageList());
+        return res;
+    }
+    
 }

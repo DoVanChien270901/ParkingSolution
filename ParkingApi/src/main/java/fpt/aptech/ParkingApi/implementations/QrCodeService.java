@@ -44,6 +44,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import org.modelmapper.ModelMapper;
@@ -70,7 +71,9 @@ public class QrCodeService implements IQrCode {
     @Autowired
     private BookingRepo _bookingRepo;
     @Autowired
-    private ParkingHistoryRepo _parkingRepo;
+    private ParkingHistoryRepo _parkingHistoryRepo;
+    @Autowired
+    private ParkingRepo _parkingRepo;
 
     @Override
     public void create(Qrcode qrCode, Object obContent) {
@@ -154,7 +157,7 @@ public class QrCodeService implements IQrCode {
                     p.setCarname(booking.getCarname());
                     p.setLisenceplates(booking.getLisenceplates());
                     p.setParkingname(booking.getParkingname());
-                    _parkingRepo.save(p);
+                    _parkingHistoryRepo.save(p);
                     _bookingRepo.delete(booking);
                     List<Qrcode> qrcodes = _qrcodeRepository.getByUserNameAndTBooking(bookingQrContent.getUsername());
                     for (Qrcode qrcode : qrcodes) {
@@ -165,6 +168,7 @@ public class QrCodeService implements IQrCode {
                             break;
                         }
                     }
+                    _parkingRepo.plusOneBlank(booking.getParkingname().getName());
                     return true;
                 }
             }
@@ -172,4 +176,40 @@ public class QrCodeService implements IQrCode {
         return false;
     }
 
+    public static void test() {
+        String column = "A";
+        int socot1hang = 5;
+        int tong = 20;
+        int vitri = 7; //->b2
+        List<String> list = new ArrayList<>();
+        for (int i = socot1hang; i < tong; i = i + socot1hang) {
+            if (i == 5) {
+                int charValue = column.charAt(0);
+                column = String.valueOf((char) (charValue + 1));
+            }
+        }
+        System.err.println(column + (vitri % socot1hang));
+    }
+    public static void list() {
+        String column = "A";
+        int socot1hang = 5;
+        int tong = 17;
+        int step = 1;
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < tong; i++) {
+            if (i != 0 && (i % 5 == 0)) {
+                int charValue = column.charAt(0);
+                column = String.valueOf((char) (charValue + 1));
+                step = 1;
+            }
+            list.add(column+(step));
+            step++;
+        }
+        list.stream().forEach(
+        a->System.out.println(a));
+    }
+
+//    public static void main(String[] args) {
+//        list();
+//    }
 }
