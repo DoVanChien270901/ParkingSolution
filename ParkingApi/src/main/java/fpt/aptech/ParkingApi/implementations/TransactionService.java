@@ -185,7 +185,7 @@ public class TransactionService implements ITransaction {
             CloseableHttpClient client = HttpClients.createDefault();
             HttpPost post = new HttpPost(MomoConfig.CREATE_ORDER_URL_QR);
             StringEntity stringEntity = new StringEntity(json.toString());
-            post.setHeader("content-type", "application/json;charset=UTF-8\"");
+            post.setHeader("content-type", "application/json;charset=UTF-8");
             post.setEntity(stringEntity);
 
             CloseableHttpResponse res = client.execute(post);
@@ -205,7 +205,7 @@ public class TransactionService implements ITransaction {
                 transactionRes.setReturnMessage(result.getString("localMessage"));
                 transactionRes.setSignature(result.getString("signature"));
                 transactionRes.setTransNo(result.getString("orderId"));
-
+                
 //                kq.put("requestType", result.get("requestType"));
 //                kq.put("requestId", result.get("requestId"));
 //                kq.put("message", result.get("message"));
@@ -454,9 +454,9 @@ public class TransactionService implements ITransaction {
         transInfo.setStype(transactionReq.getStype());
         transInfo.setTransno(transactionReq.getPaymentReq().getTransno());
         if (statuscode == 0) {
-            Double balance = _proProfileRepository.getBalanceByUsername(transactionReq.getUsername());
-            Double amount = Double.valueOf(transactionReq.getAmount());
             if (transactionReq.getStype().equals("e-Recharge")) {
+                Double balance = _proProfileRepository.getBalanceByUsername(transactionReq.getUsername());
+                Double amount = Double.valueOf(transactionReq.getAmount());
                 _proProfileRepository.updateBalanceByUsername(balance + amount, transactionReq.getUsername());
             } else if (transactionReq.getStype().equals("e-Booking")) {
                 transInfo.setParkingname(_parkingRepo.getByName(transactionReq.getParkingname()));

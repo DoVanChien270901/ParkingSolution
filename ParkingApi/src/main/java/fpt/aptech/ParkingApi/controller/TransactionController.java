@@ -13,6 +13,7 @@ import fpt.aptech.ParkingApi.dto.request.ERechargeReq;
 import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
+import fpt.aptech.ParkingApi.entities.Transactioninformation;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
@@ -94,7 +95,6 @@ public class TransactionController {
         }
     }
 
-    //doit
     @RequestMapping(value = "/e-booking", method = RequestMethod.POST)
     public ResponseEntity<?> eBooking(@RequestBody EBookingReq bookingReq) {
         //something code
@@ -156,7 +156,26 @@ public class TransactionController {
         }
     }
 
-    @RequestMapping(value = "/all-transaction", method = RequestMethod.GET)
+    @RequestMapping(value = "/createTransaction", method = RequestMethod.POST)
+    public ResponseEntity<?> createTransaction(@RequestBody TransactionReq transactionReq) {
+        String s = null;
+        try {
+            //Dont checkstatus
+            if (_transactionServices.getbyTransNo(transactionReq.getPaymentReq().getTransno()) != null) {
+                s = "issaved";
+                return new ResponseEntity(s, HttpStatus.BAD_REQUEST);
+            }            
+            if (_transactionServices.create(transactionReq, 0) != null) {
+                s = "success";
+                return new ResponseEntity(s, HttpStatus.OK);
+            }
+            return new ResponseEntity(s , HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/list-transaction", method = RequestMethod.GET)
     public ResponseEntity<?> listTransaction(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
             PageTransactionRes pageTransactionRes = _transactionServices.findAll(page, size); // fisrt page = 0

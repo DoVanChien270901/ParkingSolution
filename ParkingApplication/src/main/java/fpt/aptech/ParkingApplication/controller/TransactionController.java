@@ -268,7 +268,7 @@ public class TransactionController {
                     int id = Integer.valueOf(response.getBody().toString());
                     return "redirect:/booking-details?id=" + id;
                 } else {
-                    return "redirect:https://www.facebook.com/";
+                    return "badrequest";
                 }
             } else {
                 LoginRes loginRes = (LoginRes) session.getAttribute("account");

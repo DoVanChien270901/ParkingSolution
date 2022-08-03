@@ -37,6 +37,10 @@ public class NewBookingReq {
         return starttime;
     }
 
+    public void setStarttime(String starttime) {
+        this.starttime = LocalDateTime.parse(starttime);
+    }
+    
     public void setStarttime(LocalDateTime starttime) {
         this.starttime = starttime;
     }

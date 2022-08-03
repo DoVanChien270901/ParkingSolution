@@ -35,7 +35,7 @@ public class BookingReq {
         return starttime;
     }
 
-    public void setStarttime(String starttime) {
+    public void setStarttime(String  starttime) {
         this.starttime = LocalDateTime.parse(starttime);
     }
 

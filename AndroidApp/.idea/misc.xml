@@ -3,6 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/drawable/boder_qrcode.xml" value="0.196" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_booking.xml" value="0.25" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_login.xml" value="0.2546875" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main.xml" value="0.2546875" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_maps.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_profile.xml" value="0.2546875" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_register.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_testavt1.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/all_parking_info.xml" value="0.2546875" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.33" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/bottom_sheet_view.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/fragment_home.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/fragment_profile.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/header.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/progress_dialog_loadding.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/menu/actionbar_edit_profile_menu.xml" value="0.18385416666666668" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/menu/user_main_menu.xml" value="0.33" />
+        <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.196" />
         <entry key="..\:/ProjectSem4/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_login_at.xml" value="0.1796875" />
         <entry key="..\:/ProjectSem4/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/ProjectSem4/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main_user.xml" value="0.1796875" />
