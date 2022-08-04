@@ -73,18 +73,18 @@
                     <form th:action="@{/a/revenue/month}" method="get">
                         <div class="row">
                             <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <select  th:name="year" class="form-control">
+                                <select  th:name="year" class="form-control border-primary">
                                     <option th:each="item : ${arrYear}" th:value="${item}" th:text="${item}" th:selected="(${year} == ${item})"></option>
                                 </select>
                             </div>
                             <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <select id="mySelect" th:name="type" class="form-control">
+                                <select id="mySelect" th:name="type" class="form-control border-primary">
                                     <option value="line">Line Chart</option>
                                     <option value="bar">Bar Chart</option>
                                 </select>
                             </div>
                             <div class="col-2 col-lg-2 col-md-2 col-sm-2" style="padding: 6px;">
-                                <button class="btn btn-success" type="submit">Submit</button>
+                                <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </div>  
                     </form>

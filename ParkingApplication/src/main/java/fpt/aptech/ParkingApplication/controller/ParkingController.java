@@ -67,7 +67,12 @@ public class ParkingController {
     }
 
     @RequestMapping(value = "/map", method = RequestMethod.GET)
-    public String map() {
+    public String map(Model model) {
+        HttpEntity resquest = RestTemplateConfiguration.setRequest();
+        ResponseEntity response = RestTemplateConfiguration
+                .excuteRequest(PATH_API+ "list-parking", HttpMethod.GET, resquest, ParkingRes[].class);
+        ParkingRes[] listParking = (ParkingRes[]) response.getBody();
+        model.addAttribute("listparking", listParking);
         return "user/google-map";
     }
 

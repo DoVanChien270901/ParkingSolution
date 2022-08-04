@@ -10,7 +10,7 @@
         <div class="main-container" layout:fragment="admin-content">
             <div th:if="${listProfile}" class="xs-pd-20-10 pd-ltr-20">
                 <div class="title pb-20">
-                    <h2 class="h2 p-1 mb-2">User Manager</h2>
+                    <h2 class="h2 p-1 mb-2 text-primary">User Manager</h2>
                 </div>
                 <div class="pd-20 card-box mb-30" id="list-user">
                     <h6 class="p-1">Search By Name</h6>
@@ -19,7 +19,7 @@
                             <form th:action="@{/list-user/search}" method="GET">
                                 <div class="row">
                                     <div class="col-10 col-md-10 col-lg-10 col-sm-10 p-1">
-                                        <input type="text" th:name="name" class="form-control" placeholder="Name...">
+                                        <input type="text" th:name="name" class="form-control border-primary" placeholder="Name...">
                                     </div>
                                     <div class="col-2 col-md-2 col-lg-2 col-sm-2 p-2">
                                         <button type="submit" class="btn btn-sm btn-primary ml-0 form-label">
@@ -30,10 +30,10 @@
                             </form>
                         </div>
                     </div>
-                    <div class="table-res p-1">
-                        <table class="table">
+                    <div class="p-1">
+                        <table class="table table-responsive-md">
                             <thead>
-                                <tr>
+                                <tr class="table-secondary">
                                     <th>Name</th>
                                     <th>Identity Card</th>
                                     <th>Email</th>

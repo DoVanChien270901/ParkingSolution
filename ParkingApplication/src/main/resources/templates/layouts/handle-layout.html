@@ -29,11 +29,10 @@
                             <span class="user-icon">
                                 <img th:src="@{/vendorsc/images/male.jpg}" alt="">
                             </span>
-                            <span class="user-name">Admin</span>
+                            <span class="user-name" th:text="${session.account.getFullname().toString()}"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a class="dropdown-item" href=""><i class="dw dw-user1"></i> Profile</a>
-                            <a class="dropdown-item" href=""><i class="dw dw-logout"></i> Log Out</a>
+                            <a class="dropdown-item" th:href="@{/account/logout}"><i class="dw dw-logout"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -89,5 +88,4 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" layout:fragment="code-javascript"></script>
     </body>
-
 </html>

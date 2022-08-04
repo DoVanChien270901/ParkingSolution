@@ -24,7 +24,7 @@
                             <span class="user-icon">
                                 <img th:src="@{/vendorsc/images/photo.jpg}" alt="">
                             </span>
-                            <span class="user-name">Admin</span>
+                            <span class="user-name" th:text="${session.account.getFullname().toString()}"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                             <!--<a class="dropdown-item" href=""><i class="dw dw-user1"></i> Profile</a>-->
