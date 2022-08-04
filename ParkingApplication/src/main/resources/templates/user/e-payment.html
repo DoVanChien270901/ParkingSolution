@@ -57,12 +57,12 @@
                                             <div class="row row-form-check-radio-for-payment">
                                                 <div class="form-momo mb-3 p-3 col-6 col-md-6 col-lg-6">
                                                     <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
-                                                    <span class="title-momo">Momo</span>
+                                                    <label for="radio-momo" class="title-momo">Momo</label>
                                                     <input type="radio" id="radio-momo" th:field="*{channel}" value="Momo"> 
                                                 </div>
                                                 <div class="form-zalopay mb-3 p-3 col-6 col-md-6 col-lg-6">
                                                     <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
-                                                    <span class="title-zalopay">ZaloPay</span>
+                                                    <label for="radio-zalopay" class="title-zalopay">ZaloPay</label>
                                                     <input type="radio" id="radio-zalopay" th:field="*{channel}" value="Zalopay"> 
                                                 </div>
                                                 <div class="input-group box-error-payment-method">

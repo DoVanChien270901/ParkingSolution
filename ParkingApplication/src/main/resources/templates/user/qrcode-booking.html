@@ -62,7 +62,7 @@
                                                 <td data-label="#" class="id-table col-lg-2" id="bookingid" th:text="${item.getId()}"></td>
                                                 <td data-label="Parking Name" th:text="${item.getParkingname()}"></td>
                                                 <td data-label="Amount" th:text="${#numbers.formatInteger(item.getPrice(), 1, 'COMMA') + ' VND'}"></td>
-                                                <td data-label="Date Time" th:text="${item.getStarttime()}"></td>
+                                                 <td data-label="Date Time" type="date" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
                                                 <td data-label="Time Number" class="col-lg-2" th:text="${item.getTimenumber()}"></td>
                                             </tr>
                                         </tbody>

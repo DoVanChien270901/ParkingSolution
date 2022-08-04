@@ -6,31 +6,28 @@ var ddisplay = null;
 var radius_circle = null;
 var buttonDirection;
 var markerArray = [];
-var parkingLocations = [];
-
 //Call Api Get List Parking
-let myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    body: null,
-    redirect: "follow",
-};
-
-var api = "http://localhost:8080/list-parking";
-fetch(api, requestOptions)
-        .then((response) => {
-            return response.json();
-        })
-        .then((result) => {
-            parkingLocations = result;
-            showMap();
-        })
-        .catch((error) => console.log("error", error));
-
-
+//let myHeaders = new Headers();
+//myHeaders.append("Content-Type", "application/json");
+//
+//var requestOptions = {
+//    method: "GET",
+//    headers: myHeaders,
+//    body: null,
+//    redirect: "follow",
+//};
+//var api = "http://localhost:8080/list-parking";
+//fetch(api, requestOptions)
+//        .then((response) => {
+//            return response.json();
+//        })
+//        .then((result) => {
+//            parkingLocations = result;
+//            console.log("api");
+//            showMap();
+//        })
+//        .catch((error) => console.log("error", error));
+//console.log(parkingLocations);
 // List Elements
 function listElements(parking, calulate) {
     const ul = document.querySelector('.list-items');
@@ -290,7 +287,6 @@ function showMap() {
         showPlace(lat, long);
     });
 }
-
 $(document).ready(function () {
     $('#shop-item booking-list').click(function () {
         var id = $(this).attr('value');

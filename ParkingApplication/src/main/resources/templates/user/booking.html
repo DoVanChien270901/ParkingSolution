@@ -86,17 +86,17 @@
                                             <div class="row row-form-check-radio-for-payment">
                                                 <div class="form-momo mb-3 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
                                                     <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
-                                                    <span class="title-momo">Momo</span>
+                                                    <label for="radio-momo" class="title-momo">Momo</label>
                                                     <input type="radio" id="radio-momo" th:field="*{channel}" value="Momo" name="payment" checked="true"> 
                                                 </div>
                                                 <div class="form-zalopay mb-3 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
                                                     <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
-                                                    <span class="title-zalopay">ZaloPay</span>
+                                                    <label for="radio-zalopay" class="title-zalopay">ZaloPay</label>
                                                     <input type="radio" id="radio-zalopay" th:field="*{channel}" value="Zalopay" name="payment"> 
                                                 </div>
                                                 <div class="form-wallet mb-3 p-2 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
                                                     <img class="wallet" th:src="@{/assetsc/img/wallet.png}" onclick="checkWallet()">
-                                                    <span class="title-wallet">Wallet</span>
+                                                    <label for="radio-wallet" class="title-wallet">Wallet</label>
                                                     <input style="margin-left:6px;" type="radio" id="radio-wallet" th:field="*{channel}" value="Wallet"  name="payment"> 
                                                 </div>
                                                 <div style="margin-left: 3px;" class="invalid-feedback invalid-error-mess-parking-booking">

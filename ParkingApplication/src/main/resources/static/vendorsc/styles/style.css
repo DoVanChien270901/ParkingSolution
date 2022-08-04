@@ -3782,51 +3782,51 @@ body.IE .register-page-wrap .container {
 }
 
 .task-list-form .form-control {
-    font-weight: 400
+    font-weight: 400;
 }
 
 .task-list-form textarea.form-control {
-    height: 80px
+    height: 80px;
 }
 
 .task-list-form .btn-outline-primary {
-    border-color: #ced4da
+    border-color: #ced4da;
 }
 
 .add-more-task,
 .chat-box .chat-desc ul li.admin_chat .chat-body .chat_time {
-    text-align: right
+    text-align: right;
 }
 
 .add-more-task a {
     display: inline-block;
     padding: 10px;
-    color: #2976aa
+    color: #2976aa;
 }
 
 .profile-timeline {
-    padding: 30px
+    padding: 30px;
 }
 
 .profile-timeline .timeline-month {
-    margin-bottom: 20px
+    margin-bottom: 20px;
 }
 
 .profile-timeline .timeline-month h5 {
     font-size: 16px;
-    font-weight: 700
+    font-weight: 700;
 }
 
 .profile-timeline-list ul {
     padding-left: 15px;
-    position: relative
+    position: relative;
 }
 
 .profile-timeline-list ul:before {
     content: "";
     width: 2px;
     left: 4px;
-    background-color: #1b00ff
+    background-color: #1b00ff;
 }
 
 .profile-timeline-list ul li {
