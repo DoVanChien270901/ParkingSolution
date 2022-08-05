@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:orientation="vertical"
-    android:background="#F8EE94"
+    android:background="@color/blue_default"
     android:gravity="bottom"
     android:paddingLeft="20dp"
     >
@@ -29,52 +29,52 @@
             android:layout_gravity="center"></ImageView>
     </FrameLayout>
 
+
     <TextView
         android:id="@+id/hd_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/baloo"
+        android:fontFamily="@font/arimo"
         android:paddingLeft="10dp"
         android:text="Đỗ Văn Chiến"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.096"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.353"></TextView>
-
-    <TextView
-        android:id="@+id/hd_tv_balance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/baloo"
-        android:paddingLeft="10dp"
-        android:text="10000 VND"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.650"></TextView>
+        app:layout_constraintVertical_bias="0.316"></TextView>
 
     <TextView
         android:id="@+id/hd_tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/baloo"
+        android:fontFamily="@font/arimo"
         android:paddingLeft="10dp"
 
         android:text="vanchien270901@gmail.com"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.520"></TextView>
+        app:layout_constraintVertical_bias="0.502"></TextView>
 
+    <TextView
+        android:id="@+id/hd_tv_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arimo"
+        android:paddingLeft="10dp"
+        android:text="10000 VND"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.681"></TextView>
 
     <ImageButton
         android:id="@+id/hd_ibtn_edit"
@@ -83,10 +83,10 @@
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.920"
+        app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.183"
-        app:srcCompat="@drawable/edit_icon" />
+        app:layout_constraintVertical_bias="0.181"
+        app:srcCompat="@drawable/edit_icon"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

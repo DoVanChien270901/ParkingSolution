@@ -14,11 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/baloo"
         android:freezesText="false"
         android:text="Parkingname"
         android:textAlignment="center"
-        android:textColor="#034981"
-        android:textSize="40dp"
+        android:textColor="@color/blue_default"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <EditText
@@ -58,39 +59,58 @@
         android:layout_gravity="center"
         android:layout_margin="15dp"
         android:ems="10"
-        android:hint="DateTime"/>
+        android:hint="DateTime" />
+
+    <EditText
+        android:id="@+id/a_booking_et_locationcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:ems="10"
+        />
+
+    <Button
+        android:id="@+id/a_booking_btn_choselocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:backgroundTint="@color/blue_default"
+        android:text="Location" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="15dp">
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
 
         <RadioButton
+            android:layout_marginHorizontal="16dp"
             android:id="@+id/a_booking_rb_momo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Momo" />
 
         <RadioButton
+            android:layout_marginHorizontal="16dp"
             android:id="@+id/a_booking_rb_zalopay"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Zalopay" />
 
         <RadioButton
+            android:layout_marginHorizontal="16dp"
             android:id="@+id/a_booking_rb_wallet"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Momo" />
+            android:text="Wallet" />
     </RadioGroup>
-
     <Button
-        android:id="@+id/a_booking_btn_book"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#3F51B5"
-        android:text="Book" />
+            android:id="@+id/a_booking_btn_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="130dp"
+            android:backgroundTint="@color/blue_default"
+            android:text="Book" />
 </LinearLayout>

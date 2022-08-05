@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         /*--------------------------------Load Fragment--------------------------*/
         replaceFragment(new HomeF());
-
         /*---------------------------------Hooks-----------------------------*/
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.user_nav_view);

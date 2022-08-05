@@ -12,5 +12,5 @@
         android:text="Home_Fragment"
         android:textSize="50dp"
         android:textStyle="bold"
-        android:textColor="@color/blue"></TextView>
+        android:textColor="@color/blue_default"></TextView>
 </LinearLayout>

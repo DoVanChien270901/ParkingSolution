@@ -2,8 +2,11 @@ package fpt.aptech.parkinggo.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -18,9 +21,11 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +55,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.navigation.NavigationView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -73,10 +79,11 @@ import fpt.aptech.parkinggo.databinding.ActivityMapsBinding;
 import fpt.aptech.parkinggo.domain.dto.BottomSheetListView;
 import fpt.aptech.parkinggo.domain.dto.FetchURL;
 import fpt.aptech.parkinggo.domain.dto.TaskLoadedCallback;
+import fpt.aptech.parkinggo.domain.response.LoginRes;
 import fpt.aptech.parkinggo.domain.response.ParkingRes;
+import fpt.aptech.parkinggo.statics.Session;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, TaskLoadedCallback {
-
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, TaskLoadedCallback, NavigationView.OnNavigationItemSelectedListener {
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     LocationRequest locationRequest;
@@ -89,18 +96,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Polyline currentPolyline;
     LatLng currentMarker;
     ImageButton menuList;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    private TextView tvName;
+    private TextView tvEmail;
+    private TextView tvBalance;
+    private ImageButton ibtnEdit;
+    private ImageView qrcode;
     private static final String TAG = "MapsActivity";
 
     ParkingRes[] parkingLocationList = null;
     //ParkingRes parkingLocation1 = new ParkingRes("Le Thi Rieng Parking Lot","10.786140368621982","106.66553523925666","Cach Mang Thang Tam, Ward 15, District 10, Ho Chi Minh City, Vietnam",50,50,20);
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent intent = getIntent();
+        /*---------------------------------Hooks-----------------------------*/
+        drawerLayout = findViewById(R.id.drawer_layout1);
+        navigationView = findViewById(R.id.user_nav_view1);
+        toolbar = findViewById(R.id.toolbar1);
+        /*--------------------------------Load TextView Header --------------------------*/
+        View header = navigationView.getHeaderView(0);
+        tvName = header.findViewById(R.id.hd_tv_name);
+        tvEmail = header.findViewById(R.id.hd_tv_email);
+        tvBalance = header.findViewById(R.id.hd_tv_balance);
+        qrcode = header.findViewById(R.id.f_profile_imv_qrcode);
+        LoginRes loginRes = (LoginRes) Session.getSession();
+        tvName.setText(loginRes.getFullname());
+        tvEmail.setText(loginRes.getEmail());
+//        DecimalFormat formatter = new DecimalFormat("###,###,###");
+//        tvBalance.setText(formatter.format(loginRes.getBalance()) + " VND");
+        tvBalance.setText(loginRes.getBalance() + " VND");
+        Bitmap bmp = BitmapFactory.decodeByteArray(loginRes.getQrcode(), 0, loginRes.getQrcode().length);
+        qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
+        /*--------------------------------Tool Bar--------------------------*/
+        //setSupportActionBar(toolbar);
+        /*--------------------------------Navigation Drawer Menu--------------------------*/
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
         //call api
         LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
         try {
@@ -413,6 +454,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 
 //    @Override
