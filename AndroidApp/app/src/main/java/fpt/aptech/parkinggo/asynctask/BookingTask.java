@@ -2,35 +2,29 @@ package fpt.aptech.parkinggo.asynctask;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.EditText;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.NewBookingReqBuilder;
 import fpt.aptech.parkinggo.domain.request.NewBookingReq;
-import fpt.aptech.parkinggo.domain.request.TransactionReq;
-import fpt.aptech.parkinggo.domain.response.EBookingRes;
+import fpt.aptech.parkinggo.domain.response.EPaymentRes;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
 import fpt.aptech.parkinggo.statics.Session;
 
 public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
 
     private Activity activity;
-    private EBookingRes bookingRes;
+    private EPaymentRes bookingRes;
 
     public BookingTask() {
     }
 
-    public BookingTask(Activity activity, EBookingRes bookingRes) {
+    public BookingTask(Activity activity, EPaymentRes bookingRes) {
         this.activity = activity;
         this.bookingRes = bookingRes;
     }
@@ -46,7 +40,6 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
         HttpEntity request2 = RestTemplateConfiguration.setRequest(bookingRes.getTransactionReq());
         ResponseEntity<?> response2 = RestTemplateConfiguration
                 .excuteRequest(uri + "createTransaction", HttpMethod.POST, request2, String.class);
-//        TransactionReq transactionReq = (TransactionReq) response2.getBody();
 
 //        //booking
         EditText etTimenum = activity.findViewById(R.id.a_booking_et_timenum);

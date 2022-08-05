@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:context=".activity.RechargeActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="10dp"
+        android:freezesText="false"
+        android:text="Recharge"
+        android:textAlignment="center"
+        android:textColor="#034981"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/a_recharge_et_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_margin="15dp"
+        android:hint="Amount"
+        android:inputType="number" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp">
+
+        <RadioButton
+            android:id="@+id/a_recharge_rb_momo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Momo" />
+
+        <RadioButton
+            android:id="@+id/a_recharge_rb_zalopay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zalopay" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/a_recharge_btn_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#3F51B5"
+        android:text="Recharge" />
+</LinearLayout>
