@@ -7,6 +7,7 @@ public class ParkingRes implements Serializable {
     private String latitude;
     private String longtitude;
     private String address;
+    private int columnofrow;
     private int nop;
     private int blank;
     private double rentcost;
@@ -14,11 +15,12 @@ public class ParkingRes implements Serializable {
     public ParkingRes() {
     }
 
-    public ParkingRes(String name, String latitude, String longtitude, String address, int nop, int blank, double rentcost) {
+    public ParkingRes(String name, String latitude, String longtitude, String address, int columnofrow, int nop, int blank, double rentcost) {
         this.name = name;
         this.latitude = latitude;
         this.longtitude = longtitude;
         this.address = address;
+        this.columnofrow = columnofrow;
         this.nop = nop;
         this.blank = blank;
         this.rentcost = rentcost;
@@ -54,6 +56,14 @@ public class ParkingRes implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getColumnofrow() {
+        return columnofrow;
+    }
+
+    public void setColumnofrow(int columnofrow) {
+        this.columnofrow = columnofrow;
     }
 
     public int getNop() {

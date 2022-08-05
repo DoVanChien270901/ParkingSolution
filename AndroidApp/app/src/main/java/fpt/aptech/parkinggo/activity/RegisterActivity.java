@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         // Title Bar
         actionBar.setTitle("Register");
+
         CustomProgressDialog dialog = new CustomProgressDialog(RegisterActivity.this);
         Button button = findViewById(R.id.a_login_btn_signin);
         button.setOnClickListener(new View.OnClickListener() {

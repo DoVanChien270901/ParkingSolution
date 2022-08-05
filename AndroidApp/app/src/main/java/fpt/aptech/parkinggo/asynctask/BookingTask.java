@@ -53,6 +53,7 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
         EditText etCarname = activity.findViewById(R.id.a_booking_et_carname);
         EditText etLisenceplates = activity.findViewById(R.id.a_booking_et_lisenceplates);
         EditText etStarttime = activity.findViewById(R.id.a_booking_et_date);
+        EditText etLocationCode = activity.findViewById(R.id.a_booking_et_locationcode);
 
         NewBookingReq newBookingReq = new NewBookingReqBuilder()
                 .setParkingname(bookingRes.getTransactionReq().getParkingname())
@@ -63,6 +64,7 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
                 .setStarttime(etStarttime.getText().toString())
                 .setWalletparking(false)
                 .createBookEReq();
+        newBookingReq.setLocationcode(etLocationCode.getText().toString());
 
         HttpEntity request = RestTemplateConfiguration.setRequest(newBookingReq);
         ResponseEntity<?> response = RestTemplateConfiguration

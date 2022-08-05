@@ -7,13 +7,20 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -28,7 +35,9 @@ import java.util.concurrent.ExecutionException;
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.asynctask.BookingTask;
 import fpt.aptech.parkinggo.asynctask.CreatePaymentTask;
+import fpt.aptech.parkinggo.asynctask.LoadStatusParkingTask;
 import fpt.aptech.parkinggo.domain.response.EBookingRes;
+import fpt.aptech.parkinggo.domain.response.LoadStatusParking;
 import vn.momo.momo_partner.AppMoMoLib;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
@@ -45,10 +54,13 @@ public class BookingActivity extends AppCompatActivity {
     private EditText etTimenumber;
 
     private Button btnBook;
+    private Button btnselectLocation;
     private RadioButton rbMomo;
     private RadioButton rbZalopay;
     private RadioButton rbWallet;
+    private String message;
 
+    private TableLayout tb;
 
     //MOMo
     private Integer fee = 0;
@@ -72,7 +84,7 @@ public class BookingActivity extends AppCompatActivity {
 
         //get Parking Name
         Intent intent = getIntent();
-        String message = intent.getStringExtra("parkingname");
+        message = intent.getStringExtra("parkingname");
         parkingname = findViewById(R.id.a_booking_et_parkingname);
         parkingname.setText(message);
 
@@ -83,6 +95,20 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showDateDialog(etDatetime);
+            }
+        });
+
+        btnselectLocation = findViewById(R.id.a_booking_btn_choselocation);
+        btnselectLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    loadDialog();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -278,5 +304,96 @@ public class BookingActivity extends AppCompatActivity {
         };
         new DatePickerDialog(BookingActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
+    public void loadDialog() throws ExecutionException, InterruptedException {
+        LoadStatusParkingTask loadStatusParkingTask = new LoadStatusParkingTask(this, message);
+        LoadStatusParking loadStatusParking = null;
+        try {
+            ResponseEntity<?> response = loadStatusParkingTask.execute().get();
+            loadStatusParking = (LoadStatusParking) response.getBody();
+        }catch (Exception e){}
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View alertView = inflater.inflate(R.layout.table_select_location_dialog, null);
+        TableLayout tableLayout = alertView.findViewById(R.id.dialog_table);
+        TableRow row = new TableRow(this);
+        String selected = "A";
+        int call = 0;
+        for(int i = 0 ; i < loadStatusParking.getLocationcode().length ; i++){
+            row.setLayoutParams(new TableRow.LayoutParams(
+                    TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
+            row.setGravity(Gravity.CENTER_HORIZONTAL);
+            TextView textView = new TextView(this);
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView.setText(loadStatusParking.getLocationcode()[i]);
+            for (int j = 0; j < loadStatusParking.getCodebooked().length; j++){
+                if (loadStatusParking.getLocationcode()[i].equals(loadStatusParking.getCodebooked()[j])){
+                    call = 1;
+                }
+            }
+            if (call == 0){
+                textView.setTextColor(Color.parseColor("#08FF00"));
+                textView.setBackground(getDrawable(R.drawable.border_item_table_row_green));
+            }else if(call==1){
+                textView.setTextColor(Color.parseColor("#FF0000"));
+                textView.setBackground(getDrawable(R.drawable.border_item_table_row_red));
+                call = 0;
+            }
 
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickTextView(textView, alertView);
+                }
+            });
+            textView.setTextSize(12);
+            textView.setWidth(70);
+            textView.setHeight(70);
+//            textView.setPadding(15, 15 ,15 ,15);
+            row.addView(textView);
+            if ((i+1) % loadStatusParking.getColumnofrow() == 0){
+                tableLayout.addView(row);
+                row = new TableRow(this);
+            }
+        }
+        builder.setView(alertView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        Button btnOK = alertView.findViewById(R.id.dialog_btn_ok);
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tvLocationCode = findViewById(R.id.a_booking_et_locationcode);
+                tvLocationCode.setText(textSelected);
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+    TextView selected = null;
+    ColorStateList color;
+    Drawable background;
+    String textSelected;
+    public void onClickTextView(TextView tv, View v){
+        if (tv.getTextColors().getDefaultColor() == ((ColorStateList)ColorStateList.valueOf(Color.parseColor("#FF0000"))).getDefaultColor()){
+            return;
+        }
+        if (selected == null){
+            selected = tv;
+            color = tv.getTextColors();
+            background = tv.getBackground();
+            tv.setTextColor(Color.parseColor("#2196F3"));
+            tv.setBackground(getDrawable(R.drawable.border_item_table_row_blue));
+            textSelected = tv.getText().toString();
+            return;
+        }
+        if (selected !=null){
+            selected.setTextColor(color);
+            selected.setBackground(background);
+            selected = tv;
+            tv.setTextColor(Color.parseColor("#2196F3"));
+            tv.setBackground(getDrawable(R.drawable.border_item_table_row_blue));
+            textSelected = tv.getText().toString();
+            return;
+        }
+    }
 }

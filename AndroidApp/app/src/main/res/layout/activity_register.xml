@@ -7,15 +7,17 @@
     tools:context=".activity.RegisterActivity"
     android:orientation="vertical"
     android:theme="@style/AppTheme.ActionBar">
+
     <TextView
         android:layout_width="279dp"
         android:layout_height="100dp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="100dp"
+        android:fontFamily="@font/baloo"
         android:freezesText="false"
         android:gravity="center"
         android:text="Register"
-        android:textColor="#034981"
+        android:textColor="@color/blue_default"
         android:textSize="50dp"
         android:textStyle="bold" />
 
@@ -25,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:ems="10"
+        android:fontFamily="@font/baloo"
         android:hint="User Name"
         android:inputType="textPersonName" />
 
@@ -34,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:ems="10"
+        android:fontFamily="@font/baloo"
         android:hint="Password"
         android:inputType="textPersonName" />
     <LinearLayout
@@ -41,25 +45,30 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginLeft="160dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="230dp"
+            android:fontFamily="@font/baloo"
             android:text="Not user " />
+
         <TextView
             android:id="@+id/a_tv_register"
-            android:textStyle="bold"
-            android:layout_marginLeft="0dp"
-            android:textColor="@color/blue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Register now?" />
+            android:layout_marginLeft="0dp"
+            android:fontFamily="@font/baloo"
+            android:text="Register now?"
+            android:textColor="@color/blue_default"
+            android:textStyle="bold" />
     </LinearLayout>
+
     <Button
         android:id="@+id/a_login_btn_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
         android:layout_marginTop="30dp"
-        android:backgroundTint="#3F51B5"
-        android:text="Sign In"/>
+        android:backgroundTint="@color/blue_default"
+        android:fontFamily="@font/baloo"
+        android:text="Sign In" />
 </LinearLayout>

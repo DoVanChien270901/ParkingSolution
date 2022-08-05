@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class NewBookingReq {
     private String username;
     private String starttime;
+    private String locationcode;
     private int timenumber;
     private String carname;
     private String lisenceplates;
@@ -38,6 +39,14 @@ public class NewBookingReq {
 
     public void setStarttime(String starttime) {
         this.starttime = starttime;
+    }
+
+    public String getLocationcode() {
+        return locationcode;
+    }
+
+    public void setLocationcode(String locationcode) {
+        this.locationcode = locationcode;
     }
 
     public int getTimenumber() {

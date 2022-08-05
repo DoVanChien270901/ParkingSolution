@@ -17,10 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-
         <activity
             android:name=".activity.MapsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false"

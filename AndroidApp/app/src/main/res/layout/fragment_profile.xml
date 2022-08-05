@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:enabled="false"
-                android:fontFamily="@font/baloo"
+                android:fontFamily="@font/arimo"
                 android:padding="3px"
                 android:text="Đỗ Văn Chiến"
                 android:textColor="#535353"

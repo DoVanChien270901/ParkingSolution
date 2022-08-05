@@ -16,6 +16,7 @@ import android.widget.Toast;
 import fpt.aptech.parkinggo.R;
 
 import fpt.aptech.parkinggo.activity.HomeActivity;
+import fpt.aptech.parkinggo.activity.MapsActivity;
 import fpt.aptech.parkinggo.callback.CustomProgressDialog;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.LoginReqBuilder;
@@ -82,14 +83,15 @@ public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
             LoginRes loginRes = (LoginRes) response.getBody();
             Session.setSession(loginRes);
             Intent intent;
-            switch (loginRes.getRole()){
-                case user: intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
-                case admin: intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
-                case handle: intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
-                default: intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
+
+            if (loginRes.getRole().toString().equals("user")){
+                intent = new Intent(activity.getApplicationContext(), MapsActivity.class);
+                dialog.dismiss();
+                activity.startActivity(intent);
+            }else{
+                dialog.dismiss();
+                Toast.makeText(activity.getApplicationContext(), "User name or password is valid", Toast.LENGTH_LONG).show();
             }
-            dialog.dismiss();
-            activity.startActivity(intent);
 //          Intent intent = new Intent(activity.getApplicationContext(), MainActivity.class);
         } else {
             dialog.dismiss();

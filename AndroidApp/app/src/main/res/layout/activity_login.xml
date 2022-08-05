@@ -13,10 +13,11 @@
         android:layout_height="100dp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="100dp"
+        android:fontFamily="@font/baloo"
         android:freezesText="false"
-        android:textAlignment="center"
         android:text="Login"
-        android:textColor="#034981"
+        android:textAlignment="center"
+        android:textColor="@color/blue_default"
         android:textSize="50dp"
         android:textStyle="bold" />
 
@@ -24,9 +25,10 @@
         android:id="@+id/a_login_et_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         android:layout_gravity="center"
+        android:layout_margin="20dp"
         android:ems="10"
+        android:fontFamily="@font/baloo"
         android:hint="User Name"
         android:inputType="textPersonName" />
 
@@ -34,11 +36,12 @@
         android:id="@+id/a_login_et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         android:layout_gravity="center"
+        android:layout_margin="20dp"
         android:ems="10"
+        android:fontFamily="@font/baloo"
         android:hint="Password"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,9 +53,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
+            android:layout_marginLeft="220dp"
+            android:fontFamily="@font/baloo"
             android:text="Not user "
-            android:textAlignment="gravity"
-            android:layout_marginLeft="220dp"/>
+            android:textAlignment="gravity" />
 
         <TextView
             android:id="@+id/a_tv_register"
@@ -60,17 +64,20 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:layout_marginLeft="0dp"
+            android:fontFamily="@font/baloo"
             android:text="Register now?"
             android:textAlignment="gravity"
-            android:textColor="@color/blue"
+            android:textColor="@color/blue_default"
             android:textStyle="bold" />
     </LinearLayout>
+
     <Button
         android:id="@+id/a_login_btn_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
         android:layout_marginTop="30dp"
-        android:backgroundTint="#3F51B5"
-        android:text="Sign In"/>
+        android:backgroundTint="@color/blue_default"
+        android:fontFamily="@font/baloo"
+        android:text="Sign In" />
 </LinearLayout>
