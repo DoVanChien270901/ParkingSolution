@@ -623,7 +623,7 @@ input[type=number] {
 }
 
 .content {
-    padding: 7rem 0; 
+    padding: 4rem 0; 
 }
 
 .form-parking-booking .heading {
@@ -694,7 +694,7 @@ input[type=number] {
 .form-parking-booking .contact-wrap .contact-info {
     /*background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url("/assetsc/img/futurparking.jpg") center center no-repeat;
     background-size: cover;*/
-    background-color: gray;
+    background-color: #f0f0f0;
 }
 
 .form-parking-booking .contact-wrap .contact-info h3 {
