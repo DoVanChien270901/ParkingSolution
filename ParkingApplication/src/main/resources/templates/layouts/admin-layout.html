@@ -27,8 +27,7 @@
                             <span class="user-name" th:text="${session.account.getFullname().toString()}"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <!--<a class="dropdown-item" href=""><i class="dw dw-user1"></i> Profile</a>-->
-                            <a class="dropdown-item" th:href="@{/account/logout}"><i class="dw dw-logout"></i> Log Out</a>
+                            <a class="dropdown-item" th:href="@{/account/logout}"><i class="dw dw-logout-2"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +43,7 @@
                     <i class="ion-close-round"></i>
                 </div>
             </div>
-            <div class="menu-block customscroll">
+            <div class="menu-block customscroll sidebar-light">
                 <div class="sidebar-menu">
                     <ul id="accordion-menu">
                         <li class="dropdown">
@@ -58,12 +57,12 @@
                         </li>                      
                         <li>
                             <a th:href="@{/list-user?page=1}" class="dropdown-toggle no-arrow">
-                                <span class="micon dw dw-user"></span><span class="mtext">User</span>
+                                <span class="micon dw dw-user-13"></span><span class="mtext">User Manager</span>
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                                <span class="micon dw dw-map"></span><span class="mtext">Parking</span>
+                                <span class="micon dw dw-map"></span><span class="mtext">Parking Manager</span>
                             </a>
                             <ul class="submenu">
                                 <li><a th:href="@{/a/list-parking}">View</a></li>
