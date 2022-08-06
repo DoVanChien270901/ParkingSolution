@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,10 +37,11 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
     private EditText etFullName;
     private EditText etEmail;
     private EditText etGender;
-    private EditText etDob;
+    private TextView tvDob;
     private EditText etPhone;
     private EditText etICard;
     private ImageView qrcode;
+    private Button btnSave;
     private int dobyear;
     private int dobmonth;
     private int dobday;
@@ -52,57 +54,63 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
         ActionBar actionBar = getSupportActionBar();
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
-        ColorDrawable colorDrawable
-                = new ColorDrawable(Color.parseColor("#034981"));
         // Title Bar
         actionBar.setTitle("Edit Profile");
-        actionBar.setBackgroundDrawable(colorDrawable);
         //load view
         etFullName = findViewById(R.id.a_editprofile_et_fullname);
         etEmail = findViewById(R.id.a_editprofile_et_email);
         etGender = findViewById(R.id.a_editprofile_et_gender);
-        etDob = findViewById(R.id.a_editprofile_et_dob);
+        tvDob = findViewById(R.id.a_editprofile_tv_dob);
         etPhone = findViewById(R.id.a_editprofile_et_phone);
         etICard = findViewById(R.id.a_editprofile_et_icard);
         qrcode = findViewById(R.id.a_editprofile_imv_qrcode);
+        btnSave = findViewById(R.id.a_editprofile_btn_save);
+
         LoadProfileTask loadProfileTask = new LoadProfileTask(this, this::callback);
         loadProfileTask.execute();
-        etDob.setOnClickListener(new View.OnClickListener() {
+        tvDob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EditProfileActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         if (month < 10) {
-                            etDob.setText(year + "-" + (new DecimalFormat("00").format(month+1)) + "-" + dayOfMonth);
+                            tvDob.setText(year + "-" + (new DecimalFormat("00").format(month+1)) + "-" + dayOfMonth);
                         } else {
-                            etDob.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                            tvDob.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
                         }
                     }
                 }, dobyear, dobmonth - 1, dobday);
                 datePickerDialog.show();
             }
         });
+        // click save
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sublit();
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_edit_profile_menu, menu);
+        //getMenuInflater().inflate(R.menu.actionbar_edit_profile_menu, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getTitle() != null) {
-            EditProfileTask editProfileTask = new EditProfileTask(EditProfileActivity.this, this::callback);
-            editProfileTask.execute();
-            return true;
-        } else {
-            Intent myIntent = new Intent(EditProfileActivity.this, HomeActivity.class);
-            startActivity(myIntent);
-            return true;
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getTitle() != null) {
+//            EditProfileTask editProfileTask = new EditProfileTask(EditProfileActivity.this, this::callback);
+//            editProfileTask.execute();
+//            return true;
+//        } else {
+//            Intent myIntent = new Intent(EditProfileActivity.this, MapsActivity.class);
+//            startActivity(myIntent);
+//            return true;
+//        }
+//    }
 
     @Override
     public void callback(ResponseEntity<?> response) {
@@ -113,7 +121,7 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
 //            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 //            etDob.setText(formatter2.format(LocalDate.parse(profileRes.getDob(), formatter)));
-            etDob.setText(profileRes.getDob().toString());
+            tvDob.setText(profileRes.getDob().toString());
             etEmail.setText(profileRes.getEmail());
             etICard.setText(profileRes.getIdentitycard().toString());
             etPhone.setText(profileRes.getPhone().toString());
@@ -124,5 +132,15 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
             dobday = profileRes.getDob().getDayOfMonth();
         }
 
+    }
+    public void sublit(){
+        EditProfileTask editProfileTask = new EditProfileTask(EditProfileActivity.this, this::callback);
+        editProfileTask.execute();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent myIntent = new Intent(this, MapsActivity.class);
+        startActivity(myIntent);
+        return true;
     }
 }

@@ -268,7 +268,7 @@ public class BookingActivity extends AppCompatActivity {
                 .setPositiveButton("Go HomePage", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BookingActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(BookingActivity.this, MapsActivity.class);
                         startActivity(intent);
                     }
                 }).show();
