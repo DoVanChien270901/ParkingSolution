@@ -135,6 +135,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(intent);
                     return true;
                 }break;
+            case "Recharge":
+                if (!currentTitleF.equals("Recharge")) {
+                    currentTitleF = "Recharge";
+                    Intent intent = new Intent(HomeActivity.this, RechargeActivity.class);
+                    startActivity(intent);
+                    return true;
+                }break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

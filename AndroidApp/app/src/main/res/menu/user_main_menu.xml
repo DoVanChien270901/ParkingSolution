@@ -2,41 +2,43 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/user_nav_home"
+            android:id="@+id/nav_map"
             android:icon="@drawable/map_icon"
             android:title="Map"></item>
     </group>
 
-    <item android:title="QrCode">
+    <item android:title="Wallet Payment">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/user_nav_profile"
+                    android:id="@+id/nav_d_payment"
                     android:icon="@drawable/qr_code_icon"
-                    android:title="Profile"></item>
+                    android:title="Direct Payment"></item>
                 <item
-                    android:id="@+id/user_nav_profil"
+                    android:id="@+id/nav_e_payment"
                     android:icon="@drawable/map_icon"
-                    android:title="Map"></item>
-                <item
-                    android:id="@+id/user_nav_logout"
-                    android:icon="@drawable/qr_code_icon"
-                    android:title="...?"></item>
+                    android:title="Electronic Payment"></item>
             </group>
         </menu>
 
     </item>
 
-    <item android:title="Communicate">
+    <item android:title="History">
         <menu>
             <item
-                android:id="@+id/user_nav_share"
+                android:id="@+id/nav_transaction_history"
                 android:icon="@drawable/logout_icon"
-                android:title="Home"></item>
+                android:title="Transaction History"></item>
             <item
-                android:id="@+id/user_nav_rate"
+                android:id="@+id/nav_parking_history"
                 android:icon="@drawable/qr_code_icon"
-                android:title="Home"></item>
+                android:title="Parking History"></item>
         </menu>
     </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout_icon"
+            android:title="Logout"></item>
+    </group>
 </menu>
