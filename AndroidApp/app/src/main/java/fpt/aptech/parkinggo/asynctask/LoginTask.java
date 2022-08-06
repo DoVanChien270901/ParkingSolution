@@ -1,7 +1,6 @@
 package fpt.aptech.parkinggo.asynctask;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.EditText;
 
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import fpt.aptech.parkinggo.R;
 
-import fpt.aptech.parkinggo.activity.HomeActivity;
 import fpt.aptech.parkinggo.activity.MapsActivity;
 import fpt.aptech.parkinggo.callback.CustomProgressDialog;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -46,16 +47,16 @@ public class EditProfileTask extends AsyncTask<Void, Integer, ResponseEntity<?>>
     protected ResponseEntity<?> doInBackground(Void... voids) {
         EditText etFullname = activity.findViewById(R.id.a_editprofile_et_fullname);
         EditText etICard = activity.findViewById(R.id.a_editprofile_et_icard);
-        EditText etDob = activity.findViewById(R.id.a_editprofile_et_dob);
+        TextView tvDob = activity.findViewById(R.id.a_editprofile_tv_dob);
         EditText etEmail = activity.findViewById(R.id.a_editprofile_et_email);
         EditText etPhone = activity.findViewById(R.id.a_editprofile_et_phone);
         //convert local date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dob = LocalDate.parse(etDob.getText().toString(), formatter);
+        LocalDate dob = LocalDate.parse(tvDob.getText().toString(), formatter);
         EditProfileReq editProfileReq = new EditProfileReqBuilder()
                 .setFullname(etFullname.getText().toString())
                 .setIdentitycard(Integer.valueOf(etICard.getText().toString()))
-                .setDob(etDob.getText().toString())
+                .setDob(tvDob.getText().toString())
                 .setEmail(etEmail.getText().toString())
                 .setPhone(Integer.valueOf(etPhone.getText().toString()))
                 .createEditProfileReq();

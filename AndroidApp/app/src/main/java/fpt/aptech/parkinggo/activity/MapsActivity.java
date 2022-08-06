@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
@@ -124,6 +125,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvEmail = header.findViewById(R.id.hd_tv_email);
         tvBalance = header.findViewById(R.id.hd_tv_balance);
         qrcode = header.findViewById(R.id.f_profile_imv_qrcode);
+        ibtnEdit = header.findViewById(R.id.hd_ibtn_edit);
         LoginRes loginRes = (LoginRes) Session.getSession();
         tvName.setText(loginRes.getFullname());
         tvEmail.setText(loginRes.getEmail());
@@ -180,6 +182,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         permissionToken.continuePermissionRequest();
                     }
                 }).check();
+        //onlick edit profile
+        ibtnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+            }
+        });
     }
 
     @Override
@@ -457,10 +466,71 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            //no do thing
+        }
     }
+    private String CurrentTitleAT ="Map";
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        String id  = item.toString();
+        switch (id) {
+            case "Map":
+                if (!CurrentTitleAT.equals("Map")) {
+                    CurrentTitleAT = "Map";
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    startActivity(intent);
+                }break;
 
+            case "Direct Payment":
+                if (!CurrentTitleAT.equals("Direct Payment")) {
+                    CurrentTitleAT = "Direct Payment";
+                    Intent intent = new Intent(this, DirectPaymentActivity.class);
+                    startActivity(intent);
+                }break;
+            case "Electronic Payment":
+                if (!CurrentTitleAT.equals("Electronic Payment")) {
+                    CurrentTitleAT = "Electronic Payment";
+                    //call api
+                    LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
+                    ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
+                    try {
+                        ResponseEntity<?> res = task.execute().get();
+                        parkingRes = (ArrayList<ParkingRes>) res.getBody();
+                    } catch (Exception e) {
+
+                    }
+                    Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
+                    intent.putExtra("list", parkingRes);
+                    startActivity(intent);
+                    return true;
+                }
+            case "Transaction History":
+                if (!CurrentTitleAT.equals("Transaction History")) {
+                    CurrentTitleAT = "Transaction History";
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    startActivity(intent);
+                }break;
+            case "Parking History":
+                if (!CurrentTitleAT.equals("Parking History")) {
+                    CurrentTitleAT = "Parking History";
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    startActivity(intent);
+                }break;
+            case "Logout":
+                if (!CurrentTitleAT.equals("Logout")) {
+                    CurrentTitleAT = "Logout";
+                    Session.setSession(null);
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
 //    @Override
 //    public void callback(ResponseEntity<?> response) {
 //            if (response.getStatusCode() == HttpStatus.OK){
