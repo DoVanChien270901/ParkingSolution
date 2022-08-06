@@ -15,6 +15,7 @@ import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.EBookingReqBuilder;
 import fpt.aptech.parkinggo.domain.request.EBookingReq;
 import fpt.aptech.parkinggo.domain.response.EPaymentRes;
+import fpt.aptech.parkinggo.domain.response.EBookingRes;
 
 public class CreatePaymentTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
 

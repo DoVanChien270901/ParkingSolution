@@ -110,7 +110,8 @@
             android:id="@+id/a_booking_btn_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="130dp"
+            android:layout_marginHorizontal="140dp"
             android:backgroundTint="@color/blue_default"
             android:text="Book" />
+
 </LinearLayout>

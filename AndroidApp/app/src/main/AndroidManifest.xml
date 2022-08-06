@@ -24,21 +24,22 @@
             android:name=".activity.BookingActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.DirectPaymentActivity"
+            android:exported="false"
+            android:theme="@style/Custom.ActionBar"/>
+        <activity
             android:name=".activity.MapsActivity"
             android:exported="true" />
         <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight" />
+            android:theme="@style/Custom.ActionBar" />
         <activity
             android:name=".activity.RegisterActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight" />
+            android:theme="@style/Custom.ActionBar" />
         <activity
             android:name=".activity.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
