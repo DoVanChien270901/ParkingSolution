@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layouts/user-layout.html}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
         <title>ParkingGo | Profile Page</title>
@@ -43,51 +42,51 @@
                         </div>
                         <div class="container profile">
                             <div class="pb-4 pt-4">
-                                <h2 class="h2 text-primary">// Profile Information //</h2>
+                                <h2 class="h2 text-new-color">// Profile Information //</h2>
                             </div>
                             <form th:action="@{/profile}" th:object="${profile}" id="form_profile" class="form_profile" method="POST" onsubmit="return validateProfile()">
                                 <div class="row g-4 mb-3 pb-3">
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <label class="p-1"><i class="far fa-user-circle"></i>&nbsp;Username:</label>
-                                        <div class="input-group mb-4 pt-0">
+                                        <label class="mb-2 h3">Username</label>
+                                        <div class="input-group mb-4">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{fullname}" id="fullname-profile" readonly="true">  
                                             <div class="invalid-feedback mess-box error-fname" id="error-fname"></div>
                                         </div>
-                                        <label class="p-1"><i class="far fa-calendar"></i>&nbsp;Date Time:</label>
-                                        <div class="input-group mb-4 pt-0">
+                                        <label class="mb-2 h3">Date Time</label>
+                                        <div class="input-group mb-4">
                                             <input autocomplete="off" type="date" class="form-control" th:value="${profile.getDob()}" th:field="*{dob}" id="dob-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-dob" id="error-dob"></div>
                                         </div>
-                                        <label class="p-1"><i class="fa fa-wallet"></i>&nbsp;Balance:</label>
-                                        <div class="input-group pt-0">
+                                        <label class="mb-2 h3">Balance</label>
+                                        <div class="input-group">
                                             <input type="text" th:value="${#numbers.formatInteger(profile.balance, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <label class="p-1"><i class="fa fa-phone-alt"></i>&nbsp;Phone:</label>
-                                        <div class="input-group mb-4 pt-0">
+                                        <label class="mb-2 h3">Phone</label>
+                                        <div class="input-group mb-4">
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{phone}" id="phone-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-phone" id="error-phone"></div>                 
                                         </div>
-                                        <label class="p-1"><i class="far fa-id-card"></i>&nbsp;License Plates:</label>
-                                        <div class="input-group mb-4 pt-0">                         
+                                        <label class="mb-2 h3">License Plates</label>
+                                        <div class="input-group mb-4">                         
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{identitycard}" id="identitycard-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-identitycard" id="error-identitycard"></div>
                                         </div>
-                                        <label class="p-1"><i class="far fa-envelope"></i>&nbsp;Email:</label>
-                                        <div class="input-group pt-0">
+                                        <label class="mb-2 h3">Email</label>
+                                        <div class="input-group">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{email}"  id="email-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-email" id="error-email"></div>
                                         </div>                                   
                                     </div>
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 pt-2">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 pt-4">
                                         <img class="qrcode mb-2" th:src="${displaycode}"/>
                                         <p class="title-qrcode">Your QR Code</p>
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-profile-button-edit">
-                                        <button type="button" id="settings-profile" onclick="disable()" class="btn-settings-profile mt-2 mb-2 me-2 p-2"><i class="fa fa-cog"></i> Settings</button>
-                                        <button type="submit" id="update-profile" class="btn-save-profile mt-2 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Update</button>
-                                        <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn-cancel-profile mt-2 mb-2 p-2"><i class="fa fa-arrow-left"></i> Cancel</a>
+                                        <button type="button" id="settings-profile" onclick="disable()" class="btn-settings-profile mt-2 mb-2 me-2 p-2"><i class="fas fa-cog"></i> Settings</button>
+                                        <button type="submit" id="update-profile" class="btn-save-profile mt-2 mb-2 me-2 p-2"><i class="far fa-check-circle"></i> Update</button>
+                                        <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn-cancel-profile mt-2 mb-2 p-2"><i class="fas fa-undo"></i> Cancel</a>
                                     </div>
                                 </div>
                             </form>
@@ -98,7 +97,7 @@
         </section>
         <script type="text/javascript" layout:fragment="code-javascript">
             // Regex 
-            let regex_email = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+            let regex_email = new RegExp('[a-z0-9]+@gmail.com');
             let regex_only_text = new RegExp('^[a-zA-Z_ ]*$');
 
             // Query Selector 
@@ -142,107 +141,84 @@
 
                 // fullname
                 if (fullname.value.length === 0 || fullname.value.length == '') {
-                    fullname.style.border = "1px solid #dc3545";
                     fullname_error.style.display = "block";
-                    span_fullname.innerHTML = "Fullname can not be left blank !";
+                    span_fullname.innerHTML = "*Fullname can not be left blank !";
                     qs_fullname.appendChild(span_fullname);
-                    fullname.focus();
                     return false;
                 }
                 if (fullname.value.length <= 3 || fullname.value.length >= 26) {
-                    fullname.style.border = "1px solid #dc3545";
                     fullname_error.style.display = "block";
-                    span_fullname.innerHTML = "Fullname must be between 4 and 25 characters !";
+                    span_fullname.innerHTML = "*Fullname must be between 4 and 25 characters !";
                     qs_fullname.appendChild(span_fullname);
-                    fullname.focus();
                     return false;
                 }
 
                 if (regex_only_text.test(fullname.value) == false) {
-                    fullname.style.border = "1px solid #dc3545";
                     fullname_error.style.display = "block";
-                    span_fullname.innerHTML = "Fullname without special characters and numbers !";
+                    span_fullname.innerHTML = "*Fullname without special characters and numbers !";
                     qs_fullname.appendChild(span_fullname);
-                    fullname.focus();
                     return false;
                 }
 
                 // phone
                 if (phone.value.length === 0 || phone.value.length == '') {
-                    phone.style.border = "1px solid #dc3545";
                     phone_error.style.display = "block";
-                    span_phone.innerHTML = "Phone can not be left blank !";
+                    span_phone.innerHTML = "*Phone can not be left blank !";
                     qs_phone.appendChild(span_phone);
-                    phone.focus();
                     return false;
                 }
                 if (phone.value.length <= 9 || phone.value.length >= 11) {
-                    phone.style.border = "1px solid #dc3545";
                     phone_error.style.display = "block";
-                    span_phone.innerHTML = "Phone must enter 10 numbers";
+                    span_phone.innerHTML = "*Phone must enter 10 numbers !";
                     qs_phone.appendChild(span_phone);
-                    phone.focus();
                     return false;
                 }
 
                 // dob 
                 if (!dob.value) {
-                    dob.style.border = "1px solid #dc3545";
                     dob_error.style.display = "block";
-                    span_dob.innerHTML = 'Date can not be left blank !';
+                    span_dob.innerHTML = "*Date can not be left blank !";
                     qs_dob.appendChild(span_dob);
-                    dob.focus();
                     return false;
                 }
                 if (checkYear.getFullYear() <= 1969 || checkYear >= getYear) {
-                    dob.style.border = "1px solid #dc3545";
                     dob_error.style.display = "block";
-                    span_dob.innerHTML = 'Year must be from 1970 to current year !';
+                    span_dob.innerHTML = "*Year must be from 1970 to current year !";
                     qs_dob.appendChild(span_dob);
-                    dob.focus();
                     return false;
                 }
 
                 // identitycard 
                 if (identitycard.value.length === 0 || identitycard.value.length == '') {
-                    identitycard.style.border = "1px solid #dc3545";
                     identitycard_error.style.display = "block";
-                    span_identitycard.innerHTML = "Identity can not be left blank !";
+                    span_identitycard.innerHTML = "*Identity can not be left blank !";
                     qs_identitycard.appendChild(span_identitycard);
-                    identitycard.focus();
                     return false;
                 }
                 if (identitycard.value.length <= 9 || identitycard.value.length >= 11) {
-                    identitycard.style.border = "1px solid #dc3545";
                     identitycard_error.style.display = "block";
-                    span_identitycard.innerHTML = "Identity card must enter 10 numbers";
+                    span_identitycard.innerHTML = "*Identity card must enter 10 numbers !";
                     qs_identitycard.appendChild(span_identitycard);
-                    identitycard.focus();
                     return false;
                 }
 
                 // email
                 if (email.value.length === 0 || email.value.length == '') {
-                    email.style.border = "1px solid #dc3545";
                     email_error.style.display = "block";
-                    span_email.innerHTML = 'Email can not be left blank !';
+                    span_email.innerHTML = "*Email can not be left blank !";
                     qs_email.appendChild(span_email);
-                    email.focus();
                     return false;
                 }
-                if (regex.test(email.value) == false) {
-                    email.style.border = "1px solid #dc3545";
+                if (regex_email.test(email.value) == false || email.value.length < 9) {
                     email_error.style.display = "block";
-                    span_email.innerHTML = 'Invalid Email';
+                    span_email.innerHTML = "*Invalid email, only accept email as @gmail.com !";
                     qs_email.appendChild(span_email);
-                    email.focus();
                     return false;
                 }
             }
 
             function fullname_verify() {
                 if (fullname.value.length >= 4 && fullname.value.length <= 25) {
-                    fullname.style.border = "1px solid #28a745";
                     fullname_error.style.display = "none";
                     return true;
                 }
@@ -252,7 +228,6 @@
                 var checkYear = new Date(dob.value);
                 const getYear = new Date();
                 if (dob.value && checkYear.getFullYear() > 1969 && checkYear < getYear) {
-                    dob.style.border = "1px solid #28a745";
                     dob_error.style.display = "none";
                     return true;
                 }
@@ -260,15 +235,13 @@
 
             function phone_verify() {
                 if (phone.value.length == 10) {
-                    phone.style.border = "1px solid #28a745";
                     phone_error.style.display = "none";
                     return true;
                 }
             }
 
             function email_verify() {
-                if (regex_email.test(email.value) == true) {
-                    email.style.border = "1px solid #28a745";
+                if (regex_email.test(email.value) == true && email.value.length >= 9) {
                     email_error.style.display = "none";
                     return true;
                 }
@@ -276,11 +249,12 @@
 
             function identitycard_verify() {
                 if (identitycard.value.length == 10) {
-                    identitycard.style.border = "1px solid #28a745";
                     identitycard_error.style.display = "none";
                     return true;
                 }
             }
+
+
         </script>
     </body>
 </html>

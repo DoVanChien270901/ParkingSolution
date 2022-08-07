@@ -27,7 +27,7 @@
                             <span class="user-name" th:text="${session.account.getFullname().toString()}"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a class="dropdown-item" th:href="@{/account/logout}"><i class="dw dw-logout-2"></i> Log Out</a>
+                            <a class="dropdown-item" th:href="@{/account/logout}"><i class="dw dw-logout-2"></i>&nbsp;Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
         <div class="left-side-bar">
             <div class="brand-logo">
                 <a href="#">
-                    <img th:src="@{/vendorsc/images/icon.png}" alt="" class="light-logo">
-                    <span>arkingGo</span>
+                    <!--<img th:src="@{/vendorsc/images/icon.png}" alt="" class="light-logo">-->
+                    <span>ParkingGo</span>
                 </a>
                 <div class="close-sidebar" data-toggle="left-sidebar-close">
                     <i class="ion-close-round"></i>

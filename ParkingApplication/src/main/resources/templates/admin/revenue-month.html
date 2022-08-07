@@ -17,10 +17,10 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-24 text-dark">0</div>
-                                    <div class="font-14 text-secondary weight-500">User</div>
+                                    <div class="weight-700 font-20">0</div>
+                                    <div class="font-14 text-secondary weight-400">User</div>
                                 </div>
-                                <div class="widget-icon" style="background: #2196f3;">
+                                <div class="widget-icon widget-user">
                                     <div class="icon" data-color="#fff"><i class="icon-copy dw dw-user-1"></i></div>
                                 </div>
                             </div>
@@ -30,10 +30,10 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-24 text-dark">0</div>
-                                    <div class="font-14 text-secondary weight-500">Parking</div>
+                                    <div class="weight-700 font-20">0</div>
+                                    <div class="font-14 text-secondary weight-400">Parking</div>
                                 </div>
-                                <div class="widget-icon" style="background: #ff5b5b;">
+                                <div class="widget-icon widget-location">
                                     <div class="icon" data-color="#fff"><span class="icon-copy ti-location-pin"></span></div>
                                 </div>
                             </div>
@@ -43,10 +43,10 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-24 text-dark">0 VND</div>
-                                    <div class="font-14 text-secondary weight-500">Recharge</div>
+                                    <div class="weight-700 font-20">0</div>
+                                    <div class="font-14 text-secondary weight-400">Recharge</div>
                                 </div>
-                                <div class="widget-icon" style="background: #09cc06;">
+                                <div class="widget-icon widget-money">
                                     <div class="icon" data-color="#fff"><i class="icon-copy fa fa-money" aria-hidden="true"></i></div>
                                 </div>
                             </div>
@@ -67,17 +67,19 @@
                                     <option value="bar">Bar Chart</option>
                                 </select>
                             </div>
-                            <div class="col-2 col-lg-2 col-md-2 col-sm-2" style="padding: 2.5px;">
-                                <button class="btn btn-color m-1" type="submit">Submit</button>
+                            <div class="col-2 col-lg-2 col-md-2 col-sm-2" style="padding: 3px;">
+                                <button class="btn btn-color m-1" type="submit"><i class="dw dw-search2"></i></button>
                             </div>
                         </div>  
                     </form>
                 </div>
-                <div class="chart-content pb-20 mb-20">
-                    <div class="text-left">
-                        <label class="d-flex justify-content-center error-chart" th:if="${errormes}" th:text="${errormes}"></label>
-                    </div>
-                    <canvas class="d-flex justify-content-center" id="myChart"></canvas>
+                <div class="pb-20 mb-20">
+                    <center>
+                        <div class="backgroud-error d-flex justify-content-center align-items-center">
+                            <label class="error-chart" th:if="${errormes}" th:text="${errormes}"></label>
+                        </div>
+                    </center>       
+                    <canvas class="myChart" id="myChart"></canvas>
                 </div>
                 <div class="footer-wrap pd-20 mb-20 card-box">
                     ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
@@ -89,13 +91,11 @@
                 const mySelect = document.querySelector('#mySelect');
                 mySelect.options[1].selected = true;
             }
-
             if (([[${errormes}]])) {
             //
             } else{
                 loadChartByMonth();
             }
-
             function loadChartByMonth() {
                 var data = ([[${data}]]);
                 for (var item in data) {
@@ -106,7 +106,7 @@
                         }
                     }
                 }
-            const labels = [
+                const labels = [
                     "January",
                     "February",
                     "March",
@@ -119,38 +119,38 @@
                     "October",
                     "November",
                     "December"
-            ];
-            const dataparent = {
-            labels: labels,
+                ];
+                const dataparent = {
+                    labels: labels,
                     datasets: data,
-            };
-            const config = {
-            type: ([[${type}]]),
+                };
+                const config = {
+                    type: ([[${type}]]),
                     data: dataparent,
                     options: {
                     responsive: true,
-                            plugins: {
-                            legend: {
-                            position: 'bottom',
-                                    labels: {
-                                    // This more specific font property overrides the global property
-                                    font: {
-                                    size: 16,
-                                    },
-                                        color: 'rgb(0, 0, 0)',
-                                    }
+                        plugins: {
+                        legend: {
+                        position: 'bottom',
+                            labels: {
+                            // This more specific font property overrides the global property
+                                font: {
+                                    size: 14,
                                 },
-                                    title: {
-                                    display: true,
-                                            text: 'CHART REVENUE FORM ' + ([[${year}]]),
-                                            color: 'rgb(0, 0, 0)',
-                                            font: {
-                                                size: 18,
-                                            }
-                                    },
+                                color: 'rgb(0, 0, 0, 0.8)',
                                 }
-                        },
-                    };
+                            },
+                            title: {
+                            display: true,
+                                text: 'CHART REVENUE FORM ' + ([[${year}]]),
+                                color: 'rgb(0, 0, 0, 0.8)',
+                                font: {
+                                    size: 20,
+                                }
+                            },
+                        }
+                    },
+                };
                 const myChart = new Chart(document.getElementById("myChart"), config);
             }
         </script>

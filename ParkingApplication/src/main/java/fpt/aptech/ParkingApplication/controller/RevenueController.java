@@ -50,7 +50,7 @@ public class RevenueController {
             startYear ++;
         }
         if (dataRevenueMonthReses.length < 1) {
-            model.addAttribute("errormes", "Data not found or invalid data !");
+            model.addAttribute("errormes", "*Data not found or invalid data !");
         }
         model.addAttribute("data", dataRevenueMonthReses);
         model.addAttribute("arrYear", arrYear);
@@ -77,7 +77,7 @@ public class RevenueController {
         DataRevenueDayRes[] dataRevenueDayRes = (DataRevenueDayRes[]) response.getBody();
 
         if (dataRevenueDayRes.length < 1) {
-            model.addAttribute("errormes", "Data not found or invalid data !");
+            model.addAttribute("errormes", "*Data not found or invalid data !");
         }
         model.addAttribute("data", dataRevenueDayRes);
         model.addAttribute("type", type);
@@ -85,5 +85,4 @@ public class RevenueController {
         model.addAttribute("type", type);
         return "admin/revenue-day";
     }
-   
 }

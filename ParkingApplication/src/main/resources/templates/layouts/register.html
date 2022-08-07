@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/style.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/fix.css}">
         <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <!-- Register Start -->
     <body class="login-page">
@@ -38,7 +39,7 @@
                     <div class="col-md-12 col-lg-6">
                         <div class="login-box bg-white box-shadow border-radius-10">
                             <div class="login-title">
-                                <h2 class="text-center text-primary">Register to Parking Go</h2>
+                                <h2 class="text-center">Register to Parking Go</h2>
                             </div>
                             <form th:action="@{/account/register}" th:object="${registerReq}" method="POST" name="form-register" onsubmit="return validateRegister()">
                                 <div class="row">
@@ -138,7 +139,7 @@
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-12">
                                         <div class="input-group custom mt-4">    
-                                            <input autocomplete="off" th:field="*{email}" type="text" name="email" class="form-control form-control-md" placeholder="*Email">
+                                            <input th:field="*{email}" type="text" name="email" class="form-control form-control-md" placeholder="*Email">
                                             <div class="input-group-append custom">
                                                 <span class="input-group-text"><i class="icon-copy dw dw-email"></i></span>
                                             </div>
@@ -153,7 +154,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="input-group mb-0 mt-4">
-                                            <button class="btn btn-primary btn-md btn-block" type="submit">Register</button>
+                                            <button class="btn btn-color btn-md btn-block" type="submit">Register</button>
                                         </div>
                                     </div>
                                 </div>

@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout.html}">
-
     <head>
         <meta charset="utf-8">
         <title>ParkingGo | Recharge History Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     </head>
-
     <body>
         <div class="main-container" layout:fragment="admin-content">
             <div class="xs-pd-20-10 pd-ltr-20">
                 <div class="title pb-20">
-                    <h2 class="h2 p-1 mb-0">Recharge History</h2>
+                    <h2 class="h2 mb-0">Recharge History</h2>
                 </div>
                 <div class="pd-20 card-box mb-30" id="list-index">
                     <div class="clearfix mb-20 p-1">
                         <h6>Search By Date</h6>
                         <div class="pt-2 form-check-inline">
-                            <div class="pull-left">
+                            <div class="pull-left mb-2">
                                 <form th:action="@{/a/list-transaction/search}">
                                     <div class="row form-inline">
                                         <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                            <input type="date" name="from-date" class="form-control border-primary" placeholder="From:&nbsp;">
+                                            <input type="date" name="from-date" class="form-control border-info form-control-md" placeholder="From:&nbsp;">
                                         </div>
                                         <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                            <input type="date" name="to-date" class="form-control border-primary ml-2" placeholder="To:&nbsp;">
+                                            <input type="date" name="to-date" class="form-control border-info form-control-md ml-2" placeholder="To:&nbsp;">
                                         </div>
                                         <div class="col-2 col-lg-2 col-md-2 col-sm-2">
-                                            <button type="submit" class="btn btn-sm btn-primary ml-2"><i class="dw dw-search2 search-icon"></i></button>
+                                            <button type="submit" class="btn btn-color btn-md"><i class="dw dw-search2 search-icon"></i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -37,7 +35,7 @@
                     <div class="table-res p-1">
                         <table class="table">
                             <thead>
-                                <tr class="table-secondary">
+                                <tr>
                                     <th>#</th>
                                     <th>Amount</th>
                                     <th>Date Time</th>
@@ -54,13 +52,13 @@
                                     <td data-label="Channel" th:text="${item.channel}"></td>
                                     <td data-label="Type" th:text="${item.stype}"></td>
                                     <td data-label="Status">
-                                        <span th:if="${item.statuscode == 0}" class="badge badge-success">Success!</span>
-                                        <span th:unless="${item.statuscode == 0}" class="badge badge-danger">Failed!</span>
+                                        <span th:if="${item.statuscode == 0}" class="badge badge-success">Success !</span>
+                                        <span th:unless="${item.statuscode == 0}" class="badge badge-danger">Failed !</span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-end">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-end p-1">
                             <ul class="pagination">
                                 <li class="page-item"><a class="page-link" th:href="@{/a/list-transaction(page=${current - 1})}"><i class="dw dw-left-arrow-4"></i></a></li>
                                 <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{/a/list-transaction(page=${item})}"></a></li>
@@ -69,11 +67,12 @@
                         </nav>
                     </div>
                 </div>
+            </div>
+            <div class="pd-20 mb-30">
                 <div class="footer-wrap pd-20 mb-20 card-box">
                     ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
                 </div>
             </div>
         </div>
     </body>
-
 </html>

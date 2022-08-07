@@ -111,7 +111,7 @@ body, html {
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
-    color: var(--primary);
+    color: #4e73df;
 }
 
 @media (max-width: 991.98px) {
