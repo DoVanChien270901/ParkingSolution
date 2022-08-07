@@ -12,6 +12,7 @@ import java.util.Map;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.asynctask.BookingTask;
+import fpt.aptech.parkinggo.asynctask.RechargeTask;
 import fpt.aptech.parkinggo.domain.response.EPaymentRes;
 import vn.momo.momo_partner.AppMoMoLib;
 import vn.zalopay.sdk.Environment;
@@ -43,7 +44,7 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         paymentRes = (EPaymentRes) getIntent().getSerializableExtra("bookingRes");
-
+        
         if (paymentRes.getTransactionReq().getPaymentReq().getChannel().equals("Zalopay")) {
             createZalopay(paymentRes);
         } else if (paymentRes.getTransactionReq().getPaymentReq().getChannel().equals("Momo")) {
@@ -172,8 +173,14 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     protected void onPaymentSucces() {
-        BookingTask bookingTask = new BookingTask(PaymentActivity.this, paymentRes);
-        bookingTask.execute();
+        if (paymentRes.getTransactionReq().getStype().equals("e-Booking")){
+            BookingTask bookingTask = new BookingTask(PaymentActivity.this, paymentRes);
+            bookingTask.execute();
+        }else if (paymentRes.getTransactionReq().getStype().equals("e-Recharge")){
+            RechargeTask rechargeTask = new RechargeTask(PaymentActivity.this, paymentRes);
+            rechargeTask.execute();
+        }
+
         new AlertDialog.Builder(PaymentActivity.this)
                 .setTitle("Payment Success")
                 .setMessage("Thank for your order")

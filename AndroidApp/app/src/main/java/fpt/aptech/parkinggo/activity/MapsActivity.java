@@ -494,17 +494,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             case "Electronic Payment":
                 if (!CurrentTitleAT.equals("Electronic Payment")) {
                     CurrentTitleAT = "Electronic Payment";
-                    //call api
-                    LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
-                    ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
-                    try {
-                        ResponseEntity<?> res = task.execute().get();
-                        parkingRes = (ArrayList<ParkingRes>) res.getBody();
-                    } catch (Exception e) {
 
-                    }
-                    Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
-                    intent.putExtra("list", parkingRes);
+                    Intent intent = new Intent(MapsActivity.this, RechargeActivity.class);
                     startActivity(intent);
                     return true;
                 }
