@@ -511,6 +511,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Intent intent = new Intent(this, MapsActivity.class);
                     startActivity(intent);
                 }break;
+            case "Booking History":
+                if (!CurrentTitleAT.equals("Booking History")) {
+                    CurrentTitleAT = "Booking History";
+                    Intent intent = new Intent(this, BookingHistoryActivity.class);
+                    startActivity(intent);
+                }break;
             case "Logout":
                 if (!CurrentTitleAT.equals("Logout")) {
                     CurrentTitleAT = "Logout";

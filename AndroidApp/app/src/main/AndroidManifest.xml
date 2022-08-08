@@ -18,15 +18,25 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".activity.BookingDetailActivity"
+            android:exported="false"
+            android:theme="@style/Custom.ActionBar"/>
+        <activity
+            android:name=".activity.BookingHistoryActivity"
+            android:exported="false"
+            android:theme="@style/Custom.ActionBar" />
+        <activity
             android:name=".activity.RechargeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Custom.ActionBar"/>
         <activity
             android:name=".activity.BookingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Custom.ActionBar"/>
         <activity
             android:name=".activity.DirectPaymentActivity"
             android:exported="false"
-            android:theme="@style/Custom.ActionBar"/>
+            android:theme="@style/Custom.ActionBar" />
         <activity
             android:name=".activity.MapsActivity"
             android:exported="true" />

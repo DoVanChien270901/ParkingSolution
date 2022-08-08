@@ -181,14 +181,14 @@ public class PaymentActivity extends AppCompatActivity {
             rechargeTask.execute();
         }
 
-        new AlertDialog.Builder(PaymentActivity.this)
-                .setTitle("Payment Success")
-                .setMessage("Thank for your order")
-                .setPositiveButton("Go HomePage", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                }).show();
+//        new AlertDialog.Builder(PaymentActivity.this)
+//                .setTitle("Payment Success")
+//                .setMessage("Thank for your order")
+//                .setPositiveButton("Go HomePage", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                }).show();
     }
 
     @Override

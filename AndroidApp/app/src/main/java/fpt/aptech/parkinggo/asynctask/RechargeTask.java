@@ -2,10 +2,13 @@ package fpt.aptech.parkinggo.asynctask;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.w3c.dom.Text;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
@@ -41,5 +44,20 @@ public class RechargeTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
 
     @Override
     protected void onPostExecute(ResponseEntity<?> response) {
+        if (response.getStatusCode().equals(HttpStatus.OK)){
+            TextView tvTransno = activity.findViewById(R.id.a_payment_tv_transno);
+            TextView tvAmount = activity.findViewById(R.id.a_payment_tv_amount);
+            TextView tvChannel = activity.findViewById(R.id.a_payment_tv_channel);
+            TextView tvStype = activity.findViewById(R.id.a_payment_tv_stype);
+            TextView tvStatus = activity.findViewById(R.id.a_payment_tv_status);
+
+            tvStatus.setText("Payment Successful");
+            tvTransno.setText(rechargeRes.getTransNo());
+            tvAmount.setText(rechargeRes.getTransactionReq().getAmount().toString());
+            tvChannel.setText(rechargeRes.getTransactionReq().getPaymentReq().getChannel());
+            tvStype.setText(rechargeRes.getTransactionReq().getStype());
+        }else{
+
+        }
     }
 }
