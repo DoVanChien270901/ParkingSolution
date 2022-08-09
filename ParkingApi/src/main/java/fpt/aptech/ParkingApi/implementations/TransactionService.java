@@ -509,4 +509,19 @@ public class TransactionService implements ITransaction {
         res.setListTransaction(holder.getPageList());
         return res;
     }
+
+    @Override
+    public List<TransactionRes> getAllByUser(String username) {
+        return _transactionRepository.getListTransByUsername(username);
+    }
+
+    @Override
+    public List<TransactionRes> getAllByUserSearch(String username, LocalDate fromDate, LocalDate toDate) {
+        LocalDateTime fromDateTime = fromDate.atStartOfDay();
+        fromDateTime = fromDate.atTime(00,00,00,0000);
+        LocalDateTime toDateTime = toDate.atStartOfDay();
+        toDateTime = toDate.atTime(00,00,00,0000);
+        return _transactionRepository.getListTransByUsernameSearchDate(username, fromDateTime, toDateTime);
+    }
+    
 }

@@ -11,19 +11,27 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.text.DecimalFormat;
+import java.text.Format;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -34,18 +42,12 @@ import fpt.aptech.parkinggo.callback.CallBack;
 import fpt.aptech.parkinggo.domain.response.ProfileRes;
 
 public class EditProfileActivity extends AppCompatActivity implements CallBack {
-    private EditText etFullName;
-    private EditText etEmail;
-    private EditText etGender;
-    private TextView tvDob;
-    private EditText etPhone;
-    private EditText etICard;
+    private TextInputLayout etFullName,etEmail,tvDob,etPhone,etICard;
     private ImageView qrcode;
     private Button btnSave;
-    private int dobyear;
-    private int dobmonth;
-    private int dobday;
-
+    private DateTimeFormatter formatter;
+    private String sDob;
+    private LocalDate clDob;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +58,13 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
         actionBar.setDisplayHomeAsUpEnabled(true);
         // Title Bar
         actionBar.setTitle("Edit Profile");
+        Spannable text = new SpannableString(actionBar.getTitle());
+        text.setSpan(new ForegroundColorSpan(Color.WHITE), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        actionBar.setTitle(text);
         //load view
+        formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         etFullName = findViewById(R.id.a_editprofile_et_fullname);
         etEmail = findViewById(R.id.a_editprofile_et_email);
-        etGender = findViewById(R.id.a_editprofile_et_gender);
         tvDob = findViewById(R.id.a_editprofile_tv_dob);
         etPhone = findViewById(R.id.a_editprofile_et_phone);
         etICard = findViewById(R.id.a_editprofile_et_icard);
@@ -68,19 +73,21 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
 
         LoadProfileTask loadProfileTask = new LoadProfileTask(this, this::callback);
         loadProfileTask.execute();
-        tvDob.setOnClickListener(new View.OnClickListener() {
+        TextInputLayout tilDob = findViewById(R.id.a_editprofile_tv_dob);
+        tilDob.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EditProfileActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        if (month < 10) {
-                            tvDob.setText(year + "-" + (new DecimalFormat("00").format(month+1)) + "-" + dayOfMonth);
-                        } else {
-                            tvDob.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                        }
+                        tvDob.getEditText().setText(dayOfMonth + "-" + (new DecimalFormat("00").format(month+1)) + "-" + year);
+//                        if (month < 10) {
+//                            tvDob.getEditText().setText(dayOfMonth + "-" + (new DecimalFormat("00").format(month+1)) + "-" + year);
+//                        } else {
+//                            tvDob.getEditText().setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+//                        }
                     }
-                }, dobyear, dobmonth - 1, dobday);
+                }, clDob.getYear(), clDob.getMonthValue() - 1, clDob.getDayOfMonth());
                 datePickerDialog.show();
             }
         });
@@ -88,7 +95,11 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sublit();
+                if (validateFullname() && validateEmail() && validatePhone() && validateIcard() &&validateDob()){
+                    submit();
+                }else{
+                    return;
+                }
             }
         });
     }
@@ -116,24 +127,22 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
     public void callback(ResponseEntity<?> response) {
         if (response.getStatusCode() == HttpStatus.OK) {
             ProfileRes profileRes = (ProfileRes) response.getBody();
-            etFullName.setText(profileRes.getFullname());
+            etFullName.getEditText().setText(profileRes.getFullname());
             //convert yyyy/mm/dd to dd/mm/yyyy
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-//            etDob.setText(formatter2.format(LocalDate.parse(profileRes.getDob(), formatter)));
-            tvDob.setText(profileRes.getDob().toString());
-            etEmail.setText(profileRes.getEmail());
-            etICard.setText(profileRes.getIdentitycard().toString());
-            etPhone.setText(profileRes.getPhone().toString());
+
+            sDob = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(profileRes.getDob());
+            tvDob.getEditText().setText(sDob);
+            clDob = LocalDate.parse(sDob, formatter);
+            //tvDob.getEditText().setText(profileRes.getDob().toString());
+            etEmail.getEditText().setText(profileRes.getEmail());
+            etICard.getEditText().setText(profileRes.getIdentitycard().toString());
+            etPhone.getEditText().setText(profileRes.getPhone().toString());
             Bitmap bmp = BitmapFactory.decodeByteArray(profileRes.getQrcontent(), 0, profileRes.getQrcontent().length);
             qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
-            dobyear = profileRes.getDob().getYear();
-            dobmonth = profileRes.getDob().getMonthValue();
-            dobday = profileRes.getDob().getDayOfMonth();
         }
 
     }
-    public void sublit(){
+    public void submit(){
         EditProfileTask editProfileTask = new EditProfileTask(EditProfileActivity.this, this::callback);
         editProfileTask.execute();
     }
@@ -142,5 +151,57 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
         Intent myIntent = new Intent(this, MapsActivity.class);
         startActivity(myIntent);
         return true;
+    }
+    private boolean validateFullname() {
+        if (etFullName.getEditText().getText().toString().length() < 3) {
+            etFullName.setError("Full name must be more than 3 characters");
+            return false;
+        }
+        else if(!etFullName.getEditText().getText().toString().matches("^[a-zA-Z_ ]*$")){
+            etFullName.setError("Full name contains invalid characters");
+            return false;
+        }else {
+            etFullName.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateEmail() {
+        if (!etEmail.getEditText().getText().toString().matches("[a-z0-9]+@gmail.com")) {
+            etEmail.setError("Please enter a valid your email");
+            return false;
+        } else {
+            etEmail.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePhone() {
+        if (etPhone.getEditText().getText().toString().length() < 6 || etPhone.getEditText().getText().toString().length() > 13) {
+            etPhone.setError("Please enter a valid your phone");
+            return false;
+        } else {
+            etPhone.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateIcard() {
+        if (etICard.getEditText().getText().toString().length() < 6||etICard.getEditText().getText().toString().length() > 15) {
+            etICard.setError("Please enter a valid your identity card");
+            return false;
+        } else {
+            etICard.setError(null);
+            return true;
+        }
+    }
+    private boolean validateDob() {
+        if (tvDob.getEditText().getText().toString().length() < 6||tvDob.getEditText().getText().toString().length() > 15) {
+            tvDob.setError("Please enter day of birth");
+            return false;
+        } else {
+            tvDob.setError(null);
+            return true;
+        }
     }
 }

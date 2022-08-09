@@ -5,69 +5,162 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.RegisterActivity"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:theme="@style/Custom.ActionBar">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/baloo"
         android:freezesText="false"
-        android:gravity="center"
-        android:text="Register"
+        android:gravity="start"
+        android:text="What is your account?"
         android:textColor="@color/blue_default"
-        android:textSize="35dp"
-        android:textStyle="normal" />
+        android:textSize="20dp"
+        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/a_register_et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_person"
+                android:hint="Username"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/a_register_et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                app:startIconDrawable="@drawable/ic_key"
+                app:counterMaxLength="25"
+                android:layout_marginTop="10dp"
+                app:endIconMode="password_toggle"
+                android:hint="Password"
+                >
 
-    <EditText
-        android:id="@+id/a_login_et_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:ems="10"
-        android:fontFamily="@font/baloo"
-        android:hint="User Name"
-        android:inputType="textPersonName" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLength="25"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/a_register_et_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                app:startIconDrawable="@drawable/ic_key"
+                android:layout_marginTop="10dp"
+                app:endIconMode="password_toggle"
+                android:hint="Confirm password"
+                >
 
-    <EditText
-        android:id="@+id/a_login_et_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:ems="10"
-        android:fontFamily="@font/baloo"
-        android:hint="Password"
-        android:inputType="textPersonName" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLength="25"/>
+            </com.google.android.material.textfield.TextInputLayout>
+<!--            <EditText-->
+<!--                android:id="@+id/a_register_et_username"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:ems="10"-->
+<!--                android:fontFamily="@font/baloo"-->
+<!--                android:hint="user name"-->
+<!--                android:inputType="textPersonName" />-->
+<!--            <EditText-->
+<!--                android:id="@+id/a_register_et_password"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:ems="10"-->
+<!--                android:fontFamily="@font/baloo"-->
+<!--                android:hint="password"-->
+<!--                android:inputType="textPassword" />-->
+<!--            <EditText-->
+<!--                android:id="@+id/a_register_et_confirm_password"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:ems="10"-->
+<!--                android:fontFamily="@font/baloo"-->
+<!--                android:hint="comfirm password"-->
+<!--                android:inputType="textPassword" />-->
+        </LinearLayout>
+
+<!--    <EditText-->
+<!--        android:id="@+id/a_login_et_username"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:ems="10"-->
+<!--        android:fontFamily="@font/baloo"-->
+<!--        android:hint="User Name"-->
+<!--        android:inputType="textPersonName" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/a_login_et_password"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:ems="10"-->
+<!--        android:fontFamily="@font/baloo"-->
+<!--        android:hint="Password"-->
+<!--        android:inputType="textPersonName" />-->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="end">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="230dp"
             android:fontFamily="@font/baloo"
-            android:text="Not user " />
+            android:text="Already a member? " />
 
         <TextView
-            android:id="@+id/a_tv_register"
+            android:id="@+id/a_register_tv_login_here"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="0dp"
-            android:fontFamily="@font/baloo"
-            android:text="Register now?"
+            android:text="Login here"
             android:textColor="@color/blue_default"
+            android:fontFamily="@font/baloo"
+            android:layout_marginRight="30dp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/a_login_btn_signin"
+        android:id="@+id/a_register_btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/blue_default"
         android:fontFamily="@font/baloo"
-        android:text="Sign In" />
+        android:textColor="@color/white"
+        android:text="Next" />
 </LinearLayout>

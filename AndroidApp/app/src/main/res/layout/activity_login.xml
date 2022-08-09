@@ -10,9 +10,9 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="@font/baloo"
         android:freezesText="false"
         android:text="Login"
@@ -20,53 +20,59 @@
         android:textColor="@color/blue_default"
         android:textSize="50dp"
         android:textStyle="bold" />
-
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/a_login_et_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:ems="10"
-        android:fontFamily="@font/baloo"
-        android:hint="User Name"
-        android:inputType="textPersonName" />
-
-    <EditText
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="50dp"
+        app:startIconDrawable="@drawable/ic_person"
+        app:endIconMode="clear_text"
+        android:hint="Username"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="25" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/a_login_et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:ems="10"
-        android:fontFamily="@font/baloo"
+        android:layout_marginHorizontal="20dp"
+        app:startIconDrawable="@drawable/ic_key"
+        android:layout_marginTop="20dp"
+        app:endIconMode="password_toggle"
         android:hint="Password"
-        android:inputType="textPassword" />
+        >
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLength="25"/>
+    </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
+        android:orientation="horizontal"
+        android:gravity="end">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_marginLeft="220dp"
             android:fontFamily="@font/baloo"
-            android:text="Not user "
+            android:text="Not user? "
             android:textAlignment="gravity" />
 
         <TextView
             android:id="@+id/a_tv_register"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
             android:fontFamily="@font/baloo"
             android:text="Register now?"
-            android:textAlignment="gravity"
             android:textColor="@color/blue_default"
             android:textStyle="bold" />
     </LinearLayout>
@@ -74,10 +80,11 @@
     <Button
         android:id="@+id/a_login_btn_signin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="@color/blue_default"
+
         android:fontFamily="@font/baloo"
         android:text="Sign In" />
 </LinearLayout>

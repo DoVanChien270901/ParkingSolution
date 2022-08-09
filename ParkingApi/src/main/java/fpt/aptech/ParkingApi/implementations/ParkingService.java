@@ -255,4 +255,18 @@ public class ParkingService implements IParking {
         return loadStatusParking;
     }
 
+    @Override
+    public List<ParkingHistoryRes> getAllHistoryByUserName(String username) {
+        return _parkingHistoryRepo.getListTransByUsername(username);
+    }
+
+    @Override
+    public List<ParkingHistoryRes> getAllHistoryByUserSearch(String username, LocalDate fromDate, LocalDate toDate) {
+        LocalDateTime fromDateTime = fromDate.atStartOfDay();
+        fromDateTime = fromDate.atTime(00,00,00,0000);
+        LocalDateTime toDateTime = toDate.atStartOfDay();
+        toDateTime = toDate.atTime(00,00,00,0000);
+        return _parkingHistoryRepo.getListParkingHistoryByUsernameSearch(username, fromDateTime, toDateTime);
+    }
+    
 }

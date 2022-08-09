@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.apache.http.HttpResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -27,8 +29,8 @@ public class DirectPaymentTask extends AsyncTask<Void, Void, ResponseEntity<?>> 
 
     @Override
     protected ResponseEntity<?> doInBackground(Void... voids) {
-        etAmount = activity.findViewById(R.id.a_dpayment_et_amount);
-        String amount = etAmount.getText().toString();
+        etAmount = ((TextInputLayout)activity.findViewById(R.id.a_dpayment_et_amount)).getEditText();
+        String amount = etAmount.getText().toString().replace("đ", "").replaceAll("[,]", "");;
         String URL = activity.getString(R.string.URL_BASE)+"qr-code/generated/payment?amount="+amount;
         String token = ((LoginRes) Session.getSession()).getToken();
         HttpEntity request  = RestTemplateConfiguration.setRequest(token);

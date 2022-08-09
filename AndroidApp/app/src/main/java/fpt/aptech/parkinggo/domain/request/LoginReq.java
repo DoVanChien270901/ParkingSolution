@@ -1,6 +1,8 @@
 package fpt.aptech.parkinggo.domain.request;
 
-public class LoginReq {
+import java.io.Serializable;
+
+public class LoginReq implements Serializable {
     private String username;
     private String password;
 

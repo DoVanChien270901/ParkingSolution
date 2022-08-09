@@ -8,6 +8,7 @@ import fpt.aptech.ParkingApi.dto.request.AddParkingReq;
 import fpt.aptech.ParkingApi.dto.request.UpdateParkingReq;
 import fpt.aptech.ParkingApi.dto.response.LoadStatusParking;
 import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
+import fpt.aptech.ParkingApi.dto.response.ParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingRes;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,4 +32,6 @@ public interface IParking {
     int freeOneSlot(String name);
     List<LoadStatusParking> allStatusParking();
     LoadStatusParking StatusParkingByName(String parkingname);
+    List<ParkingHistoryRes> getAllHistoryByUserName(String username);
+    List<ParkingHistoryRes> getAllHistoryByUserSearch(String username, LocalDate fromDate, LocalDate toDate);
 }
