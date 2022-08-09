@@ -10,8 +10,10 @@ import fpt.aptech.ParkingApi.dto.request.CreateOrderReq;
 import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
+import fpt.aptech.ParkingApi.dto.response.TransactionRes;
 import fpt.aptech.ParkingApi.entities.Transactioninformation;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -35,4 +37,6 @@ public interface ITransaction {
     Transactioninformation getbyTransNo(String transno);
 
     PageTransactionRes getAllSearch(LocalDate formDate, LocalDate toDate, int page, int size);
+    List<TransactionRes> getAllByUser(String username);
+    List<TransactionRes> getAllByUserSearch(String username, LocalDate fromDate, LocalDate toDate);
 }

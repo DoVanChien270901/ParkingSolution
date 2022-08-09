@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.domain.response.ParkingRes;
@@ -44,18 +48,27 @@ public class ParkingAdapter extends ArrayAdapter<ParkingRes> {
         TextView tvSeat = (TextView) convertView.findViewById(R.id.l_all_parking_info_tv_nop);
         TextView tvSalary = (TextView) convertView.findViewById(R.id.l_all_parking_info_tv_salary);
         String f = String.format("%.03f", result[0] / 1000);
-        String fSalary = String.format("%.03f", parking.getRentcost());
-        String pSeat = parking.getBlank() + "/" + parking.getNop();
+        //String fSalary = String.format("%.03f", parking.getRentcost());
+        String pSeat = (parking.getNop()-parking.getBlank()) + "/" + parking.getNop();
 
         tvRadius.setText(f + " km");
         // Populate the data into the template view using the data object
         tvName.setText(parking.getName());
         tvAddress.setText(parking.getAddress());
-        tvSalary.setText(fSalary + " đ");
+        tvSalary.setText(formatInteger(String.valueOf(parking.getRentcost())) + " đ");
         tvSeat.setText(pSeat);
-
+        if (parking.getBlank() == 0){
+            convertView.setBackground(getContext().getDrawable(R.drawable.border_error));
+        }else{
+            convertView.setBackground(null);
+        }
         return convertView;
-
         // Return the completed view to render on screen
+    }
+    private String formatInteger(String str) {
+        BigDecimal parsed = new BigDecimal(str);
+        DecimalFormat formatter =
+                new DecimalFormat( "#,###", new DecimalFormatSymbols(Locale.US));
+        return formatter.format(parsed);
     }
 }

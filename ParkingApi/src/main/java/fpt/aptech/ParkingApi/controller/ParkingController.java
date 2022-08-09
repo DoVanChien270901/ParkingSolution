@@ -10,11 +10,13 @@ import fpt.aptech.ParkingApi.dto.response.BookingRes;
 import fpt.aptech.ParkingApi.dto.response.LoadStatusParking;
 import fpt.aptech.ParkingApi.dto.response.PageParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
+import fpt.aptech.ParkingApi.dto.response.ParkingHistoryRes;
 import fpt.aptech.ParkingApi.dto.response.ParkingRes;
 import fpt.aptech.ParkingApi.entities.Parkinglocation;
 import fpt.aptech.ParkingApi.interfaces.IParking;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -138,6 +140,23 @@ public class ParkingController {
     @RequestMapping(value = "/load-status-parking/{name}", method = RequestMethod.GET)
     public ResponseEntity<?> loadStatusParking(@PathVariable("name")String name) {
         LoadStatusParking res = _parkingService.StatusParkingByName(name);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/all-parking-history/username", method = RequestMethod.GET)
+    public ResponseEntity<?> allParkingGistoryByUserName(@RequestHeader("Authorization")String token) {
+        String username = _jwtUtil.extracUsername(token.substring(7));
+        List<ParkingHistoryRes> res = _parkingService.getAllHistoryByUserName(username);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/all-parking-history/username/search", method = RequestMethod.GET)
+    public ResponseEntity<?> allParkingGistoryByUserNameSearch(@RequestHeader("Authorization")String token,
+            @RequestParam("from-date")String fromDate, @RequestParam("to-date")String toDate) {
+        String username = _jwtUtil.extracUsername(token.substring(7));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate lcFromDate = LocalDate.parse(fromDate, formatter);
+        LocalDate lcToDate = LocalDate.parse(toDate, formatter);
+        
+        List<ParkingHistoryRes> res = _parkingService.getAllHistoryByUserSearch(username, lcFromDate, lcToDate);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 }

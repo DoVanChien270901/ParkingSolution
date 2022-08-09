@@ -29,6 +29,7 @@
         <entry key="..\:/ProjectSem4/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/ProjectSem4/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_main_user.xml" value="0.1796875" />
         <entry key="..\:/Users/CHIEN/.gradle/caches/transforms-3/74292be9cb686a095a4a0d900254dd59/transformed/appcompat-1.4.2/res/drawable/abc_ic_ab_back_material.xml" value="0.191" />
+        <entry key="..\:/Users/CHIEN/.gradle/caches/transforms-3/74292be9cb686a095a4a0d900254dd59/transformed/appcompat-1.4.2/res/drawable/abc_item_background_holo_light.xml" value="0.191" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/boder_qrcode.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/edit_icon.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/drawable/home_icon.xml" value="0.1705" />
@@ -68,11 +69,15 @@
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/menu/actionbar_edit_profile_menu.xml" value="0.3671875" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/menu/user_main_menu.xml" value="0.1796875" />
         <entry key="..\:/Users/CHIEN/Desktop/ParkingSolution/AndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.136" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable-v24/border_trans_history.xml" value="0.2705" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/boder_dpayment.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/boder_qrcode.xml" value="0.191" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border.xml" value="0.191" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_circle.xml" value="0.2705" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_dpayment.xml" value="0.191" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_error.xml" value="0.2705" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_fill_gray.xml" value="0.1885" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_ic_blue.xml" value="0.2705" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_item_table_row_blue.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_item_table_row_green.xml" value="0.191" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_item_table_row_red.xml" value="0.1595" />
@@ -81,31 +86,51 @@
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_md_white.xml" value="0.191" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_ms.xml" value="0.191" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_ms_blue.xml" value="0.191" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_ms_gray.xml" value="0.188" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/btn_menu.xml" value="0.2375" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/edit_icon.xml" value="0.2375" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.191" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_baseline_credit_card_24.xml" value="0.188" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.188" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.188" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2705" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_key.xml" value="0.188" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_person.xml" value="0.188" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/drawable/ic_wallet.xml" value="0.1885" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/font/arial.xml" value="0.38125" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/font/arimo.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/font/baloo.xml" value="0.38125" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_booking.xml" value="0.22" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_details_parking_history.xml" value="0.21" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_details_transaction.xml" value="0.25" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_direct_payment.xml" value="0.33" />
-        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.32083333333333336" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_home.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_login.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_maps.xml" value="0.16" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_parking_history.xml" value="0.33" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_profile.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_register2.xml" value="0.33" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_testavt1.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_transaction_history.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/all_parking_info.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/border_md.xml" value="0.1828125" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/border_trans_history.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.22" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/bottom_sheet_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/dropdown_item.xml" value="0.33" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/fragment_home.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/header.xml" value="0.25" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/list_parking_history.xml" value="0.25" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/list_transaction_history.xml" value="0.33" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/progress_dialog_loadding.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/table_select_location_dialog.xml" value="0.1828125" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/layout/toolbar.xml" value="0.1828125" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/menu/actionbar_edit_profile_menu.xml" value="0.1828125" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/menu/user_main_menu.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/CHIEN/Desktop/Project/test-android/ParkingSolution/AndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2705" />
       </map>
     </option>
   </component>

@@ -12,6 +12,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -51,8 +53,13 @@ public class EditProfileReq implements Serializable {
     }
 
     public void setDob(String dob) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
-        this.dob = LocalDate.parse(dob, formatter);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            this.dob = LocalDate.parse(dob, formatter);
+        } catch (Exception e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.dob = LocalDate.parse(dob, formatter);
+        }
     }
 
     public String getEmail() {

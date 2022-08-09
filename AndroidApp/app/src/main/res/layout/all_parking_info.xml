@@ -109,7 +109,6 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/salary" />
-
                 <TextView
                     android:id="@+id/l_all_parking_info_tv_salary"
                     android:layout_width="wrap_content"

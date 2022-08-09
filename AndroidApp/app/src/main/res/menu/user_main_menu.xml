@@ -6,7 +6,6 @@
             android:icon="@drawable/map_icon"
             android:title="Map"></item>
     </group>
-
     <item android:title="Wallet Payment">
         <menu>
             <group android:checkableBehavior="single">

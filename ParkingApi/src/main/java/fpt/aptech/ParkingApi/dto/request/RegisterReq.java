@@ -5,6 +5,8 @@
 package fpt.aptech.ParkingApi.dto.request;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -58,6 +60,15 @@ public class RegisterReq {
 
     public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+    public void setDob(String dob) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            this.dob = LocalDate.parse(dob, formatter);
+        } catch (Exception e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.dob = LocalDate.parse(dob, formatter);
+        }
     }
 
     public boolean isGender() {

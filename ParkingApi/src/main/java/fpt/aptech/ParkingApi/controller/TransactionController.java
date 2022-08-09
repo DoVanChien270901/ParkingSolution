@@ -13,18 +13,22 @@ import fpt.aptech.ParkingApi.dto.request.ERechargeReq;
 import fpt.aptech.ParkingApi.dto.request.TransactionReq;
 import fpt.aptech.ParkingApi.dto.response.EPaymentRes;
 import fpt.aptech.ParkingApi.dto.response.PageTransactionRes;
+import fpt.aptech.ParkingApi.dto.response.TransactionRes;
 import fpt.aptech.ParkingApi.entities.Transactioninformation;
 import fpt.aptech.ParkingApi.interfaces.ITransaction;
 import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.utils.JwtUtil;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -219,5 +223,23 @@ public class TransactionController {
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    @RequestMapping(value = "/list-all-transaction", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllTransactionHistoryByUser(@RequestHeader("Authorization") String token) {
+        String username = _jwtTokenUtil.extracUsername(token.substring(7));
+        List<TransactionRes> res = _transactionServices.getAllByUser(username);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/list-all-transaction/search", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllTransactionHistoryByUserSearch(@RequestHeader("Authorization") String token,
+            @RequestParam("from-date")String fromDate, @RequestParam("to-date")String toDate) {
+        String username = _jwtTokenUtil.extracUsername(token.substring(7));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate lcFromDate = LocalDate.parse(fromDate, formatter);
+        LocalDate lcToDate = LocalDate.parse(toDate, formatter);
+        
+        List<TransactionRes> res = _transactionServices.getAllByUserSearch(username, lcFromDate, lcToDate);
+        return new ResponseEntity(res, HttpStatus.OK);
     }
 }
