@@ -3,9 +3,11 @@ package fpt.aptech.parkinggo.asynctask;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import fpt.aptech.parkinggo.R;
@@ -42,12 +44,6 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
                 .excuteRequest(uri + "createTransaction", HttpMethod.POST, request2, String.class);
 
         //booking
-        EditText etTimenum = activity.findViewById(R.id.a_booking_et_timenum);
-        EditText etCarname = activity.findViewById(R.id.a_booking_et_carname);
-        EditText etLisenceplates = activity.findViewById(R.id.a_booking_et_lisenceplates);
-        EditText etStarttime = activity.findViewById(R.id.a_booking_et_date);
-        EditText etLocationCode = activity.findViewById(R.id.a_booking_et_locationcode);
-
         String[] s = (String[]) activity.getIntent().getSerializableExtra("car");
 
         NewBookingReq newBookingReq = new NewBookingReqBuilder()
@@ -66,5 +62,24 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
                 .excuteRequest(uri + "booking", HttpMethod.POST, request, Integer.class);
 
         return response;
+    }
+
+    @Override
+    protected void onPostExecute(ResponseEntity<?> response) {
+        if (response.getStatusCode().equals(HttpStatus.OK)){
+            TextView tvTransno = activity.findViewById(R.id.a_payment_tv_transno);
+            TextView tvAmount = activity.findViewById(R.id.a_payment_tv_amount);
+            TextView tvChannel = activity.findViewById(R.id.a_payment_tv_channel);
+            TextView tvStype = activity.findViewById(R.id.a_payment_tv_stype);
+            TextView tvStatus = activity.findViewById(R.id.a_payment_tv_status);
+
+            tvStatus.setText("Payment Successful");
+            tvTransno.setText(bookingRes.getTransNo());
+            tvAmount.setText(bookingRes.getTransactionReq().getAmount().toString());
+            tvChannel.setText(bookingRes.getTransactionReq().getPaymentReq().getChannel());
+            tvStype.setText(bookingRes.getTransactionReq().getStype());
+        }else{
+
+        }
     }
 }

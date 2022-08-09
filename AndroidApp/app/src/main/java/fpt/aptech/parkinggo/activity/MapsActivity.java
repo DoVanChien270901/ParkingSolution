@@ -522,10 +522,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         ResponseEntity<?> res = task.execute().get();
                         parkingRes = (ArrayList<ParkingRes>) res.getBody();
                     } catch (Exception e) {
-
-                    }
-                    Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
-                    intent.putExtra("list", parkingRes);
+                    Intent intent = new Intent(MapsActivity.this, RechargeActivity.class);
                     startActivity(intent);
                     return true;
                 }

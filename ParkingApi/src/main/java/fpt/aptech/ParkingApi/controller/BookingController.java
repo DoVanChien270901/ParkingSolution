@@ -86,7 +86,12 @@ public class BookingController {
         ListBookingRes res = new ListBookingRes(listBooking);
         return new ResponseEntity(res, HttpStatus.OK);
     }
-
+@RequestMapping(value = "/android-list-booking", method = RequestMethod.GET)
+    public ResponseEntity<?> androidListBooking(@RequestHeader("Authorization") String token) {
+        String username = _jwtUtil.extracUsername(token.substring(7));
+        List<BookingRes> listBooking = _bookingService.getListBookingByUsername(username);
+        return new ResponseEntity(listBooking, HttpStatus.OK);
+    }
     @RequestMapping(value = "/booking-details", method = RequestMethod.GET)
     public ResponseEntity<?> bookingDetails(@RequestParam("id") int id, @RequestHeader("Authorization") String token) {
         String username = _jwtUtil.extracUsername(token.substring(7));

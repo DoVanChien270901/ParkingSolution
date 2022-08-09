@@ -32,6 +32,10 @@
                 android:id="@+id/nav_parking_history"
                 android:icon="@drawable/qr_code_icon"
                 android:title="Parking History"></item>
+            <item
+                android:id="@+id/nav_booking_history"
+                android:icon="@drawable/qr_code_icon"
+                android:title="Booking History"></item>
         </menu>
     </item>
     <group android:checkableBehavior="single">
