@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/a_editprofile_main_layout"
     android:layout_width="match_parent"
@@ -7,137 +8,133 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:theme="@style/Custom.ActionBar"
-    tools:context=".activity.EditProfileActivity">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="650px"
-        android:layout_gravity="center"
-        android:background="@color/blue_default">
-
-        <FrameLayout
-            android:layout_width="425px"
-            android:layout_height="425px"
-            android:background="@drawable/border_md_white"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:id="@+id/a_editprofile_imv_qrcode"
-                android:layout_width="400px"
-                android:layout_height="400px"
-                android:layout_gravity="center">
-                android:src="@drawable/logo">
-            </ImageView>
-        </FrameLayout>
-    </FrameLayout>
+    android:theme="@style/AppTheme.ActionBar"
+    tools:context=".activity.EditProfileActivity"
+    android:background="#DCDCDC">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="20dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/border_trans_history"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="full name"
-            android:textSize="50px"></TextView>
-
-        <EditText
-            android:id="@+id/a_editprofile_et_fullname"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:ems="10"
-            android:text="Dỗ Văn Chiến"
-            android:textSize="50px" />
+            android:layout_height="650px"
+            android:layout_gravity="center"
+            android:background="@drawable/border_ic_blue">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="email"
-            android:textSize="50px"></TextView>
+            <FrameLayout
+                android:layout_width="425px"
+                android:layout_height="425px"
+                android:layout_gravity="center"
+                android:background="@drawable/border_md_white">
 
-        <EditText
-            android:id="@+id/a_editprofile_et_email"
+                <ImageView
+                    android:id="@+id/a_editprofile_imv_qrcode"
+                    android:layout_width="400px"
+                    android:layout_height="400px"
+                    android:layout_gravity="center">
+                    android:src="@drawable/logo">
+                </ImageView>
+            </FrameLayout>
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10px"
-            android:background="@null"
-            android:ems="10"
-            android:text="vanchien270901@gmail.com" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/a_editprofile_et_fullname"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Full Name"
+                app:boxBackgroundColor="@color/white">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    android:text="Do Van Chien"
+                    android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="gender"
-            android:textSize="50px"></TextView>
-
-        <EditText
-            android:id="@+id/a_editprofile_et_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10px"
-            android:background="@null"
-            android:ems="10"
-            android:text="vanchien270901@gmail.com" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="day of birth"
-            android:textSize="50px"></TextView>
-
-        <TextView
-            android:id="@+id/a_editprofile_tv_dob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:text="27/09/2001"
-            android:textColor="@color/black"
-            android:textSize="50px" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="phone"
-            android:textSize="50px"></TextView>
-
-        <EditText
-            android:id="@+id/a_editprofile_et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:ems="10"
-            android:text="4567325456" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="identity card"
-            android:textSize="50px"></TextView>
-
-        <EditText
-            android:id="@+id/a_editprofile_et_icard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:ems="10"
-            android:text="567934578" />
-
-        <Button
-            android:id="@+id/a_editprofile_btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="15dp"
-            android:background="@drawable/border_md"
-            android:backgroundTint="@color/blue_default"
-            android:fontFamily="@font/baloo"
-            android:text="Save"
-            android:textColor="@color/white"
-            android:textSize="20dp"></Button>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/a_editprofile_et_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Email"
+                app:boxBackgroundColor="@color/white">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    android:text="Vanchien@gmaol.com"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/a_editprofile_tv_dob"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Day of birth"
+                app:boxBackgroundColor="@color/white">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    android:text="27/09/2001"
+                    android:inputType="none"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/a_editprofile_et_phone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Phone"
+                app:boxBackgroundColor="@color/white">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    android:inputType="number"
+                    android:text="12345756786"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/a_editprofile_et_icard"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Identitycard"
+                app:boxBackgroundColor="@color/white">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    android:inputType="number"
+                    android:text="12345756786"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                android:id="@+id/a_editprofile_btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="35dp"
+                android:background="@drawable/border_md"
+                android:backgroundTint="@color/blue_default"
+                android:fontFamily="@font/baloo"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="20dp"></Button>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

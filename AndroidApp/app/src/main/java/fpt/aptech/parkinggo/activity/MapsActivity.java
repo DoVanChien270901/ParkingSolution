@@ -74,6 +74,7 @@ import fpt.aptech.parkinggo.R;
 import fpt.aptech.*;
 import fpt.aptech.parkinggo.adapter.ParkingAdapter;
 import fpt.aptech.parkinggo.asynctask.LoadListParkingTask;
+import fpt.aptech.parkinggo.asynctask.TransactionHistoryTask;
 import fpt.aptech.parkinggo.callback.CallBack;
 import fpt.aptech.parkinggo.callback.CustomProgressDialog;
 import fpt.aptech.parkinggo.databinding.ActivityMapsBinding;
@@ -82,6 +83,7 @@ import fpt.aptech.parkinggo.domain.dto.FetchURL;
 import fpt.aptech.parkinggo.domain.dto.TaskLoadedCallback;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
 import fpt.aptech.parkinggo.domain.response.ParkingRes;
+import fpt.aptech.parkinggo.domain.response.TransactionRes;
 import fpt.aptech.parkinggo.statics.Session;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, TaskLoadedCallback, NavigationView.OnNavigationItemSelectedListener {
@@ -108,7 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TAG = "MapsActivity";
 
     ParkingRes[] parkingLocationList = null;
-    //ParkingRes parkingLocation1 = new ParkingRes("Le Thi Rieng Parking Lot","10.786140368621982","106.66553523925666","Cach Mang Thang Tam, Ward 15, District 10, Ho Chi Minh City, Vietnam",50,50,20);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,20 +142,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toolbar.setTitle("ParkingGo");
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
         //call api
-        LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
-        try {
-            ResponseEntity<?> res = task.execute().get();
-            parkingLocationList = (ParkingRes[]) res.getBody();
-        } catch (Exception e) {
+//        LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
+//        try {
+//            ResponseEntity<?> res = task.execute().get();
+//            parkingLocationList = (ParkingRes[]) res.getBody();
+//        } catch (Exception e) {
+//
+//        }
+        parkingLocationList = (ParkingRes[]) intent.getSerializableExtra("list");
+        if (parkingLocationList == null) {
+            LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
+            try {
+                ResponseEntity<?> res = task.execute().get();
+                parkingLocationList = (ParkingRes[]) res.getBody();
+            } catch (Exception e) {
 
+            }
         }
-        //parkingLocationList = (ArrayList<ParkingRes>) intent.getSerializableExtra("list");
-        //parkingLocationList.add(parkingLocation1);
         //setContentView(R.layout.activity_maps);
         if (checkGooglePlayServices()) {
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -249,11 +260,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                            //Toast.makeText(MapsActivity.this, "Test Item", Toast.LENGTH_SHORT).show();
-                            ParkingRes pl = checkRadiusParking.get(position);
+                            //check blank
+                            if (parkingLocationList[position].getBlank() != 0) {
+                                //Toast.makeText(MapsActivity.this, "Test Item", Toast.LENGTH_SHORT).show();
+                                ParkingRes pl = checkRadiusParking.get(position);
 
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(pl.getLatitude()), Double.valueOf(pl.getLongtitude())), 16));
-                            dialog.dismiss();
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(pl.getLatitude()), Double.valueOf(pl.getLongtitude())), 16));
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(MapsActivity.this, "The parking lot is not available", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                         }
                     });
                     dialog.show();
@@ -473,30 +490,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //no do thing
         }
     }
-    private String CurrentTitleAT ="Map";
+
+    private String CurrentTitleAT = "Map";
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        String id  = item.toString();
+        String id = item.toString();
         switch (id) {
             case "Map":
                 if (!CurrentTitleAT.equals("Map")) {
                     CurrentTitleAT = "Map";
                     Intent intent = new Intent(this, MapsActivity.class);
                     startActivity(intent);
-                }break;
+                }
+                break;
 
             case "Direct Payment":
                 if (!CurrentTitleAT.equals("Direct Payment")) {
                     CurrentTitleAT = "Direct Payment";
                     Intent intent = new Intent(this, DirectPaymentActivity.class);
                     startActivity(intent);
-                }break;
+                }
+                break;
             case "Electronic Payment":
                 if (!CurrentTitleAT.equals("Electronic Payment")) {
                     CurrentTitleAT = "Electronic Payment";
                     //call api
                     LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
-                    ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
+                    ArrayList<ParkingRes> parkingRes = new ArrayList<>();
                     try {
                         ResponseEntity<?> res = task.execute().get();
                         parkingRes = (ArrayList<ParkingRes>) res.getBody();
@@ -510,23 +531,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             case "Transaction History":
                 if (!CurrentTitleAT.equals("Transaction History")) {
-                    CurrentTitleAT = "Transaction History";
-                    Intent intent = new Intent(this, MapsActivity.class);
+
+                    //call api
+                    TransactionHistoryTask task = new TransactionHistoryTask(this);
+                    //ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
+                    TransactionRes[] transactionRes = null;
+                    try {
+                        ResponseEntity<?> res = task.execute().get();
+                        transactionRes = (TransactionRes[]) res.getBody();
+                    } catch (Exception e) {
+
+                    }
+                    Intent intent = new Intent(this, TransactionHistoryActivity.class);
+                    intent.putExtra("list", transactionRes);
                     startActivity(intent);
-                }break;
+//                    CurrentTitleAT = "Transaction History";
+//                    Intent intent = new Intent(this, TransactionHistoryActivity.class);
+//                    startActivity(intent);
+                }
+                break;
             case "Parking History":
                 if (!CurrentTitleAT.equals("Parking History")) {
                     CurrentTitleAT = "Parking History";
-                    Intent intent = new Intent(this, MapsActivity.class);
+                    Intent intent = new Intent(this, ParkingHistoryActivity.class);
                     startActivity(intent);
-                }break;
+                }
+                break;
             case "Logout":
                 if (!CurrentTitleAT.equals("Logout")) {
                     CurrentTitleAT = "Logout";
                     Session.setSession(null);
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
-                }break;
+                }
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

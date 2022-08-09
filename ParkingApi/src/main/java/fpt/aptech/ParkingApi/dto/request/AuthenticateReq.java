@@ -4,11 +4,13 @@
  */
 package fpt.aptech.ParkingApi.dto.request;
 
+import java.io.Serializable;
+
 /**
  *
  * @author CHIEN
  */
-public class AuthenticateReq {
+public class AuthenticateReq implements Serializable{
     private String username;
     private String password;
 

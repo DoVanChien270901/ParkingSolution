@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -45,13 +47,13 @@ public class EditProfileTask extends AsyncTask<Void, Integer, ResponseEntity<?>>
 
     @Override
     protected ResponseEntity<?> doInBackground(Void... voids) {
-        EditText etFullname = activity.findViewById(R.id.a_editprofile_et_fullname);
-        EditText etICard = activity.findViewById(R.id.a_editprofile_et_icard);
-        TextView tvDob = activity.findViewById(R.id.a_editprofile_tv_dob);
-        EditText etEmail = activity.findViewById(R.id.a_editprofile_et_email);
-        EditText etPhone = activity.findViewById(R.id.a_editprofile_et_phone);
+        EditText etFullname = ((TextInputLayout)activity.findViewById(R.id.a_editprofile_et_fullname)).getEditText();
+        EditText etICard =  ((TextInputLayout)activity.findViewById(R.id.a_editprofile_et_icard)).getEditText();
+        TextView tvDob =  ((TextInputLayout)activity.findViewById(R.id.a_editprofile_tv_dob)).getEditText();
+        EditText etEmail =  ((TextInputLayout)activity.findViewById(R.id.a_editprofile_et_email)).getEditText();
+        EditText etPhone =  ((TextInputLayout)activity.findViewById(R.id.a_editprofile_et_phone)).getEditText();
         //convert local date
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate dob = LocalDate.parse(tvDob.getText().toString(), formatter);
         EditProfileReq editProfileReq = new EditProfileReqBuilder()
                 .setFullname(etFullname.getText().toString())

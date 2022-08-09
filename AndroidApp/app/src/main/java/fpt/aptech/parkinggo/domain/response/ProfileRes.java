@@ -9,6 +9,7 @@ import org.codehaus.jackson.map.ext.JodaDeserializers;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ProfileRes implements  Serializable{
@@ -47,9 +48,7 @@ public class ProfileRes implements  Serializable{
     }
 
     public void setDob(String dob) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(dob, formatter);
-        this.dob = localDate;
+        this.dob = LocalDate.parse(dob);
     }
 
     public Double getBalance() {

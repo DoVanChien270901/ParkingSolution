@@ -12,6 +12,10 @@ import org.springframework.http.ResponseEntity;
 import android.content.*;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+
 import fpt.aptech.parkinggo.R;
 
 import fpt.aptech.parkinggo.activity.MapsActivity;
@@ -20,6 +24,7 @@ import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.LoginReqBuilder;
 import fpt.aptech.parkinggo.domain.request.LoginReq;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
+import fpt.aptech.parkinggo.domain.response.ParkingRes;
 import fpt.aptech.parkinggo.domain.response.ProfileRes;
 import fpt.aptech.parkinggo.statics.Session;
 
@@ -36,26 +41,14 @@ public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
     }
     @Override
     protected void onPreExecute() {
-         etUsername = activity.findViewById(R.id.a_login_et_username);
-         etPassword = activity.findViewById(R.id.a_login_et_password);
-        if (!etUsername.getText().toString().matches("[a-z0-9_-]{6,12}$")) {
-            etUsername.requestFocus();
-            etUsername.setError("Username must be between 6 and 25 characters");
-            this.cancel(true);
-        } else if (!etPassword.getText().toString().matches("[a-z0-9_-]{6,12}$")) {
-            etPassword.requestFocus();
-            etPassword.setError("Password must be between 6 and 25 characters");
-            this.cancel(true);
-        }else{
+        etUsername = ((TextInputLayout)activity.findViewById(R.id.a_login_et_username)).getEditText();
+        etPassword = ((TextInputLayout)activity.findViewById(R.id.a_login_et_password)).getEditText();
             dialog = new CustomProgressDialog(activity);
             dialog.show();
-        }
     }
 
     @Override
     protected ResponseEntity<?> doInBackground(Void... voids) {
-        EditText etUsername = activity.findViewById(R.id.a_login_et_username);
-        EditText etPassword = activity.findViewById(R.id.a_login_et_password);
         LoginReq loginReq = new LoginReqBuilder()
                 .setUsername(etUsername.getText().toString())
                 .setPassword(etPassword.getText().toString())
@@ -80,12 +73,26 @@ public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
         if (response.getStatusCode() == HttpStatus.OK) {
             LoginRes loginRes = (LoginRes) response.getBody();
             Session.setSession(loginRes);
-            Intent intent;
 
             if (loginRes.getRole().toString().equals("user")){
-                intent = new Intent(activity.getApplicationContext(), MapsActivity.class);
+
+                //call api
+                LoadListParkingTask task = new LoadListParkingTask(activity);
+                //ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
+                ParkingRes[] parkingRes = null;
+                try {
+                    ResponseEntity<?> res = task.execute().get();
+                    parkingRes = (ParkingRes[]) res.getBody();
+                } catch (Exception e) {
+
+                }
+                Intent intent = new Intent(activity.getApplicationContext(), MapsActivity.class);
+                intent.putExtra("list", parkingRes);
                 dialog.dismiss();
                 activity.startActivity(intent);
+//              Intent intent = new Intent(activity.getApplicationContext(), MapsActivity.class);
+//              dialog.dismiss();
+//              activity.startActivity(intent);
             }else{
                 dialog.dismiss();
                 Toast.makeText(activity.getApplicationContext(), "User name or password is valid", Toast.LENGTH_LONG).show();
