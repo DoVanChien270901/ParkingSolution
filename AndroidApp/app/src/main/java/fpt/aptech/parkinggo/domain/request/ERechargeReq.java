@@ -2,19 +2,19 @@ package fpt.aptech.parkinggo.domain.request;
 
 import java.io.Serializable;
 
-public class CheckStatusPaymentReq implements Serializable {
-    private String transno;
+public class ERechargeReq implements Serializable {
+    private Long amount;
     private String channel;
 
-    public CheckStatusPaymentReq() {
+    public ERechargeReq() {
     }
 
-    public String getTransno() {
-        return transno;
+    public Long getAmount() {
+        return amount;
     }
 
-    public void setTransno(String transno) {
-        this.transno = transno;
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 
     public String getChannel() {

@@ -14,6 +14,7 @@ import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.EBookingReqBuilder;
 import fpt.aptech.parkinggo.domain.request.EBookingReq;
+import fpt.aptech.parkinggo.domain.response.EPaymentRes;
 import fpt.aptech.parkinggo.domain.response.EBookingRes;
 
 public class CreatePaymentTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
@@ -54,7 +55,7 @@ public class CreatePaymentTask extends AsyncTask<Void, Integer, ResponseEntity<?
         HttpEntity request = RestTemplateConfiguration.setRequest(eBookingReq);
         String uri = activity.getString(R.string.URL_BASE);
         ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(uri + "e-booking", HttpMethod.POST, request, EBookingRes.class);
+                .excuteRequest(uri + "e-booking", HttpMethod.POST, request, EPaymentRes.class);
         return response;
     }
 

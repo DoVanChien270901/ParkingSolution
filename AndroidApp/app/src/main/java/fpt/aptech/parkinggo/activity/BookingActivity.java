@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -28,21 +27,13 @@ import org.springframework.http.ResponseEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import fpt.aptech.parkinggo.R;
-import fpt.aptech.parkinggo.asynctask.BookingTask;
 import fpt.aptech.parkinggo.asynctask.CreatePaymentTask;
 import fpt.aptech.parkinggo.asynctask.LoadStatusParkingTask;
-import fpt.aptech.parkinggo.domain.response.EBookingRes;
+import fpt.aptech.parkinggo.domain.response.EPaymentRes;
 import fpt.aptech.parkinggo.domain.response.LoadStatusParking;
-import vn.momo.momo_partner.AppMoMoLib;
-import vn.zalopay.sdk.Environment;
-import vn.zalopay.sdk.ZaloPayError;
-import vn.zalopay.sdk.ZaloPaySDK;
-import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -62,15 +53,7 @@ public class BookingActivity extends AppCompatActivity {
 
     private TableLayout tb;
 
-    //MOMo
-    private Integer fee = 0;
-    int environment = 0;//developer default
-    private String merchantName = "vinhvizg";
-    private String merchantCode = "MOMOS40J20220512";
-    private String merchantNameLabel = "Nhà cung cấp";
-    private String description = "Thanh toán Ebooking";
-
-    EBookingRes bookingRes = null;
+    EPaymentRes bookingRes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,18 +87,11 @@ public class BookingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     loadDialog();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
-
-        // ZaloPay SDK Init
-        ZaloPaySDK.init(2553, Environment.SANDBOX);
-        // Momopay init
-        AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
 
         //Booking
         btnBook = findViewById(R.id.a_booking_btn_book);
@@ -125,159 +101,27 @@ public class BookingActivity extends AppCompatActivity {
                 CreatePaymentTask CreatePaymentTask = new CreatePaymentTask(BookingActivity.this);
                 try {
                     ResponseEntity<?> res = CreatePaymentTask.execute().get();
-                    bookingRes = (EBookingRes) res.getBody();
-                    if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Zalopay")) {
-                        createZalopay(bookingRes);
-                    } else if (bookingRes.getTransactionReq().getPaymentReq().getChannel().equals("Momo")) {
-                        createMomopay(bookingRes);
-                    }
+                    bookingRes = (EPaymentRes) res.getBody();
+                    Intent Payintent = new Intent(BookingActivity.this, PaymentActivity.class);
+                    Payintent.putExtra("bookingRes", bookingRes);
+
+                    //booking
+                    EditText etTimenum = findViewById(R.id.a_booking_et_timenum);
+                    EditText etCarname = findViewById(R.id.a_booking_et_carname);
+                    EditText etLisenceplates = findViewById(R.id.a_booking_et_lisenceplates);
+                    EditText etStarttime = findViewById(R.id.a_booking_et_date);
+                    EditText etLocationCode = findViewById(R.id.a_booking_et_locationcode);
+
+                    String[] car = {etTimenum.getText().toString(), etCarname.getText().toString(), etLisenceplates.getText().toString(), etStarttime.getText().toString(), etLocationCode.getText().toString()};
+
+                    Payintent.putExtra("car", car);
+
+                    startActivity(Payintent);
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
-    }
-
-    private void createZalopay(EBookingRes bookingRes) {
-        ZaloPaySDK.getInstance().payOrder(BookingActivity.this, bookingRes.getSignature(), "parkinggo://app", new PayOrderListener() {
-            @Override
-            public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
-                onPaymentSucces();
-            }
-
-            @Override
-            public void onPaymentCanceled(String zpTransToken, String appTransID) {
-                new AlertDialog.Builder(BookingActivity.this)
-                        .setTitle("User Cancel Payment")
-                        .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setNegativeButton("Cancel", null).show();
-            }
-
-            @Override
-            public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
-                new AlertDialog.Builder(BookingActivity.this)
-                        .setTitle("Payment Fail")
-                        .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setNegativeButton("Cancel", null).show();
-            }
-        });
-    }
-
-    //Get token through MoMo app
-    private void createMomopay(EBookingRes bookingRes) {
-        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
-        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
-
-        Integer amount = Math.toIntExact(bookingRes.getTransactionReq().getAmount());
-
-        Map<String, Object> eventValue = new HashMap<>();
-        //client Required
-        eventValue.put("merchantname", merchantName); //Tên đối tác. được đăng ký tại https://business.momo.vn. VD: Google, Apple, Tiki , CGV Cinemas
-        eventValue.put("merchantcode", merchantCode); //Mã đối tác, được cung cấp bởi MoMo tại https://business.momo.vn
-        eventValue.put("amount", amount); //Kiểu integer
-        eventValue.put("orderId", bookingRes.getTransNo()); //uniqueue id cho BillId, giá trị duy nhất cho mỗi BILL
-        eventValue.put("orderLabel", "Mã đơn hàng"); //gán nhãn
-
-        //client Optional - bill info
-        eventValue.put("merchantnamelabel", "Dịch vụ");//gán nhãn
-        eventValue.put("fee", fee); //Kiểu integer
-        eventValue.put("description", description); //mô tả đơn hàng - short description
-
-        //client extra data
-        eventValue.put("requestId", merchantCode + "merchant_billId_" + System.currentTimeMillis());
-        eventValue.put("partnerCode", merchantCode);
-        //Example extra data
-//        JSONObject objExtraData = new JSONObject();
-//        try {
-//            objExtraData.put("site_code", "008");
-//            objExtraData.put("site_name", "CGV Cresent Mall");
-//            objExtraData.put("screen_code", 0);
-//            objExtraData.put("screen_name", "Special");
-//            objExtraData.put("movie_name", "Kẻ Trộm Mặt Trăng 3");
-//            objExtraData.put("movie_format", "2D");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        eventValue.put("extraData", objExtraData.toString());
-
-        eventValue.put("extra", "");
-        AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
-
-    }
-
-    //Get token callback from MoMo app an submit to server side
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
-            if (data != null) {
-                if (data.getIntExtra("status", -1) == 0) {
-                    //TOKEN IS AVAILABLE
-//                    tvMessage.setText("message: " + "Get token " + data.getStringExtra("message"));
-//                    String token = data.getStringExtra("data"); //Token response
-//                    String phoneNumber = data.getStringExtra("phonenumber");
-//                    String env = data.getStringExtra("env");
-//                    if (env == null) {
-//                        env = "app";
-//                    }
-                    onPaymentSucces();
-//                    if (token != null && !token.equals("")) {
-//                        // TODO: send phoneNumber & token to your server side to process payment with MoMo server
-//                        // IF Momo topup success, continue to process your order
-//                    } else {
-//                        tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
-//                    }
-                }
-//                else if (data.getIntExtra("status", -1) == 1) {
-//                    //TOKEN FAIL
-//                    String message = data.getStringExtra("message") != null ? data.getStringExtra("message") : "Thất bại";
-//                    tvMessage.setText("message: " + message);
-//                } else if (data.getIntExtra("status", -1) == 2) {
-//                    //TOKEN FAIL
-//                    tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
-//                } else {
-//                    //TOKEN FAIL
-//                    tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
-//                }
-            }
-//            else {
-//                tvMessage.setText("message: " + this.getString(R.string.not_receive_info));
-//            }
-        } else {
-//            tvMessage.setText("message: " + this.getString(R.string.not_receive_info_err));
-        }
-    }
-
-
-    protected void onPaymentSucces() {
-        BookingTask bookingTask = new BookingTask(BookingActivity.this, bookingRes);
-        bookingTask.execute();
-        new AlertDialog.Builder(BookingActivity.this)
-                .setTitle("Payment Success")
-                .setMessage("Thank for your order")
-                .setPositiveButton("Go HomePage", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BookingActivity.this, MapsActivity.class);
-                        startActivity(intent);
-                    }
-                }).show();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        ZaloPaySDK.getInstance().onResult(intent);
     }
 
     private void showDateDialog(EditText etDatetime) {
@@ -304,13 +148,15 @@ public class BookingActivity extends AppCompatActivity {
         };
         new DatePickerDialog(BookingActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
+
     public void loadDialog() throws ExecutionException, InterruptedException {
         LoadStatusParkingTask loadStatusParkingTask = new LoadStatusParkingTask(this, message);
         LoadStatusParking loadStatusParking = null;
         try {
             ResponseEntity<?> response = loadStatusParkingTask.execute().get();
             loadStatusParking = (LoadStatusParking) response.getBody();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
         View alertView = inflater.inflate(R.layout.table_select_location_dialog, null);
@@ -318,22 +164,22 @@ public class BookingActivity extends AppCompatActivity {
         TableRow row = new TableRow(this);
         String selected = "A";
         int call = 0;
-        for(int i = 0 ; i < loadStatusParking.getLocationcode().length ; i++){
+        for (int i = 0; i < loadStatusParking.getLocationcode().length; i++) {
             row.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
             row.setGravity(Gravity.CENTER_HORIZONTAL);
             TextView textView = new TextView(this);
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             textView.setText(loadStatusParking.getLocationcode()[i]);
-            for (int j = 0; j < loadStatusParking.getCodebooked().length; j++){
-                if (loadStatusParking.getLocationcode()[i].equals(loadStatusParking.getCodebooked()[j])){
+            for (int j = 0; j < loadStatusParking.getCodebooked().length; j++) {
+                if (loadStatusParking.getLocationcode()[i].equals(loadStatusParking.getCodebooked()[j])) {
                     call = 1;
                 }
             }
-            if (call == 0){
+            if (call == 0) {
                 textView.setTextColor(Color.parseColor("#08FF00"));
                 textView.setBackground(getDrawable(R.drawable.border_item_table_row_green));
-            }else if(call==1){
+            } else if (call == 1) {
                 textView.setTextColor(Color.parseColor("#FF0000"));
                 textView.setBackground(getDrawable(R.drawable.border_item_table_row_red));
                 call = 0;
@@ -350,7 +196,7 @@ public class BookingActivity extends AppCompatActivity {
             textView.setHeight(70);
 //            textView.setPadding(15, 15 ,15 ,15);
             row.addView(textView);
-            if ((i+1) % loadStatusParking.getColumnofrow() == 0){
+            if ((i + 1) % loadStatusParking.getColumnofrow() == 0) {
                 tableLayout.addView(row);
                 row = new TableRow(this);
             }
@@ -369,15 +215,17 @@ public class BookingActivity extends AppCompatActivity {
         });
 
     }
+
     TextView selected = null;
     ColorStateList color;
     Drawable background;
     String textSelected;
-    public void onClickTextView(TextView tv, View v){
-        if (tv.getTextColors().getDefaultColor() == ((ColorStateList)ColorStateList.valueOf(Color.parseColor("#FF0000"))).getDefaultColor()){
+
+    public void onClickTextView(TextView tv, View v) {
+        if (tv.getTextColors().getDefaultColor() == ((ColorStateList) ColorStateList.valueOf(Color.parseColor("#FF0000"))).getDefaultColor()) {
             return;
         }
-        if (selected == null){
+        if (selected == null) {
             selected = tv;
             color = tv.getTextColors();
             background = tv.getBackground();
@@ -386,7 +234,7 @@ public class BookingActivity extends AppCompatActivity {
             textSelected = tv.getText().toString();
             return;
         }
-        if (selected !=null){
+        if (selected != null) {
             selected.setTextColor(color);
             selected.setBackground(background);
             selected = tv;

@@ -1,6 +1,8 @@
 package fpt.aptech.parkinggo.domain.request;
 
-public class TransactionReq {
+import java.io.Serializable;
+
+public class TransactionReq implements Serializable {
     private String username;
     private String parkingname;
     private CheckStatusPaymentReq paymentReq;

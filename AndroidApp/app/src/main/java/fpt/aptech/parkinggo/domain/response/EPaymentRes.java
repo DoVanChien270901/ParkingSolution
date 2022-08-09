@@ -1,8 +1,10 @@
 package fpt.aptech.parkinggo.domain.response;
 
+import java.io.Serializable;
+
 import fpt.aptech.parkinggo.domain.request.TransactionReq;
 
-public class EBookingRes {
+public class EPaymentRes implements Serializable {
     private String payUrl;
     private String returnMessage;
     private String signature;
@@ -10,7 +12,7 @@ public class EBookingRes {
     private Integer returnCode;
     private TransactionReq transactionReq;
 
-    public EBookingRes() {
+    public EPaymentRes() {
     }
 
     public String getPayUrl() {
