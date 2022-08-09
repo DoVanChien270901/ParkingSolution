@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layouts/user-layout.html}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
         <title>ParkingGo | Direct Payment Page</title>
@@ -44,7 +43,7 @@
                         <div class="container" id="direct-payment">
                             <div class="row g-4 mb-3 pb-3 recharge">
                                 <div class="pb-1 pt-4">
-                                    <h2 class="h2 text-primary">// Direct Payment //</h2>
+                                    <h2 class="h2 text-new-color">// Direct Payment //</h2>
                                 </div>
                                 <div class="container show-wallet">
                                     <label><i class="fa fa-wallet"></i>&nbsp;<span th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/></label>
@@ -52,15 +51,15 @@
                                 <form th:action="@{/generator-qrcode}" method="GET" id="form-direct-payment" class="form-direct-payment">
                                     <div class="row payment">
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment mb-2 h3" style="color:#35477d; font-weight: 600;">Input Payment:</label>
-                                            <div class="input-group pt-2">    
-                                                <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp" placeholder="0"/>
+                                            <label class="label-input-payment mb-2 h3">Input Payment</label>
+                                            <div class="input-group pt-1">    
+                                                <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp"/>
                                                 <div class="invalid-feedback invalid-error-mess-d-payment" id="invalid-error-mess-d-payment">
-                                                    <label>Amount must between 10.000 VND and 5.000.000 VND</label>
+                                                    <label></label>
                                                 </div>
                                             </div>
                                             <div class="select-amount p-2">
-                                                <div class="row pt-2 mb-4">
+                                                <div class="row pt-1 mb-4">
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
                                                         <input type="button" id="" onclick="changeSelectAmount(2)" class="p-2" value="20.000 VND">
                                                     </div>
@@ -77,15 +76,15 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                                            <div th:if="${displaycode}" class="col-direct-payment-qrcode pt-3 mb-4 pb-4">
-                                                <img class="direct-payment-qrcode get-qrcode mb-4" th:src="${displaycode}"/>
+                                            <div th:if="${displaycode}" class="col-direct-payment-qrcode pt-3 mb-3 pb-3">
+                                                <img class="direct-payment-qrcode get-qrcode mb-2" th:src="${displaycode}"/>
                                             </div>
-                                            <div th:unless="${displaycode}" class="col-direct-payment-qrcode pt-3 mb-4 pb-4">
-                                                <img class="direct-payment-qrcode" th:src="@{/assetsc/img/no-qrcode.png}" />
+                                            <div th:unless="${displaycode}" class="col-direct-payment-qrcode pt-3 mb-3 pb-3">
+                                                <img class="direct-payment-qrcode get-noqrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-2 mb-2 col-btn-qrcode-direct-payment">
-                                            <button type="submit" class="btn-qrcode-direct-payment btn-md mt-0 mb-2 p-2"><i class="fa fa-qrcode"></i> QR Code</button>
+                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 mb-2 col-btn-qrcode-direct-payment">
+                                            <button type="submit" class="btn-qrcode-direct-payment mt-0 mb-2 p-2"><i class="fa fa-qrcode"></i> QR Code</button>
                                         </div>
                                     </div>
                                 </form>

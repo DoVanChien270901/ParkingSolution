@@ -13,9 +13,9 @@ import javax.validation.constraints.Size;
  */
 public class AuthenticateReq {
 
-    @Size(min = 6, max = 25, message = "Username must be between 6 and 25 characters")
+    @Size(min = 6, max = 25, message = "*Username must be between 6 and 25 characters !")
     private String username;
-    @Size(min = 6, max = 12, message = "Password must be between 6 and 12 characters")
+    @Size(min = 6, max = 12, message = "*Password must be between 6 and 12 characters !")
     private String password;
 
     public AuthenticateReq() {

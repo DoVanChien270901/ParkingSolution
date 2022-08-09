@@ -65,9 +65,8 @@
 }
 
 #sidebar .title {
-    background: #1b00ff;
-    border-bottom: 1px solid #1b00ff;
-    font-style: 'Arial', sans-serif !important;
+    background: #4e73df;
+    border-bottom: 1px solid #4e73df;
 }
 
 #sidebar .title h4 {
@@ -76,7 +75,11 @@
     font-size: 24px;
     font-weight: 700;
     color: #fff;
-    text-transform: uppercase;
+    text-transform: capitalize;
+}
+
+#sidebar .title h4 span {
+    font-family: 'Arial', sans-serif;
 }
 
 .content-google-map {
@@ -112,7 +115,7 @@
 
 #sidebar::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: #1b00ff;
+    background: #4e73df;
 }
 
 .wrapper-google-map .location-btn {
@@ -152,7 +155,7 @@
 }
 
 #content-parking .direction {
-    background-color: #1b00ff;
+    background-color: #4e73df;
     color: #fff;
     border-radius: 2px;
     border: 0;
@@ -223,8 +226,8 @@
 }
 
 #sidebar .shop-item .row-shop-item col .fa-parking {
-    border: 1px solid #1b00ff;
-    color: #1b00ff;
+    border: 1px solid #4e73df ;
+    color: #4e73df;
 }
 
 #sidebar .shop-item .row-shop-item col .fa-wallet {
@@ -233,7 +236,7 @@
 }
 
 #content-parking .direction:hover {
-    background-color: #1502bd;
+    background-color: #395abd;
 }
 
 #content-parking .booking-box:hover {
@@ -246,7 +249,7 @@
 
 #sidebar .form-direction input,
 #sidebar .form-direction select {
-    background-color: #1b00ff;
+    background-color: #4e73df;
     border: 0;
     outline: 0;
     color: #fff;
@@ -275,7 +278,7 @@
 #sidebar .list-items .shop-item .shop-item-name {
     text-decoration: none;
     font-size: 16px;
-    color: #1b00ff;
+    color: #4e73df;
     font-weight: 700;
     line-height: 1.5;
     text-transform: capitalize;
@@ -285,6 +288,7 @@
 #sidebar .list-items .shop-item .shop-item-name:hover {
     letter-spacing: .3px;
     box-shadow: none;
+    color: #395abd;
 }
 
 #sidebar .list-items .shop-item #shop-item-address, 
@@ -340,7 +344,7 @@
 #sidebar .title h4 button {
     position: absolute;
     left: 10px;
-    background-color: #1b00ff;
+    background-color: #4e73df;
     color: #fff;
     border: 0;
     outline: 0;

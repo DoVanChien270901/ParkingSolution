@@ -5,17 +5,12 @@
         <title>ParkingGo | Google Map Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <link th:href="@{/assetsc/img/icon.png}" rel="icon">
-        <!-- Icon Font -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <!-- Libraries -->
         <link th:href="@{/assetsc/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css}" rel="stylesheet" />
-        <!-- Customized Bootstrap -->
         <link th:href="@{/assetsc/css/bootstrap.min.css}" rel="stylesheet">
-        <!-- Template -->
         <link th:href="@{/assetsc/css/style.css}" rel="stylesheet">
         <link th:href="@{/assetsc/css/google-map.css}" rel="stylesheet">
-        <!-- Script -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnhV4sgNAhuT-EchYl6tjM9L9FQqe5k9U&address=590%20cach%20mang%20thang%208&language=en&fbclid=IwAR1zFsITJV9jYpjNzKuZWM67XCKZqD76bSYVRRLcKyOOvruSZ446LguY0Ew&libraries=places&v=weekly&callback=showMap"></script>
@@ -41,7 +36,7 @@
                                 <i class="fa fa-arrow-alt-circle-left"></i>
                             </a>
                         </button>
-                        <span>Parking Go</span>
+                        <span>ParkingGo</span>
                     </h4>
                     <div class="form-direction">
                         <input class="form-control" id="distance" type="text" value="Distance: 0 km" readonly />
@@ -59,13 +54,11 @@
             <div id="map"></div>
         </div>
         <!-- Google Map End -->
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <!-- JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
             var parkingLocations = ([[${listparking}]]);
         </script>
-        <script th:src="@{/assetsc/js/map.js}">
-        </script>
+        <script th:src="@{/assetsc/js/map.js}"></script>
     </body>
 </html>

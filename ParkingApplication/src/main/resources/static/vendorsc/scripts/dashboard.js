@@ -420,7 +420,6 @@ var options6 = {
 	},
 	labels: ['Achieve Goals'],
 };
-
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 
@@ -438,7 +437,6 @@ chart5.render();
 
 var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
 chart6.render();
-
 
 // datatable init
 $('document').ready(function(){
