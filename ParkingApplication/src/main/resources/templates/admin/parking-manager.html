@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Longitude:</label>
-                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" value="">
+                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" >
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
                                         <label>Longitude can not be blank !</label>
                                     </div>
@@ -133,23 +133,23 @@
                         <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="form-group">
                                 <label>Name:</label>
-                                <input th:field="*{name}" class="form-control form-control" type="text" readonly="true">
+                                <input th:field="*{name}" class="form-control form-control" type="text">
                                 <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <label>Name must between 6 and 20 characters !</label>
+                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Latitude:</label>
                                 <input th:field="*{latitude}" class="form-control form-control" type="text">
                                 <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <label>Latitude can not be blank !</label>
+                                   <span th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Number of Parking Spaces:</label>
                                 <input th:field="*{nop}" class="form-control form-control" type="number">
                                 <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <label>Parking Spaces can not be blank !</label>
+                                   <span th:if="${#fields.hasErrors('nop')}" th:errors="*{nop}"></span>
                                 </div>
                             </div>
                         </li>
@@ -158,21 +158,21 @@
                                 <label>Address:</label>
                                 <input th:field="*{address}" class="form-control form-control" type="text">
                                 <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <label>Address can not be blank !</label>
+                                    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Longitude:</label>
-                                <input th:field="*{longtitude}" class="form-control form-control" type="text" value="">
+                                <input th:field="*{longtitude}" class="form-control form-control" type="text">
                                 <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <label>Longitude can not be blank !</label>
+                                    <span th:if="${#fields.hasErrors('longtitude')}" th:errors="*{longtitude}"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Rent Cost:</label>
-                                <input th:name="rentcost" th:value="${#numbers.formatInteger(updateParkingReq.rentcost, 3, 'COMMA')}" class="form-control form-control" type="text">
+                                <input th:field="*{rentcost}" class="form-control form-control" type="text">
                                 <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <label>Rent Cost can not be blank !</label>
+                                    <span th:if="${#fields.hasErrors('rentcost')}" th:errors="*{rentcost}"></span>
                                 </div>
                             </div>
                         </li>
