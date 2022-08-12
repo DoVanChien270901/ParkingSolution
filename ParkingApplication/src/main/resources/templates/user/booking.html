@@ -10,32 +10,31 @@
         <section layout:fragment="user-content">
             <div class="content form-parking-booking" id="form-parking-booking">
                 <div class="container">
-                    <div class="pb-4 pt-0">
+                    <div class="pb-4">
                         <h2 class="text-new-color text-uppercase text-center" th:text="${bookingReq.parkingname}"></h2>
-                        <marquee class="text-new-color fw-bold" th:text="${address}"></marquee>
+                        <marquee class="text-new-color fw-bolder" th:text="${address}"></marquee>
                     </div>
                     <div class="row align-items-stretch no-gutters contact-wrap">
                         <div class="col-md-12 col-12 col-lg-7 col-sm-12">
                             <div class="form h-100">
                                 <form class="mb-5" th:action="@{/booking}" th:object="${bookingReq}" method="POST" id="contactForm" name="contactForm">
                                     <div class="row">
-                                        <h4 data-color="#35477d" class="pt-0 label-input-payment">Fill In The Information</h4>
-                                        <input th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>    
+                                        <input th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none;"/>    
                                         <div class="col-md-6 form-group mb-2">
-                                            <label class="pb-2">Car Name</label>
+                                            <label class="pb-1">Car Name</label>
                                             <div class="input-group mb-0">
                                                 <input th:field="*{carname}" type="text" value="" class="form-control"/>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label></label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 form-group mb-2">
-                                            <label class="pb-2">Start Time</label>
+                                            <label class="pb-1">Start Time</label>
                                             <div class="input-group mb-2">
                                                 <input type="datetime-local" th:field="*{starttime}" value="" class="form-control"/>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label></label>
                                                 </div>
                                             </div>  
 
@@ -43,47 +42,47 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-2">
-                                            <label class="pb-2">License Plates</label>
+                                            <label class="pb-1">License Plates</label>
                                             <div class="input-group mb-2">
                                                 <input type="text" th:field="*{lisenceplates}" value="" class="form-control"/>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label></label>
                                                 </div>
                                             </div>
-                                            <!-- selected slot -->
-                                            <input type="text" id="code" th:field="*{locationcode}" style="display: none" value="">
+                                            <!-- Selected Slot -->
+                                            <input type="text" id="code" th:field="*{locationcode}" style="display: none;" value="">
                                         </div>
                                         <div class="col-md-6 form-group mb-2">
-                                            <label class="pb-2">Time Number</label>
+                                            <label class="pb-1">Time Number</label>
                                             <div class="input-group mb-2">
                                                 <input type="number" th:field="*{timenumber}" th:onkeyup="|numberokd(${rentcost})|" id="number" class="form-control"/>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <h4 data-color="#35477d" class="pt-4 label-input-payment">Choose Payment Method</h4>
+                                    <h4 data-color="#35477d" class="pt-4 label-input-payment">Choose Payment Method:</h4>
                                     <div class="row">                       
                                         <div class="col-md-12 col-12 col-lg-12 col-sm-12 form-group mb-3">
-                                            <div class="row row-form-check-radio-for-payment">
-                                                <div class="form-momo mb-3 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
-                                                    <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
-                                                    <label for="radio-momo" class="title-momo">Momo</label>
-                                                    <input type="radio" id="radio-momo" th:field="*{channel}" value="Momo" name="payment" checked="true"> 
+                                            <div class="row row-form-check-radio-for-payment form-booking-method-payment">
+                                                <div class="form-momo mb-3 col-md-6 col-lg-4">
+                                                    <img class="img-momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
+                                                    <label for="radio-momo" class="title-momo" id="title-momo"></label>
+                                                    <input type="radio" id="radio-momo" th:field="*{channel}" value="Momo" name="payment"> 
                                                 </div>
-                                                <div class="form-zalopay mb-3 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
-                                                    <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
-                                                    <label for="radio-zalopay" class="title-zalopay">ZaloPay</label>
+                                                <div class="form-zalopay mb-3 col-md-6 col-lg-4">
+                                                    <img class="img-zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
+                                                    <label for="radio-zalopay" class="title-zalopay" id="title-zalopay"></label>
                                                     <input type="radio" id="radio-zalopay" th:field="*{channel}" value="Zalopay" name="payment"> 
                                                 </div>
-                                                <div class="form-wallet mb-3 p-2 col-6 col-md-6 col-lg-4" style="padding-left: 10px;">
-                                                    <img class="wallet" th:src="@{/assetsc/img/wallet.png}" onclick="checkWallet()">
-                                                    <label for="radio-wallet" class="title-wallet">Wallet</label>
-                                                    <input style="margin-left:6px;" type="radio" id="radio-wallet" th:field="*{channel}" value="Wallet"  name="payment"> 
+                                                <div class="form-wallet mb-3 col-md-6 col-lg-4">
+                                                    <img class="img-wallet" th:src="@{/assetsc/img/wallet.png}" onclick="checkWallet()">
+                                                    <label for="radio-wallet" class="title-wallet" id="title-wallet"></label>
+                                                    <input type="radio" id="radio-wallet" th:field="*{channel}" value="Wallet" name="payment"> 
                                                 </div>
-                                                <div style="margin-left: 3px; margin-top: -10px;" class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                <div class="invalid-feedback invalid-error-mess-parking-booking">
+                                                    <label></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,11 +93,15 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12 form-group mb-3 col-btn-parking-booking">
-                                            <button type="submit" id="save-parking-booking" class="mt-0 mb-2 me-2">
-                                                <i class="far fa-check-circle"></i>&nbsp;Booking</button>
-                                            <a type="button" th:href="@{/map}" id="back-to-google-map" class="mt-0 mb-2 me-2">
-                                                <i class="fa fa-undo"></i>&nbsp;Back</a>
+                                        <div class="col-md-12 form-group mb-2 col-btn-parking-booking">
+                                            <!-- Booking -->
+                                            <button type="submit" id="save-parking-booking" class="mb-2 me-2">
+                                                <i class="fa fa-check-circle"></i>&nbsp;Booking
+                                            </button>
+                                            <!-- Back To Google Map-->
+                                            <a type="button" th:href="@{/map}" id="back-to-google-map" class="mb-2 me-2">
+                                                <i class="fa fa-undo"></i>&nbsp;Go Back
+                                            </a>
                                         </div>
                                     </div>
                                 </form>
@@ -106,7 +109,7 @@
                         </div>
                         <div class="col-md-12 col-lg-5 col-12 col-sm-12">
                             <div class="contact-info h-100">
-                                <h4 class="text-center">Choose a location in the parking lot</h4><br>
+                                <h4 class="text-center mb-4">Choose a location in the parking lot</h4>
                                 <div id="table-select" class="d-flex justify-content-center align-items-center"></div>
                             </div>
                         </div>
@@ -116,6 +119,7 @@
             <!-- Carousel End -->
         </section>
         <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
+            // Parking Location
             function clearActive() {
             var tableSelect = document.getElementById("table-select");
             var arrTr = tableSelect.children[0].children[0];
@@ -123,7 +127,7 @@
             var arrTd = tableSelect.children[0].children[0].children[j];
             for (var i = 0; i < arrTd.children.length; i++) {
             if (arrTd.children[i].id == 'yes') {
-            arrTd.children[i].style.color = 'green';
+            arrTd.children[i].style.color = '#198754';
             arrTd.children[i].style.border = '2px green solid';
             }
             }
@@ -132,7 +136,7 @@
             $(document).ready(function () {
             $('#table-select #yes').click(function () {
             clearActive();
-            this.style.color = 'blue';
+            this.style.color = '#4e73df';
             this.style.border = '2px blue solid';
             document.getElementById("code").value = this.textContent;
             });
@@ -166,24 +170,34 @@
                     table += "</tbody></table>";
                     tableSelect.innerHTML = table;
                     }
-            var momo = document.getElementById('radio-momo');
-            var zalopay = document.getElementById('radio-zalopay');
-            var wallet = document.getElementById('radio-wallet');
+
+            // Payment Method
+            var radio_momo = document.getElementById('radio-momo');
+            var radio_zalopay = document.getElementById('radio-zalopay');
+            var radio_wallet = document.getElementById('radio-wallet');
             function numberokd(rentcost) {
             var number = document.getElementById("number");
             var amount = document.getElementById("amount");
             amount.value = (number.value * rentcost).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
             }
             function checkMomo() {
-            momo.checked = true;
+            radio_momo.checked = true;
             }
-
             function checkZaloPay() {
-            zalopay.checked = true;
+            radio_zalopay.checked = true;
             }
             function checkWallet() {
-            wallet.checked = true;
+            radio_wallet.checked = true;
             }
+            
+            // Method Payment
+            var title_momo = document.getElementById('title-momo');
+            var title_zalopay = document.getElementById('title-zalopay');
+            var title_wallet = document.getElementById('title-wallet');
+
+            title_momo.innerHTML = 'Momo';
+            title_zalopay.innerHTML = 'Zalopay';
+            title_wallet.innerHTML = 'Wallet';
         </script>
     </body>
 </html>

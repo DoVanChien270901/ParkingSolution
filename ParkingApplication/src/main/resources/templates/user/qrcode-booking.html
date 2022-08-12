@@ -73,29 +73,29 @@
                                     <h2 class="text-primary">// Booking Details //</h2>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <label class="pb-2">Parking Name</label>
+                                    <label>Parking Name</label>
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${bookingDetailRes.parkingname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Car Name</label>
+                                    <label>Car Name</label>
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${bookingDetailRes.carname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Start Time</label>
+                                    <label>Start Time</label>
                                     <div class="input-group mb-3">
                                         <input type="datetime" th:value="${#temporals.format(bookingDetailRes.starttime, 'dd-MM-yyyy HH:mm')}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Time Number</label>
+                                    <label>Time Number</label>
                                     <div class="input-group">
                                         <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <label class="pb-2">License Plates</label>
+                                    <label>License Plates</label>
                                     <div class="input-group mb-3">                                     
                                         <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Amount</label>
+                                    <label >Amount</label>
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${#numbers.formatInteger(bookingDetailRes.price, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true"/>
                                     </div>
@@ -103,9 +103,12 @@
                                     <p class="text-center title-qrcode-booking">Your Qr Code</p>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-2 mb-2 col-button-edit-qrcode-booking button-edit">
-                                    <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="mt-0 mb-2 me-2 p-2"><i class="fa fa-undo"></i>&nbsp;Back to List</a>
-                                    <a type="button" th:href="@{/map}" id="guide-direction" class="mt-0 mb-2 me-2 p-2"><i class="far fa-map"></i>&nbsp;Guide</a>
-                                    <a type="button" th:href="@{'/export/pdf?id=' + ${id}}" id="export-receipt" class="mt-0 mb-2  me-2 p-2"><i class="fa fa-print"></i>&nbsp;Receipt</a>
+                                    <!-- List Booking -->
+                                    <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="mb-2 me-2 p-2"><i class="fa fa-undo"></i>&nbsp;Back to List</a>
+                                    <!-- Go to Google Map -->
+                                    <a type="button" th:href="@{/map}" id="guide-direction" class="mb-2 me-2 p-2"><i class="far fa-map"></i>&nbsp;Guide</a>
+                                    <!-- Receipt -->
+                                    <a type="button" th:href="@{'/export/pdf?id=' + ${id}}" id="export-receipt" class="mb-2 me-2 p-2"><i class="fa fa-print"></i>&nbsp;Receipt</a>
                                 </div>
                             </div>
                         </div>

@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-profile-button-edit">
                                         <button type="button" id="settings-profile" onclick="disable()" class="btn-settings-profile mt-2 mb-2 me-2 p-2"><i class="fas fa-cog"></i> Settings</button>
-                                        <button type="submit" id="update-profile" class="btn-save-profile mt-2 mb-2 me-2 p-2"><i class="far fa-check-circle"></i> Update</button>
+                                        <button type="submit" id="update-profile" class="btn-save-profile mt-2 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Update</button>
                                         <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn-cancel-profile mt-2 mb-2 p-2"><i class="fas fa-undo"></i> Cancel</a>
                                     </div>
                                 </div>
@@ -138,7 +138,6 @@
             function validateProfile() {
                 var checkYear = new Date(dob.value);
                 const getYear = new Date();
-
                 // fullname
                 if (fullname.value.length === 0 || fullname.value.length == '') {
                     fullname_error.style.display = "block";
@@ -152,14 +151,12 @@
                     qs_fullname.appendChild(span_fullname);
                     return false;
                 }
-
                 if (regex_only_text.test(fullname.value) == false) {
                     fullname_error.style.display = "block";
                     span_fullname.innerHTML = "*Fullname without special characters and numbers !";
                     qs_fullname.appendChild(span_fullname);
                     return false;
                 }
-
                 // phone
                 if (phone.value.length === 0 || phone.value.length == '') {
                     phone_error.style.display = "block";
@@ -173,7 +170,6 @@
                     qs_phone.appendChild(span_phone);
                     return false;
                 }
-
                 // dob 
                 if (!dob.value) {
                     dob_error.style.display = "block";
@@ -216,14 +212,12 @@
                     return false;
                 }
             }
-
             function fullname_verify() {
                 if (fullname.value.length >= 4 && fullname.value.length <= 25) {
                     fullname_error.style.display = "none";
                     return true;
                 }
             }
-
             function dob_verify() {
                 var checkYear = new Date(dob.value);
                 const getYear = new Date();
@@ -232,29 +226,24 @@
                     return true;
                 }
             }
-
             function phone_verify() {
                 if (phone.value.length == 10) {
                     phone_error.style.display = "none";
                     return true;
                 }
             }
-
             function email_verify() {
                 if (regex_email.test(email.value) == true && email.value.length >= 9) {
                     email_error.style.display = "none";
                     return true;
                 }
             }
-
             function identitycard_verify() {
                 if (identitycard.value.length == 10) {
                     identitycard_error.style.display = "none";
                     return true;
                 }
             }
-
-
         </script>
     </body>
 </html>

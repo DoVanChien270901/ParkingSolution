@@ -16,7 +16,6 @@
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnhV4sgNAhuT-EchYl6tjM9L9FQqe5k9U&address=590%20cach%20mang%20thang%208&language=en&fbclid=IwAR1zFsITJV9jYpjNzKuZWM67XCKZqD76bSYVRRLcKyOOvruSZ446LguY0Ew&libraries=places&v=weekly&callback=showMap"></script>
     </head>
     <body>
-        <!-- Google Map Start -->
         <div class="wrapper-google-map">
             <input type="checkbox" id="btn" hidden>
             <label for="btn" class="menu-btn">
@@ -32,7 +31,7 @@
                 <div class="title">
                     <h4>
                         <button class="return-index-from-google-map">
-                            <a th:href="@{/home/user}" style="color:#fff;">                            
+                            <a th:href="@{/home/user}">                            
                                 <i class="fa fa-arrow-alt-circle-left"></i>
                             </a>
                         </button>
@@ -53,12 +52,11 @@
         <div class="content-google-map">
             <div id="map"></div>
         </div>
-        <!-- Google Map End -->
-        <!-- JavaScript -->
+        
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
+        <script th:src="@{/assetsc/js/map.js}"></script>
+         <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
             var parkingLocations = ([[${listparking}]]);
         </script>
-        <script th:src="@{/assetsc/js/map.js}"></script>
     </body>
 </html>

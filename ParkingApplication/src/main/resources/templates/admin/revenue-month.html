@@ -57,12 +57,12 @@
                     <form th:action="@{/a/revenue/month}" method="get">
                         <div class="row">
                             <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <select  th:name="year" class="form-control border-info">
+                                <select  th:name="year" class="form-control">
                                     <option th:each="item : ${arrYear}" th:value="${item}" th:text="${item}" th:selected="(${year} == ${item})"></option>
                                 </select>
                             </div>
                             <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <select id="mySelect" th:name="type" class="form-control border-info">
+                                <select id="mySelect" th:name="type" class="form-control">
                                     <option value="line">Line Chart</option>
                                     <option value="bar">Bar Chart</option>
                                 </select>
@@ -135,7 +135,7 @@
                             labels: {
                             // This more specific font property overrides the global property
                                 font: {
-                                    size: 14,
+                                    size: 16,
                                 },
                                 color: 'rgb(0, 0, 0, 0.8)',
                                 }

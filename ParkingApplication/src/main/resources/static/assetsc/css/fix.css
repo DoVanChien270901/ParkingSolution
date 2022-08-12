@@ -150,7 +150,6 @@
 .nav-profile-manager .nav .dropdown-menu .dropdown-profile:hover {
     background-color: #4e73df;
     color: #fff;
-    transition: 0.2s;
 }
 
 .nav-tabs .nav-link {
@@ -176,13 +175,23 @@
     padding: 0px;
     display: block;
 }
-#form_profile label,
+
 #direct-payment .label-input-payment, 
 #form-electronic-payment .label-input-payment, 
-#form-parking-booking .label-input-payment{
+#form-parking-booking .label-input-payment {
     color:#35477d !important; 
     font-weight: 600;
     font-size: 16px;
+}
+
+#form_profile label {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+#form-electronic-payment .label-input-payment {
+    line-height: 0;
 }
 
 #booking-create .qrcode-booking {
@@ -301,7 +310,8 @@
     z-index: 999;
     position: absolute;
     padding: 10px;
-    font-size: 80%;
+    font-size: 85%;
+    font-weight: 600;
 }
 
 #form-electronic-payment .box-error-payment-method .invalid-feedback {
@@ -375,13 +385,12 @@
     margin-bottom: 18.5px !important;
 }
 
-
-#form-electronic-payment .momo, 
-#form-electronic-payment .zalopay,
-#form-parking-booking .momo,
-#form-parking-booking .zalopay,
-#form-parking-booking .wallet {
-    width: 50px;
+#form-electronic-payment .img-momo, 
+#form-electronic-payment .img-zalopay,
+#form-parking-booking .img-momo,
+#form-parking-booking .img-zalopay,
+#form-parking-booking .img-wallet {
+    width: 48px;
     cursor: pointer;
 }
 
@@ -489,29 +498,6 @@ label,
     cursor: pointer;
 }
 
-@media all and (min-width: 992px) {
-    .navbar .has-megamenu,
-    .navbar .has-user-menu {
-        position: static!important;
-    }
-    .navbar .megamenu {
-        left: 0;
-        right: 0;
-        width: 100%;
-        margin-top: 0;
-    }
-    .navbar .user-menu {
-        left: auto;
-        right: 0;
-        margin-top: 0;
-    }
-    .navbar-nav.navbar-center {
-        position: absolute;
-        left: 52%;
-        transform: translatex(-52%);
-    }
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -539,7 +525,7 @@ input[type=number] {
     line-height: 1.5;
     padding: 0.375rem 0.75rem;
     display: inline-block;
-    transition: .5s ease-out;
+    transition: .3s ease-out;
     text-align: center;
     font-size: 14px;
     margin-top: 1.5px;
@@ -564,12 +550,10 @@ input[type=number] {
 }
 
 .badge-danger {
-    color: #fff;
     background-color: #dc3545;
 }
 
 .badge-success {
-    color: #fff;
     background-color: #198754;
 }
 
@@ -577,13 +561,6 @@ input[type=number] {
     width: 100%;
     border-collapse: collapse;
 }
-
-/*.table-res-history .table th{
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}*/
 
 .table-res-history .table td, 
 .table-res-history .table th {
@@ -608,10 +585,10 @@ input[type=number] {
 
 .table-res-history .table tbody tr .id-table {
     font-weight: 600;
-    color: #000;
 }
 
-.table-res-history .table tbody tr td {
+.table-res-history .table tbody tr td, 
+.table-res-history .table tbody tr .id-table {
     color: #000;
 }
 
@@ -628,18 +605,16 @@ input[type=number] {
     font-weight: 900; 
 }
 
-.form-parking-booking  #save-parking-booking{
+.form-parking-booking #save-parking-booking {
     background-color: #198754;
-    color: #fff;
 }
 
-.form-parking-booking  #save-parking-booking:hover {
+.form-parking-booking #save-parking-booking:hover {
     background-color: #157347;
 }
 
 .form-parking-booking #back-to-google-map {
     background-color: #dc3545;
-    color: #fff;
 }
 
 .form-parking-booking #back-to-google-map:hover {
@@ -674,7 +649,6 @@ input[type=number] {
 
 .form-parking-booking .contact-wrap .contact-info ul li .wrap-icon {
     font-size: 20px;
-    color: #fff;
     margin-top: 5px; 
 }
 
@@ -695,13 +669,18 @@ input[type=number] {
 }
 
 .form-parking-booking .contact-wrap .contact-info h3 {
-    color: #fff;
     font-size: 22px;
     margin-bottom: 30px; 
     font-weight: 600;
 }
 
-.form-parking-booking .contact-wrap .contact-info p {
+.form-parking-booking .contact-wrap .contact-info p, 
+.form-parking-booking .contact-wrap .contact-info h3, 
+.form-parking-booking .contact-wrap .contact-info ul li .wrap-icon, 
+.form-parking-booking #save-parking-booking,
+.form-parking-booking #back-to-google-map, 
+.badge-danger, 
+.badge-success {
     color: #fff;
 }
 
@@ -721,20 +700,64 @@ input[type=number] {
     border-spacing: 10px;
 }
 
+#form-parking-booking .form-booking-method-payment .form-momo, 
+#form-parking-booking .form-booking-method-payment .form-zalopay,
+#form-parking-booking .form-booking-method-payment .form-wallet {
+    padding-left: 10px;
+}
+
+#form-parking-booking .form-booking-method-payment .invalid-error-mess-parking-booking {
+    margin-left: 3px; 
+    margin-top: -10px;
+}
+
+#form-parking-booking .form-booking-method-payment .form-wallet input {
+    margin-left: 3.2px;
+}
+
 #yes {
     border: 2px green solid;
-    color: green;
+    color: #198754;
     cursor: pointer;
 }
 
 #no {
     border: 2px red solid;
-    color: red;
+    color: #dc3545;
+    cursor: not-allowed;
 }
 
 #yes, #no {
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+@media all and (min-width: 992px) {
+    .navbar .has-megamenu,
+    .navbar .has-user-menu {
+        position: static!important;
+    }
+    .navbar .megamenu {
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+    .navbar .user-menu {
+        left: auto;
+        right: 0;
+        margin-top: 0;
+    }
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 52%;
+        transform: translatex(-52%);
+    }
+}
+
+.form-floating #message {
+    height: 100px;
 }
 
 @media screen and (max-width: 1200px) {

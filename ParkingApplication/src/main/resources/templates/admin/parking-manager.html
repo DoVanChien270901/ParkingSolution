@@ -18,7 +18,7 @@
                             <div class="pull-left mb-2">
                                 <div class="row">
                                     <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
-                                        <input type="text" th:name="keyword" class="form-control form-control-md border-info" placeholder="Parking Name...">
+                                        <input type="text" th:name="keyword" class="form-control" placeholder="Parking Name...">
                                     </div>
                                     <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
                                         <button type="submit" class="btn btn-md btn-color m-1"><i class="dw dw-search2 search-icon"></i></button>
@@ -29,7 +29,7 @@
                         <div class="pull-right">
                             <div class="row">
                                 <div class="col-12 col-lg-12 p-1" style="margin-top: 3px;">
-                                    <a th:href="@{/a/parking/add}" type="button" class="btn btn-color scroll-click" rel="content-y"><i class="fa fa-plus-circle"></i> Create</a>
+                                    <a th:href="@{/a/parking/add}" type="button" class="btn btn-md btn-color scroll-click" rel="content-y"><i class="fa fa-plus-circle"></i> Create</a>
                                 </div>
                             </div>                       
                         </div>
@@ -52,8 +52,14 @@
                                     <td data-label="Slot" th:text="${item.nop}"></td>
                                     <td data-label="Cost" class="col-lg-2" th:text="${#numbers.formatInteger(item.rentcost, 1, 'COMMA')} + ' VND'"></td>
                                     <td data-label="Action" class="action-center">
-                                        <a type="button" th:href="@{/a/parking/update(id=${item.name})}" class="btn btn-color btn-sm"><i class="fa fa-refresh"></i></a>
-                                        <a type="button" th:href="@{/a/parking/delete(id=${item.name})}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-color dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</button>
+                                            <div class="dropdown-menu">
+                                                <a th:href="@{/a/parking/update(id=${item.name})}" class="dropdown-item"><i class="fa fa-upload"></i>&nbsp;Update</a>
+                                                <a th:href="@{/a/parking/delete(id=${item.name})}" class="dropdown-item"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+                                            </div>
+                                        </div>
+
                                     </td>
                                 </tr>
                             </tbody>    
@@ -136,21 +142,21 @@
                             <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input th:field="*{name}" class="form-control form-control" type="text" readonly="true">
+                                    <input th:field="*{name}" class="form-control" type="text" readonly="true">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
                                         <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Latitude</label>
-                                    <input th:field="*{latitude}" class="form-control form-control" type="text">
+                                    <input th:field="*{latitude}" class="form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
                                         <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Number of Parking Spaces</label>
-                                    <input th:field="*{nop}" class="form-control form-control" type="number">
+                                    <input th:field="*{nop}" class="form-control" type="number">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
                                         <label class="font-14"></label>
                                     </div>
@@ -159,21 +165,21 @@
                             <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input th:field="*{address}" class="form-control form-control" type="text">
+                                    <input th:field="*{address}" class="form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
                                         <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Longitude</label>
-                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" value="">
+                                    <input th:field="*{longtitude}" class="form-control" type="text" value="">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
                                         <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Rent Cost</label>
-                                    <input th:name="rentcost" th:value="${#numbers.formatInteger(updateParkingReq.rentcost, 3, 'COMMA')}" class="form-control form-control" type="text">
+                                    <input th:name="rentcost" th:value="${#numbers.formatInteger(updateParkingReq.rentcost, 1, 'COMMA')}" class="form-control form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
                                         <label class="font-14"></label>
                                     </div>

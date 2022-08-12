@@ -46,22 +46,25 @@
                                     <h2 class="h2 text-primary">// Electronic Payment //</h2>
                                 </div>
                                 <div th:if="${balance}" class="container show-wallet">
-                                    <label><i class="fa fa-wallet"></i> <span id="format-amount" name="format-amount" th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/></label>
+                                    <label>
+                                        <i class="fa fa-wallet"></i>&nbsp;
+                                        <span id="format-amount" name="format-amount" th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/>
+                                    </label>
                                 </div>
                                 <form th:action="@{/e-payment}" th:object="${rechargeReq}" method="POST" id="form-electronic-payment" onsubmit="return validateElectronicPayment()">
                                     <div class="row">
                                         <!-- Payment Method Start -->
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2 col-payment-method">
-                                            <label class="label-input-payment mb-2 h3">Choose Payment Method</label>
+                                            <label class="label-input-payment mb-2 h3">Choose Payment Method:</label>
                                             <div class="row row-form-check-radio-for-payment pt-0">
                                                 <div class="form-momo mb-3 p-3 col-6 col-md-6 col-lg-6">
-                                                    <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
-                                                    <label for="radio-momo" class="title-momo">Momo</label>
+                                                    <img class="img-momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
+                                                    <label for="radio-momo" class="title-momo" id="title-momo"></label>
                                                     <input type="radio" id="radio-momo" th:field="*{channel}" value="Momo"> 
                                                 </div>
                                                 <div class="form-zalopay mb-3 p-3 col-6 col-md-6 col-lg-6">
-                                                    <img class="zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
-                                                    <label for="radio-zalopay" class="title-zalopay">ZaloPay</label>
+                                                    <img class="img-zalopay" th:src="@{/assetsc/img/zalopay.png}" onclick="checkZaloPay()">
+                                                    <label for="radio-zalopay" class="title-zalopay" id="title-zalopay"></label>
                                                     <input type="radio" id="radio-zalopay" th:field="*{channel}" value="Zalopay"> 
                                                 </div>
                                                 <div class="input-group box-error-payment-method">
@@ -72,12 +75,10 @@
                                         </div>
                                         <!-- Payment Method End -->
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment mb-2 h3">Input Payment</label>
+                                            <label class="label-input-payment mb-2 h3">Input Payment:</label>
                                             <div class="input-group pt-0">
-                                                <input class="form-control amount-ep" id="amount-ep" type="number" th:field="*{amount}"/>
-                                                <div class="invalid-feedback mess-box-electronic-payment error-amount-ep" id="error-amount-ep">
-
-                                                </div>
+                                                <input class="form-control amount-ep" id="amount-ep" type="number" th:field="*{amount}" placeholder="0"/>
+                                                <div class="invalid-feedback mess-box-electronic-payment error-amount-ep" id="error-amount-ep"></div>
                                             </div>
                                             <div class="select-amount p-2">
                                                 <div class="row pt-4 mb-4">
@@ -97,7 +98,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-2 mb-4 col-btn-electronic-payment">
-                                            <button type="submit" class="btn-electronic-payment mt-0 mb-2 p-2"><i class="fas fa-credit-card"></i>&nbsp;Pay Now</button>
+                                            <button type="submit" class="btn-electronic-payment mb-4 p-2"><i class="fas fa-credit-card"></i>&nbsp;Pay Now</button>
                                         </div>
                                     </div>
                                 </form>
@@ -108,13 +109,13 @@
             </div>
         </section>
         <script type="text/javascript" layout:fragment="code-javascript">
-            // query selector
+            // Query Selector
             const qs_epayment = document.querySelector('.error-amount-ep');
             const qs_radio_payment = document.querySelector('.error-payment-method');
-            // create span
+            // Create Span
             const span_epayment = document.createElement('span');
             const span_radio_payment = document.createElement('span');
-            // get forms
+            // Get Forms
             var epayment = document.forms['form-electronic-payment']['amount-ep'];
             var radio_momo = document.forms['form-electronic-payment']['radio-momo'];
             var radio_zalopay = document.forms['form-electronic-payment']['radio-zalopay'];
@@ -122,18 +123,16 @@
             var momo = document.getElementById('radio-momo');
             var zalopay = document.getElementById('radio-zalopay');
             var button_amount = document.getElementById('amount-ep');
-            // get id error
+            // Get Id Error
             var epayment_error = document.getElementById('error-amount-ep');
             var radio_payment_error = document.getElementById('error-payment-method');
 
-            // add event
+            // Add Event
             epayment.addEventListener('change', epayment_verify);
             radio_momo.addEventListener('change', radio_momo_verify);
             radio_zalopay.addEventListener('change', radio_zalopay_verify);
 
-
             function validateElectronicPayment() {
-
                 // Radio Payment Method 
                 if (momo.checked == false && zalopay.checked == false) {
                     radio_payment_error.style.display = "block";
@@ -141,7 +140,6 @@
                     qs_radio_payment.appendChild(span_radio_payment);
                     return false;
                 }
-
                 // Amount Electronic Payment 
                 if (epayment.value.length === 0 || epayment.value.length == '') {
                     epayment_error.style.display = "block";
@@ -165,47 +163,47 @@
                     return false;
                 }
             }
-
             function epayment_verify() {
                 if (epayment.value.length > 3 && epayment.value.length < 11 && parseInt(epayment.value) > 999 && parseInt(epayment.value) <= 5000000) {
                     epayment_error.style.display = "none";
                     return true;
                 }
             }
-
             function radio_momo_verify() {
                 if (momo.checked == true || zalopay.checked == true || checkMomo() || checkZaloPay()) {
                     radio_payment_error.style.display = "none";
                     return true;
                 }
             }
-
             function radio_zalopay_verify() {
                 if (momo.checked == true || zalopay.checked == true || checkMomo() || checkZaloPay()) {
                     radio_payment_error.style.display = "none";
                     return true;
                 }
             }
-
             function checkMomo() {
                 momo.checked = true;
                 radio_payment_error.style.display = "none";
             }
-
             function checkZaloPay() {
                 zalopay.checked = true;
                 radio_payment_error.style.display = "none";
             }
-
             function changeSelectAmountElec(value) {
                 document.getElementById("amount-ep").value = (10000 * value);
                 epayment_error.style.display = "none";
             }
-
             //var text = document.getElementById('format-amount');
             //var formatted = new Intl.NumberFormat().format(text.textContent);
             //console.log(formatted);
             //text.replaceChild(formatted);
+            
+               // Method Payment
+            var title_momo = document.getElementById('title-momo');
+            var title_zalopay = document.getElementById('title-zalopay');
+
+            title_momo.innerHTML = 'Momo';
+            title_zalopay.innerHTML = 'Zalopay';
         </script>
     </body>
 </html>

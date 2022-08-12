@@ -6,18 +6,20 @@ var ddisplay = null;
 var radius_circle = null;
 var buttonDirection;
 var markerArray = [];
-//Call Api Get List Parking
-//let myHeaders = new Headers();
-//myHeaders.append("Content-Type", "application/json");
-//
-//var requestOptions = {
+var radius = 10.000;
+
+// Call Api Get List Parking
+// let myHeaders = new Headers();
+// myHeaders.append("Content-Type", "application/json");
+
+// var requestOptions = {
 //    method: "GET",
 //    headers: myHeaders,
 //    body: null,
 //    redirect: "follow",
-//};
-//var api = "http://localhost:8080/list-parking";
-//fetch(api, requestOptions)
+// };
+// var api = "http://localhost:8080/list-parking";
+// fetch(api, requestOptions)
 //        .then((response) => {
 //            return response.json();
 //        })
@@ -27,8 +29,9 @@ var markerArray = [];
 //            showMap();
 //        })
 //        .catch((error) => console.log("error", error));
-//console.log(parkingLocations);
+// console.log(parkingLocations);
 // List Elements
+
 function listElements(parking, calulate) {
     const ul = document.querySelector('.list-items');
     const li = document.createElement('li');
@@ -45,10 +48,10 @@ function listElements(parking, calulate) {
     const col3 = document.createElement('col');
     const col4 = document.createElement('col');
     const num_seat = parking.nop - parking.blank;
-    // div 
+
+    // div all
     div.classList.add('shop-item');
     div.setAttribute('id', 'shop-item');
-    //div.setAttribute('value', parking.name);
 
     // name
     a.innerHTML = parking.name;
@@ -73,42 +76,44 @@ function listElements(parking, calulate) {
 
     if (num_seat == parking.nop || num_seat >= parking.nop) {
         nop.style.color = '#dc3545';
-        nop.innerHTML = '<i class="fa fa-parking"></i>&nbsp;&nbsp;' + num_seat + '/' + parking.nop + '&nbsp;slot';
-        button.href = '#';
+        nop.innerHTML = '<i class="fa fa-times"></i>&nbsp;&nbsp;' + num_seat + '/' + parking.nop + '&nbsp;slot';
         button.style.backgroundColor = '#dc3545';
-        button.style.cursor = 'context-menu';
-        button.innerHTML = 'Full';
+        button.style.cursor = 'not-allowed';
+        button.innerHTML = 'Full Space';
     } else {
         nop.innerHTML = '<i class="fa fa-parking"></i>&nbsp;&nbsp;' + num_seat + '/' + parking.nop + '&nbsp;slot';
         button.href = './booking?parkingname=' + parking.name;
-
         //button.setAttribute('type', 'button');
         button.innerHTML = 'Booking';
-
     }
 
     // rentcost
     rentcost.setAttribute('class', 'salary');
     rentcost.innerHTML = '<i class="fa fa-wallet"></i>&nbsp;&nbsp;' + Intl.NumberFormat().format(parking.rentcost) + ' đ/h';
+
     // row 
     row.classList.add('row');
     row.classList.add('row-shop-item')
 
-    // col1
+    // col 1
     col1.classList.add('col-12');
     col1.classList.add('pt-0');
-    // col2
+
+    // col 2
     col2.classList.add('col-12');
     col2.classList.add('pt-0');
-    // col3
+
+    // col 3
     col3.classList.add('col-6');
     col3.classList.add('pt-0');
-    // col4
+
+    // col 4
     col4.classList.add('col-6');
     col4.classList.add('p-2');
 
     div.appendChild(a);
     div.appendChild(address);
+
     // div row
     div.appendChild(row);
     row.appendChild(col1);
@@ -127,16 +132,15 @@ function listElements(parking, calulate) {
 // Content Element
 function contentElement(parking) {
     var num_seat = parking.nop - parking.blank;
-    var booking = document.getElementById('booking-box');
     var result;
     if (num_seat == parking.nop || num_seat >= parking.nop) {
-        result = '<div id="content-parking">' + '<strong>' + parking.name + '</strong>' + '<div class="pt-2" style="color:#000;">' + parking.address + '</div>' + '<div class="p-1"></div>' +
+        result = '<div id="content-parking">' + '<strong>' + parking.name + '</strong>' + '<div class="pt-2">' + parking.address + '</div>' + '<div class="p-1"></div>' +
                 '<button type="button" class="direction" id="direction"><i class="fa fa-fa fa-arrow-alt-circle-right"></i> Direction</button>' + '&nbsp&nbsp' +
-                '<a href="#" type="button" class="booking-box-full"><i class="fa fa-parking"></i> Full</a>';
+                '<a type="button" class="booking-box-full" style="cursor: not-allowed;"><i class="fa fa-times"></i> Full Space</a>';
     } else {
-        result = '<div id="content-parking">' + '<strong>' + parking.name + '</strong>' + '<div class="pt-2" style="color:#000;">' + parking.address + '</div>' + '<div class="p-1"></div>' +
+        result = '<div id="content-parking">' + '<strong>' + parking.name + '</strong>' + '<div class="pt-2">' + parking.address + '</div>' + '<div class="p-1"></div>' +
                 '<button type="button" class="direction" id="direction"><i class="fa fa-arrow-alt-circle-right"></i> Direction</button>' + '&nbsp&nbsp' +
-                '<a href="./booking?parkingname=' + parking.name + '" type="button" id="booking-box" class="booking-box"><i class="fa fa-fa fa-parking"></i> Booking</a>';
+                '<a href="./booking?parkingname=' + parking.name + '" type="button" id="booking-box" class="booking-box"><i class="fa fa-parking"></i> Booking</a>';
     }
     return result;
 }
@@ -157,8 +161,8 @@ function calculate(lat1, lat2, long1, long2) {
 
 // Show Place
 function showPlace(latpos, longpos) {
-    var latpos = latpos.toFixed(6);
-    var longpos = longpos.toFixed(7);
+    latpos = latpos.toFixed(6);
+    longpos = longpos.toFixed(7);
     // console.log(latpos, longpos);
     for (var i = 0; i < parkingLocations.length; i++) {
         var latParking = parkingLocations[i]['latitude'];
@@ -166,11 +170,14 @@ function showPlace(latpos, longpos) {
         // check radius
         var markerParking, i;
         var cal = calculate(latpos, latParking, longpos, longParking);
-        var radius = 10.000;
+
+
+        // check radius
         if (cal < radius) {
             listElements(parkingLocations[i], cal);
         }
-        // icon
+
+        // create icon parking
         var iconParking = {
             url: "/assetsc/img/marker.png",
             size: new google.maps.Size(71, 71),
@@ -178,14 +185,19 @@ function showPlace(latpos, longpos) {
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
         };
+
+        // content marker 
         var contentOnMarker = contentElement(parkingLocations[i]);
-        // create marker
+
+        // create maker parking
         markerParking = new google.maps.Marker({
             position: new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']),
             map: map,
             icon: iconParking,
             content: contentOnMarker,
         });
+        
+        // event marker click
         google.maps.event.addListener(markerParking, "click", (function (markerParking, i) {
             return function () {
                 var placePos = inforwindow.setPosition(this.position);
@@ -199,6 +211,7 @@ function showPlace(latpos, longpos) {
             }
         })(markerParking, i));
     }
+    
     // show place marker on listShop
     $(document).ready(function () {
         $('#shop-item #shop-item-name').click(function () {
@@ -207,11 +220,8 @@ function showPlace(latpos, longpos) {
                 if (idParking == parkingLocations[i]['name']) {
                     var posI = new google.maps.LatLng(parkingLocations[i]['latitude'], parkingLocations[i]['longtitude']);
                     var contentOnShop = contentElement(parkingLocations[i]);
-                    var placeListPos = inforwindow.setPosition(posI)
+                    inforwindow.setPosition(posI)
                     inforwindow.setContent(contentOnShop);
-                    // inforwindow.setOptions({
-                    //     pixelOffset: new google.maps.Size(5.55, -24.5)
-                    // });
                     inforwindow.open(map);
                     map.panTo(posI);
                     showDirection(posI);
@@ -220,7 +230,6 @@ function showPlace(latpos, longpos) {
         });
     });
 }
-
 
 // Show Direction
 function showDirection(data) {
@@ -287,6 +296,7 @@ function showMap() {
         showPlace(lat, long);
     });
 }
+
 $(document).ready(function () {
     $('#shop-item booking-list').click(function () {
         var id = $(this).attr('value');

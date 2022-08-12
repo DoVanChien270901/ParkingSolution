@@ -57,10 +57,10 @@
                     <form th:action="@{/a/revenue/day}" method="GET">
                         <div class="row">
                             <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <input class="form-control border-info" type="month" id="monthofyear" name="monthofyear" th:value="${monthofyear}"> 
+                                <input class="form-control" type="month" id="monthofyear" name="monthofyear" th:value="${monthofyear}"> 
                             </div>
                             <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <select id="mySelect" class="form-control border-info" th:name="type">
+                                <select id="mySelect" class="form-control" th:name="type">
                                     <option value="line">Line Chart</option>
                                     <option value="bar">Bar Chart</option>
                                 </select>
@@ -124,7 +124,7 @@
                                     labels: {
                                     // This more specific font property overrides the global property
                                     font: {
-                                    size: 14,
+                                    size: 16,
                                     },
                                         color: 'rgb(0, 0, 0, 0.8)',
                                     }

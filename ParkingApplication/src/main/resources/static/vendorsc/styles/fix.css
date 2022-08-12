@@ -308,6 +308,238 @@ option {
     color: red;
 }
 
+.form-select-parking-history {
+    padding: 10px;
+}
+
+/* Handler */
+
+#all-table-select, 
+#signle-table-select{
+    border: 1px solid #000;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-collapse: separate;
+    border-spacing: 3px;
+}
+
+#content-parking-status label {
+    padding-left: 12px;
+}
+
+#all-table-yes, 
+#signle-table-yes {
+    border: 2px green solid;
+    color: #198754;
+    cursor: context-menu;
+}
+
+#all-table-no, 
+#signle-table-no {
+    border: 2px red solid;
+    color: #dc3545;
+    cursor: not-allowed;
+}
+
+#all-table-yes,
+#all-table-no,
+#signle-table-select td {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    font-size: 16px
+}
+
+/*            
+#all-table-lable {
+    margin: 10px;
+    color: #1b00ff;
+    width: 100%;
+    font-size: 7px !important;
+    text-align: center;
+}*/
+
+
+#signle-table-label {
+    display: none;
+}
+
+/* Scan QR Code Handler */
+#preview {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 25px;
+    text-align: center;
+    z-index: 0;
+}
+
+
+
+/* .spacer {
+  margin-top: 6rem;
+} */
+
+/* barcode container */
+.anim-box {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    padding: 25px 30px;
+    transition: transform .6s ease-out;
+}
+
+/* adds the 4 corners */
+.anim-box:before,
+.anim-box:after,
+.anim-box>:first-child:before,
+.anim-box>:first-child:after {
+    position: absolute;
+    width: 10%;
+    height: 15%;
+    border-color: white;
+    border-style: solid;
+    content: ' ';
+}
+
+/* top left corner */
+.anim-box:before {
+    top: 0;
+    left: 0;
+    border-width: 2px 0 0 2px;
+}
+
+/* top right corner */
+.anim-box:after {
+    top: 0;
+    right: 0;
+    border-width: 2px 2px 0 0;
+}
+
+/* bottom right corner */
+.anim-box>:first-child:before {
+    bottom: 0;
+    right: 0;
+    border-width: 0 2px 2px 0;
+}
+
+/* bottom left corner */
+.anim-box>:first-child:after {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 2px 2px;
+}
+
+/* barcode bars */
+.anim-item {
+    display: inline-block;
+    background-color: white;
+    height: 100px;
+}
+
+.anim-item-sm {
+    width: 2px;
+    margin-right: 3px;
+}
+
+.anim-item-md {
+    width: 3px;
+    margin-right: 2px;
+}
+
+.anim-item-lg {
+    width: 5px;
+    margin-right: 5px;
+}
+
+/* grow on hover */
+/* .anim-box:hover {
+  transform: scale(1.5, 2);
+} */
+
+.anim-box .scanner {
+    animation-play-state: running;
+}
+
+/* animated laser beam */
+.scanner {
+    width: 100%;
+    height: 3px;
+    background-color: red;
+    opacity: 0.7;
+    position: relative;
+    box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+    top: 50%;
+    animation-name: scan;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+}
+
+@keyframes scan {
+    0% {
+        box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+        top: 50%;
+    }
+
+    25% {
+        box-shadow: 0px 6px 8px 10px rgba(170, 11, 23, 0.49);
+        top: 5px;
+    }
+
+    75% {
+        box-shadow: 0px -6px 8px 10px rgba(170, 11, 23, 0.49);
+        top: 98%;
+    }
+}
+
+.body-scanner {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+
+.form-comfirm {
+    display: none;
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    margin: auto;
+    width: 500px;
+    height: 150px;
+    border-radius: 10px;
+    background-color: aliceblue;
+    z-index: 2;
+}
+
+.form-comfirm label {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: black;
+}
+
+.form-comfirm h3 {
+    text-align: center;
+    color: black;
+}
+
+.form-comfirm div, button{
+    margin-right: 30px;
+    margin-top: 30px;
+}
+
+
 @media screen and (max-width:991.20px) {
     .table-res .table thead {
         display: none;

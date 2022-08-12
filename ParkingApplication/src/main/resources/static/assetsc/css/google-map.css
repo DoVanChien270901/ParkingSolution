@@ -23,6 +23,16 @@
     transition: all 0.3s ease;
 }
 
+.return-index-from-google-map a{
+    color: #fff;
+}
+
+#sidebar .title h4 span, 
+.form-direction #distance, 
+.form-direction #duration{
+    cursor: context-menu;
+}
+
 /* .wrapper-google-map .selectRadius {
     position: absolute;
     z-index: 9999;
@@ -211,27 +221,19 @@
 }
 
 #sidebar .shop-item .row-shop-item col .fa {
-    border-radius: 50%;
-    width: 38px;
-    height: 36px;
-    text-align: center;
-    background-color: #fff;
-    padding: 10px;
+    font-size: 18px;
     /*box-shadow: 2px 2px 5px rgba(0,0,0,.5);*/
 }
 
 #sidebar .shop-item .row-shop-item col .fa-map-marker-alt {
-    border: 1px solid #dc3545;
     color: #dc3545;
 }
 
 #sidebar .shop-item .row-shop-item col .fa-parking {
-    border: 1px solid #4e73df ;
     color: #4e73df;
 }
 
 #sidebar .shop-item .row-shop-item col .fa-wallet {
-    border: 1px solid #198754;
     color: #198754;
 }
 
@@ -294,7 +296,7 @@
 #sidebar .list-items .shop-item #shop-item-address, 
 #sidebar .shop-item .row-shop-item col p{
     font-size: 14px;
-    color: #000;
+    
 }
 
 #sidebar .list-items .shop-item #shop-item-address b {

@@ -46,14 +46,17 @@
                                     <h2 class="h2 text-new-color">// Direct Payment //</h2>
                                 </div>
                                 <div class="container show-wallet">
-                                    <label><i class="fa fa-wallet"></i>&nbsp;<span th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/></label>
+                                    <label>
+                                        <i class="fa fa-wallet"></i>&nbsp;
+                                        <span th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/>
+                                    </label>
                                 </div>
                                 <form th:action="@{/generator-qrcode}" method="GET" id="form-direct-payment" class="form-direct-payment">
                                     <div class="row payment">
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment mb-2 h3">Input Payment</label>
-                                            <div class="input-group pt-1">    
-                                                <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp"/>
+                                            <label class="label-input-payment mb-2 h3">Input Payment:</label>
+                                            <div class="input-group">    
+                                                <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp" placeholder="0"/>
                                                 <div class="invalid-feedback invalid-error-mess-d-payment" id="invalid-error-mess-d-payment">
                                                     <label></label>
                                                 </div>

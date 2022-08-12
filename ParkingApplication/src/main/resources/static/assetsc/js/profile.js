@@ -1,4 +1,4 @@
-/* disable button settings */
+/* Disable Button Settings Profile */
 function disable() {
     document.getElementById('fullname-profile').readOnly = false;
     document.getElementById('dob-profile').readOnly = false;
