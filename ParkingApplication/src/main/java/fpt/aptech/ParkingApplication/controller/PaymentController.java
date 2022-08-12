@@ -69,10 +69,7 @@ public class PaymentController {
         return "user/d-payment";
     }
 
-    @RequestMapping("/e-payment")
-    public String epayment() {
-        return "user/e-payment";
-    }
+    
 
     @RequestMapping("/history")
     public String history() {

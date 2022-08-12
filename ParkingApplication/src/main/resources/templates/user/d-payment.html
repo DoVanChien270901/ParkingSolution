@@ -46,7 +46,7 @@
                                     <h2 class="h2 text-new-color">// Direct Payment //</h2>
                                 </div>
                                 <div class="container show-wallet">
-                                    <label><i class="fa fa-wallet"></i>&nbsp;<span th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/></label>
+                                    <label><i class="fa fa-wallet"></i>&nbsp;<span th:text="${#numbers.formatInteger(balance, 3, 'COMMA') + ' VND'}"/></label>
                                 </div>
                                 <form th:action="@{/generator-qrcode}" method="GET" id="form-direct-payment" class="form-direct-payment">
                                     <div class="row payment">
