@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/user-layout.html}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
         <title>ParkingGo | QR Code Booking Page</title>
@@ -44,7 +43,7 @@
                         <div class="container" id="form-qrcode-booking">
                             <div th:if="${listBookingRes}" class="row g-4 mb-3 pb-3" id="booking">
                                 <div class="pb-1 pt-4">
-                                    <h2 class="h2 text-primary">// List Booking //</h2>
+                                    <h2 class="h2 text-new-color">// List Booking //</h2>
                                 </div>
                                 <div class="table-res-history">
                                     <table class="table">
@@ -62,7 +61,7 @@
                                                 <td data-label="#" class="id-table col-lg-2" id="bookingid" th:text="${item.getId()}"></td>
                                                 <td data-label="Parking Name" th:text="${item.getParkingname()}"></td>
                                                 <td data-label="Amount" th:text="${#numbers.formatInteger(item.getPrice(), 1, 'COMMA') + ' VND'}"></td>
-                                                 <td data-label="Date Time" type="date" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
+                                                <td data-label="Date Time" type="date" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
                                                 <td data-label="Time Number" class="col-lg-2" th:text="${item.getTimenumber()}"></td>
                                             </tr>
                                         </tbody>
@@ -74,29 +73,29 @@
                                     <h2 class="text-primary">// Booking Details //</h2>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <label class="p-1"><i class="fa fa-parking"></i>&nbsp;Parking Name:</label>
+                                    <label class="pb-2">Parking Name</label>
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${bookingDetailRes.parkingname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="p-1"><i class="fa fa-car"></i>&nbsp;Car Name:</label>
+                                    <label class="pb-2">Car Name</label>
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${bookingDetailRes.carname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="p-1"><i class="far fa-clock"></i>&nbsp;Start Time:</label>
+                                    <label class="pb-2">Start Time</label>
                                     <div class="input-group mb-3">
                                         <input type="datetime" th:value="${#temporals.format(bookingDetailRes.starttime, 'dd-MM-yyyy HH:mm')}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="p-1"><i class="far fa-hourglass"></i>&nbsp;Time Number:</label>
+                                    <label class="pb-2">Time Number</label>
                                     <div class="input-group">
                                         <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <label class="p-1"><i class="far fa-id-card"></i>&nbsp;License Plates:</label>
+                                    <label class="pb-2">License Plates</label>
                                     <div class="input-group mb-3">                                     
                                         <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="p-1"><i class="fa fa-wallet"></i>&nbsp;Amount:</label>
+                                    <label class="pb-2">Amount</label>
                                     <div class="input-group mb-3">
                                         <input type="text" th:value="${#numbers.formatInteger(bookingDetailRes.price, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true"/>
                                     </div>
@@ -104,7 +103,7 @@
                                     <p class="text-center title-qrcode-booking">Your Qr Code</p>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-2 mb-2 col-button-edit-qrcode-booking button-edit">
-                                    <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="mt-0 mb-2 me-2 p-2"><i class="fa fa-arrow-left"></i>&nbsp;Back to List</a>
+                                    <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="mt-0 mb-2 me-2 p-2"><i class="fa fa-undo"></i>&nbsp;Back to List</a>
                                     <a type="button" th:href="@{/map}" id="guide-direction" class="mt-0 mb-2 me-2 p-2"><i class="far fa-map"></i>&nbsp;Guide</a>
                                     <a type="button" th:href="@{'/export/pdf?id=' + ${id}}" id="export-receipt" class="mt-0 mb-2  me-2 p-2"><i class="fa fa-print"></i>&nbsp;Receipt</a>
                                 </div>

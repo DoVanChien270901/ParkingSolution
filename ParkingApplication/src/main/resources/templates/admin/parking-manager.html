@@ -15,21 +15,21 @@
                     <div class="clearfix mb-20">
                         <h6 class="p-1">Search Parking Name</h6>
                         <form class="pt-2" action="/a/list-parking/search" method="GET">
-                            <div class="pull-left">
+                            <div class="pull-left mb-2">
                                 <div class="row">
                                     <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
-                                        <input type="text" th:name="keyword" class="form-control form-control-sm border-info" placeholder="Parking Name...">
+                                        <input type="text" th:name="keyword" class="form-control form-control-md border-info" placeholder="Parking Name...">
                                     </div>
                                     <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
-                                        <button type="submit" class="btn btn-md btn-color"><i class="dw dw-search2 search-icon"></i></button>
+                                        <button type="submit" class="btn btn-md btn-color m-1"><i class="dw dw-search2 search-icon"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                         <div class="pull-right">
                             <div class="row">
-                                <div class="col-12 col-lg-12 p-1" style="margin-top: -1.5px;">
-                                    <a th:href="@{/a/parking/add}" type="button" class="btn btn-md btn-color scroll-click" rel="content-y"><i class="fa fa-plus-circle"></i> Create</a>
+                                <div class="col-12 col-lg-12 p-1" style="margin-top: 3px;">
+                                    <a th:href="@{/a/parking/add}" type="button" class="btn btn-color scroll-click" rel="content-y"><i class="fa fa-plus-circle"></i> Create</a>
                                 </div>
                             </div>                       
                         </div>
@@ -50,9 +50,9 @@
                                     <td data-label="Parking Name" class="id-table col-lg-3" th:text="${item.name}"></td>
                                     <td data-label="Address" class="col-lg-5" th:text="${item.address}"></td>
                                     <td data-label="Slot" th:text="${item.nop}"></td>
-                                    <td data-label="Cost" class="col-lg-2" th:text="${#numbers.formatInteger(item.rentcost, 1, 'COMMA')} + ' VND'">20 / hour</td>
+                                    <td data-label="Cost" class="col-lg-2" th:text="${#numbers.formatInteger(item.rentcost, 1, 'COMMA')} + ' VND'"></td>
                                     <td data-label="Action" class="action-center">
-                                        <a type="button" th:href="@{/a/parking/update(id=${item.name})}" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></a>
+                                        <a type="button" th:href="@{/a/parking/update(id=${item.name})}" class="btn btn-color btn-sm"><i class="fa fa-refresh"></i></a>
                                         <a type="button" th:href="@{/a/parking/delete(id=${item.name})}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -63,70 +63,135 @@
                 <div th:if="${addParkingReq}" class="pd-20 card-box mb-30">
                     <div class="clearfix mb-20 p-1">
                         <h6>Create Parking</h6>
-                        <label class="error-mes pt-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
                     </div>
                     <form th:action="@{/a/parking/add}" th:object="${addParkingReq}" method="POST">
-                        <ul class="row">
+                        <ul class="profile-edit-list row">
+                            <li class="weight-500 col-12 col-md-12 pt-0 mb-0">
+                                <label class="error-mes pb-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+                            </li>
                             <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label>Name:</label>
+                                    <label>Name</label>
                                     <input th:field="*{name}" class="form-control form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label>Name must between 6 and 20 characters !</label>
+                                        <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Latitude:</label>
+                                    <label>Latitude</label>
                                     <input th:field="*{latitude}" class="form-control form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label>Latitude can not be blank !</label>
+                                        <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Number of Parking Spaces:</label>
+                                    <label>Number of Parking Spaces</label>
                                     <input th:field="*{nop}" class="form-control form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label>Parking Spaces can not be blank !</label>
+                                        <label class="font-14"></label>
                                     </div>
                                 </div>
                             </li>
                             <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label>Address:</label>
+                                    <label>Address</label>
                                     <input th:field="*{address}" class="form-control form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label>Address can not be blank !</label>
+                                        <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Longitude:</label>
-                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" >
+                                    <label>Longitude</label>
+                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" value="">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label>Longitude can not be blank !</label>
+                                        <label class="font-14"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Rent Cost:</label>
+                                    <label>Rent Cost</label>
                                     <input th:field="*{rentcost}" class="form-control form-control" type="text">
                                     <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label>Rent Cost can not be blank !</label>
+                                        <label class="font-14"></label>
                                     </div>
                                 </div>
                             </li>
                             <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
                                 <div class="form-group mb-0 weight">
-                                    <input type="submit" class="btn btn-sm btn-primary update-parking mt-0 mb-2 me-2 p-2" value="Update">
-                                    <a th:href="@{/a/list-parking}" type="button" class="btn btn-sm btn-danger cancel-return-parking-list mt-0 mb-2 me-2 p-2" id="index">Cancel</a>
+                                    <input type="submit" class="btn btn-color-no-transition update-parking mt-0 mb-2 me-2" style="padding: 8px;" value="Update">
+                                    <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2" id="index">Cancel</a>
+                                </div>
+                            </li>
+                        </ul>   
+                    </form>
+                </div>
+                <div th:if="${updateParkingReq}" class="pd-20 card-box mb-30">
+                    <div class="clearfix mb-20 p-1">
+                        <h6>Update Parking</h6>
+                    </div>
+                    <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
+                        <ul class="profile-edit-list row">
+                            <li class="weight-500 col-12 col-md-12">
+                                <label class="error-mes pb-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+                            </li>
+                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input th:field="*{name}" class="form-control form-control" type="text" readonly="true">
+                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                        <label class="font-14"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Latitude</label>
+                                    <input th:field="*{latitude}" class="form-control form-control" type="text">
+                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                        <label class="font-14"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Number of Parking Spaces</label>
+                                    <input th:field="*{nop}" class="form-control form-control" type="number">
+                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                        <label class="font-14"></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input th:field="*{address}" class="form-control form-control" type="text">
+                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                        <label class="font-14"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Longitude</label>
+                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" value="">
+                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                        <label class="font-14"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Rent Cost</label>
+                                    <input th:name="rentcost" th:value="${#numbers.formatInteger(updateParkingReq.rentcost, 3, 'COMMA')}" class="form-control form-control" type="text">
+                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                        <label class="font-14"></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
+                                <div class="form-group mb-0 weight">
+                                    <input type="submit" class="btn btn-color-no-transition update-parking mt-0 mb-2 me-2" style="padding: 8px;" value="Update">
+                                    <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2" id="index">Cancel</a>
                                 </div>
                             </li>
                         </ul>   
                     </form>
                 </div>
             </div>
-            <div th:if="${updateParkingReq}" class="pd-20 card-box mb-30">
-                <div class="clearfix mb-20 p-1">
-                    <h6>Update Parking</h6>
-                    <label class="error-mes pt-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+            <div class="pd-20 mb-30">
+                <div class="footer-wrap pd-20 mb-20 card-box">
+                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
                 </div>
                 <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
                     <ul class="row">
@@ -190,7 +255,5 @@
                 ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
             </div>
         </div>
-    </div>
-</body>
-
+    </body>
 </html>

@@ -24,7 +24,6 @@ jQuery(document).ready(function(){
 			background: "url(" + img.attr( "src" ) + ") no-repeat center center",
 		});
 	});
-
 	/*==============================================================*/
 	// Image to svg convert start
 	/*==============================================================*/
@@ -56,7 +55,6 @@ jQuery(document).ready(function(){
 	// $('.collapse-box').on('shown.bs.collapse', function () {
 	// 	$(".customscroll").mCustomScrollbar("scrollTo",$(this));
 	// });
-
 	// code split
 	var entityMap = {
 		"&": "&amp;",
@@ -89,7 +87,6 @@ jQuery(document).ready(function(){
 			});
 		}
 	}
-
 	// Search Icon
 	$("#filter_input").on("keyup", function() {
 		var value = $(this).val().toLowerCase();

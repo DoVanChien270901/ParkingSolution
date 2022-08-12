@@ -57,6 +57,10 @@ input[type="date"], .form-check-radio label {
     margin-bottom: 0px !important;
 }
 
+#form-account-fix .login-title h2{
+    color: #4e73df;
+}
+
 #form-account-fix .login-box form div.input-group {
     display: flex !important;
     margin-bottom: 0px !important;
@@ -81,9 +85,11 @@ input[type="date"], .form-check-radio label {
 }
 
 #form-account-fix .message-box {
-    color: #fff;
-    background: #dc3545;
+    font-weight: 500;
+    color: red;
+    background: #FFDEB4;
     display: none;
+    border: 1px solid #ff5b5b;
     z-index: 999;
     position: absolute;
     padding: 10px;
@@ -109,24 +115,23 @@ input[type="date"], .form-check-radio label {
     font-size: 1.4rem;
     font-weight: 800;
     margin-top: 24px;
-    color: #2196f3;
-
+    color: #fff;
 }
 
 .login-page .brand-logo span,
 .login-header .brand-logo span {
-    color: #1b00ff;
+    color: #4e73df;
 }
 
 .login-menu ul li a {
-    border: 1.6px solid #1b00ff;
+    border: 1.6px solid #4e73df;
     padding: 10px 14px;
     font-size: 1rem;
     border-radius: 0.3rem;
 }
 
 .login-menu ul li a:hover {
-    background-color: #1b00ff;
+    background-color: #4e73df;
     color: #fff;
 }
 
@@ -186,15 +191,22 @@ input {
 }
 
 .btn-color {
-    background: #2196f3;
+    background: #4e73df;
     color: #fff !important;
     border: 0;
     outline: 0;
-    transition: .5s ease;
 }
 
-.btn-color:hover {
-    background: #2388d9;
+.btn-color:hover, 
+.btn-color-no-transition:hover {
+    background: #395abd;
+}
+
+.btn-color-no-transition {
+    background: #4e73df;
+    color: #fff !important;
+    border: 0;
+    outline: 0;
 }
 
 /*.table-res-history .table th{
@@ -209,7 +221,7 @@ input {
     padding: 10px 15px;
     border: 1px solid #ddd;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .table-res .table th {
@@ -231,7 +243,7 @@ input {
 }
 
 .table-res .table tbody tr td {
-    color: #000;
+    font-weight: 400;
 }
 
 .chart-content {
@@ -244,15 +256,56 @@ input {
     display: inline !important;
 }
 
-.footer-wrap a {
-    color: #2196f3;
+.footer-wrap a{
+    color: #4e73df;
+}
+
+table tr td {
+    font-weight: 400;
 }
 
 .error-chart {
-    font-size: 22px; 
-    margin-top: 20px; 
+    font-size: 20px;
+    font-weight: 500;
     color: red;
-    font-family: 'Intent', sans-serif;
+    margin-top: 7px;
+}
+
+.invalid-parking-edit-admin label, 
+.invalid-parking-manager label, 
+invalid-feedback{
+    color: red !improtant;
+}
+
+option {
+    border-radius: 0px !important;
+    outline: 0;
+    border: 0;
+}
+
+.backgroud-error, 
+.invalid-parking-manager {
+    padding: 2px;
+}
+
+.widget-money {
+    background: #09cc06;
+}
+
+.widget-location {
+    background: #ff5b5b;
+}
+
+.widget-user {
+    background: #4e73df;
+}
+
+.profile-edit-list label {
+    float: left;
+}
+
+.profile-edit-list .error-mes {
+    color: red;
 }
 
 @media screen and (max-width:991.20px) {
@@ -291,6 +344,9 @@ input {
     .profile-edit-list #back-to-booking-list {
         max-width: 100%;
     }
+    .pull-choose-parking-name {
+        float: left;
+    }
 
 }
 
@@ -308,6 +364,10 @@ input {
         justify-content: center; 
         width: 100%;
     }
+
+    .backgroud-error {
+        max-width: 100%;
+    }
 }
 
 @media screen and (max-width:567px) {
@@ -315,4 +375,3 @@ input {
         width: 100%;
     }
 }
-
