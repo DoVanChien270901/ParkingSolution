@@ -30,7 +30,7 @@
                             </div>
                             <div class="pull-right pull-choose-parking-name">
                                 <div class="row form-inline">
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12" style="padding: 3px;">
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12" style="padding: 4px;">
                                         <select th:name="name" onchange="selected(value)" class="form-control form-select-parking-history">
                                             <option value="all">--- Choose Parking Name ---</option>
                                             <option th:each="item : ${lParkingRes}" th:value="${item.name}" th:text="${item.name}" th:selected="(${selected} == ${item.name})"></option>

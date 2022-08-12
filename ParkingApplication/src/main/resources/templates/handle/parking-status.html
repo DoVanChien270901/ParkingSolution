@@ -39,7 +39,7 @@
                                     <td data-label="Start Time" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
                                     <td data-label="Time Number" th:text="${item.timenumber}"></td>
                                     <td data-label="Location Code" th:text="${item.locationcode}"></td>
-                                    <td data-label="Price" th:text="${item.price}"></td>
+                                    <td data-label="Price" th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')} + ' VND'"></td>
                                     <td data-label="Car Name" th:text="${item.carname}"></td>
                                     <td data-label="License Plates" th:text="${item.lisenceplates}"></td>
                                 </tr>

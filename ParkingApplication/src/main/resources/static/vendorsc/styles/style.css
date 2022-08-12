@@ -1850,7 +1850,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
 
 .left-side-bar .close-sidebar {
     font-size: 18px;
-    color: #888;
+    color: #fff;
     cursor: pointer;
     position: absolute;
     right: 10px;
