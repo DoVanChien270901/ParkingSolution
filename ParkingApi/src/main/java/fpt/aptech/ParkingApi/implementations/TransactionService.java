@@ -81,7 +81,6 @@ public class TransactionService implements ITransaction {
 
     @Override
     public EPaymentRes createOrder(CreateOrderReq orderRequest) {
-        System.out.println(orderRequest.getTransno());
         switch (orderRequest.getChannel()) {
             case Momo:
                 return createMomo(orderRequest);

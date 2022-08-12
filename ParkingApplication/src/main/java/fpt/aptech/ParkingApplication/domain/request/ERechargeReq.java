@@ -5,11 +5,16 @@
  */
 package fpt.aptech.ParkingApplication.domain.request;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 /**
  *
  * @author PCvinhvizg
  */
 public class ERechargeReq {
+    @Min(value = 10000, message = "Amount must between 10.000 VND and 5.000.000 VND")
+    @Max(value = 5000000, message = "Amount must between 10.000 VND and 5.000.000 VND")
     private Long amount;
     private String channel;
 

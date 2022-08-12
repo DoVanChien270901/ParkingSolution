@@ -35,6 +35,15 @@ public class NewBookingReq {
         this.walletparking = walletparking;
     }
 
+    public NewBookingReq(String username, LocalDateTime starttime, int timenumber, String carname, String lisenceplates, String parkingname, boolean b) {
+        this.username = username;
+        this.starttime = starttime;
+        this.timenumber = timenumber;
+        this.carname = carname;
+        this.lisenceplates = lisenceplates;
+        this.parkingname = parkingname;
+    }
+
     public String getUsername() {
         return username;
     }
