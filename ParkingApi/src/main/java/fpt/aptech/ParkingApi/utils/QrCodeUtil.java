@@ -108,7 +108,7 @@ public class QrCodeUtil {
 
     public String createToken(Map<String, Object> claims) {
         return Jwts.builder().setClaims(claims).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .setExpiration(null)
                 .signWith(SignatureAlgorithm.HS256, SERRET_KEY).compact();
     }
 

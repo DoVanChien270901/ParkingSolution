@@ -14,7 +14,12 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.domain.response.BookingRes;
@@ -60,18 +65,21 @@ public class BookingHistoryAdapter extends BaseAdapter {
 
         BookingRes bookingRes = (BookingRes) getItem(position);
 
-        TextView tvNo = viewContact.findViewById(R.id.a_bookinglist_tv_no);
-        TextView tvParkingname = viewContact.findViewById(R.id.a_bookinglist_tv_parkingname);
+        TextView tvParkingName = viewContact.findViewById(R.id.a_bookinglist_tv_parkingname);
+        TextView tvFromDate = viewContact.findViewById(R.id.a_bookinglist_tv_fromdate);
         TextView tvAmount = viewContact.findViewById(R.id.a_bookinglist_tv_amount);
-        TextView tvDatetime = viewContact.findViewById(R.id.a_bookinglist_tv_datetime);
-        TextView tvTimenum = viewContact.findViewById(R.id.a_bookinglist_tv_timenum);
+        TextView tvToDate = viewContact.findViewById(R.id.a_bookinglist_tv_todate);
 
-        tvAmount.setText(String.valueOf(bookingRes.getPrice()));
-        tvDatetime.setText(bookingRes.getStarttime().toString());
-        tvTimenum.setText(String.valueOf(bookingRes.getTimenumber()));
-        tvNo.setText(String.valueOf(bookingRes.getId()));
-        tvParkingname.setText(bookingRes.getParkingname());
-
+        tvParkingName.setText(bookingRes.getParkingname());
+        tvToDate.setText(" - "+DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy").format(bookingRes.getStarttime().plusHours(bookingRes.getStarttime().getMonthValue()+ bookingRes.getTimenumber())));
+        tvAmount.setText(formatInteger(String.valueOf(bookingRes.getPrice()))+"đ");
+        tvFromDate.setText("from "+DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy").format(bookingRes.getStarttime()));
         return viewContact;
+    }
+    private String formatInteger(String str) {
+        BigDecimal parsed = new BigDecimal(str);
+        DecimalFormat formatter =
+                new DecimalFormat( "#,###", new DecimalFormatSymbols(Locale.US));
+        return formatter.format(parsed);
     }
 }

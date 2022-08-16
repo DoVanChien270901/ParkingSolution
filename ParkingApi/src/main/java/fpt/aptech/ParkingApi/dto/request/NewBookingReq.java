@@ -4,7 +4,9 @@
  */
 package fpt.aptech.ParkingApi.dto.request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -38,9 +40,14 @@ public class NewBookingReq {
     }
 
     public void setStarttime(String starttime) {
-        this.starttime = LocalDateTime.parse(starttime);
+        try {
+            this.starttime = LocalDateTime.parse(starttime);
+        } catch (Exception e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            this.starttime = LocalDateTime.parse(starttime, formatter);
+        }
     }
-    
+
     public void setStarttime(LocalDateTime starttime) {
         this.starttime = starttime;
     }

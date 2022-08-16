@@ -5,23 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.DirectPaymentActivity">
+    tools:context=".activity.DirectPaymentActivity"
+    android:background="#DCDCDC">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/border_trans_history">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
             android:layout_weight="1"
-            android:background="@drawable/border_dpayment"
             android:elevation="10dp"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -73,28 +72,6 @@
                     android:maxLength="15"
                     android:text="0đ" />
             </com.google.android.material.textfield.TextInputLayout>
-            <!--                <TextView-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="10dp"-->
-            <!--                    android:gravity="start"-->
-            <!--                    android:text="Input payment"-->
-            <!--                    android:textSize="40px"-->
-            <!--                    android:textStyle="normal" />-->
-
-            <!--                <EditText-->
-            <!--                    android:id="@+id/a_dpayment_et_amount"-->
-            <!--                    android:layout_width="342dp"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginLeft="10dp"-->
-            <!--                    android:background="@null"-->
-            <!--                    android:ems="10"-->
-            <!--                    android:hint="0đ"-->
-            <!--                    android:textSize="60px"-->
-            <!--                    android:inputType="number"-->
-            <!--                    />-->
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -139,53 +116,52 @@
                     android:textSize="50px"
                     android:textStyle="normal" />
             </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="30dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:layout_width="570px"
-            android:layout_height="570px"
-            android:background="@drawable/boder_qrcode"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.83"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.864">
-
-            <ImageView
-                android:id="@+id/a_dpayment_imv_qrcode"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:textSize="17dp"
+                android:textColor="@color/black"
+                android:text="Scan qr to recharge"/>
+            <FrameLayout
                 android:layout_width="550px"
                 android:layout_height="550px"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_block_24"></ImageView>
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/boder_qrcode"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.83"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.864">
 
-    <Button
-        android:id="@+id/a_dpayment_btn_qrcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:background="@drawable/border_md"
-        android:backgroundTint="@color/blue_default"
-        android:fontFamily="@font/baloo"
-        android:layout_gravity="center"
-        android:text="QR Code"
-        android:textColor="@color/white"
-        android:textSize="15dp"></Button>
+                <ImageView
+                    android:id="@+id/a_dpayment_imv_qrcode"
+                    android:layout_width="500px"
+                    android:layout_height="500px"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_block_24"></ImageView>
+            </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:text="Your qr code"/>
+            <Button
+                android:id="@+id/a_dpayment_btn_qrcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/blue_default"
+                android:textAllCaps="false"
+                android:fontFamily="@font/baloo"
+                android:text="Generate Qr Code"
+                android:textColor="@color/white"></Button>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

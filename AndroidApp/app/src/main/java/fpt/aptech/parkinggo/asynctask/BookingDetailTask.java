@@ -29,12 +29,11 @@ public class BookingDetailTask extends AsyncTask<Void, Integer, ResponseEntity<?
 
         LoginRes loginRes = (LoginRes) Session.getSession();
         String token = loginRes.getToken();
-        int idd = Integer.parseInt(String.valueOf(id));
 
         HttpEntity request = RestTemplateConfiguration.setRequest(token);
         String uri = activity.getString(R.string.URL_BASE);
         ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(uri + "booking-details?id="+idd, HttpMethod.GET, request, BookingDetailRes.class);
+                .excuteRequest(uri + "booking-details?id="+id, HttpMethod.GET, request, BookingDetailRes.class);
         return response;
     }
 

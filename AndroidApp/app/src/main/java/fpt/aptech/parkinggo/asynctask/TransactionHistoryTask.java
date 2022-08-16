@@ -18,7 +18,6 @@ import fpt.aptech.parkinggo.statics.Session;
 
 public class TransactionHistoryTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
     private Activity activity;
-    private CustomProgressDialog dialog;
 
     public TransactionHistoryTask(Activity activity){
         this.activity = activity;
@@ -26,8 +25,6 @@ public class TransactionHistoryTask extends AsyncTask<Void, Integer, ResponseEnt
 
     @Override
     protected void onPreExecute() {
-        dialog = new CustomProgressDialog(activity);
-        dialog.show();
     }
 
     @Override
@@ -42,6 +39,5 @@ public class TransactionHistoryTask extends AsyncTask<Void, Integer, ResponseEnt
 
     @Override
     protected void onPostExecute(ResponseEntity<?> responseEntity) {
-        dialog.dismiss();
     }
 }

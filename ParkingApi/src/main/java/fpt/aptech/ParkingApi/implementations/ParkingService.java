@@ -100,7 +100,7 @@ public class ParkingService implements IParking {
         List<ParkingHistoryRes> list = new ArrayList<>();
         for (Parkinghistory item : list1) {
             ParkingHistoryRes parkingHistoryRes = new ParkingHistoryRes(item.getId(), item.getStarttime(),
-                item.getTimenumber(), item.getCarname(), item.getLisenceplates(), item.getParkingname().getName());
+                    item.getTimenumber(), item.getCarname(), item.getLisenceplates(), item.getParkingname().getName());
             list.add(parkingHistoryRes);
         }
         PagedListHolder holder = new PagedListHolder(list);
@@ -120,13 +120,8 @@ public class ParkingService implements IParking {
         fromDateTime = fromDate.atTime(00, 00, 00, 0000);
         LocalDateTime toDateTime = toDate.atStartOfDay();
         toDateTime = toDate.atTime(00, 00, 00, 0000);
-        
-        List<ParkingHistoryRes> list;
-        if (parkingname.equals("all")) {
-            list = _parkingHistoryRepo.getAllParkingHistorySearchbyDate(fromDateTime, toDateTime);
-        } else {
-            list = _parkingHistoryRepo.getAllParkingHistorySearch(parkingname, fromDateTime, toDateTime);
-        }
+
+        List<ParkingHistoryRes> list = _parkingHistoryRepo.getAllParkingHistorySearch(parkingname, fromDateTime, toDateTime);
         PagedListHolder holder = new PagedListHolder(list);
         holder.setPageSize(size);
         holder.setPage(page);
@@ -268,10 +263,10 @@ public class ParkingService implements IParking {
     @Override
     public List<ParkingHistoryRes> getAllHistoryByUserSearch(String username, LocalDate fromDate, LocalDate toDate) {
         LocalDateTime fromDateTime = fromDate.atStartOfDay();
-        fromDateTime = fromDate.atTime(00, 00, 00, 0000);
+        fromDateTime = fromDate.atTime(00,00,00,0000);
         LocalDateTime toDateTime = toDate.atStartOfDay();
-        toDateTime = toDate.atTime(00, 00, 00, 0000);
+        toDateTime = toDate.atTime(00,00,00,0000);
         return _parkingHistoryRepo.getListParkingHistoryByUsernameSearch(username, fromDateTime, toDateTime);
     }
-
+    
 }

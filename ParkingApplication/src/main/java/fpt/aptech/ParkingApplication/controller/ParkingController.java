@@ -188,7 +188,7 @@ public class ParkingController {
         }
         //
         model.addAttribute("fromDate", fromDate);
-        model.addAttribute("toDate", toDate);
+        model.addAttribute("toDate", fromDate);
         //get select box
         HttpEntity request = RestTemplateConfiguration.setRequest();
         ResponseEntity<?> response = RestTemplateConfiguration

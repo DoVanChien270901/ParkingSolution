@@ -94,6 +94,7 @@ public class TransactionController {
                     orderRes.getTransactionReq().getUsername(),
                     bookingReq.getStarttime(),
                     bookingReq.getTimenumber(),
+                    bookingReq.getLocationcode(),
                     bookingReq.getCarname(),
                     bookingReq.getLisenceplates(),
                     bookingReq.getParkingname(),
@@ -103,9 +104,9 @@ public class TransactionController {
                 ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, Integer.class);
                 HttpStatus status = newbookingResponse.getStatusCode();
                 if (status.equals(HttpStatus.OK)) {
-//                    Integer id = (Integer) newbookingResponse.getBody();
-//                    return "redirect:/booking-details?id=" + id;
-                    return "redirect:/profile";
+                    Integer id = (Integer) newbookingResponse.getBody();
+                    return "redirect:/booking-details?id=" + id;
+                    //return "redirect:/profile";
                 }
             } else {
                 model.addAttribute("transactionReq", orderRes.getTransactionReq());
