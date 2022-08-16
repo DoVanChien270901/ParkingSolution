@@ -7,7 +7,6 @@
     android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context=".activity.BookingActivity">
-
     <TextView
         android:id="@+id/a_booking_et_parkingname"
         android:layout_width="match_parent"
@@ -21,97 +20,239 @@
         android:textColor="@color/blue_default"
         android:textSize="30dp"
         android:textStyle="bold" />
-
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/a_booking_et_carname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:ems="10"
-        android:hint="Car Name"
-        android:inputType="textPersonName" />
+        android:layout_marginHorizontal="10dp"
+        app:startIconDrawable="@drawable/ic_car_24"
+        android:layout_marginTop="10dp"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Car Name">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="25"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <EditText-->
+<!--        android:id="@+id/a_booking_et_carname"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Car Name"-->
+<!--        android:inputType="textPersonName" />-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/a_booking_et_lisenceplates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:ems="10"
-        android:hint="Lisenceplates"
-        android:inputType="textPersonName" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_car_24"
+        app:boxBackgroundColor="@color/white"
+        android:hint="License Plates">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="25"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <EditText-->
+<!--        android:id="@+id/a_booking_et_lisenceplates"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Lisenceplates"-->
+<!--        android:inputType="textPersonName" />-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/a_booking_et_timenum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:ems="10"
-        android:hint="Time Number"
-        android:inputType="numberDecimal" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Time Number">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="25"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <EditText-->
+<!--        android:id="@+id/a_booking_et_timenum"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Time Number"-->
+<!--        android:inputType="numberDecimal" />-->
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/a_register2_tv_dob"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginVertical="15dp"-->
+<!--        android:layout_marginHorizontal="10dp"-->
+<!--        app:startIconDrawable="@drawable/ic_baseline_date_range_24"-->
+<!--        android:hint="Day of birth"-->
+<!--        app:boxBackgroundColor="@color/white">-->
+
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:focusableInTouchMode="false"-->
+<!--            android:inputType="none"-->
+<!--            android:maxLength="25"-->
+<!--            android:text="dd-mm-yyyy"-->
+<!--            android:textColor="@color/black" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:id="@+id/a_booking_et_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:ems="10"
-        android:hint="DateTime" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        android:hint="Time of presence"
+        app:startIconDrawable="@drawable/ic_baseline_date_range_24"
+        app:boxBackgroundColor="@color/white">
 
-    <EditText
+        <AutoCompleteTextView
+            android:id="@+id/a_booking_act_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:id="@+id/a_booking_et_locationcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:ems="10"
-        />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        android:hint="Select location"
+        app:startIconDrawable="@drawable/ic_baseline_edit_location_alt_24"
+        app:boxBackgroundColor="@color/white">
 
-    <Button
-        android:id="@+id/a_booking_btn_choselocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:backgroundTint="@color/blue_default"
-        android:text="Location" />
+        <AutoCompleteTextView
+            android:id="@+id/a_booking_act_locationcode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:selectAllOnFocus="false" />
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <EditText-->
+<!--        android:id="@+id/a_booking_et_date"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="DateTime" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/a_booking_et_locationcode"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:ems="10"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/a_booking_btn_choselocation"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:backgroundTint="@color/blue_default"-->
+<!--        android:text="Location" />-->
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="55dp"
         android:layout_margin="10dp"
+        android:gravity="center"
+        android:background="@drawable/border_ms_gray"
         android:orientation="horizontal">
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_wallet_gray"/>
         <RadioButton
-            android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
             android:id="@+id/a_booking_rb_momo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Momo" />
 
         <RadioButton
-            android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
             android:id="@+id/a_booking_rb_zalopay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Zalopay" />
 
         <RadioButton
-            android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
             android:id="@+id/a_booking_rb_wallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wallet" />
     </RadioGroup>
-    <Button
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/a_booking_tv_errorPaymentMethod"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/error_color_material_light"
+        android:layout_gravity="start"
+        android:visibility="gone"
+        android:text="Select payment method"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/a_booking_tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_weight="2"
+            android:text="The amount to be paid is: 0đ"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:gravity="center"/>
+        <Button
             android:id="@+id/a_booking_btn_book"
             android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="right"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="140dp"
             android:backgroundTint="@color/blue_default"
             android:text="Book" />
+    </LinearLayout>
+
 
 </LinearLayout>

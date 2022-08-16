@@ -22,7 +22,6 @@ public class LoadListParkingTask extends AsyncTask<Void, Void, ResponseEntity<?>
 
     //private CallBack callBack;
     private Activity activity;
-    private CustomProgressDialog dialog;
     public LoadListParkingTask(Activity activity) {
         this.activity = activity;
         //this.callBack = callBack;
@@ -30,8 +29,6 @@ public class LoadListParkingTask extends AsyncTask<Void, Void, ResponseEntity<?>
 
     @Override
     protected void onPreExecute() {
-        dialog = new CustomProgressDialog(activity);
-        dialog.show();
     }
 
     @Override
@@ -42,9 +39,7 @@ public class LoadListParkingTask extends AsyncTask<Void, Void, ResponseEntity<?>
                 .excuteRequest(uri+"list-parking", HttpMethod.GET, request, ParkingRes[].class);
         return response;
     }
-
     @Override
     protected void onPostExecute(ResponseEntity<?> responseEntity) {
-        dialog.dismiss();
     }
 }

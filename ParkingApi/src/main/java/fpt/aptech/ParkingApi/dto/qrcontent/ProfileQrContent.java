@@ -13,7 +13,7 @@ public class ProfileQrContent {
     private String username;
     private String fullname;
     private Double balance;
-    private int identitycard;
+    private String identitycard;
 
     public ProfileQrContent() {
     }
@@ -42,11 +42,11 @@ public class ProfileQrContent {
         this.balance = balance;
     }
 
-    public int getIdentitycard() {
+    public String getIdentitycard() {
         return identitycard;
     }
 
-    public void setIdentitycard(int identitycard) {
+    public void setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
     }
 

@@ -8,21 +8,21 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class EditProfileReq implements Serializable {
-    private Integer identitycard;
+    private String identitycard;
     private String fullname;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private String dob;
     private String email;
-    private Integer phone;
+    private String phone;
 
     public EditProfileReq() {
     }
 
-    public Integer getIdentitycard() {
+    public String getIdentitycard() {
         return identitycard;
     }
 
-    public EditProfileReq(Integer identitycard, String fullname, String dob, String email, Integer phone) {
+    public EditProfileReq(String identitycard, String fullname, String dob, String email, String phone) {
         this.identitycard = identitycard;
         this.fullname = fullname;
         this.dob = dob;
@@ -30,7 +30,7 @@ public class EditProfileReq implements Serializable {
         this.phone = phone;
     }
 
-    public void setIdentitycard(Integer identitycard) {
+    public void setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
     }
 
@@ -58,11 +58,11 @@ public class EditProfileReq implements Serializable {
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

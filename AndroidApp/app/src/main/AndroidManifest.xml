@@ -21,23 +21,23 @@
         <activity
             android:name=".activity.BookingDetailActivity"
             android:exported="false"
-            android:theme="@style/Custom.ActionBar"/>
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activity.BookingHistoryActivity"
             android:exported="false"
-            android:theme="@style/Custom.ActionBar" />
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activity.RechargeActivity"
             android:exported="false"
-            android:theme="@style/Custom.ActionBar"/>
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activity.BookingActivity"
             android:exported="false"
-            android:theme="@style/Custom.ActionBar"/>
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activity.DetailsParkingHistoryActivity"
             android:exported="false"
-            android:theme="@style/AppTheme.ActionBar"/>
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activity.ParkingHistoryActivity"
             android:exported="false"
@@ -93,7 +93,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <data
                     android:host="app"
                     android:scheme="parkinggo" />

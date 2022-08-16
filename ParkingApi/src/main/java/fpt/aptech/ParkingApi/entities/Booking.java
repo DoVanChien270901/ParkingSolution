@@ -105,7 +105,7 @@ import fpt.aptech.ParkingApi.dto.response.*;
 //booking-details
 @NamedNativeQuery(
         name = "getDetailBookingById",
-        query = "SELECT b.starttime AS starttime, b.timenumber AS timenumber, b.price AS price, b.carname AS carname, b.lisenceplates AS lisenceplates, b.parkingname AS parkingname "
+        query = "SELECT b.starttime AS starttime, b.timenumber AS timenumber, b.price AS price, b.carname AS carname, b.lisenceplates AS lisenceplates, b.parkingname AS parkingname, b.locationcode AS locationcode "
         + " FROM Booking b WHERE b.id = :id",
         resultSetMapping = "CustomeResultBookingDetails"
 )
@@ -118,7 +118,8 @@ import fpt.aptech.ParkingApi.dto.response.*;
                     @ColumnResult(name = "price", type = Double.class),
                     @ColumnResult(name = "carname", type = String.class),
                     @ColumnResult(name = "lisenceplates", type = String.class),
-                    @ColumnResult(name = "parkingname", type = String.class)
+                    @ColumnResult(name = "parkingname", type = String.class),
+                    @ColumnResult(name = "locationcode", type = String.class)
                 })
 )
 @NamedQueries({

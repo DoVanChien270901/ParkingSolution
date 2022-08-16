@@ -20,7 +20,11 @@ public class NewBookingReqBuilder {
     }
 
     public NewBookingReqBuilder setStarttime(String starttime) {
-        this.starttime = LocalDateTime.parse(starttime,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+        LocalDateTime lcdt = LocalDateTime.parse(starttime, formatter);
+        starttime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(lcdt);
+        this.starttime =starttime;
+//        this.starttime = LocalDateTime.parse(starttime,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString();
         return this;
     }
 

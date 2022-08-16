@@ -39,7 +39,9 @@ import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.asynctask.EditProfileTask;
 import fpt.aptech.parkinggo.asynctask.LoadProfileTask;
 import fpt.aptech.parkinggo.callback.CallBack;
+import fpt.aptech.parkinggo.domain.response.LoginRes;
 import fpt.aptech.parkinggo.domain.response.ProfileRes;
+import fpt.aptech.parkinggo.statics.Session;
 
 public class EditProfileActivity extends AppCompatActivity implements CallBack {
     private TextInputLayout etFullName,etEmail,tvDob,etPhone,etICard;
@@ -129,7 +131,6 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
             ProfileRes profileRes = (ProfileRes) response.getBody();
             etFullName.getEditText().setText(profileRes.getFullname());
             //convert yyyy/mm/dd to dd/mm/yyyy
-
             sDob = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(profileRes.getDob());
             tvDob.getEditText().setText(sDob);
             clDob = LocalDate.parse(sDob, formatter);
@@ -139,6 +140,11 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
             etPhone.getEditText().setText(profileRes.getPhone().toString());
             Bitmap bmp = BitmapFactory.decodeByteArray(profileRes.getQrcontent(), 0, profileRes.getQrcontent().length);
             qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
+            //update session
+            ((LoginRes)Session.getSession()).setUsername(profileRes.getFullname());
+            ((LoginRes)Session.getSession()).setQrcode(profileRes.getQrcontent());
+            ((LoginRes)Session.getSession()).setBalance(profileRes.getBalance());
+            ((LoginRes)Session.getSession()).setEmail(profileRes.getEmail());
         }
 
     }

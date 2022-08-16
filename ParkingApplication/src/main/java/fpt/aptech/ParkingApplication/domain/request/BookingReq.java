@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 public class BookingReq {
 
-    private LocalDateTime starttime;
+    private String starttime;
     private int timenumber;
     private String locationcode;
     private String carname;
@@ -31,12 +31,12 @@ public class BookingReq {
     public BookingReq() {
     }
 
-    public LocalDateTime getStarttime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(String  starttime) {
-        this.starttime = LocalDateTime.parse(starttime);
+    public void setStarttime(String starttime) {
+        this.starttime = starttime;
     }
 
     public int getTimenumber() {

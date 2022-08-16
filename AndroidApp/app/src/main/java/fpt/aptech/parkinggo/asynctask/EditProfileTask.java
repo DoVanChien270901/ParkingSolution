@@ -57,10 +57,10 @@ public class EditProfileTask extends AsyncTask<Void, Integer, ResponseEntity<?>>
         LocalDate dob = LocalDate.parse(tvDob.getText().toString(), formatter);
         EditProfileReq editProfileReq = new EditProfileReqBuilder()
                 .setFullname(etFullname.getText().toString())
-                .setIdentitycard(Integer.valueOf(etICard.getText().toString()))
+                .setIdentitycard(etICard.getText().toString())
                 .setDob(tvDob.getText().toString())
                 .setEmail(etEmail.getText().toString())
-                .setPhone(Integer.valueOf(etPhone.getText().toString()))
+                .setPhone(etPhone.getText().toString())
                 .createEditProfileReq();
 
         HttpEntity request = RestTemplateConfiguration.setRequest(((LoginRes)Session.getSession()).getToken(),editProfileReq);

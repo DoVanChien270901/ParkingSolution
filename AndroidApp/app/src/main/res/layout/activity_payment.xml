@@ -17,122 +17,200 @@
         android:freezesText="false"
         android:text="Status"
         android:textAlignment="center"
-        android:textColor="#034981"
+        android:textColor="@color/blue_default"
         android:textSize="40dp"
         android:textStyle="bold" />
-
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:id="@+id/a_payment_tv_transno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
+        android:hint="No">
 
-        <TextView
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginLeft="10dp"
-            android:ems="10"
-            android:fontFamily="@font/baloo"
-            android:text="No"
-            android:textSize="20dp" />
-
-        <TextView
-            android:fontFamily="@font/baloo"
-            android:id="@+id/a_payment_tv_transno"
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:text=""
-            android:textAlignment="textEnd"
-            android:textSize="20dp" />
-    </LinearLayout>
-    <LinearLayout
+            android:enabled="false"
+            android:maxLength="25"
+            android:text="ad212"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="165dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:text="No"-->
+<!--            android:textSize="20dp" />-->
+
+<!--        <TextView-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:id="@+id/a_payment_tv_transno"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:text=""-->
+<!--            android:textAlignment="textEnd"-->
+<!--            android:textSize="20dp" />-->
+<!--    </LinearLayout>-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:id="@+id/a_payment_tv_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Amount">
 
-        <TextView
-            android:fontFamily="@font/baloo"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginLeft="10dp"
-            android:ems="10"
-            android:text="Amount"
-            android:textSize="20dp" />
-
-        <TextView
-            android:fontFamily="@font/baloo"
-            android:id="@+id/a_payment_tv_amount"
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:text=""
-            android:textAlignment="textEnd"
-            android:textSize="20dp" />
-    </LinearLayout>
-    <LinearLayout
+            android:enabled="false"
+            android:maxLength="25"
+            android:text="12,000đ"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <TextView-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:layout_width="165dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:text="Amount"-->
+<!--            android:textSize="20dp" />-->
+
+<!--        <TextView-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:id="@+id/a_payment_tv_amount"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:text=""-->
+<!--            android:textAlignment="textEnd"-->
+<!--            android:textSize="20dp" />-->
+<!--    </LinearLayout>-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:id="@+id/a_payment_tv_channel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Channel">
 
-        <TextView
-            android:fontFamily="@font/baloo"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginLeft="10dp"
-            android:ems="10"
-            android:text="Channel"
-            android:textSize="20dp" />
-
-        <TextView
-            android:fontFamily="@font/baloo"
-            android:id="@+id/a_payment_tv_channel"
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:text=""
-            android:textAlignment="textEnd"
-            android:textSize="20dp" />
-    </LinearLayout>
+            android:enabled="false"
+            android:maxLength="25"
+            android:text="MoMo"
+            android:textColor="@color/black" />
 
-    <LinearLayout
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <TextView-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:layout_width="165dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:text="Channel"-->
+<!--            android:textSize="20dp" />-->
+
+<!--        <TextView-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:id="@+id/a_payment_tv_channel"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:text=""-->
+<!--            android:textAlignment="textEnd"-->
+<!--            android:textSize="20dp" />-->
+<!--    </LinearLayout>-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:id="@+id/a_payment_tv_stype"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Type">
 
-        <TextView
-            android:fontFamily="@font/baloo"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginLeft="10dp"
-            android:ems="10"
-            android:text="Type"
-            android:textSize="20dp" />
-
-        <TextView
-            android:fontFamily="@font/baloo"
-            android:id="@+id/a_payment_tv_stype"
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:text=""
-            android:textAlignment="textEnd"
-            android:textSize="20dp" />
-    </LinearLayout>
+            android:enabled="false"
+            android:maxLength="25"
+            android:text="e-Booking"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <TextView-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:layout_width="165dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:text="Type"-->
+<!--            android:textSize="20dp" />-->
+
+<!--        <TextView-->
+<!--            android:fontFamily="@font/baloo"-->
+<!--            android:id="@+id/a_payment_tv_stype"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:ems="10"-->
+<!--            android:text=""-->
+<!--            android:textAlignment="textEnd"-->
+<!--            android:textSize="20dp" />-->
+<!--    </LinearLayout>-->
 
 </LinearLayout>

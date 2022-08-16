@@ -12,8 +12,10 @@ import fpt.aptech.ParkingApi.interfaces.IProfile;
 import fpt.aptech.ParkingApi.dto.response.PageProfileRes;
 import fpt.aptech.ParkingApi.dto.response.UserDetailsRes;
 import fpt.aptech.ParkingApi.dto.response.ProfileRes;
+import fpt.aptech.ParkingApi.entities.Parkinglocation;
 import fpt.aptech.ParkingApi.entities.Profile;
 import fpt.aptech.ParkingApi.entities.Qrcode;
+import fpt.aptech.ParkingApi.entities.Transactioninformation;
 import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
 import java.util.List;
@@ -23,6 +25,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import fpt.aptech.ParkingApi.repositorys.ProfileRepo;
 import fpt.aptech.ParkingApi.repositorys.QrCodeRepo;
+import fpt.aptech.ParkingApi.repositorys.TransactionRepo;
+import java.time.LocalDateTime;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Pageable;
 
@@ -37,6 +41,8 @@ public class ProfileService implements IProfile {
     private ProfileRepo _profileRepository;
     @Autowired
     private QrCodeRepo _qrCodeRepository;
+    @Autowired
+    private TransactionRepo _transactionRepo;
     @Autowired
     private ParkingRepo _ParkingRepository;
     @Autowired
@@ -106,6 +112,17 @@ public class ProfileService implements IProfile {
         double amount = timenumber * _ParkingRepository.getRencostByName(parkingname);
         if (balance - amount >= 0) {
             _profileRepository.updateBalanceByUsername(balance - amount, username);
+            //create transaction
+            Transactioninformation t = new Transactioninformation();
+            t.setTransno((LocalDateTime.now()).toString());
+            t.setAccountid(new Profile(username));
+            t.setParkingname(new Parkinglocation(parkingname));
+            t.setAmount(amount);
+            t.setChannel("Parking Wallet");
+            t.setDatetime(LocalDateTime.now());
+            t.setStype("e-Booking");
+            t.setStatuscode(0);
+            _transactionRepo.save(t);
             return true;
         } else {
             return false;
