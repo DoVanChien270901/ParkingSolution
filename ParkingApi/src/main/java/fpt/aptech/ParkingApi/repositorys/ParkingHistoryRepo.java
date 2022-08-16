@@ -18,15 +18,24 @@ import org.springframework.data.repository.query.Param;
  * @author vantu
  */
 public interface ParkingHistoryRepo extends JpaRepository<Parkinghistory, Integer> {
+
     @Query(name = "getListParkingHistoryByUsername", nativeQuery = true)
     List<ParkingHistoryRes> getListTransByUsername(@Param("username") String username);
+
     @Query(name = "getListParkingHistoryByParkingName", nativeQuery = true)
     List<ParkingHistoryRes> getListParkingHistoryByParkingName(@Param("parkingname") String parkingname);
+
     @Query(name = "getListParkingHistoryByUsernameSearch", nativeQuery = true)
     List<ParkingHistoryRes> getListParkingHistoryByUsernameSearch(@Param("username") String username,
-            @Param("fromDate")LocalDateTime fromDate, @Param("toDate")LocalDateTime toDate);
+        @Param("fromDate") LocalDateTime fromDate, @Param("toDate") LocalDateTime toDate);
+
     @Query(name = "getAllParkingHistorySearch", nativeQuery = true)
-    List<ParkingHistoryRes> getAllParkingHistorySearch(@Param("parkingname")String name,
-            @Param("fromDate")LocalDateTime fromDate,
-            @Param("toDate")LocalDateTime toDate);
+    List<ParkingHistoryRes> getAllParkingHistorySearch(@Param("parkingname") String name,
+        @Param("fromDate") LocalDateTime fromDate,
+        @Param("toDate") LocalDateTime toDate);
+
+    @Query(name = "getAllParkingHistorySearchbyDate", nativeQuery = true)
+    List<ParkingHistoryRes> getAllParkingHistorySearchbyDate(
+        @Param("fromDate") LocalDateTime fromDate,
+        @Param("toDate") LocalDateTime toDate);
 }
