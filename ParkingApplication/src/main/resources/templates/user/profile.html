@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Profile Page</title>
+        <title>Profile Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
     <body>
@@ -47,33 +47,33 @@
                             <form th:action="@{/profile}" th:object="${profile}" id="form_profile" class="form_profile" method="POST" onsubmit="return validateProfile()">
                                 <div class="row g-4 mb-3 pb-3">
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <label class="mb-2 h3">Username</label>
+                                        <label class="mb-1">Username:</label>
                                         <div class="input-group mb-4">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{fullname}" id="fullname-profile" readonly="true">  
                                             <div class="invalid-feedback mess-box error-fname" id="error-fname"></div>
                                         </div>
-                                        <label class="mb-2 h3">Date Time</label>
+                                        <label class="mb-1">Date Time:</label>
                                         <div class="input-group mb-4">
                                             <input autocomplete="off" type="date" class="form-control" th:value="${profile.getDob()}" th:field="*{dob}" id="dob-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-dob" id="error-dob"></div>
                                         </div>
-                                        <label class="mb-2 h3">Balance</label>
+                                        <label class="mb-1">Balance:</label>
                                         <div class="input-group">
                                             <input type="text" th:value="${#numbers.formatInteger(profile.balance, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                                        <label class="mb-2 h3">Phone</label>
+                                        <label class="mb-1">Phone:</label>
                                         <div class="input-group mb-4">
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{phone}" id="phone-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-phone" id="error-phone"></div>                 
                                         </div>
-                                        <label class="mb-2 h3">License Plates</label>
+                                        <label class="mb-1">Identity Card:</label>
                                         <div class="input-group mb-4">                         
                                             <input autocomplete="off" type="number" class="form-control" th:field="*{identitycard}" id="identitycard-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-identitycard" id="error-identitycard"></div>
                                         </div>
-                                        <label class="mb-2 h3">Email</label>
+                                        <label class="mb-1">Email:</label>
                                         <div class="input-group">
                                             <input autocomplete="off" type="text" class="form-control" th:field="*{email}"  id="email-profile" readonly="true">
                                             <div class="invalid-feedback mess-box error-email" id="error-email"></div>
@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-profile-button-edit">
                                         <button type="button" id="settings-profile" onclick="disable()" class="btn-settings-profile mt-2 mb-2 me-2 p-2"><i class="fas fa-cog"></i> Settings</button>
-                                        <button type="submit" id="update-profile" class="btn-save-profile mt-2 mb-2 me-2 p-2"><i class="far fa-check-circle"></i> Update</button>
+                                        <button type="submit" id="update-profile" class="btn-save-profile mt-2 mb-2 me-2 p-2"><i class="fa fa-check-circle"></i> Update</button>
                                         <a type="button" th:href="@{/profile}" id="cancel-profile" class="btn-cancel-profile mt-2 mb-2 p-2"><i class="fas fa-undo"></i> Cancel</a>
                                     </div>
                                 </div>
@@ -195,9 +195,9 @@
                     qs_identitycard.appendChild(span_identitycard);
                     return false;
                 }
-                if (identitycard.value.length <= 9 || identitycard.value.length >= 11) {
+                if (identitycard.value.length <= 9 || identitycard.value.length >= 16) {
                     identitycard_error.style.display = "block";
-                    span_identitycard.innerHTML = "*Identity card must enter 10 numbers !";
+                    span_identitycard.innerHTML = "*Identity card must between 10 and 15 numbers !";
                     qs_identitycard.appendChild(span_identitycard);
                     return false;
                 }
@@ -248,13 +248,11 @@
             }
 
             function identitycard_verify() {
-                if (identitycard.value.length == 10) {
+                if (identitycard.value.length > 9 && identitycard.value.length < 16) {
                     identitycard_error.style.display = "none";
                     return true;
                 }
             }
-
-
         </script>
     </body>
 </html>

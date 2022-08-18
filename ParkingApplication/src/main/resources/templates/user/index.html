@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Index Page</title>
+        <title>Index Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
     <body>
@@ -172,7 +172,7 @@
                         <div class="col-lg-6">
                             <h1 class="mb-4"><span class="text-new-color">Contact With ParkingGo</span></h1>
                             <p class="mb-4">Need to run errands but worried about potentially spreading germs? Available at over 100 sites across Vietnam, ParkMobile offers you a hands-free way to park your car to reduce your chances of being exposed to COVID-19.</p>
-                            <a type="button" href="" class="py-3 px-5 btn-contact-parking-go">Contact Us<i class="fa fa-arrow-right ms-3"></i></a>
+                            <a type="button" th:href="@{/contact}" class="py-3 px-5 btn-contact-parking-go">Contact Us<i class="fa fa-arrow-right ms-3"></i></a>
                         </div>
                         <div class="col-lg-6" style="min-height: 400px;">
                             <div class="position-relative h-100 wow fadeIn" data-wow-delay="0.1s">

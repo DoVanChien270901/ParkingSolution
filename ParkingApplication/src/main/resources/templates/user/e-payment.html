@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Electronic Payment Page</title>
+        <title>Electronic Payment Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
     <body>  
@@ -52,7 +52,7 @@
                                     <div class="row">
                                         <!-- Payment Method Start -->
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2 col-payment-method">
-                                            <label class="label-input-payment mb-2 h3">Choose Payment Method</label>
+                                            <label class="label-input-payment mb-2">Choose Payment Method:</label>
                                             <div class="row row-form-check-radio-for-payment pt-0">
                                                 <div class="form-momo mb-3 p-3 col-6 col-md-6 col-lg-6">
                                                     <img class="momo" th:src="@{/assetsc/img/momo.png}" onclick="checkMomo()">
@@ -65,16 +65,15 @@
                                                     <input type="radio" id="radio-zalopay" th:field="*{channel}" value="Zalopay"> 
                                                 </div>
                                                 <div class="input-group box-error-payment-method">
-                                                    <div class="invalid-feedback mess-box-payment-method error-payment-method" id="error-payment-method">
-                                                    </div>
+                                                    <div class="invalid-feedback mess-box-payment-method error-payment-method" id="error-payment-method"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Payment Method End -->
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment mb-2 h3">Input Payment</label>
+                                            <label class="label-input-payment mb-2">Input Payment:</label>
                                             <div class="input-group pt-0">
-                                                <input class="form-control amount-ep" id="amount-ep" type="number" th:field="*{amount}"/>
+                                                <input class="form-control amount-ep" id="amount-ep" type="number" th:field="*{amount}" placeholder="0"/>
                                                 <div class="invalid-feedback mess-box-electronic-payment error-amount-ep" id="error-amount-ep">
                                                     <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
                                                 </div>
@@ -97,7 +96,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-12 col-md-12 col-sm-12 mt-2 mb-4 col-btn-electronic-payment">
-                                            <button type="submit" class="btn-electronic-payment mt-0 mb-2 p-2"><i class="fas fa-credit-card"></i>&nbsp;Pay Now</button>
+                                            <button type="submit" class="btn-electronic-payment mt-2 mb-2 p-2"><i class="fas fa-credit-card"></i>&nbsp;Pay Now</button>
                                         </div>
                                     </div>
                                 </form>

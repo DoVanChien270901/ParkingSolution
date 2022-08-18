@@ -1,200 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/handle-layout.html}">
-
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Dashboard Page</title>
+        <title>Scan QR Code Booking</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css"></link>  
         <style>
-            .main-container h1{
-                text-align: center;
-                color: white
-            }
-            #preview {
-                width: 400px;
-                height: 400px;
-                object-fit: cover;
-                position: absolute;
-                margin: auto;
-                left: 0;
-                right: 0;
-                top: 25px;
-                text-align: center;
-                z-index: 0;
-            }
-
             /* animation scanner */
             body {
-                font-family: Lato;
-                font-weight: 400;
                 background-color: #26282a;
-                color: white;
+                color: #fff;
             }
 
-            .center {
-                margin: 0 auto;
+            .main-container h1{
                 text-align: center;
-            }
-
-            /* .spacer {
-              margin-top: 6rem;
-            } */
-
-            /* barcode container */
-            .anim-box {
-                position: relative;
-                width: 450px;
-                height: 450px;
-                padding: 25px 30px;
-                transition: transform .6s ease-out;
-            }
-
-            /* adds the 4 corners */
-            .anim-box:before,
-            .anim-box:after,
-            .anim-box>:first-child:before,
-            .anim-box>:first-child:after {
-                position: absolute;
-                width: 10%;
-                height: 15%;
-                border-color: white;
-                border-style: solid;
-                content: ' ';
-            }
-
-            /* top left corner */
-            .anim-box:before {
-                top: 0;
-                left: 0;
-                border-width: 2px 0 0 2px;
-            }
-
-            /* top right corner */
-            .anim-box:after {
-                top: 0;
-                right: 0;
-                border-width: 2px 2px 0 0;
-            }
-
-            /* bottom right corner */
-            .anim-box>:first-child:before {
-                bottom: 0;
-                right: 0;
-                border-width: 0 2px 2px 0;
-            }
-
-            /* bottom left corner */
-            .anim-box>:first-child:after {
-                bottom: 0;
-                left: 0;
-                border-width: 0 0 2px 2px;
-            }
-
-            /* barcode bars */
-            .anim-item {
-                display: inline-block;
-                background-color: white;
-                height: 100px;
-            }
-
-            .anim-item-sm {
-                width: 2px;
-                margin-right: 3px;
-            }
-
-            .anim-item-md {
-                width: 3px;
-                margin-right: 2px;
-            }
-
-            .anim-item-lg {
-                width: 5px;
-                margin-right: 5px;
-            }
-
-            /* grow on hover */
-            /* .anim-box:hover {
-              transform: scale(1.5, 2);
-            } */
-
-            .anim-box .scanner {
-                animation-play-state: running;
-            }
-
-            /* animated laser beam */
-            .scanner {
-                width: 100%;
-                height: 3px;
-                background-color: red;
-                opacity: 0.7;
-                position: relative;
-                box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
-                top: 50%;
-                animation-name: scan;
-                animation-duration: 4s;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-play-state: paused;
-            }
-
-            @keyframes scan {
-                0% {
-                    box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
-                    top: 50%;
-                }
-
-                25% {
-                    box-shadow: 0px 6px 8px 10px rgba(170, 11, 23, 0.49);
-                    top: 5px;
-                }
-
-                75% {
-                    box-shadow: 0px -6px 8px 10px rgba(170, 11, 23, 0.49);
-                    top: 98%;
-                }
-            }
-
-            .body-scanner {
-                position: absolute;
-                margin: auto;
-                left: 0;
-                right: 0;
-                z-index: 1;
+                color: #fff;
             }
 
             .container {
                 position: relative;
             }
-            .form-comfirm {
-                display: none;
-                position: relative;
-                border-style: solid;
-                border-width: 1px;
-                border-color: black;
-                margin: auto;
-                width: 500px;
-                height: 150px;
-                border-radius: 10px;
-                background-color: aliceblue;
-                z-index: 2;
-            }
 
-            .form-comfirm label {
-                position: absolute;
-                margin-top: 10px;
-                margin-left: 10px;
-                color: black;
-            }
-
-            .form-comfirm h3 {
+            .center {
+                margin: 0 auto;
                 text-align: center;
-                color: black;
-            }
-
-            .form-comfirm div, button{
-                margin-right: 30px;
-                margin-top: 30px;
             }
         </style>
         <script type="text/javascript" th:src="@{/vendorsc/scripts/instascan.min.js}"></script>
@@ -239,11 +68,11 @@
                 //call api get list parking
                 let myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
-                
+
                 var raw = JSON.stringify({
                     qrcontent: content
                 });
-                
+
                 var requestOptions = {
                     method: "POST",
                     headers: myHeaders,
@@ -258,8 +87,8 @@
                             } else {
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Error!!!',
-                                    text: 'Invalid qr code...',
+                                    title: 'Error!',
+                                    text: 'Invalid QR Code, Please Try Again.',
                                     confirmButtonText: 'Retry?'
                                 });
                                 scanner.start();
@@ -277,7 +106,7 @@
                 //call api get list parking
                 let myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
-                
+
                 var raw = JSON.stringify({
                     qrcontent: requestbody
                 });
@@ -294,7 +123,7 @@
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
-                                    title: '',
+                                    title: 'Successful!',
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
@@ -303,7 +132,7 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error!!!',
-                                    text: 'Invalid qr code...',
+                                    text: 'Invalid QR Code, Please Try Again.',
                                     confirmButtonText: 'Retry?'
                                 });
                             }
@@ -315,29 +144,29 @@
                 var textChecIn = "";
                 if (result.status == "CHECK IN") {
                     textBtn = 'Check In';
-                }else{
-                    textChecIn = "Check in at "+result.checkin;
+                } else {
+                    textChecIn = "*CHECK IN AT: " + result.checkin;
                     textBtn = 'Check Out';
                 }
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                });
-                swalWithBootstrapButtons.fire({
+                /*const swalWithBootstrapButtons = Swal.mixin({
+                 customClass: {
+                 confirmButton: 'btn btn-success',
+                 cancelButton: 'btn btn-danger'
+                 },
+                 buttonsStyling: false
+                 });*/
+                Swal.fire({
                     title: result.parkingname,
                     html: '<div class="row g-4 mb-3 pb-3 text-left">\n\
-                                <div class="col-sm-12 col-md-12 col-lg-6 mt-4">Car: ' + result.carname + '</div>\n\
-                                <div class="col-sm-12 col-md-12 col-lg-6 mt-4">Lisenceplates: ' + result.lisenceplates + '</div>\n\
-                                <div class="col-sm-12 col-md-12 col-lg-12 mt-4">About: ' + result.starttime + ' to ' + result.endtime + '</div>\n\
-                                <div class="col-sm-12 col-md-12 col-lg-12 mt-4">Status ' + result.status + '</div>\n\
-                                <div class="col-sm-12 col-md-12 col-lg-12 mt-4">'+textChecIn+'</div>\n\
+                                <div class="col-sm-12 col-md-12 col-lg-12 mt-3">Car Name: ' + '<span style="font-weight:400;">' + result.carname + '</span>' + '</div>\n\
+                                <div class="col-sm-12 col-md-12 col-lg-12 mt-3">Lisence Plates: ' + '<span style="font-weight:400;">' + result.lisenceplates + '</span>' + '</div>\n\
+                                <div class="col-sm-12 col-md-12 col-lg-12 mt-3">About: ' + '<span style="font-weight:400;">' + result.starttime + ' - to - ' + result.endtime + '</span>' + '</div>\n\
+                                <div class="col-sm-12 col-md-12 col-lg-12 mt-3">Status: ' + '<span style="font-weight:400;">' + result.status + '</span>' + '</div>\n\
+                                <div class="col-sm-12 col-md-12 col-lg-12 mt-3">' + '<span style="font-weight:400;">' + textChecIn + '</span>' + '</div>\n\
                             </div>',
                     showCancelButton: true,
                     confirmButtonText: textBtn,
-                    cancelButtonText: 'Cancel!',
+                    cancelButtonText: 'Cancel',
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {

@@ -48,13 +48,13 @@ public class PaymentController {
         LoginRes account = (LoginRes) session.getAttribute("account");
         if (String.valueOf(amount).isEmpty()) {
             model.addAttribute("balance", String.valueOf(account.getBalance()));
-            model.addAttribute("amountValid", "Amount must between 10.000 VND and 5.000.000 VND");
+            model.addAttribute("amountValid", "*Amount can not be blank !");
             return "user/d-payment";
         }
         double am = Double.parseDouble(amount);
-        if (am <= 10000 || am >=5000000) {
+        if (am < 10000 || am > 5000000) {
             model.addAttribute("balance", String.valueOf(account.getBalance()));
-            model.addAttribute("amountValid", "Amount must between 10.000 VND and 5.000.000 VND");
+            model.addAttribute("amountValid", "*Amount must between 10.000 VND and 5.000.000 VND");
             return "user/d-payment";
         }
         

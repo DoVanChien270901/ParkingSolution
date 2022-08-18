@@ -2,257 +2,274 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Parking Manager Page</title>
+        <title>Parking Manager Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     </head>
     <body>
         <div class="main-container" layout:fragment="admin-content">
-            <div class="xs-pd-20-10 pd-ltr-20">
-                <div class="title pb-20">
-                    <h2 class="h2 mb-2">Parking Manager</h2>
+            <div th:if="${listParking}" class="xs-pd-20-10 pd-ltr-20">
+                <div class="title pb-20 p-3">
+                    <h2 class="h2 mb-0">Parking Manager</h2>
                 </div>
-                <div th:if="${listParking}" class="pd-20 card-box mb-30">
-                    <div class="clearfix mb-20">
-                        <h6 class="p-1">Search Parking Name</h6>
-                        <form class="pt-2" action="/a/list-parking/search" method="GET">
-                            <div class="pull-left mb-2">
+                <div class="p-3">
+                    <div class="pd-20 card-box mb-20">
+                        <div class="clearfix mb-10">
+                            <h6 class="p-1">Search Parking Name</h6>
+                            <form class="pt-2" action="/a/list-parking/search" method="GET">
+                                <div class="pull-left mb-2">
+                                    <div class="row">
+                                        <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
+                                            <input type="text" th:name="keyword" class="form-control" placeholder="Parking Name...">
+                                        </div>
+                                        <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1" style="margin-top: 3.5px;">
+                                            <button type="submit" class="btn btn-color"><i class="dw dw-search2 search-icon"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="pull-right">
                                 <div class="row">
-                                    <div class="col-8 col-lg-10 col-md-10 col-sm-10 p-1">
-                                        <input type="text" th:name="keyword" class="form-control form-control-md border-info" placeholder="Parking Name...">
+                                    <div class="col-12 col-lg-12 p-1" style="margin-top: 3.5px;">
+                                        <a th:href="@{/a/parking/add}" type="button" class="btn btn-color scroll-click" rel="content-y"><i class="fa fa-plus-circle"></i>&nbsp;Create</a>
                                     </div>
-                                    <div class="col-4 col-lg-2 col-md-2 col-sm-2 p-1">
-                                        <button type="submit" class="btn btn-md btn-color m-1"><i class="dw dw-search2 search-icon"></i></button>
-                                    </div>
-                                </div>
+                                </div>                       
                             </div>
-                        </form>
-                        <div class="pull-right">
-                            <div class="row">
-                                <div class="col-12 col-lg-12 p-1" style="margin-top: 3px;">
-                                    <a th:href="@{/a/parking/add}" type="button" class="btn btn-color scroll-click" rel="content-y"><i class="fa fa-plus-circle"></i> Create</a>
-                                </div>
-                            </div>                       
+                        </div>
+                        <div class="table-res p-1">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Parking Name</th>
+                                        <th>Address</th>
+                                        <th>Slot</th>
+                                        <th>Cost</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${listParking}">
+                                        <td data-label="Parking Name" class="id-table col-lg-3" th:text="${item.name}"></td>
+                                        <td data-label="Address" class="col-lg-5" th:text="${item.address}"></td>
+                                        <td data-label="Slot" class="" th:text="${item.nop}"></td>
+                                        <td data-label="Cost" class="col-lg-2" th:text="${#numbers.formatInteger(item.rentcost, 1, 'COMMA')} + ' VND'"></td>
+                                        <!--<td data-label="Action" class="action-center">
+                                           <a type="button" th:href="@{/a/parking/update(id=${item.name})}" class="btn btn-color btn-sm"><i class="fa fa-refresh"></i></a>
+                                           <a type="button" th:href="@{/a/parking/delete(id=${item.name})}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                       </td>-->
+                                        <td data-label="Action" class="action-center">
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-color dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings&nbsp;</button>
+                                                <div class="dropdown-menu">
+                                                    <a id="update-parking" th:href="@{/a/parking/update(id=${item.name})}" class="dropdown-item"><i class="fa fa-upload"></i>&nbsp;Update</a>
+                                                    <a id="delete-parking" th:href="@{/a/parking/delete(id=${item.name})}" class="dropdown-item"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>    
+                            </table>
                         </div>
                     </div>
-                    <div class="table-res p-1">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Parking Name</th>
-                                    <th>Address</th>
-                                    <th>Slot</th>
-                                    <th>Cost</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="item : ${listParking}">
-                                    <td data-label="Parking Name" class="id-table col-lg-3" th:text="${item.name}"></td>
-                                    <td data-label="Address" class="col-lg-5" th:text="${item.address}"></td>
-                                    <td data-label="Slot" th:text="${item.nop}"></td>
-                                    <td data-label="Cost" class="col-lg-2" th:text="${#numbers.formatInteger(item.rentcost, 1, 'COMMA')} + ' VND'"></td>
-                                    <td data-label="Action" class="action-center">
-                                        <a type="button" th:href="@{/a/parking/update(id=${item.name})}" class="btn btn-color btn-sm"><i class="fa fa-refresh"></i></a>
-                                        <a type="button" th:href="@{/a/parking/delete(id=${item.name})}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>    
-                        </table>
-                    </div>
-                </div>
-                <div th:if="${addParkingReq}" class="pd-20 card-box mb-30">
-                    <div class="clearfix mb-20 p-1">
-                        <h6>Create Parking</h6>
-                    </div>
-                    <form th:action="@{/a/parking/add}" th:object="${addParkingReq}" method="POST">
-                        <ul class="profile-edit-list row">
-                            <li class="weight-500 col-12 col-md-12 pt-0 mb-0">
-                                <label class="error-mes pb-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input th:field="*{name}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Latitude</label>
-                                    <input th:field="*{latitude}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Number of Parking Spaces</label>
-                                    <input th:field="*{nop}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <input th:field="*{address}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Longitude</label>
-                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" value="">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Rent Cost</label>
-                                    <input th:field="*{rentcost}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
-                                <div class="form-group mb-0 weight">
-                                    <input type="submit" class="btn btn-color-no-transition update-parking mt-0 mb-2 me-2" style="padding: 8px;" value="Update">
-                                    <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2" id="index">Cancel</a>
-                                </div>
-                            </li>
-                        </ul>   
-                    </form>
-                </div>
-                <div th:if="${updateParkingReq}" class="pd-20 card-box mb-30">
-                    <div class="clearfix mb-20 p-1">
-                        <h6>Update Parking</h6>
-                    </div>
-                    <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
-                        <ul class="profile-edit-list row">
-                            <li class="weight-500 col-12 col-md-12">
-                                <label class="error-mes pb-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input th:field="*{name}" class="form-control form-control" type="text" readonly="true">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Latitude</label>
-                                    <input th:field="*{latitude}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Number of Parking Spaces</label>
-                                    <input th:field="*{nop}" class="form-control form-control" type="number">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <input th:field="*{address}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Longitude</label>
-                                    <input th:field="*{longtitude}" class="form-control form-control" type="text" value="">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Rent Cost</label>
-                                    <input th:name="rentcost" th:value="${#numbers.formatInteger(updateParkingReq.rentcost, 3, 'COMMA')}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label class="font-14"></label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
-                                <div class="form-group mb-0 weight">
-                                    <input type="submit" class="btn btn-color-no-transition update-parking mt-0 mb-2 me-2" style="padding: 8px;" value="Update">
-                                    <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2" id="index">Cancel</a>
-                                </div>
-                            </li>
-                        </ul>   
-                    </form>
                 </div>
             </div>
-            <div class="pd-20 mb-30">
-                <div class="footer-wrap pd-20 mb-20 card-box">
-                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+            <div th:if="${addParkingReq}" class="xs-pd-20-10 pd-ltr-20">
+                <div class="p-3">
+                    <div class="pd-20 card-box mb-20">
+                        <div class="clearfix mb-20">
+                            <h6>Create Parking</h6>
+                        </div>
+                        <form th:action="@{/a/parking/add}" th:object="${addParkingReq}" method="POST">
+                            <ul class="row">
+                                <li class="weight-500 col-12 col-md-12 pt-0 mb-0">
+                                    <label class="error-mes pb-1" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Parking Name:</label>
+                                        <input th:field="*{name}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Latitude:</label>
+                                        <input th:field="*{latitude}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Number of Parking Spaces:</label>
+                                        <input th:field="*{nop}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Address:</label>
+                                        <input th:field="*{address}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Longitude:</label>
+                                        <input th:field="*{longtitude}" class="form-control" type="text" value="">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rent Cost:</label>
+                                        <input th:field="*{rentcost}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
+                                    <div class="form-group mb-0 weight">
+                                        <input type="submit" class="btn btn-color-no-transition update-parking mt-0 mb-2 me-2" value="Create">
+                                        <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2" id="index">Cancel</a>
+                                    </div>
+                                </li>
+                            </ul>   
+                        </form>
+                    </div>
                 </div>
-                <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
-                    <ul class="row">
-                        <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label>Name:</label>
-                                <input th:field="*{name}" class="form-control form-control" type="text">
-                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Latitude:</label>
-                                <input th:field="*{latitude}" class="form-control form-control" type="text">
-                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                   <span th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Number of Parking Spaces:</label>
-                                <input th:field="*{nop}" class="form-control form-control" type="number">
-                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                   <span th:if="${#fields.hasErrors('nop')}" th:errors="*{nop}"></span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label>Address:</label>
-                                <input th:field="*{address}" class="form-control form-control" type="text">
-                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Longitude:</label>
-                                <input th:field="*{longtitude}" class="form-control form-control" type="text">
-                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <span th:if="${#fields.hasErrors('longtitude')}" th:errors="*{longtitude}"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Rent Cost:</label>
-                                <input th:field="*{rentcost}" class="form-control form-control" type="text">
-                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                    <span th:if="${#fields.hasErrors('rentcost')}" th:errors="*{rentcost}"></span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
-                            <div class="form-group mb-0 weight">
-                                <input type="submit" class="btn btn-primary update-parking mt-0 mb-2 me-2 p-2" value="Update">
-                                <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2 p-2" id="index">Cancel</a>
-                            </div>
-                        </li>
-                    </ul>   
-                </form>
             </div>
-            <!-- basic table  End -->
-            <div class="footer-wrap pd-20 mb-20 card-box">
-                ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+            <div th:if="${updateParkingReq}" class="xs-pd-20-10 pd-ltr-20">
+                <div class="p-3">
+                    <div class="pd-20 card-box mb-20">
+                        <div class="clearfix mb-20">
+                            <h6>Update Parking</h6>
+                        </div>
+                        <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
+                            <ul class="row">
+                                <li class="weight-500 col-12 col-md-12">
+                                    <label class="error-mes pb-1" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Parking Name:</label>
+                                        <input th:field="*{name}" class="form-control" type="text" readonly="true">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Latitude:</label>
+                                        <input th:field="*{latitude}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Number of Parking Spaces:</label>
+                                        <input th:field="*{nop}" class="form-control" type="number">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Address:</label>
+                                        <input th:field="*{address}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Longitude:</label>
+                                        <input th:field="*{longtitude}" class="form-control" type="text" value="">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rent Cost:</label>
+                                        <input th:name="rentcost" th:value="${#numbers.formatInteger(updateParkingReq.rentcost, 1, 'COMMA')}" class="form-control" type="text">
+                                        <div class="invalid-feedback">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
+                                    <div class="form-group mb-0 weight">
+                                        <input type="submit" class="btn btn-color-no-transition update-parking mt-0 mb-2 me-2" value="Update">
+                                        <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2" id="index">Cancel</a>
+                                    </div>
+                                </li>
+                            </ul>   
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--<form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
+                <ul class="row">
+                    <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input th:field="*{name}" class="form-control form-control" type="text">
+                            <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Latitude:</label>
+                            <input th:field="*{latitude}" class="form-control form-control" type="text">
+                            <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                               <span th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Parking Spaces:</label>
+                            <input th:field="*{nop}" class="form-control form-control" type="number">
+                            <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                               <span th:if="${#fields.hasErrors('nop')}" th:errors="*{nop}"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Address:</label>
+                            <input th:field="*{address}" class="form-control form-control" type="text">
+                            <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Longitude:</label>
+                            <input th:field="*{longtitude}" class="form-control form-control" type="text">
+                            <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                <span th:if="${#fields.hasErrors('longtitude')}" th:errors="*{longtitude}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Rent Cost:</label>
+                            <input th:field="*{rentcost}" class="form-control form-control" type="text">
+                            <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                <span th:if="${#fields.hasErrors('rentcost')}" th:errors="*{rentcost}"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
+                        <div class="form-group mb-0 weight">
+                            <input type="submit" class="btn btn-primary update-parking mt-0 mb-2 me-2 p-2" value="Update">
+                            <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2 p-2" id="index">Cancel</a>
+                        </div>
+                    </li>
+                </ul>   
+            </form>-->
+            <div class="xs-pd-20-10 pd-ltr-20">
+                <div class="p-3">
+                    <div class="footer-wrap pd-20 mb-20 card-box">
+                        ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

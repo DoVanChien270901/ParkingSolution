@@ -150,7 +150,6 @@
 .nav-profile-manager .nav .dropdown-menu .dropdown-profile:hover {
     background-color: #4e73df;
     color: #fff;
-    transition: 0.2s;
 }
 
 .nav-tabs .nav-link {
@@ -176,11 +175,13 @@
     padding: 0px;
     display: block;
 }
+
 #form_profile label,
+#form-qrcode-booking label,
 #direct-payment .label-input-payment, 
 #form-electronic-payment .label-input-payment, 
 #form-parking-booking .label-input-payment{
-    color:#35477d !important; 
+    color: #35477d !important; 
     font-weight: 600;
     font-size: 16px;
 }
@@ -196,7 +197,8 @@
 
 #form_profile .title-qrcode , 
 #form-direct-payment .title-direct-payment-qrcode,
-#booking-create .title-qrcode-booking{
+#booking-create .title-qrcode-booking, 
+.title-qrcode-booking {
     text-align: center;
     font-style: italic;
 }
@@ -285,7 +287,6 @@
 }
 
 .invalid-feedback label {
-    font-weight: 500px;
     color: red;
 }
 
@@ -295,13 +296,14 @@
 #form-electronic-payment .mess-box-payment-method{
     width: 100%;
     color: red;
-    background: #FFDEB4;
+    background: #FFE8BD;
     display: none;
-    border: 1px solid #ff5b5b;
+    border: 1px solid #FC6F6F;
     z-index: 999;
     position: absolute;
     padding: 10px;
-    font-size: 80%;
+    font-weight: 400;
+    font-size: 82.5%;
 }
 
 #form-electronic-payment .box-error-payment-method .invalid-feedback {
@@ -334,15 +336,17 @@
     display: block;
 }
 
-#form-direct-payment .invalid-error-mess-d-payment label, 
+#form-direct-payment .invalid-error-mess-d-payment span, 
 .error-mess, 
 #form-parking-booking .invalid-error-mess-parking-booking label{
-    color: #dc3545;
-
-}
-#form-direct-payment .invalid-error-mess-d-payment label {
+    color: red;
     font-size: 100%;
 }
+
+#form-direct-payment .invalid-error-mess-d-payment span {
+    font-size: 100%;
+}
+
 
 .col-direct-payment-qrcode .direct-payment-qrcode {
     margin-left: auto;
@@ -590,7 +594,7 @@ input[type=number] {
     padding: 10px 15px;
     border: 1px solid #ddd;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .table-res-history .table th {
@@ -834,8 +838,8 @@ input[type=number] {
 }
 
 @media screen and (max-width: 768px) {
-    #form_profile .qrcode , .qrcode, 
-    #booking-create .qrcode-booking{
+    #form_profile .qrcode , .qrcode,
+    #booking-create .qrcode-booking {
         max-width: 40%;
     }
 

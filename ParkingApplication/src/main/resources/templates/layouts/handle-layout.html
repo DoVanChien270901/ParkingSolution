@@ -2,13 +2,17 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
         <meta charset="utf-8">
+        <!-- Icon -->
         <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Link -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/core.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/icon-font.min.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/style.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/fix.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/handler.css}">
+        <!-- Script -->
         <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
     </head>
     <body>
@@ -21,7 +25,7 @@
                     <div class="dropdown">
                         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                             <span class="user-icon">
-                                <img th:src="@{/vendorsc/images/male.jpg}" alt="">
+                                <img th:src="@{/vendorsc/images/photo.jpg}" alt="">
                             </span>
                             <span class="user-name" th:text="${session.account.getFullname().toString()}"></span>
                         </a>
@@ -34,7 +38,7 @@
         </div>
         <div class="left-side-bar">
             <div class="brand-logo">
-                <a href="#">
+                <a>
                     <span>ParkingGo</span>
                 </a>
                 <div class="close-sidebar" data-toggle="left-sidebar-close">
@@ -45,13 +49,19 @@
                 <div class="sidebar-menu">
                     <ul id="accordion-menu">
                         <li>
+                            <a th:href="@{/home/handle}" class="dropdown-toggle no-arrow">
+                                <span class="micon dw dw-house-1"></span><span class="mtext">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
                             <a th:href="@{/h/status-parking/all}" class="dropdown-toggle no-arrow">
-                                <span class="micon dw dw-house-1"></span><span class="mtext">Parking Management</span>
+                                <span class="micon dw dw-bookmark"></span>
+                                <span class="mtext">Parking Manager</span>
                             </a>
                         </li>                      
                         <li class="dropdown">
-                            <a class="dropdown-toggle">
-                                <span class="micon dw dw-book"></span><span class="mtext">Scan QR Code</span>
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon fa fa-qrcode"></span><span class="mtext">Scan QR Code</span>
                             </a>
                             <ul class="submenu">
                                 <li><a th:href="@{/scan-qrcode/recharge}">Recharge Wallet Parking</a></li>
@@ -64,9 +74,11 @@
             </div>
         </div>
         <div class="mobile-menu-overlay"></div>
+
         <!-- Admin Content Start -->
         <div class="main-container" layout:fragment="handle-content"></div>
         <!-- Admin Content End -->
+
         <!-- JavaScript -->
         <script th:src="@{/vendorsc/scripts/core.js}"></script>
         <script th:src="@{/vendorsc/scripts/script.min.js}"></script>

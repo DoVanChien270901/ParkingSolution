@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | History Transaction Page</title>
+        <title>Transaction History Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
     <body>  
@@ -50,13 +50,13 @@
                                         <form th:action="@{/history/search}" method="GET" id="form-select-date">
                                             <div class="row form-inline">
                                                 <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                    <input type="date" name="from-date" class="form-control form-control-md border-info" placeholder="From:&nbsp;">
+                                                    <input type="date" name="from-date" class="form-control" placeholder="From:&nbsp;">
                                                 </div>
                                                 <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                                    <input type="date" name="to-date" class="form-control form-control-md border-info" placeholder="To:&nbsp;">
+                                                    <input type="date" name="to-date" class="form-control" placeholder="To:&nbsp;">
                                                 </div>
                                                 <div class="col-2 col-lg-2 col-md-2 col-sm-2 p-1">
-                                                    <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
+                                                    <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
                                                 </div>
                                             </div>  
                                         </form>
@@ -81,7 +81,7 @@
                                                 <td class="id-table col-lg-2" data-label="#" th:text="${trans.transno}"></td>
                                                 <td data-label="Amount" type="number" th:text="${#numbers.formatInteger (trans.amount, 3, 'POINT') + ' VND'}"></td>
                                                 <td data-label="Date Time" type="date" th:text="${#temporals.format(trans.datetime, 'dd-MM-yyyy HH:mm')}"></td>
-                                                <td class="col-lg-1" data-label="Channel" th:text="${trans.channel}"></td>
+                                                <td class="col-lg-2" data-label="Channel" th:text="${trans.channel}"></td>
                                                 <td data-label="Type" class="type-history"> 
                                                     <span th:if="${trans.stype == 'e-Booking'}">e-<b>Booking</b></span> 
                                                     <span th:if="${trans.stype == 'e-Recharge'}">e-<b>Recharge</b></span>
