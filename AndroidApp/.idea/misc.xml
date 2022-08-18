@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/drawable/btn_menu.xml" value="0.191" />
+        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/activity_maps.xml" value="0.25" />
+        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/all_parking_info.xml" value="0.536" />
+        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/list_parking_history.xml" value="0.25" />
+        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/list_transaction_history.xml" value="0.25" />
         <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/drawable/boder_qrcode.xml" value="0.196" />
         <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_dpayment.xml" value="0.2515" />
         <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_booking.xml" value="0.25" />
