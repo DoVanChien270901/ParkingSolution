@@ -4,57 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
     tools:context=".activity.BookingHistoryActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#DCDCDC">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/border_trans_history">
 
-    <LinearLayout
-        android:layout_width = "fill_parent"
-        android:layout_height = "wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="5dp">
 
-        <TextView
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "0.5"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "#" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_ic_blue"
+                android:padding="3dp"
+                android:src="@drawable/ic_baseline_checklist_24"></ImageView>
 
-        <TextView
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "Parking Name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:text="List booking"
+                android:textColor="@color/black"
+                android:textSize="20dp"></TextView>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "Amount"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
 
-        <TextView
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "Start"/>
+            <ListView
+                android:id = "@+id/a_bookinglist_lv_bookinglist"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:padding = "5dp"
-            android:text = "Time"/>
-    </LinearLayout>
-
-    <ListView
-        android:id = "@+id/a_bookinglist_lv_bookinglist"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content" />
+    </FrameLayout>
+<!--    <ListView-->
+<!--        android:id = "@+id/a_bookinglist_lv_bookinglist"-->
+<!--        android:layout_width = "match_parent"-->
+<!--        android:layout_height = "wrap_content" />-->
 </LinearLayout>

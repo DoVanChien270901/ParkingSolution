@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import fpt.aptech.parkinggo.R;
+import fpt.aptech.parkinggo.callback.CustomProgressDialog;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.response.BookingRes;
 import fpt.aptech.parkinggo.domain.response.EPaymentRes;
@@ -23,6 +24,9 @@ public class LoadListBookingTask extends AsyncTask<Void, Void, ResponseEntity<?>
         this.activity = activity;
     }
 
+    @Override
+    protected void onPreExecute() {
+    }
     @Override
     protected ResponseEntity<?> doInBackground(Void... voids) {
         LoginRes loginRes = (LoginRes) Session.getSession();

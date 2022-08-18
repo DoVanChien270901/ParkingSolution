@@ -1,8 +1,9 @@
 package fpt.aptech.parkinggo.domain.response;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class BookingDetailRes {
+public class BookingDetailRes implements Serializable {
     private LocalDateTime starttime;
     private int timenumber;
     private double price;
@@ -10,6 +11,7 @@ public class BookingDetailRes {
     private String lisenceplates;
     private String parkingname;
     private byte[] qrcontent;
+    private String locationcode;
 
     public BookingDetailRes() {
     }
@@ -70,4 +72,11 @@ public class BookingDetailRes {
         this.qrcontent = qrcontent;
     }
 
+    public String getLocationcode() {
+        return locationcode;
+    }
+
+    public void setLocationcode(String locationcode) {
+        this.locationcode = locationcode;
+    }
 }

@@ -185,8 +185,8 @@ public class Register2Activity extends AppCompatActivity {
             RegisterReq registerReq = (RegisterReq) getIntent().getSerializableExtra("registerReq");
             registerReq.setFullname(etFullname.getEditText().getText().toString());
             registerReq.setEmail(etEmail.getEditText().getText().toString());
-            registerReq.setPhone(Integer.valueOf(etPhone.getEditText().getText().toString()));
-            registerReq.setIdentitycard(Integer.valueOf(etICard.getEditText().getText().toString()));
+            registerReq.setPhone(etPhone.getEditText().getText().toString());
+            registerReq.setIdentitycard(etICard.getEditText().getText().toString());
             registerReq.setDob(tvDob.getEditText().getText().toString());
             if (actGender.getText().equals("Female")){
                 registerReq.setGender(false);

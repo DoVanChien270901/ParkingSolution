@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_map"
-            android:icon="@drawable/map_icon"
-            android:title="Map"></item>
-    </group>
-    <item android:title="Wallet Payment">
+        <group>
+            <item
+                android:id="@+id/nav_booking_history"
+                android:icon="@drawable/qr_code_icon"
+                android:title="Booked list"></item>
+        </group>
+
+    <item android:title="Recharge Wallet">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_d_payment"
-                    android:icon="@drawable/qr_code_icon"
+                    android:icon="@drawable/ic_baseline_money_24"
                     android:title="Direct Payment"></item>
                 <item
                     android:id="@+id/nav_e_payment"
-                    android:icon="@drawable/map_icon"
+                    android:icon="@drawable/ic_wallet_white"
                     android:title="Electronic Payment"></item>
             </group>
         </menu>
-
     </item>
 
     <item android:title="History">
         <menu>
             <item
                 android:id="@+id/nav_transaction_history"
-                android:icon="@drawable/logout_icon"
+                android:icon="@drawable/ic_baseline_history_24"
                 android:title="Transaction History"></item>
             <item
                 android:id="@+id/nav_parking_history"
-                android:icon="@drawable/qr_code_icon"
+                android:icon="@drawable/ic_baseline_history_24"
                 android:title="Parking History"></item>
-            <item
-                android:id="@+id/nav_booking_history"
-                android:icon="@drawable/qr_code_icon"
-                android:title="Booking History"></item>
         </menu>
     </item>
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_logout"

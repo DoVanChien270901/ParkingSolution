@@ -21,8 +21,7 @@ public class RegisterReq {
     private Integer identitycard;
     private String fullname;
     private boolean gender;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate dob;
+    private String dob;
     private String email;
     private Integer phone;
 
@@ -61,11 +60,11 @@ public class RegisterReq {
         this.fullname = fullname;
     }
 
-    public LocalDate getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

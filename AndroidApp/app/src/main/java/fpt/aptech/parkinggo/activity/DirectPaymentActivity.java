@@ -62,10 +62,7 @@ public class DirectPaymentActivity extends AppCompatActivity {
         imvQrcode = findViewById(R.id.a_dpayment_imv_qrcode);
         btnQrcode = findViewById(R.id.a_dpayment_btn_qrcode);
         //get balance
-        NumberFormat formatter = new DecimalFormat("#,###");
-        double dBalance = ((LoginRes) Session.getSession()).getBalance();
-        String sBalance = formatter.format(dBalance);
-        tvBalance.setText(sBalance + " VND");
+        tvBalance.setText(formatInteger(((LoginRes) Session.getSession()).getBalance().toString()) + "đ");
         //format vnd
         etAmount.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -140,6 +137,7 @@ public class DirectPaymentActivity extends AppCompatActivity {
                 etAmount.setError("valid amount between 10,000đ to 5,000,000đ");
                 return;
             }else{
+                etAmount.setError(null);
                 DirectPaymentTask task = new DirectPaymentTask(this);
                 task.execute();
             }

@@ -9,14 +9,14 @@ import java.time.LocalDate;
 import fpt.aptech.parkinggo.domain.request.EditProfileReq;
 
 public class EditProfileReqBuilder {
-    private Integer identitycard;
+    private String identitycard;
     private String fullname;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private String dob;
     private String email;
-    private Integer phone;
+    private String phone;
 
-    public EditProfileReqBuilder setIdentitycard(Integer identitycard) {
+    public EditProfileReqBuilder setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
         return this;
     }
@@ -36,7 +36,7 @@ public class EditProfileReqBuilder {
         return this;
     }
 
-    public EditProfileReqBuilder setPhone(Integer phone) {
+    public EditProfileReqBuilder setPhone(String phone) {
         this.phone = phone;
         return this;
     }

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="15dp">
+        android:layout_margin="10dp"
+        android:background="@drawable/border_trans_history">
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:id="@+id/a_details_booking_et_parkingname"
@@ -20,7 +21,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             app:endIconMode="clear_text"
-            app:boxBackgroundColor="@color/blue"
+            app:boxBackgroundColor="@color/white"
             android:hint="Parking Name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -39,8 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/blue"
             app:endIconMode="clear_text"
+            app:boxBackgroundColor="@color/white"
             android:hint="Car name">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -59,9 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/blue"
+            app:boxBackgroundColor="@color/white"
             app:endIconMode="clear_text"
-            android:hint="Lisenceplates">
+            android:hint="License plates">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,10 +79,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            app:boxBackgroundColor="@color/blue"
             android:layout_marginTop="10dp"
+            app:boxBackgroundColor="@color/white"
             app:endIconMode="clear_text"
-            android:hint="Amount">
+            android:hint="From">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,21 +95,21 @@
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:id="@+id/a_details_booking_et_timenumber"
+            android:id="@+id/a_details_booking_et_endtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            app:boxBackgroundColor="@color/blue"
             android:layout_marginTop="10dp"
+            app:boxBackgroundColor="@color/white"
             app:endIconMode="clear_text"
-            android:hint="Channel">
+            android:hint="To">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:maxLength="25"
-                android:text="Momo"
+                android:text="To"
                 android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -119,8 +120,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/blue"
             app:endIconMode="clear_text"
+            app:boxBackgroundColor="@color/white"
             android:hint="Type">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -128,34 +129,51 @@
                 android:maxLength="25"
                 android:enabled="false"
                 android:textColor="@color/black"
-                android:text="e-Booking"
+                android:text="Price"
                 />
-
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:id="@+id/a_details_booking_et_location_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            app:endIconMode="clear_text"
+            app:boxBackgroundColor="@color/white"
+            android:hint="Location in parking">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="25"
+                android:enabled="false"
+                android:textColor="@color/black"
+                android:text="Price"
+                />
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal">
-
             <FrameLayout
-                android:layout_width="570px"
-                android:layout_height="570px"
-                android:background="@drawable/boder_qrcode"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.83"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.864">
-
+                android:layout_width="500px"
+                android:layout_height="500px"
+                android:background="@drawable/boder_qrcode">
                 <ImageView
                     android:id="@+id/a_details_booking_imv_qrcode"
-                    android:layout_width="550px"
-                    android:layout_height="550px"
+                    android:layout_width="500px"
+                    android:layout_height="500px"
                     android:layout_gravity="center"/>
             </FrameLayout>
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:text="Parking tickets"
+            android:textStyle="italic"></TextView>
     </LinearLayout>
 </LinearLayout>

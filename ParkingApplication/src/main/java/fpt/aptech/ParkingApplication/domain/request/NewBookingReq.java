@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class NewBookingReq {
 
     private String username;
-    private LocalDateTime starttime;
+    private String starttime;
     private int timenumber;
     private String locationcode;
     private String carname;
@@ -24,7 +24,7 @@ public class NewBookingReq {
     public NewBookingReq() {
     }
 
-    public NewBookingReq(String username, LocalDateTime starttime, int timenumber, String locationcode, String carname, String lisenceplates, String parkingname, boolean walletparking) {
+    public NewBookingReq(String username, String starttime, int timenumber, String locationcode, String carname, String lisenceplates, String parkingname, boolean walletparking) {
         this.username = username;
         this.starttime = starttime;
         this.timenumber = timenumber;
@@ -35,15 +35,6 @@ public class NewBookingReq {
         this.walletparking = walletparking;
     }
 
-    public NewBookingReq(String username, LocalDateTime starttime, int timenumber, String carname, String lisenceplates, String parkingname, boolean b) {
-        this.username = username;
-        this.starttime = starttime;
-        this.timenumber = timenumber;
-        this.carname = carname;
-        this.lisenceplates = lisenceplates;
-        this.parkingname = parkingname;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -52,11 +43,11 @@ public class NewBookingReq {
         this.username = username;
     }
 
-    public LocalDateTime getStarttime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(LocalDateTime starttime) {
+    public void setStarttime(String starttime) {
         this.starttime = starttime;
     }
 
