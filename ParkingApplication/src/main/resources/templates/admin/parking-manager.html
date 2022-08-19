@@ -81,28 +81,28 @@
                         <form th:action="@{/a/parking/add}" th:object="${addParkingReq}" method="POST">
                             <ul class="row">
                                 <li class="weight-500 col-12 col-md-12 pt-0 mb-0">
-                                    <label class="error-mes pb-1" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+                                    <label class="error-mes pb-1 " style="color: red" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
                                 </li>
                                 <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label>Parking Name:</label>
                                         <input th:field="*{name}" class="form-control" type="text">
                                         <div class="invalid-feedback">
-                                            <label></label>
+                                            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Latitude:</label>
                                         <input th:field="*{latitude}" class="form-control" type="text">
                                         <div class="invalid-feedback">
-                                            <label></label>
+                                            <label th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Number of Parking Spaces:</label>
-                                        <input th:field="*{nop}" class="form-control" type="text">
+                                        <input th:field="*{nop}" class="form-control" type="number">
                                         <div class="invalid-feedback">
-                                            <label></label>
+                                            <label th:if="${#fields.hasErrors('nop')}" th:errors="*{nop}"/>
                                         </div>
                                     </div>
                                 </li>
@@ -111,21 +111,21 @@
                                         <label>Address:</label>
                                         <input th:field="*{address}" class="form-control" type="text">
                                         <div class="invalid-feedback">
-                                            <label></label>
+                                            <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Longitude:</label>
-                                        <input th:field="*{longtitude}" class="form-control" type="text" value="">
+                                        <input th:field="*{longtitude}" class="form-control" type="text">
                                         <div class="invalid-feedback">
-                                            <label></label>
+                                            <label th:if="${#fields.hasErrors('longtitude')}" th:errors="*{longtitude}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Rent Cost:</label>
-                                        <input th:field="*{rentcost}" class="form-control" type="text">
+                                        <input th:field="*{rentcost}" class="form-control" type="number">
                                         <div class="invalid-feedback">
-                                            <label></label>
+                                            <label th:if="${#fields.hasErrors('rentcost')}" th:errors="*{rentcost}"/>
                                         </div>
                                     </div>
                                 </li>
@@ -138,55 +138,63 @@
                             </ul>   
                         </form>
                     </div>
-                    <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
-                        <ul class="profile-edit-list row">
-                            <li class="weight-500 col-12 col-md-12">
-                                <label class="error-mes pb-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input th:field="*{name}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+                </div>
+            </div>
+            <div th:if="${updateParkingReq}" class="xs-pd-20-10 pd-ltr-20">
+                <div class="p-3">
+                    <div class="pd-20 card-box mb-20">
+                        <div class="clearfix mb-20">
+                            <h6>Update Parking</h6>
+                        </div>
+                        <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
+                            <ul class="profile-edit-list row">
+                                <li class="weight-500 col-12 col-md-12">
+                                    <label class="error-mes pb-2" role="alert" th:if="${errormes}" th:text="${errormes}"></label>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input th:field="*{name}" class="form-control form-control" type="text" readonly="">
+                                        <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Latitude</label>
-                                    <input th:field="*{latitude}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"/>
+                                    <div class="form-group">
+                                        <label>Latitude</label>
+                                        <input th:field="*{latitude}" class="form-control form-control" type="text">
+                                        <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                            <label th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Number of Parking Spaces</label>
-                                    <input th:field="*{nop}" class="form-control form-control" type="number">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label th:if="${#fields.hasErrors('nop')}" th:errors="*{nop}"/>
+                                    <div class="form-group">
+                                        <label>Number of Parking Spaces</label>
+                                        <input th:field="*{nop}" class="form-control form-control" type="number">
+                                        <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                            <label th:if="${#fields.hasErrors('nop')}" th:errors="*{nop}"/>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <input th:field="*{address}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}"/>
+                                </li>
+                                <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input th:field="*{address}" class="form-control form-control" type="text">
+                                        <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                            <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Longitude</label>
-                                    <input th:field="*{longtitude}" class="form-control form-control" type="text">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label th:if="${#fields.hasErrors('longtitude')}" th:errors="*{longtitude}"/>
+                                    <div class="form-group">
+                                        <label>Longitude</label>
+                                        <input th:field="*{longtitude}" class="form-control form-control" type="text">
+                                        <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                            <label th:if="${#fields.hasErrors('longtitude')}" th:errors="*{longtitude}"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Rent Cost</label>
-                                    <input th:field="*{rentcost}" class="form-control form-control" type="number">
-                                    <div class="invalid-feedback invalid-parking-edit-admin input-group">
-                                        <label th:if="${#fields.hasErrors('rentcost')}" th:errors="*{rentcost}"/>
-                                    </div>
+                                    <div class="form-group">
+                                        <label>Rent Cost</label>
+                                        <input th:field="*{rentcost}" class="form-control form-control" type="number">
+                                        <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                            <label th:if="${#fields.hasErrors('rentcost')}" th:errors="*{rentcost}"/>
+                                        </div>
                                 </li>
                                 <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
                                     <div class="form-group mb-0 weight">
@@ -195,14 +203,15 @@
                                     </div>
                                 </li>
                             </ul>   
-                        </form>
+                        </form>            
                     </div>
                 </div>
             </div>
-            <!-- basic table  End -->
-            <div class="footer-wrap pd-20 mb-20 card-box">
-                ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
-            </div>
         </div>
-    </body>
+        <!-- basic table  End -->
+        <div class="footer-wrap pd-20 mb-20 card-box">
+            ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+        </div>
+    </div>
+</body>
 </html>
