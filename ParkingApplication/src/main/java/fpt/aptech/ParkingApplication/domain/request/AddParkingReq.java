@@ -4,19 +4,30 @@
  */
 package fpt.aptech.ParkingApplication.domain.request;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  *
  * @author CHIEN
  */
 public class AddParkingReq {
 
+    @Size(min = 6, max = 150, message = "*Name must between 6 and 20 characters !")
     private String name;
+    @Size(min = 6, max = 50, message = "*Latitude can not be blank !")
+    @NotNull(message = "*Latitude can not be blank !")
     private String latitude;
+    @NotNull(message = "*Longitude can not be blank !")
+    @Size(min = 6, max = 50, message = "*Longitude can not be blank !")
     private String longtitude;
+    @Size(min = 6, max = 250, message = "*Address can not be blank !")
     private String address;
+    @NotNull(message = "*Parking Spaces can not be blank !")
     private Integer nop;
-    private Integer blank;
+    @NotNull(message = "*Rent Cost can not be blank !")
     private Integer rentcost;
+    private Integer blank;
 
     public AddParkingReq() {
     }

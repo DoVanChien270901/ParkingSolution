@@ -251,28 +251,29 @@ public class ParkingController {
         HttpEntity request = RestTemplateConfiguration.setRequest();
         ResponseEntity<?> response = RestTemplateConfiguration
             .excuteRequest(PATH_API + "parking/" + id, HttpMethod.DELETE, request, String.class);
-        return "redirect:/list-parking";
+        return "redirect:/a/list-parking";
     }
 
     @RequestMapping(value = "/a/parking/add", method = RequestMethod.GET)
-    public String creatpre(Model model) {
-        model.addAttribute("addParkingReq", new AddParkingReq());
+    public String creatpre(@ModelAttribute("addParkingReq") AddParkingReq addParkingReq) {
         return "admin/parking-manager";
     }
 
     @RequestMapping(value = "/a/parking/add", method = RequestMethod.POST)
-    public String createpost(@ModelAttribute("addParkingReq") AddParkingReq addParkingReq, RedirectAttributes redirectAttributes) {
-        HttpEntity request = RestTemplateConfiguration.setRequest(addParkingReq);
-        ResponseEntity<?> response = RestTemplateConfiguration
-            .excuteRequest(PATH_API + "parking", HttpMethod.POST, request, String.class);
-        if (response.getStatusCode() == HttpStatus.CREATED) {
-            return "redirect:/list-parking";
-        } else {
-            redirectAttributes.addFlashAttribute("errormes", "Parking name is already");
-            redirectAttributes.addFlashAttribute("addParkingReq", addParkingReq);
-            return "redirect:/a/parking/add";
+    public String createpost(@Valid @ModelAttribute("addParkingReq") AddParkingReq addParkingReq, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors() == false) {
+            HttpEntity request = RestTemplateConfiguration.setRequest(addParkingReq);
+            ResponseEntity<?> response = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "parking", HttpMethod.POST, request, String.class);
+            if (response.getStatusCode() == HttpStatus.CREATED) {
+                return "redirect:/a/list-parking";
+            } else {
+                redirectAttributes.addFlashAttribute("errormes", "Parking name is already");
+                redirectAttributes.addFlashAttribute("addParkingReq", addParkingReq);
+                return "redirect:/a/parking/add";
+            }
         }
-
+        return "admin/parking-manager";
     }
 
     @RequestMapping(value = "/a/parking/update", method = RequestMethod.GET)

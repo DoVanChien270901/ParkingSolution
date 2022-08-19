@@ -138,6 +138,7 @@ public class ParkingService implements IParking {
         Parkinglocation parkinglocation = _parkingRepo.getByName(parking.getName());
         if (parkinglocation == null) {
             parkinglocation = _mapper.map(parking, Parkinglocation.class);
+            parkinglocation.setBlank(parking.getNop());
             _parkingRepo.save(parkinglocation);
             return true;
         } else {
