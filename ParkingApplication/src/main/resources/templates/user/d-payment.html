@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Direct Payment Page</title>
+        <title>Direct Payment Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
     <body>  
@@ -59,7 +59,7 @@
                                                 </div>
                                             </div>
                                             <div class="select-amount p-2">
-                                                <div class="row pt-1 mb-4">
+                                                <div class="row pt-2 mb-4">
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
                                                         <input type="button" id="" onclick="changeSelectAmount(1)" class="p-2" value="10.000 VND">
                                                     </div>
@@ -78,6 +78,7 @@
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                                             <div th:if="${displaycode}" class="col-direct-payment-qrcode pt-3 mb-3 pb-3">
                                                 <img class="direct-payment-qrcode get-qrcode mb-2" th:src="${displaycode}"/>
+                                                <p class="text-center title-qrcode-booking">Your QR Code</p>
                                             </div>
                                             <div th:unless="${displaycode}" class="col-direct-payment-qrcode pt-3 mb-3 pb-3">
                                                 <img class="direct-payment-qrcode get-noqrcode mb-2" th:src="@{/assetsc/img/no-qrcode.png}" />

@@ -2,109 +2,114 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | User Manager Page</title>
+        <title>User Manager Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     </head>
     <body>
         <div class="main-container" layout:fragment="admin-content">
             <div th:if="${listProfile}" class="xs-pd-20-10 pd-ltr-20">
-                <div class="title pb-20">
-                    <h2 class="h2 mb-2">User Manager</h2>
+                <div class="title pb-20 p-3">
+                    <h2 class="h2 mb-0">User Manager</h2>
                 </div>
-                <div class="pd-20 card-box mb-30" id="list-user">
-                    <div class="clearfix mb-20">
-                        <h6 class="p-1">Search By Name</h6>
-                        <div class="pull-left mb-2">
-                            <form class="pt-2" th:action="@{/list-user/search}" method="GET">
-                                <div class="row">
-                                    <div class="col-10 col-md-10 col-lg-10 col-sm-10 p-1">
-                                        <input type="text" th:name="name" class="form-control form-control-md border-info" placeholder="Name...">
+                <div class="p-3">
+                    <div class="pd-20 card-box mb-20" id="list-user">
+                        <div class="clearfix mb-10">
+                            <h6 class="p-1">Search By Name</h6>
+                            <div class="pull-left mb-2">
+                                <form class="pt-2" th:action="@{/list-user/search}" method="GET">
+                                    <div class="row">
+                                        <div class="col-10 col-md-10 col-lg-10 col-sm-10 p-1">
+                                            <input type="text" th:name="name" class="form-control" placeholder="Name...">
+                                        </div>
+                                        <div class="col-2 col-md-2 col-lg-2 col-sm-2 p-1" style="margin-top: 3.5px;">
+                                            <button type="submit" class="btn btn-color">
+                                                <i class="dw dw-search2 search-icon"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="col-2 col-md-2 col-lg-2 col-sm-2 p-1">
-                                        <button type="submit" class="btn btn-color m-1 form-label">
-                                            <i class="dw dw-search2 search-icon"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
+                        <div class="table-res p-1">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Identity Card</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${listProfile}" th:value="${item.username}+ '&page='+${current}">
+                                        <td data-label="Name" class="id-table col-lg-3" id="bookingid" th:text="${item.fullname}"></td>
+                                        <td data-label="Identity Card" class="" th:text="${item.identitycard}"></td>
+                                        <td data-label="Email" class="col-lg-4" th:text="${item.email}"></td>
+                                        <td data-label="Phone" th:text="${item.phone}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>  
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-end p-1">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" th:href="@{list-user(page=${current - 1})}"><i class="dw dw-left-arrow-4"></i></a></li>
+                                <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{list-user(page=${item})}"></a></li>
+                                <li class="page-item"><a class="page-link" th:href="@{list-user(page=${current + 1})}"><i class="dw dw-right-arrow-4"></i></a></li>
+                            </ul>
+                        </nav>
                     </div>
-                    <div class="table-res p-1">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Identity Card</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="item : ${listProfile}" th:value="${item.username}+ '&page='+${current}">
-                                    <td data-label="Name" class="id-table" id="bookingid" th:text="${item.fullname}"></td>
-                                    <td data-label="Identity Card" th:text="${item.identitycard}"></td>
-                                    <td data-label="Email" th:text="${item.email}"></td>
-                                    <td data-label="Phone" th:text="${item.phone}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>  
-                    <nav aria-label="Page navigation example" class="d-flex justify-content-end p-1">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" th:href="@{list-user(page=${current - 1})}"><i class="dw dw-left-arrow-4"></i></a></li>
-                            <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{list-user(page=${item})}"></a></li>
-                            <li class="page-item"><a class="page-link" th:href="@{list-user(page=${current + 1})}"><i class="dw dw-right-arrow-4"></i></a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
             <div th:if="${userDetails}" class="xs-pd-20-10 pd-ltr-20">
-                <div class="pd-20 card-box mb-30">
-                    <div class="clearfix mb-20 p-1">
-                        <h6>User Details</h6>
+                <div class="p-3">
+                    <div class="pd-20 card-box mb-20">
+                        <div class="clearfix mb-20">
+                            <h6>User Details</h6>
+                        </div>
+                        <ul class="row">      
+                            <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Full Name:</label>
+                                    <input class="form-control" type="text" th:value="${userDetails.fullname}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Day Of Birth:</label>
+                                    <input class="form-control" type="date" th:value="${userDetails.dob}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Identity Card:</label>
+                                    <input class="form-control" type="number" th:value="${userDetails.identitycard}" readonly>
+                                </div>
+                            </li>
+                            <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Gender:</label>
+                                    <input th:if="${userDetails.gender}" class="form-control" type="text" value="Female" readonly>
+                                    <input th:unless="${userDetails.gender}" class="form-control" type="text" value="Male" readonly>
+                                </div>  
+                                <div class="form-group">    
+                                    <label>Balance:</label>
+                                    <input class="form-control" type="text" th:value="${#numbers.formatInteger(userDetails.balance, 1, 'COMMA')}+ ' VND'" readonly  >
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone:</label>
+                                    <input class="form-control form-control" type="text" th:value="${userDetails.phone}" readonly>
+                                </div>
+                            </li>
+                            <li class="weight-500 col-12 col-md-12 col-button-edit">
+                                <div class="form-group mb-0 pt-2 weight">
+                                    <a type="button" th:href="@{/list-user(page=${currentPage})}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2">Back to List</a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="profile-edit-list row">      
-                        <li class="weight-500 col-12 col-md-12 pt-0 mb-0"></li>
-                        <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label>Full Name</label>
-                                <input class="form-control" type="text" th:value="${userDetails.fullname}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Day Of Birth</label>
-                                <input class="form-control" type="date" th:value="${userDetails.dob}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Identity Card</label>
-                                <input class="form-control" type="number" th:value="${userDetails.identitycard}" readonly>
-                            </div>
-                        </li>
-                        <li class="weight-500 col-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label>Gender</label>
-                                <input th:if="${userDetails.gender}" class="form-control" type="text" value="Female" readonly>
-                                <input th:unless="${userDetails.gender}" class="form-control" type="text" value="Male" readonly>
-                            </div>  
-                            <div class="form-group">    
-                                <label>Balance</label>
-                                <input class="form-control" type="text" th:value="${#numbers.formatInteger(userDetails.balance, 1, 'COMMA')}+ ' VND'" readonly  >
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input class="form-control form-control" type="number" th:value="${userDetails.phone}" readonly>
-                            </div>
-                        </li>
-                        <li class="weight-500 col-12 col-md-12 col-button-edit">
-                            <div class="form-group mb-0 pt-2 weight">
-                                <a type="button" th:href="@{/list-user(page=${currentPage})}" id="back-to-booking-list" class="btn btn-danger mt-0 mb-2 me-2 p-2">Back to List</a>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </div>  
-            <div class="pd-20 mb-30">
-                <div class="footer-wrap pd-20 mb-20 card-box">
-                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+            <div class="xs-pd-20-10 pd-ltr-20">
+                <div class="p-3">
+                    <div class="footer-wrap pd-20 mb-20 card-box">
+                        ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                    </div> 
                 </div>
             </div>
         </div>

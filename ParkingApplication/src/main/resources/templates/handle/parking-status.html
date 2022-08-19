@@ -1,88 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/handle-layout.html}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/handle-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>Parking.Go | Index Page</title>
+        <title>Parking Status</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <style>
-            /*            all table-td*/
-            #all-table-select {
-                border: 1px solid #000;
-                margin: 10px;
-                text-align: center;
-                border-collapse: separate;
-                border-spacing: 3px;
-            }
-            #all-table-yes {
-                border: 1px green solid;
-                color: green;
-                cursor: pointer;
-            }
-            #all-table-no {
-                border: 1px red solid;
-                color: red;
-            }
-            #all-table-yes,
-            #all-table-no {
-                width: 30px;
-                height: 30px;
-                font-size: 15px
-            }
-/*            #all-table-lable {
-                margin: 10px;
-                color: #1b00ff;
-                width: 100%;
-                font-size: 7px !important;
-                text-align: center;
-            }*/
-            /*            signgle table-td*/
-            #signle-table-yes {
-                border: 2px green solid;
-                color: green;
-                cursor: pointer;
-            }
-            #signle-table-no {
-                border: 2px red solid;
-                color: red;
-            }
-            #signle-table-yes,
-            #signle-table-no {
-                width: 40px;
-                height: 40px;
-                font-size: 20px
-            }
-            #signle-table-select{
-                border: 2px solid #000;
-                margin: 10px;
-                text-align: center;
-                border-collapse: separate;
-                border-spacing: 5px;
-            }
-            #signle-table-label{
-                display: none;
-            }
-            .container{
-                max-width: 100%;
-            }
-            .parking-select select{
-                color: #1b00ff;
-                font-weight: bold;
-            }
-        </style>
     </head>
     <body>
         <section layout:fragment="handle-content">
-            <!-- Carousel Start -->
-            <div class="container-xxl py-5 booking-create">
-                <div class="container"> 
-                    <div class="row d-flex justify-content-center">
-                        <div class="pt-0">
-                            <h2 class="text-primary text-uppercase">Parking Status</h2>
-                        </div>
+            <div class="p-3">
+                <div class="xs-pd-20-10 pd-ltr-20">
+                    <div class="title pb-20">
+                        <h2 class="h2 mb-2">Parking Manager</h2>
                     </div>
-                    <div class="row parking-select">
-                        <div class="col-12 col-lg-3 col-md-12 col-sm-12 p-1 ml-4">
+                    <div class="row">
+                        <div class="pull-left mb-2">
                             <select th:name="name" onchange="selected(value)" class="form-control">
                                 <option value="all">--- Choose Parking ---</option>
                                 <option th:each="item : ${listParking}" th:value="${item.name}" th:text="${item.name}" th:selected="(${selected} == ${item.name})"></option>
@@ -116,38 +47,37 @@
                         <div th:if="${bookingRes}" class="col-lg-8 mt-2">
                             <table class="table table-responsive-md">
                                 <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Code</th>
-                                        <th scope="col">Start Time</th>
-                                        <th scope="col">Time Number</th>
-                                        <th scope="col">Location Code</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Car Name</th>
-                                        <th scope="col">License Plates</th>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Start Time</th>
+                                        <th>Time Number</th>
+                                        <th>Location Code</th>
+                                        <th>Price</th>
+                                        <th>Car Name</th>
+                                        <th>License Plates</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="item : ${bookingRes}">
-                                        <td th:text="${item.id}"></td>
-                                        <td th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
-                                        <td th:text="${item.timenumber}"></td>
-                                        <td th:text="${item.locationcode}"></td>
-                                        <td th:text="${item.price}"></td>
-                                        <td th:text="${item.carname}"></td>
-                                        <td th:text="${item.lisenceplates}"></td>
+                                        <td data-label="#" class="id-table" th:text="${item.id}"></td>
+                                        <td data-label="Start Time" th:text="${#temporals.format(item.starttime, 'dd-MM-yyyy HH:mm')}"></td>
+                                        <td data-label="Time Number" th:text="${item.timenumber}"></td>
+                                        <td data-label="Location Code" th:text="${item.locationcode}"></td>
+                                        <td data-label="Price" th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')} + ' VND'"></td>
+                                        <td data-label="Car Name" th:text="${item.carname}"></td>
+                                        <td data-label="License Plates" th:text="${item.lisenceplates}"></td>
                                     </tr>
                                 </tbody>
                             </table>
                             <nav aria-label="Page navigation example" class="d-flex justify-content-end">
                                 <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" th:href="@{'/h/status-parking/'+${selected}(page=${current - 1})}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" th:href="@{'/h/status-parking/'+${selected}(page=${current - 1})}"><i class="dw dw-left-arrow-4"></i></a></li>
                                     <li class="page-item" th:each="item : ${pageList}"><a class="page-link" th:text="${item}" th:href="@{'/h/status-parking/'+${selected}(page=${item})}"></a></li>
-                                    <li class="page-item"><a class="page-link" th:href="@{'/h/status-parking/'+${selected}(page=${current + 1})}" >Next</a></li>
+                                    <li class="page-item"><a class="page-link" th:href="@{'/h/status-parking/'+${selected}(page=${current + 1})}" ><i class="dw dw-right-arrow-4"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
-                        <div class="col-lg-4" id="content-parking-status">
-                        </div>
+                        <div id="content-parking-status"></div> 
                     </div>
                 </div>
             </div>
