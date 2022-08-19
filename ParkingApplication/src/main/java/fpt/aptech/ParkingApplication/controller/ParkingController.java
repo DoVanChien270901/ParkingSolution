@@ -228,7 +228,7 @@ public class ParkingController {
             currentPage = 1;
         }
         ResponseEntity<?> responseContent = RestTemplateConfiguration
-            .excuteRequest(PATH_API + "par  king-history/" + name + "?page=" + (currentPage - 1) + "&size=10",
+            .excuteRequest(PATH_API + "parking-history/" + name + "?page=" + (currentPage - 1) + "&size=10",
                 HttpMethod.GET, request, PageParkingHistoryRes.class);
         PageParkingHistoryRes pageParkingHistoryRes = (PageParkingHistoryRes) responseContent.getBody();
         model.addAttribute("listParkingHistory", pageParkingHistoryRes.getListParkingHistory());
@@ -255,7 +255,8 @@ public class ParkingController {
     }
 
     @RequestMapping(value = "/a/parking/add", method = RequestMethod.GET)
-    public String creatpre(@ModelAttribute("addParkingReq") AddParkingReq addParkingReq) {
+    public String creatpre(Model model) {
+        model.addAttribute("addParkingReq", new AddParkingReq());
         return "admin/parking-manager";
     }
 
@@ -280,14 +281,14 @@ public class ParkingController {
         ResponseEntity<?> response = RestTemplateConfiguration.
             excuteRequest(PATH_API + "parking/" + name, HttpMethod.GET, request, ParkingRes.class);
         ParkingRes parkingRes = (ParkingRes) response.getBody();
-        UpdateParkingReq updateParkingReq = new UpdateParkingReq(parkingRes.getName(), parkingRes.getLatitude(), parkingRes.getLongtitude(), parkingRes.getAddress(), parkingRes.getNop());
-        updateParkingReq.setRentcost(parkingRes.getRentcost());
+        UpdateParkingReq updateParkingReq = new UpdateParkingReq(parkingRes.getName(), parkingRes.getLatitude(), parkingRes.getLongtitude(), parkingRes.getAddress(), parkingRes.getNop(), parkingRes.getRentcost());
         model.addAttribute("updateParkingReq", updateParkingReq);
         return "admin/parking-manager";
     }
 
     @RequestMapping(value = "/a/parking/update", method = RequestMethod.POST)
-    public String updatepost(@Valid @ModelAttribute("addParkingReq") UpdateParkingReq updateParkingReq, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String updatepost(@Valid @ModelAttribute("updateParkingReq") UpdateParkingReq updateParkingReq,
+        BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors() == false) {
             HttpEntity request = RestTemplateConfiguration.setRequest(updateParkingReq);
             ResponseEntity<?> response = RestTemplateConfiguration
@@ -296,8 +297,8 @@ public class ParkingController {
                 return "redirect:/a/list-parking";
             } else {
                 redirectAttributes.addFlashAttribute("errormes", "Parking name is already");
-                redirectAttributes.addFlashAttribute("addParkingReq", updateParkingReq);
-                return "redirect:/a/parking/add";
+                redirectAttributes.addFlashAttribute("updateParkingReq", updateParkingReq);
+                return "admin/parking-manager";
             }
         }
         return "admin/parking-manager";
