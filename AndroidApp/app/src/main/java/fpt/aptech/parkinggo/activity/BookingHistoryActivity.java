@@ -1,9 +1,16 @@
 package fpt.aptech.parkinggo.activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,7 +34,15 @@ public class BookingHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_history);
-
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // Title Bar
+        actionBar.setTitle("Booking");
+        Spannable text = new SpannableString(actionBar.getTitle());
+        text.setSpan(new ForegroundColorSpan(Color.WHITE), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        actionBar.setTitle(text);
 
         listView = findViewById(R.id.a_bookinglist_lv_bookinglist);
 
@@ -50,4 +65,11 @@ public class BookingHistoryActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent myIntent = new Intent(this, MapsActivity.class);
+        startActivity(myIntent);
+        return true;
+    }
+
 }

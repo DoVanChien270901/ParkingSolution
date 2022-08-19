@@ -26,19 +26,30 @@
                                             <div class="input-group mb-0">
                                                 <input th:field="*{carname}" type="text" value="" class="form-control"/>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label th:if="${#fields.hasErrors('carname')}" th:errors="*{carname}"></label>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--                                        <div class="col-md-6 form-group mb-2">
+                                                                                    <label class="pb-2">Start Time</label>
+                                                                                    <div class="input-group mb-2">
+                                                                                        <input type="datetime-local" th:field="*{starttime}" value="" class="form-control"/>
+                                                                                        <div class="invalid-feedback invalid-error-mess-parking-booking">
+                                                                                            <label>Check Validate !</label>
+                                                                                        </div>
+                                                                                    </div>  
+                                        
+                                                                                </div>-->
                                         <div class="col-md-6 form-group mb-2">
-                                            <label class="pb-2">Start Time</label>
+                                            <label class="pb-2">Time of presence</label>
                                             <div class="input-group mb-2">
-                                                <input type="datetime-local" th:field="*{starttime}" value="" class="form-control"/>
+                                                <select th:field="*{starttime}" class="form-control">
+                                                    <option th:each="item : ${optionDate}" th:value="${item}" th:text="${item}"></option>
+                                                </select>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
-                                                </div>
+                                                    <label th:if="${#fields.hasErrors('starttime')}" th:errors="*{starttime}"></label>
+                                                </div>                                            
                                             </div>  
-
                                         </div>
                                     </div>
                                     <div class="row">
@@ -47,7 +58,7 @@
                                             <div class="input-group mb-2">
                                                 <input type="text" th:field="*{lisenceplates}" value="" class="form-control"/>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label th:if="${#fields.hasErrors('lisenceplates')}" th:errors="*{lisenceplates}"></label>
                                                 </div>
                                             </div>
                                             <!-- selected slot -->
@@ -58,7 +69,7 @@
                                             <div class="input-group mb-2">
                                                 <input type="number" th:field="*{timenumber}" th:onkeyup="|numberokd(${rentcost})|" id="number" class="form-control"/>
                                                 <div class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label th:if="${#fields.hasErrors('timenumber')}" th:errors="*{timenumber}"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +94,7 @@
                                                     <input style="margin-left:6px;" type="radio" id="radio-wallet" th:field="*{channel}" value="Wallet"  name="payment"> 
                                                 </div>
                                                 <div style="margin-left: 3px; margin-top: -10px;" class="invalid-feedback invalid-error-mess-parking-booking">
-                                                    <label>Check Validate !</label>
+                                                    <label th:if="${#fields.hasErrors('channel')}" th:errors="*{channel}"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,6 +112,7 @@
                                                 <i class="fa fa-undo"></i>&nbsp;Back</a>
                                         </div>
                                     </div>
+<!--                                    <label th:if="${#fields.hasErrors('locationcode')}" th:errors="*{locationcode}"></label>-->
                                 </form>
                             </div>
                         </div>

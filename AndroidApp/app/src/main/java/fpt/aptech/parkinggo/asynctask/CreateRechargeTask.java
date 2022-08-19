@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,9 @@ public class CreateRechargeTask extends AsyncTask<Void, Integer, ResponseEntity<
 
     @Override
     protected ResponseEntity<?> doInBackground(Void... voids) {
-        EditText etAmount = activity.findViewById(R.id.a_recharge_et_amount);
-        Long amount = Long.parseLong(etAmount.getText().toString());
+        TextInputLayout etAmount = activity.findViewById(R.id.a_epayment_et_amount);
+        Long amount = Long.parseLong(etAmount.getEditText().getText().toString().replace("đ", "").replaceAll("[,]", ""));;
+        //Long amount = Long.parseLong(etAmount.getText().toString());
 
         //RadioGroup
         RadioButton rbMomo = activity.findViewById(R.id.a_recharge_rb_momo);

@@ -46,7 +46,7 @@
                                     <h2 class="h2 text-primary">// Electronic Payment //</h2>
                                 </div>
                                 <div th:if="${balance}" class="container show-wallet">
-                                    <label><i class="fa fa-wallet"></i> <span id="format-amount" name="format-amount" th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/></label>
+                                    <label><i class="fa fa-wallet"></i> <span id="format-amount" th:text="${#numbers.formatInteger(balance, 3, 'COMMA') + ' VND'}"/></label>
                                 </div>
                                 <form th:action="@{/e-payment}" th:object="${rechargeReq}" method="POST" id="form-electronic-payment" onsubmit="return validateElectronicPayment()">
                                     <div class="row">
@@ -76,7 +76,7 @@
                                             <div class="input-group pt-0">
                                                 <input class="form-control amount-ep" id="amount-ep" type="number" th:field="*{amount}"/>
                                                 <div class="invalid-feedback mess-box-electronic-payment error-amount-ep" id="error-amount-ep">
-
+                                                    <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
                                                 </div>
                                             </div>
                                             <div class="select-amount p-2">
@@ -150,7 +150,7 @@
                     epayment.focus();
                     return false;
                 }
-                if (epayment.value.length <= 3 || epayment.value.length >= 11) {
+                if (epayment.value.length <= 4 || epayment.value.length >= 11) {
                     epayment_error.style.display = "block";
                     span_epayment.innerHTML = "*Amount must be between 4 and 10 numbers !";
                     qs_epayment.appendChild(span_epayment);

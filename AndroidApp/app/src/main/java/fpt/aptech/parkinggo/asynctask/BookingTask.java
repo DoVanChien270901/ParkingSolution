@@ -5,10 +5,17 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
@@ -27,7 +34,7 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
     }
 
     public BookingTask(Activity activity, EPaymentRes bookingRes) {
-        this.activity = activity;
+        this.activity = activity;   
         this.bookingRes = bookingRes;
     }
 
@@ -52,34 +59,39 @@ public class BookingTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
                 .setTimenumber(Integer.parseInt(s[0]))
                 .setCarname(s[1])
                 .setLisenceplates(s[2])
-                .setStarttime(s[3])
+                .setStarttime(s[4])
                 .setWalletparking(false)
                 .createBookEReq();
-        newBookingReq.setLocationcode(s[4]);
+        newBookingReq.setLocationcode(s[3]);
 
         HttpEntity request = RestTemplateConfiguration.setRequest(newBookingReq);
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(uri + "booking", HttpMethod.POST, request, Integer.class);
-
         return response;
     }
 
     @Override
     protected void onPostExecute(ResponseEntity<?> response) {
         if (response.getStatusCode().equals(HttpStatus.OK)){
-            TextView tvTransno = activity.findViewById(R.id.a_payment_tv_transno);
-            TextView tvAmount = activity.findViewById(R.id.a_payment_tv_amount);
-            TextView tvChannel = activity.findViewById(R.id.a_payment_tv_channel);
-            TextView tvStype = activity.findViewById(R.id.a_payment_tv_stype);
+            EditText tvTransno = ((TextInputLayout)activity.findViewById(R.id.a_payment_tv_transno)).getEditText();
+            EditText tvAmount = ((TextInputLayout)activity.findViewById(R.id.a_payment_tv_amount)).getEditText();
+            EditText tvChannel = ((TextInputLayout)activity.findViewById(R.id.a_payment_tv_channel)).getEditText();
+            EditText tvStype = ((TextInputLayout)activity.findViewById(R.id.a_payment_tv_stype)).getEditText();
             TextView tvStatus = activity.findViewById(R.id.a_payment_tv_status);
 
             tvStatus.setText("Payment Successful");
             tvTransno.setText(bookingRes.getTransNo());
-            tvAmount.setText(bookingRes.getTransactionReq().getAmount().toString());
+            tvAmount.setText(formatInteger(bookingRes.getTransactionReq().getAmount().toString())+ "đ");
             tvChannel.setText(bookingRes.getTransactionReq().getPaymentReq().getChannel());
             tvStype.setText(bookingRes.getTransactionReq().getStype());
         }else{
-
+            //?
         }
+    }
+    private String formatInteger(String str) {
+        BigDecimal parsed = new BigDecimal(str);
+        DecimalFormat formatter =
+                new DecimalFormat( "#,###", new DecimalFormatSymbols(Locale.US));
+        return formatter.format(parsed);
     }
 }

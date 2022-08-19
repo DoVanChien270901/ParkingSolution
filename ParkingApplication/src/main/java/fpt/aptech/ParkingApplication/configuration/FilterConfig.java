@@ -4,11 +4,14 @@
  */
 package fpt.aptech.ParkingApplication.configuration;
 
+import fpt.aptech.ParkingApplication.domain.response.LoginRes;
+import fpt.aptech.ParkingApplication.domain.response.Roles;
 import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,9 +24,12 @@ public class FilterConfig implements Filter{
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String token;
+        LoginRes token;
         try {
-            token = request.getSession().getAttribute("account").toString();
+            token = (LoginRes)request.getSession().getAttribute("account");
+            if (token.getRole() != Roles.user) {
+                token = null;
+            }
         } catch (Exception e) {
              token = null;
         }

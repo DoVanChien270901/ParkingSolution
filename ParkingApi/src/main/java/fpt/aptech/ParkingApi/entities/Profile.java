@@ -59,9 +59,9 @@ import org.springframework.format.annotation.DateTimeFormat;
                 columns = {
                     @ColumnResult(name = "username", type = String.class),
                     @ColumnResult(name = "fullname", type = String.class),
-                    @ColumnResult(name = "identitycard", type = Integer.class),
+                    @ColumnResult(name = "identitycard", type = String.class),
                     @ColumnResult(name = "email", type = String.class),
-                    @ColumnResult(name = "phone", type = Integer.class)
+                    @ColumnResult(name = "phone", type = String.class)
                 })
 )
 @NamedQueries({
@@ -89,7 +89,8 @@ public class Profile implements Serializable {
     @Column(name = "gender")
     private Boolean gender;
     @Column(name = "phone")
-    private Integer phone;
+    @Size(min = 1, max = 25)
+    private String phone;
     @Basic(optional = false)
     @NotNull
     @Column(name = "balance")
@@ -103,8 +104,9 @@ public class Profile implements Serializable {
     private String fullname;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "identitycard")
-    private int identitycard;
+    private String identitycard;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
     private Collection<Booking> bookingCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
@@ -125,7 +127,7 @@ public class Profile implements Serializable {
         this.username = username;
     }
 
-    public Profile(String username, double balance, int identitycard) {
+    public Profile(String username, double balance, String identitycard) {
         this.username = username;
         this.balance = balance;
         this.identitycard = identitycard;
@@ -155,11 +157,11 @@ public class Profile implements Serializable {
         this.gender = gender;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -260,11 +262,11 @@ public class Profile implements Serializable {
         this.fullname = fullname;
     }
 
-    public int getIdentitycard() {
+    public String getIdentitycard() {
         return identitycard;
     }
 
-    public void setIdentitycard(int identitycard) {
+    public void setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
     }
 

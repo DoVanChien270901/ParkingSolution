@@ -34,6 +34,7 @@ import fpt.aptech.ParkingApplication.utils.ModelMapperUtil;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -42,6 +43,7 @@ import java.util.Map;
 import javafx.scene.text.TextAlignment;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -50,12 +52,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -72,69 +76,55 @@ public class TransactionController {
     @Autowired
     private RestTemplateConfiguration restTemplate;
 
-    @RequestMapping("/test")
-    public String test(Model model) {
-        model.addAttribute("attribute", "value");
-        String url = "https://www.google.com/";
-        return "redirect:" + url;
-    }
+    @RequestMapping(value = "/e-payment-detail", method = RequestMethod.GET)
+    public String ePaymentDetail(@RequestParam Map<String, String> allMap, Model model, HttpSession session) {
+        try {
+            //check requestid - Momo: requestId , Zalopay: apptransid
+            String requestid = allMap.get("requestId");
+            if (requestid == null) {
+                requestid = allMap.get("apptransid");
+            }
 
-    @RequestMapping("/pay")
-    public String pay(Model model) {
-        return "user/e-payment-detail";
+            EPaymentRes orderRes = (EPaymentRes) session.getAttribute(requestid);
+            HttpEntity transRequest = restTemplate.setRequest(orderRes.getTransactionReq());
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "checkStatus", HttpMethod.POST, transRequest, EPaymentRes.class);
+            EPaymentRes orderResponse = (EPaymentRes) response.getBody();
+            if (orderResponse.getReturnCode().equals(0) && orderRes.getTransactionReq().getStype().equals("e-Booking")) {
+                // create booking
+                BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderRes.getTransactionReq().getParkingname());
+                NewBookingReq newBookingReq = new NewBookingReq(
+                        orderRes.getTransactionReq().getUsername(),
+                        bookingReq.getStarttime(),
+                        bookingReq.getTimenumber(),
+                        bookingReq.getLocationcode(),
+                        bookingReq.getCarname(),
+                        bookingReq.getLisenceplates(),
+                        bookingReq.getParkingname(),
+                        false
+                );
+                HttpEntity newbookingRequest = restTemplate.setRequest(newBookingReq);
+                ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, Integer.class);
+                HttpStatus status = newbookingResponse.getStatusCode();
+                if (status.equals(HttpStatus.OK)) {
+                    Integer id = (Integer) newbookingResponse.getBody();
+                    return "redirect:/booking-details?id=" + id;
+                    //return "redirect:/profile";
+                }
+            } else {
+                model.addAttribute("transactionReq", orderRes.getTransactionReq());
+                return "redirect:/profile";
+            }
+            return "redirect:/profile";
+        } catch (Exception e) {
+            return "badrequest";
+        }
     }
-
-//    @RequestMapping(value = "/e-payment-detail", method = RequestMethod.GET)
-//    public String ePaymentDetail(@RequestParam Map<String, String> allMap, Model model, HttpSession session) {
-//        try {
-//            //check requestid - Momo: requestId , Zalopay: apptransid
-//            String requestid = allMap.get("requestId");
-//            if (requestid == null) {
-//                requestid = allMap.get("apptransid");
-//            }
-//
-//            EPaymentRes orderRes = (EPaymentRes) session.getAttribute(requestid);
-//            HttpEntity transRequest = restTemplate.setRequest(orderRes.getTransactionReq());
-//            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "checkStatus", HttpMethod.POST, transRequest, EPaymentRes.class);
-//            EPaymentRes orderResponse = (EPaymentRes) response.getBody();
-//            if (orderResponse.getReturnCode().equals(0) && orderRes.getTransactionReq().getStype().equals("e-Booking")) {
-//                // create booking
-//                BookingReq bookingReq = (BookingReq) session.getAttribute(orderResponse.getTransNo() + orderRes.getTransactionReq().getParkingname());
-//                NewBookingReq newBookingReq = new NewBookingReq(
-//                        orderRes.getTransactionReq().getUsername(),
-//                        bookingReq.getStarttime(),
-//                        bookingReq.getTimenumber(),
-//                        bookingReq.getCarname(),
-//                        bookingReq.getLisenceplates(),
-//                        bookingReq.getParkingname(),
-//                        false
-//                );
-//                HttpEntity newbookingRequest = restTemplate.setRequest(newBookingReq);
-//                ResponseEntity<?> newbookingResponse = restTemplate.excuteRequest(PATH_API + "booking", HttpMethod.POST, newbookingRequest, Integer.class);
-//                HttpStatus status = newbookingResponse.getStatusCode();
-//                if (status.equals(HttpStatus.OK)) {
-//                    Integer id = (Integer) newbookingResponse.getBody();
-//                    return "redirect:/booking-details?id=" + id;
-//                }
-//            } else {
-//                model.addAttribute("transactionReq", orderRes.getTransactionReq());
-//                return "user/e-payment-detail";
-//            }
-//            return "user/e-payment-detail";
-//        } catch (Exception e) {
-//            return "badrequest";
-//        }
-//    }
 
     @RequestMapping(value = "/e-payment", method = RequestMethod.GET)
     public String ePayment(Model model, HttpSession session) {
         try {
-            LoginRes loginRes = (LoginRes) session.getAttribute("account");
-            String token = loginRes.getToken();
-            HttpEntity request = restTemplate.setRequest(token);
-            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "user", HttpMethod.GET, request, ProfileRes.class);
-            ProfileRes profileRes = (ProfileRes) response.getBody();
-            model.addAttribute("balance", String.valueOf(profileRes.getBalance()));
+            LoginRes account = (LoginRes) session.getAttribute("account");
+            model.addAttribute("balance", String.valueOf(account.getBalance()));
             model.addAttribute("rechargeReq", new ERechargeReq());
             return "user/e-payment";
         } catch (Exception e) {
@@ -143,9 +133,15 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/e-payment", method = RequestMethod.POST)
-    public String createEPayment(@ModelAttribute("rechargeReq") ERechargeReq rechargeReq, HttpSession session) {
+    public String createEPayment(@Valid @ModelAttribute("rechargeReq") ERechargeReq rechargeReq,
+            BindingResult bindingResult, HttpSession session, Model model) {
         try {
             LoginRes loginRes = (LoginRes) session.getAttribute("account");
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("balance", String.valueOf(loginRes.getBalance()));
+                model.addAttribute("rechargeReq", new ERechargeReq());
+                return "user/e-payment";
+            }
 
             HttpEntity request = restTemplate.setRequest(rechargeReq);
             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "e-recharge", HttpMethod.POST, request, EPaymentRes.class);
@@ -218,12 +214,13 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
-    public String createEBooking(@RequestParam("parkingname") String parkingname, Model model, HttpSession session) {
+    public String createEBooking(@ModelAttribute("bookingReq") BookingReq bookingReq, @RequestParam("parkingname") String parkingname, Model model, HttpSession session) {
         try {
             HttpEntity request = restTemplate.setRequest();
             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "parking/" + parkingname, HttpMethod.GET, request, ParkingRes.class);
             ParkingRes parkingRes = (ParkingRes) response.getBody();
-            BookingReq b = new BookingReq();
+            BookingReq b = bookingReq;
+            model.addAttribute("bookingReq", b);
             b.setParkingname(parkingname);
             String code = "A";
             int step = 1;
@@ -237,16 +234,22 @@ public class TransactionController {
                 arrCode[i] = (code + (step));
                 step++;
             }
+            //get select date time
+            String[] optionDate = new String[31];
+            LocalDateTime lcCdurrentDate = LocalDateTime.now();
+            for (int i = 0; i < 31; i++) {
+                optionDate[i] = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy").format(lcCdurrentDate.plusMinutes(i));
+            }
+            model.addAttribute("optionDate", optionDate);
             //call list location code booked
-            ResponseEntity<?> response1 = restTemplate.excuteRequest(PATH_API + 
-                    "booking-location-code?parkingname="+ parkingname,
+            ResponseEntity<?> response1 = restTemplate.excuteRequest(PATH_API
+                    + "booking-location-code?parkingname=" + parkingname,
                     HttpMethod.GET, request, String[].class);
             model.addAttribute("listCodeBooked", response1.getBody());
             model.addAttribute("arrCode", arrCode);
             model.addAttribute("columnOfRow", parkingRes.getColumnofrow());
             model.addAttribute("rentcost", parkingRes.getRentcost());
             model.addAttribute("address", parkingRes.getAddress());
-            model.addAttribute("bookingReq", b);
             return "user/booking";
         } catch (Exception e) {
             return "badrequest";
@@ -254,7 +257,43 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
-    public String createEBooking(@ModelAttribute("bookingReq") BookingReq bookingReq, HttpSession session) {
+    public String createEBooking(@Valid @ModelAttribute("bookingReq") BookingReq bookingReq,
+            BindingResult bindingResult, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
+            HttpEntity request = restTemplate.setRequest();
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "parking/" + bookingReq.getParkingname(), HttpMethod.GET, request, ParkingRes.class);
+            ParkingRes parkingRes = (ParkingRes) response.getBody();
+            String code = "A";
+            int step = 1;
+            String[] arrCode = new String[parkingRes.getNop()];
+            for (int i = 0; i < parkingRes.getNop(); i++) {
+                if (i != 0 && (i % parkingRes.getColumnofrow() == 0)) {
+                    int charValue = code.charAt(0);
+                    code = String.valueOf((char) (charValue + 1));
+                    step = 1;
+                }
+                arrCode[i] = (code + (step));
+                step++;
+            }
+            //get select date time
+            String[] optionDate = new String[31];
+            LocalDateTime lcCdurrentDate = LocalDateTime.now();
+            for (int i = 0; i < 31; i++) {
+                optionDate[i] = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy").format(lcCdurrentDate.plusMinutes(i));
+            }
+            model.addAttribute("optionDate", optionDate);
+            //call list location code booked
+            ResponseEntity<?> response1 = restTemplate.excuteRequest(PATH_API
+                    + "booking-location-code?parkingname=" + bookingReq.getParkingname(),
+                    HttpMethod.GET, request, String[].class);
+            model.addAttribute("listCodeBooked", response1.getBody());
+            model.addAttribute("arrCode", arrCode);
+            model.addAttribute("columnOfRow", parkingRes.getColumnofrow());
+            model.addAttribute("rentcost", parkingRes.getRentcost());
+            model.addAttribute("address", parkingRes.getAddress());
+            redirectAttributes.addFlashAttribute("bookingReq", bookingReq);
+            return "user/booking";
+        }
         try {
             if (bookingReq.getChannel().equals("Wallet")) {
                 LoginRes loginRes = (LoginRes) session.getAttribute("account");
@@ -302,7 +341,7 @@ public class TransactionController {
                 currentPage = 1;
             }
             HttpEntity request = restTemplate.setRequest();
-            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "all-transaction?page="
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "list-transaction?page="
                     + (currentPage - 1) + "&size=10", HttpMethod.GET, request, PageTransactionRes.class);
             PageTransactionRes pageTransactionRes = (PageTransactionRes) response.getBody();
             List<TransactionRes> usertransactions = pageTransactionRes.getListTransaction();
@@ -343,6 +382,8 @@ public class TransactionController {
             model.addAttribute("current", pageTransactionRes.getCurrentPage());
             model.addAttribute("pageList", nav);
             model.addAttribute("transactionlist", usertransactions);
+            model.addAttribute("fromDate", fromDate);
+            model.addAttribute("toDate", toDate);
             return "admin/recharge-history";
         } catch (Exception e) {
             return "badrequest";

@@ -1,5 +1,7 @@
 package fpt.aptech.parkinggo.activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -10,10 +12,18 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,11 +32,21 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import fpt.aptech.parkinggo.R;
@@ -37,12 +57,11 @@ import fpt.aptech.parkinggo.domain.response.LoadStatusParking;
 
 public class BookingActivity extends AppCompatActivity {
 
-    TextView parkingname;
+    private TextView parkingname, tvPrice;
 
-    private EditText etDatetime;
-    private EditText etCarname;
-    private EditText etLisenceplates;
-    private EditText etTimenumber;
+//    private EditText etCarname;
+//    private EditText etLisenceplates;
+//    private EditText etTimenumber;
 
     private Button btnBook;
     private Button btnselectLocation;
@@ -50,39 +69,113 @@ public class BookingActivity extends AppCompatActivity {
     private RadioButton rbZalopay;
     private RadioButton rbWallet;
     private String message;
-
+    private Double rentCost;
     private TableLayout tb;
 
     EPaymentRes bookingRes = null;
-
+    private TextInputLayout etCarname, etLisenceplates, etTimenumber, etLocationCode, etDatetime;
+    private AutoCompleteTextView actDelayTime, actLocationCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
-
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // Title Bar
+        actionBar.setTitle("Booking");
+        Spannable text = new SpannableString(actionBar.getTitle());
+        text.setSpan(new ForegroundColorSpan(Color.WHITE), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        actionBar.setTitle(text);
         //EditText
         etCarname = findViewById(R.id.a_booking_et_carname);
+        tvPrice = findViewById(R.id.a_booking_tv_price);
         etLisenceplates = findViewById(R.id.a_booking_et_lisenceplates);
+        etLocationCode = findViewById(R.id.a_booking_et_locationcode);
         etTimenumber = findViewById(R.id.a_booking_et_timenum);
+        actDelayTime = findViewById(R.id.a_booking_act_date);
+        actLocationCode = findViewById(R.id.a_booking_act_locationcode);
+        rbMomo = findViewById(R.id.a_booking_rb_momo);
+        rbZalopay = findViewById(R.id.a_booking_rb_zalopay);
+        rbWallet = findViewById(R.id.a_booking_rb_wallet);
 
         //get Parking Name
         Intent intent = getIntent();
         message = intent.getStringExtra("parkingname");
+        rentCost = intent.getDoubleExtra("rentCost", 0);
         parkingname = findViewById(R.id.a_booking_et_parkingname);
         parkingname.setText(message);
-
         //DateTime Picker
         etDatetime = findViewById(R.id.a_booking_et_date);
-        etDatetime.setInputType(InputType.TYPE_NULL);
-        etDatetime.setOnClickListener(new View.OnClickListener() {
+        //set value delay time
+        LocalDateTime lcCdurrentDate = LocalDateTime.now();
+        String []option = new String[31];
+        for(int i = 0; i<31; i ++){
+            option[i] = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy").format(lcCdurrentDate.plusMinutes(i));
+        }
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, option);
+        actDelayTime.setAdapter(arrayAdapter);
+        //validate
+        //car name
+        etCarname.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                showDateDialog(etDatetime);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateCarName();
             }
         });
+        //license plates
+        etLisenceplates.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        btnselectLocation = findViewById(R.id.a_booking_btn_choselocation);
-        btnselectLocation.setOnClickListener(new View.OnClickListener() {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateLicensePlates();
+            }
+        });
+        //time number
+        etTimenumber.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    Integer i = (Integer.valueOf(s.toString()))*rentCost.intValue();
+                    tvPrice.setText("The amount to be paid is: "+formatInteger(String.valueOf(i))+"đ");
+                }catch (Exception e){
+                    tvPrice.setText("The amount to be paid is: 0đ");
+                }
+                validateTimeNumber();
+            }
+        });
+        //validateTimeOfPresence
+        actLocationCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -93,60 +186,41 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
-        //Booking
+        //submit
         btnBook = findViewById(R.id.a_booking_btn_book);
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CreatePaymentTask CreatePaymentTask = new CreatePaymentTask(BookingActivity.this);
-                try {
-                    ResponseEntity<?> res = CreatePaymentTask.execute().get();
-                    bookingRes = (EPaymentRes) res.getBody();
-                    Intent Payintent = new Intent(BookingActivity.this, PaymentActivity.class);
-                    Payintent.putExtra("bookingRes", bookingRes);
+                if (validateCarName()&&validateLicensePlates()&&validateTimeNumber()&&validateTimeOfPresence()&&validateSelectLocation()&&validatePaymentMethod()){
+                    CreatePaymentTask CreatePaymentTask = new CreatePaymentTask(BookingActivity.this);
+                    if (rbWallet.isChecked()){
+                        try {
+                            CreatePaymentTask.execute();
+                            startActivity(new Intent(BookingActivity.this, BookingHistoryActivity.class));
+                            return;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    try {
+                        ResponseEntity<?> res = CreatePaymentTask.execute().get();
+                        bookingRes = (EPaymentRes) res.getBody();
+                        Intent Payintent = new Intent(BookingActivity.this, PaymentActivity.class);
+                        Payintent.putExtra("bookingRes", bookingRes);
+                        String[] car = {etTimenumber.getEditText().getText().toString(), etCarname.getEditText().getText().toString(), etLisenceplates.getEditText().getText().toString(), actLocationCode.getText().toString(), actDelayTime.getText().toString(), etLisenceplates.getEditText().getText().toString()};
 
-                    //booking
-                    EditText etTimenum = findViewById(R.id.a_booking_et_timenum);
-                    EditText etCarname = findViewById(R.id.a_booking_et_carname);
-                    EditText etLisenceplates = findViewById(R.id.a_booking_et_lisenceplates);
-                    EditText etStarttime = findViewById(R.id.a_booking_et_date);
-                    EditText etLocationCode = findViewById(R.id.a_booking_et_locationcode);
+                        Payintent.putExtra("car", car);
 
-                    String[] car = {etTimenum.getText().toString(), etCarname.getText().toString(), etLisenceplates.getText().toString(), etStarttime.getText().toString(), etLocationCode.getText().toString()};
-
-                    Payintent.putExtra("car", car);
-
-                    startActivity(Payintent);
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
+                        startActivity(Payintent);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    return;
                 }
+
             }
         });
-    }
-
-    private void showDateDialog(EditText etDatetime) {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, day);
-
-                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY, hour);
-                        calendar.set(Calendar.MINUTE, minute);
-
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        BookingActivity.this.etDatetime.setText(dateFormat.format(calendar.getTime()));
-                    }
-                };
-                new TimePickerDialog(BookingActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
-            }
-        };
-        new DatePickerDialog(BookingActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     public void loadDialog() throws ExecutionException, InterruptedException {
@@ -156,6 +230,7 @@ public class BookingActivity extends AppCompatActivity {
             ResponseEntity<?> response = loadStatusParkingTask.execute().get();
             loadStatusParking = (LoadStatusParking) response.getBody();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -208,8 +283,8 @@ public class BookingActivity extends AppCompatActivity {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView tvLocationCode = findViewById(R.id.a_booking_et_locationcode);
-                tvLocationCode.setText(textSelected);
+//                TextView tvLocationCode = findViewById(R.id.a_booking_et_locationcode);
+                actLocationCode.setText(textSelected);
                 alertDialog.dismiss();
             }
         });
@@ -242,6 +317,78 @@ public class BookingActivity extends AppCompatActivity {
             tv.setBackground(getDrawable(R.drawable.border_item_table_row_blue));
             textSelected = tv.getText().toString();
             return;
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onBackPressed();
+        return true;
+    }
+    private String formatInteger(String str) {
+        BigDecimal parsed = new BigDecimal(str);
+        DecimalFormat formatter =
+                new DecimalFormat( "#,###", new DecimalFormatSymbols(Locale.US));
+        return formatter.format(parsed);
+    }
+    private boolean validateCarName() {
+        if(etCarname.getEditText().getText().length()<1){
+            etCarname.setError("Car name is required");
+            return false;
+        } else {
+            etCarname.setError(null);
+            return true;
+        }
+    }
+    private boolean validateLicensePlates() {
+        if(etLisenceplates.getEditText().getText().length()<1){
+            etLisenceplates.setError("License plates is required");
+            return false;
+        } else {
+            etLisenceplates.setError(null);
+            return true;
+        }
+    }
+    private boolean validateTimeNumber() {
+        if(etTimenumber.getEditText().getText().length()<1){
+            etTimenumber.setError("Select the number of hours to book");
+            return false;
+        }
+        else if(Integer.valueOf(etTimenumber.getEditText().getText().toString()) > 24){
+            etTimenumber.setError("Maximum time is twenty-four hours");
+            return false;
+        } else {
+            etTimenumber.setError(null);
+            return true;
+        }
+    }
+    private boolean validateTimeOfPresence() {
+        if(actDelayTime.getText().length()<1){
+            etDatetime.setError("Select the time of presence");
+            return false;
+        }
+        else {
+            etDatetime.setError(null);
+            return true;
+        }
+    }
+    private boolean validateSelectLocation() {
+        if(actLocationCode.getText().length()<1){
+            etLocationCode.setError("Select the location in parking");
+            return false;
+        }
+        else {
+            etLocationCode.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePaymentMethod(){
+        TextView textView = findViewById(R.id.a_booking_tv_errorPaymentMethod);
+        if (rbMomo.isChecked()||rbWallet.isChecked()||rbZalopay.isChecked()){
+            textView.setVisibility(View.GONE);
+            return true;
+        }else{
+            textView.setVisibility(View.VISIBLE);
+            return false;
         }
     }
 }

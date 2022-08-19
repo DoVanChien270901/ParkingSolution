@@ -72,7 +72,7 @@ public class BookingController {
         bookingQrContent.setBookingid(booking.getId());
         _qrcodeService.create(qrcode, bookingQrContent);
         //add revenue
-        AddRevenueReq addRevenueReq = new AddRevenueReq(LocalDate.now(), (booking.getPrice() / 100 * 20), bookingReq.getParkingname());
+        AddRevenueReq addRevenueReq = new AddRevenueReq(LocalDate.now(), booking.getPrice(), bookingReq.getParkingname());
         _revenueServices.add(addRevenueReq);
         //update blank
         _parkingServices.fillOneSlot(bookingReq.getParkingname());

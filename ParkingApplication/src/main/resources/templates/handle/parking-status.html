@@ -91,6 +91,28 @@
                     </div>  
                     
                     <div class="row">
+                        <div th:if="${listParkings}" class="col-lg-12 mt-2">
+                            <table class="table table-responsive-md">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Blank</th>
+                                        <th scope="col">Rent Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${listParking}">
+                                        <td th:text="${item.name}"></td>
+                                        <td th:text="${item.address}"></td>
+                                        <td th:text="${item.nop}"></td>
+                                        <td th:text="${item.blank}"></td>
+                                        <td th:text="${item.rentcost}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div th:if="${bookingRes}" class="col-lg-8 mt-2">
                             <table class="table table-responsive-md">
                                 <thead>
@@ -132,10 +154,13 @@
             <!-- Carousel End -->
         </section>
         <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
-            if (([[${selected}]]) == "all") {
-            loadAllTable(([[${loadStatusParkings}]]), "all-table");
-            } else{
-            loadAllTable(([[${loadStatusParkings}]]), "signle-table");
+//            if (([[${selected}]]) == "all") {
+//            loadAllTable(([[${loadStatusParkings}]]), "all-table");
+//            } else{
+//            loadAllTable(([[${loadStatusParkings}]]), "signle-table");
+//            }
+            if (([[${selected}]]) != "all") {
+                loadAllTable(([[${loadStatusParkings}]]), "signle-table");
             }
             function loadAllTable(data, type) {
             var text = document.getElementById("content-parking-status");

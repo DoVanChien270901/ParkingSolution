@@ -46,20 +46,23 @@
                                     <h2 class="h2 text-new-color">// Direct Payment //</h2>
                                 </div>
                                 <div class="container show-wallet">
-                                    <label><i class="fa fa-wallet"></i>&nbsp;<span th:text="${#numbers.formatInteger(balance, 1, 'COMMA') + ' VND'}"/></label>
+                                    <label><i class="fa fa-wallet"></i>&nbsp;<span th:text="${#numbers.formatInteger(balance, 3, 'COMMA') + ' VND'}"/></label>
                                 </div>
                                 <form th:action="@{/generator-qrcode}" method="GET" id="form-direct-payment" class="form-direct-payment">
                                     <div class="row payment">
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment mb-2 h3">Input Payment</label>
-                                            <div class="input-group pt-1">    
-                                                <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp"/>
-                                                <div class="invalid-feedback invalid-error-mess-d-payment" id="invalid-error-mess-d-payment">
-                                                    <label></label>
+                                            <label class="label-input-payment mb-2 h3" style="color:#35477d; font-weight: 600;">Input Payment:</label>
+                                            <div class="input-group pt-2">    
+                                                <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp" placeholder="0"/>
+                                                <div th:if="${amountValid}" class="invalid-feedback invalid-error-mess-d-payment" id="invalid-error-mess-d-payment">
+                                                    <span th:text="${amountValid}"></span>
                                                 </div>
                                             </div>
                                             <div class="select-amount p-2">
                                                 <div class="row pt-1 mb-4">
+                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
+                                                        <input type="button" id="" onclick="changeSelectAmount(1)" class="p-2" value="10.000 VND">
+                                                    </div>
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
                                                         <input type="button" id="" onclick="changeSelectAmount(2)" class="p-2" value="20.000 VND">
                                                     </div>
@@ -67,10 +70,7 @@
                                                         <input type="button" id="" onclick="changeSelectAmount(5)" class="p-2" value="50.000 VND">
                                                     </div>
                                                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" id="" onclick="changeSelectAmount(10)" class="p-2" value="100.000 VND">
-                                                    </div>
-                                                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mt-0 p-1 d-flex justify-content-center">
-                                                        <input type="button" id="" onclick="changeSelectAmount(20)" class="p-2" value="200.000 VND" />
+                                                        <input type="button" id="" onclick="changeSelectAmount(10)" class="p-2" value="100.000 VND" />
                                                     </div>
                                                 </div>
                                             </div>

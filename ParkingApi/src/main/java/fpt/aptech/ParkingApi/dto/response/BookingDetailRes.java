@@ -19,17 +19,19 @@ public class BookingDetailRes {
     private String lisenceplates;
     private String parkingname;
     private byte[] qrcontent;
+    private String locationcode;
 
     public BookingDetailRes() {
     }
 
-    public BookingDetailRes(LocalDateTime starttime, int timenumber, double price, String carname, String lisenceplates, String parkingname) {
+    public BookingDetailRes(LocalDateTime starttime, int timenumber, double price, String carname, String lisenceplates, String parkingname, String locationcode) {
         this.starttime = starttime;
         this.timenumber = timenumber;
         this.price = price;
         this.carname = carname;
         this.lisenceplates = lisenceplates;
         this.parkingname = parkingname;
+        this.locationcode = locationcode;
     }
 
     public LocalDateTime getStarttime() {
@@ -86,6 +88,14 @@ public class BookingDetailRes {
 
     public void setQrcontent(byte[] qrcontent) {
         this.qrcontent = qrcontent;
+    }
+
+    public String getLocationcode() {
+        return locationcode;
+    }
+
+    public void setLocationcode(String locationcode) {
+        this.locationcode = locationcode;
     }
 
 }

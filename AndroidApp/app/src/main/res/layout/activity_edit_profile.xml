@@ -15,7 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:background="@drawable/border_trans_history"
         android:orientation="vertical">
         <FrameLayout
@@ -126,15 +126,14 @@
             </com.google.android.material.textfield.TextInputLayout>
             <Button
                 android:id="@+id/a_editprofile_btn_save"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="35dp"
-                android:background="@drawable/border_md"
+                android:layout_gravity="center"
                 android:backgroundTint="@color/blue_default"
                 android:fontFamily="@font/baloo"
                 android:text="Save"
-                android:textColor="@color/white"
-                android:textSize="20dp"></Button>
+                android:textAllCaps="false"
+                android:textColor="@color/white"></Button>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

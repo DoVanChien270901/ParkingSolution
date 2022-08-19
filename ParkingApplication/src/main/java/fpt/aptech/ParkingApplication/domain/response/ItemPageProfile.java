@@ -16,14 +16,14 @@ public class ItemPageProfile {
 
     private String username;
     private String fullname;
-    private int identitycard;
+    private String identitycard;
     private String email;
-    private int Phone;
+    private String Phone;
 
     public ItemPageProfile() {
     }
 
-    public ItemPageProfile(String username, String fullname, int identitycard, String email, int Phone) {
+    public ItemPageProfile(String username, String fullname, String identitycard, String email, String Phone) {
         this.username = username;
         this.fullname = fullname;
         this.identitycard = identitycard;
@@ -47,11 +47,11 @@ public class ItemPageProfile {
         this.fullname = fullname;
     }
 
-    public int getIdentitycard() {
+    public String getIdentitycard() {
         return identitycard;
     }
 
-    public void setIdentitycard(int identitycard) {
+    public void setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
     }
 
@@ -63,11 +63,11 @@ public class ItemPageProfile {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return Phone;
     }
 
-    public void setPhone(int Phone) {
+    public void setPhone(String Phone) {
         this.Phone = Phone;
     }
 

@@ -113,33 +113,6 @@
                 android:textColor="@color/black"
                 android:text="dd-mm-yyyy"/>
         </com.google.android.material.textfield.TextInputLayout>
-<!--        <FrameLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:layout_marginHorizontal="10dp"-->
-<!--            android:layout_marginVertical="15dp"-->
-<!--            android:background="@drawable/border_ms_gray">-->
-
-<!--            <ImageView-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:layout_width="25dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:src="@drawable/ic_baseline_date_range_24" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/a_register2_tv_dob"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginLeft="25dp"-->
-<!--                android:ems="10"-->
-<!--                android:fontFamily="@font/arimo"-->
-<!--                android:hint="Day of birth"-->
-<!--                android:padding="28px"-->
-<!--                android:textColorHint="#606060"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="45px" />-->
-<!--        </FrameLayout>-->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:id="@+id/a_register2_til_gender"
@@ -156,43 +129,8 @@
                 android:text="Male"
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
-<!--        <FrameLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginHorizontal="10dp"-->
-<!--            android:background="@drawable/border_ms_gray">-->
-<!--            <ImageView-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:layout_width="25dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:src="@drawable/ic_baseline_supervisor_account_24" />-->
-<!--            <RadioGroup-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="30dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <RadioButton-->
-<!--                    android:id="@+id/a_register2_rb_male"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginHorizontal="16dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:fontFamily="@font/arimo"-->
-<!--                    android:text="Male" />-->
-
-<!--                <RadioButton-->
-<!--                    android:id="@+id/a_register2_rb_female"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginHorizontal="16dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:fontFamily="@font/abeezee"-->
-<!--                    android:text="Female" />-->
-<!--            </RadioGroup>-->
-<!--        </FrameLayout>-->
     </LinearLayout>
+
     <Button
         android:id="@+id/a_register2_btn_register"
         android:layout_width="match_parent"
@@ -201,6 +139,7 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/blue_default"
         android:fontFamily="@font/baloo"
+        android:textAllCaps="false"
         android:text="Register"
         android:textColor="@color/white" />
 </LinearLayout>

@@ -43,11 +43,23 @@ public class PaymentController {
     }
 
     @RequestMapping("generator-qrcode")
-    public String generatorQrcode(@RequestParam(value = "amount", required = true) double amount,
+    public String generatorQrcode(@RequestParam(value = "amount", required = true) String amount,
         HttpSession session, Model model) {
         LoginRes account = (LoginRes) session.getAttribute("account");
+        if (String.valueOf(amount).isEmpty()) {
+            model.addAttribute("balance", String.valueOf(account.getBalance()));
+            model.addAttribute("amountValid", "Amount must between 10.000 VND and 5.000.000 VND");
+            return "user/d-payment";
+        }
+        double am = Double.parseDouble(amount);
+        if (am <= 10000 || am >=5000000) {
+            model.addAttribute("balance", String.valueOf(account.getBalance()));
+            model.addAttribute("amountValid", "Amount must between 10.000 VND and 5.000.000 VND");
+            return "user/d-payment";
+        }
+        
         HttpEntity request = RestTemplateConfiguration.setRequest(account.getToken());
-        ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "qr-code/generated/payment?amount=" + amount, HttpMethod.POST, request, byte[].class);
+        ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "qr-code/generated/payment?amount=" + am, HttpMethod.POST, request, byte[].class);
         StringBuilder sb = new StringBuilder();
         sb.append("data:image/png;base64,");
         sb.append(new String(Base64.getEncoder().encode((byte[]) response.getBody())));
@@ -57,10 +69,7 @@ public class PaymentController {
         return "user/d-payment";
     }
 
-    @RequestMapping("/e-payment")
-    public String epayment() {
-        return "user/e-payment";
-    }
+    
 
     @RequestMapping("/history")
     public String history() {

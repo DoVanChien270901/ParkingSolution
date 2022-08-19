@@ -8,19 +8,28 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import fpt.aptech.parkinggo.R;
+import fpt.aptech.parkinggo.callback.CustomProgressDialog;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.response.LoadStatusParking;
 
 public class LoadStatusParkingTask extends AsyncTask<Void, Void, ResponseEntity<?>> {
     Activity activity;
     String name;
+    private CustomProgressDialog dialog;
 
     public LoadStatusParkingTask() {
+
     }
 
     public LoadStatusParkingTask(Activity activity, String name){
         this.activity = activity;
         this.name = name;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        dialog = new CustomProgressDialog(activity);
+        dialog.show();
     }
 
     @Override
@@ -30,5 +39,10 @@ public class LoadStatusParkingTask extends AsyncTask<Void, Void, ResponseEntity<
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(uri, HttpMethod.GET, request, LoadStatusParking.class);
         return response;
+    }
+
+    @Override
+    protected void onPostExecute(ResponseEntity<?> responseEntity) {
+        dialog.dismiss();
     }
 }

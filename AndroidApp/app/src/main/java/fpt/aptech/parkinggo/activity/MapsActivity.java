@@ -67,8 +67,12 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import fpt.aptech.parkinggo.R;
 import fpt.aptech.*;
@@ -133,7 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvEmail.setText(loginRes.getEmail());
 //        DecimalFormat formatter = new DecimalFormat("###,###,###");
 //        tvBalance.setText(formatter.format(loginRes.getBalance()) + " VND");
-        tvBalance.setText(loginRes.getBalance() + " VND");
+        tvBalance.setText(formatInteger(loginRes.getBalance().toString())+"đ");
         Bitmap bmp = BitmapFactory.decodeByteArray(loginRes.getQrcode(), 0, loginRes.getQrcode().length);
         qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
         /*--------------------------------Tool Bar--------------------------*/
@@ -369,9 +373,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onClick(View view) {
                         //booking detail Actitvity
-                        Intent intent = new Intent(MapsActivity.this, BookingActivity.class);
-                        intent.putExtra("parkingname", name.getText().toString());
-                        startActivity(intent);
+                        for (ParkingRes item : parkingLocationList) {
+                            if (item.getName().equals(name.getText().toString())){
+                                if (item.getBlank()!=0){
+                                    Intent intent = new Intent(MapsActivity.this, BookingActivity.class);
+                                    intent.putExtra("parkingname", name.getText().toString());
+                                    intent.putExtra("rentCost", item.getRentcost());
+                                    startActivity(intent);
+                                    return;
+                                }else{
+                                    Toast.makeText(MapsActivity.this, "The parking lot is not available", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                        }
+
                     }
                 });
                 // Set Text, ContentView
@@ -491,80 +507,70 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private String CurrentTitleAT = "Map";
+//    private String CurrentTitleAT = "Map";
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         String id = item.toString();
+        Intent intent;
         switch (id) {
-            case "Map":
-                if (!CurrentTitleAT.equals("Map")) {
-                    CurrentTitleAT = "Map";
-                    Intent intent = new Intent(this, MapsActivity.class);
-                    startActivity(intent);
-                }
-                break;
-
             case "Direct Payment":
-                if (!CurrentTitleAT.equals("Direct Payment")) {
-                    CurrentTitleAT = "Direct Payment";
-                    Intent intent = new Intent(this, DirectPaymentActivity.class);
-                    startActivity(intent);
-                }
+                intent = new Intent(this, DirectPaymentActivity.class);
+                startActivity(intent);
                 break;
             case "Electronic Payment":
-                if (!CurrentTitleAT.equals("Electronic Payment")) {
-                    CurrentTitleAT = "Electronic Payment";
-                    //call api
-                    LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
-                    ArrayList<ParkingRes> parkingRes = new ArrayList<>();
-                    try {
-                        ResponseEntity<?> res = task.execute().get();
-                        parkingRes = (ArrayList<ParkingRes>) res.getBody();
-                    } catch (Exception e) {
-                    Intent intent = new Intent(MapsActivity.this, RechargeActivity.class);
+                //call api
+                LoadListParkingTask task = new LoadListParkingTask(MapsActivity.this);
+                ArrayList<ParkingRes> parkingRes = new ArrayList<>();
+                try {
+                    ResponseEntity<?> res = task.execute().get();
+                    parkingRes = (ArrayList<ParkingRes>) res.getBody();
+                } catch (Exception e) {
+                    intent = new Intent(MapsActivity.this, RechargeActivity.class);
                     startActivity(intent);
                     return true;
                 }
             case "Transaction History":
-                if (!CurrentTitleAT.equals("Transaction History")) {
+                //call api
+                TransactionHistoryTask task1 = new TransactionHistoryTask(this);
+                //ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
+                TransactionRes[] transactionRes = null;
+                try {
+                    ResponseEntity<?> res = task1.execute().get();
+                    transactionRes = (TransactionRes[]) res.getBody();
+                } catch (Exception e) {
 
-                    //call api
-                    TransactionHistoryTask task = new TransactionHistoryTask(this);
-                    //ArrayList<ParkingRes> parkingRes =  new ArrayList<>();
-                    TransactionRes[] transactionRes = null;
-                    try {
-                        ResponseEntity<?> res = task.execute().get();
-                        transactionRes = (TransactionRes[]) res.getBody();
-                    } catch (Exception e) {
-
-                    }
-                    Intent intent = new Intent(this, TransactionHistoryActivity.class);
-                    intent.putExtra("list", transactionRes);
-                    startActivity(intent);
+                }
+                intent = new Intent(this, TransactionHistoryActivity.class);
+                intent.putExtra("list", transactionRes);
+                startActivity(intent);
 //                    CurrentTitleAT = "Transaction History";
 //                    Intent intent = new Intent(this, TransactionHistoryActivity.class);
 //                    startActivity(intent);
-                }
+
                 break;
             case "Parking History":
-                if (!CurrentTitleAT.equals("Parking History")) {
-                    CurrentTitleAT = "Parking History";
-                    Intent intent = new Intent(this, ParkingHistoryActivity.class);
-                    startActivity(intent);
-                }
+                intent = new Intent(this, ParkingHistoryActivity.class);
+                startActivity(intent);
+                break;
+            case "Booked list":
+                intent = new Intent(this, BookingHistoryActivity.class);
+                startActivity(intent);
                 break;
             case "Logout":
-                if (!CurrentTitleAT.equals("Logout")) {
-                    CurrentTitleAT = "Logout";
-                    Session.setSession(null);
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                }
+                Session.setSession(null);
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private String formatInteger(String str) {
+        BigDecimal parsed = new BigDecimal(str);
+        DecimalFormat formatter =
+                new DecimalFormat( "#,###", new DecimalFormatSymbols(Locale.US));
+        return formatter.format(parsed);
     }
 //    @Override
 //    public void callback(ResponseEntity<?> response) {
