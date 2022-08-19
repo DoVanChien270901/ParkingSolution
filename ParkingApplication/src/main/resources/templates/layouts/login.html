@@ -2,17 +2,19 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Login Page</title>
+        <title>Login Page</title>
+        <!-- Icon -->
         <link rel="icon" type="image/png" th:href="@{/vendorsc/images/icon.png}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Link -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css"th:href="@{/vendorsc/styles/core.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/icon-font.min.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/style.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/vendorsc/styles/fix.css}">
+        <!-- Script -->
         <script type="text/javascript" th:src="@{/vendorsc/scripts/fix.js}"></script>
     </head> 
-    <!-- Login Start -->
     <body class="login-page">
         <div class="login-header box-shadow">
             <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -74,12 +76,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row pb-30">
+                                <!--<div class="row pb-30">
                                     <div class="col-12">
                                         <div class="forgot-password mt-2"><a href="">Forgot Password</a></div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                </div>-->
+                                <div class="row pt-30">
                                     <div class="col-sm-12">
                                         <div class="input-group mb-0">
                                             <button class="btn btn-color btn-md btn-block" type="submit" >Login</button>
@@ -92,9 +94,8 @@
                 </div>
             </div>
         </div>
-        <!-- JavaScript -->
+        <!-- Script -->
         <script th:src="@{/vendorsc/scripts/core.js}"></script>
         <script th:src="@{/vendorsc/scripts/script.min.js}"></script>
     </body>
-    <!-- Login End -->
 </html>

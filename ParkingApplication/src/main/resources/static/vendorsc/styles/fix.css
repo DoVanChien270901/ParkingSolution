@@ -1,30 +1,28 @@
+.invalid-feedback {
+    color: red !important;
+    display: block;
+    padding-left: 2px;
+}
+
+input[type="date"]:before {
+    content: attr(placeholder);
+    margin-top: 0px;
+}
+
 /* Form Login, Register, Forgot Password */
 
 #form-account-fix .login-box {
-    max-width: 480px;
+    max-width: 485px;
 }
 
 .form-account-register .login-box {
-    max-width: 540px !important;
+    max-width: 545px !important;
 }
 
 /* Set Logo With Mouse Hover Normal */
 
-.brand-logo a, #timeline .profile-edit-list input:hover {
-    cursor: context-menu;
-}
-
 input[type="date"], .form-check-radio label {
     opacity: 0.75;
-}
-
-.form-account-register .col-margin-left-15 {
-    margin-left: -15px;
-}
-
-.form-account-register .login-box input[type="date"]:before {
-    content: attr(placeholder);
-    margin-top: 0px;
 }
 
 .form-check-radio {
@@ -36,8 +34,8 @@ input[type="date"], .form-check-radio label {
 }
 
 .form-check-radio .form-check {
-    background-color: #f4f4f4;
-    border: thin solid #e4e4e4;
+    background-color: #F4F4F4;
+    border: thin solid #E4E4E4;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -52,13 +50,17 @@ input[type="date"], .form-check-radio label {
     margin-left: 10px;
 }
 
+.form-account-register .col-margin-left-15 {
+    margin-left: -15px;
+}
+
 #form-account-fix .login-box .login-title {
     padding: 0 0 15px !important;
     margin-bottom: 0px !important;
 }
 
-#form-account-fix .login-title h2{
-    color: #4e73df;
+#form-account-fix .login-title h2 {
+    color: #4E73DF;
 }
 
 #form-account-fix .login-box form div.input-group {
@@ -71,33 +73,25 @@ input[type="date"], .form-check-radio label {
     font-size: 90%;
 }
 
-#form-account-fix .invalid-feedback {
-    display: block;
-    padding-left: 2px;
+#form-account-fix .check-message-box label, 
+#form-account-fix .forgot-password a {
+    font-size: 14px;
 }
 
 #form-account-fix .message-box, #form-account-fix .message-col-6 {
     width: 100%;
 }
 
-#form-account-fix .check-message-box label {
-    font-size: 14px;
-}
-
 #form-account-fix .message-box {
-    font-weight: 500;
     color: red;
-    background: #FFDEB4;
+    background: #FFE8BD;
+    border: 1px solid #FC6F6F;
     display: none;
-    border: 1px solid #ff5b5b;
     z-index: 999;
+    font-weight: 400;
     position: absolute;
     padding: 10px;
     font-size: 80%;
-}
-
-#form-account-fix .forgot-password a {
-    font-size: 14px;
 }
 
 /* Admin Manager */
@@ -118,6 +112,10 @@ input[type="date"], .form-check-radio label {
     color: #fff;
 }
 
+.brand-logo a {
+    cursor: context-menu;
+}
+
 .login-page .brand-logo span,
 .login-header .brand-logo span {
     color: #4e73df;
@@ -135,11 +133,8 @@ input[type="date"], .form-check-radio label {
     color: #fff;
 }
 
-.col-profile-admin button, 
-.update-profile, 
-.update-parking, 
-.cancel-return-parking-list {
-    text-transform: capitalize;
+.col-create-parking .update-parking {
+    padding: 8px;
 }
 
 .tab-wizard2 {
@@ -169,16 +164,11 @@ input[type="date"], .form-check-radio label {
     display: none;
 }   
 
-.profile-edit-list #back-to-booking-list,
+#back-to-booking-list,
 .col-create-parking input, 
 .col-create-parking a{
     width: 170px;
     font-size: 14px;
-}
-
-input[type="date"]:before{
-    content: attr(placeholder);
-    margin-top: 0px;
 }
 
 .table-res .table {
@@ -240,6 +230,7 @@ input {
 .table-res .table tbody tr .id-table {
     font-weight: 600;
     color: #000;
+    font-size: 14px;
 }
 
 .table-res .table tbody tr td {
@@ -271,8 +262,6 @@ table tr td {
     margin-top: 7px;
 }
 
-.invalid-parking-edit-admin label, 
-.invalid-parking-manager label, 
 invalid-feedback{
     color: red !improtant;
 }
@@ -298,14 +287,6 @@ option {
 
 .widget-user {
     background: #4e73df;
-}
-
-.profile-edit-list label {
-    float: left;
-}
-
-.profile-edit-list .error-mes {
-    color: red;
 }
 
 @media screen and (max-width:991.20px) {
@@ -341,9 +322,11 @@ option {
         font-weight: bold;
         text-align: left;
     }
-    .profile-edit-list #back-to-booking-list {
+
+    #back-to-booking-list {
         max-width: 100%;
     }
+
     .pull-choose-parking-name {
         float: left;
     }
@@ -360,8 +343,6 @@ option {
 
     .col-create-parking,
     .col-button-edit{
-        display: flex;
-        justify-content: center; 
         width: 100%;
     }
 

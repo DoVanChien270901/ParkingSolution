@@ -2,14 +2,14 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | Revenue Day</title>
+        <title>Revenue Day Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
     </head>
     <body>
         <div class="main-container" layout:fragment="admin-content">
             <div class="xs-pd-20-10 pd-ltr-20">
-                <div class="title pb-20">
+                <div class="title pb-20 p-3">
                     <h2 class="h2 mb-2">Day of Month</h2>
                 </div>
                 <div class="row pb-10">
@@ -43,7 +43,7 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20 text-dark">0 VND</div>
+                                    <div class="weight-700 font-20 text-dark">0</div>
                                     <div class="font-14 text-secondary weight-500">Recharge</div>
                                 </div>
                                 <div class="widget-icon widget-money">
@@ -53,34 +53,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="pb-20">
+                <div class="pb-20 mb-10" style="padding: 9px">
                     <form th:action="@{/a/revenue/day}" method="GET">
                         <div class="row">
-                            <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <input class="form-control border-info" type="month" id="monthofyear" name="monthofyear" th:value="${monthofyear}"> 
+                            <div class="col-4 col-lg-3 col-md-4 col-sm-4" style="padding: 6px">
+                                <input class="form-control" type="month" id="monthofyear" name="monthofyear" th:value="${monthofyear}"> 
                             </div>
-                            <div class="col-4 col-lg-3 col-md-4 col-sm-4 p-1">
-                                <select id="mySelect" class="form-control border-info" th:name="type">
+                            <div class="col-4 col-lg-3 col-md-4 col-sm-4" style="padding: 6px">
+                                <select id="mySelect" class="form-control" th:name="type">
                                     <option value="line">Line Chart</option>
                                     <option value="bar">Bar Chart</option>
                                 </select>
                             </div>
-                            <div class="col-2 col-lg-2 col-md-2 col-sm-2" style="padding: 3px;">
-                                <button class="btn btn-color m-1" type="submit"><i class="dw dw-search2"></i></button>
+                            <div class="col-2 col-lg-2 col-md-2 col-sm-2" style="padding: 9px;">
+                                <button class="btn btn-color" type="submit"><i class="dw dw-search2"></i></button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="pb-20 mb-20">
-                    <center>
-                        <div class="backgroud-error d-flex justify-content-center align-items-center">
-                            <label class="error-chart" th:if="${errormes}" th:text="${errormes}"></label>
-                        </div>
-                    </center>
+                <div class="p-3 pb-20 mb-20">
+                    <div class="backgroud-error d-flex justify-content-center align-items-center">
+                        <label class="error-chart" th:if="${errormes}" th:text="${errormes}"></label>
+                    </div>
                     <canvas class="myChart" id="myChart"></canvas>
                 </div>
-                <div class="footer-wrap pd-20 mb-20 card-box">
-                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                <div class="p-3">
+                    <div class="footer-wrap pd-20 mb-20 card-box">
+                        ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,60 +88,62 @@
             if (([[${errormes}]])) {
             //
             } else{
-                loadChartByMonth();
+            loadChartByMonth();
             if ([[${type}]] == "bar") {
-                const mySelect = document.querySelector('#mySelect');
-                mySelect.options[1].selected = true;
-                }
+            const mySelect = document.querySelector('#mySelect');
+            mySelect.options[1].selected = true;
+            }
             }
             function loadChartByMonth() {
-                var data = ([[${data}]]);
-                for (var item in data) {
-                    for (var i = data[item].data.length - 1; i > 0; i--) {
-                        if (data[item].data[i] != 0) {
-                            data[item].data.splice(i + 1, data[item].data.length - 1);
-                            break;
-                        }
-                    }
-                }
-                var dayNumber = new Date(2022, 7, 0).getDate();
-                var labels = new Array();
-                for (var i = 0; i < dayNumber + 1; i++) {
-                    labels.push(i);
-                }
-                const dataparent = {
-                    labels: labels,
+            var data = ([[${data}]]);
+            for (var item in data) {
+            for (var i = data[item].data.length - 1; i > 0; i--) {
+            if (data[item].data[i] != 0) {
+            data[item].data.splice(i + 1, data[item].data.length - 1);
+            break;
+            }
+            }
+            }
+            var dayNumber = new Date(2022, 7, 0).getDate();
+            var labels = new Array();
+            for (var i = 0; i < dayNumber + 1; i++) {
+            labels.push(i);
+            }
+            const dataparent = {
+            labels: labels,
                     datasets: data,
-                };
-                const config = {
-                type: ([[${type}]]),
+            };
+            const config = {
+            type: ([[${type}]]),
                     data: dataparent,
                     options: {
                     responsive: true,
                             plugins: {
                             legend: {
                             position: 'bottom',
+                                    align: 'start',
                                     labels: {
-                                    // This more specific font property overrides the global property
-                                    font: {
-                                    size: 14,
-                                    },
-                                        color: 'rgb(0, 0, 0, 0.8)',
+                                    padding: 20,
+                                            // This more specific font property overrides the global property
+                                            font: {
+                                            size: 16,
+                                            },
+                                            color: 'rgb(0, 0, 0, 0.8)',
                                     }
-                                },
+                            },
                                     title: {
                                     display: true,
-                                        text: 'CHART REVENUE FORM ' + ([[${monthofyear}]]),
-                                        color: 'rgb(0, 0, 0, 0.8)',
-                                        font: {
+                                            text: 'CHART REVENUE FORM ' + ([[${monthofyear}]]),
+                                            color: 'rgb(0, 0, 0, 0.8)',
+                                            font: {
                                             size: 20,
-                                        }
+                                            }
                                     },
-                                }
-                            },
-                        };
-                    const myChart = new Chart(document.getElementById("myChart"), config);
-                }
+                            }
+                    },
+            };
+            const myChart = new Chart(document.getElementById("myChart"), config);
+            }
         </script>
     </body>
 </html>

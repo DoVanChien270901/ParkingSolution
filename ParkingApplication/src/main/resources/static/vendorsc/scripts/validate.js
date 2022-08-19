@@ -40,6 +40,7 @@ fullname.addEventListener('change', fullname_verify);
 phone.addEventListener('change', phone_verify);
 dob.addEventListener('change', dob_verify);
 email.addEventListener('change', email_verify);
+
 identitycard.addEventListener('change', identitycard_verify);
 function validateRegister() {
     var checkYear = new Date(dob.value);
@@ -48,12 +49,14 @@ function validateRegister() {
     if (username.value.length === 0 || username.value.length == '') {
         username_error.style.display = "block";
         span_username.innerHTML = "*Username can not be left blank !";
+        username.style.border = "1px solid #FC6F6F";
         qs_username.appendChild(span_username);
         return false;
     }
     if (username.value.length <= 5 || username.value.length >= 26) {
         username_error.style.display = "block";
         span_username.innerHTML = "*Username must be between 6 and 25 characters !";
+        username.style.border = "1px solid #FC6F6F";
         qs_username.appendChild(span_username);
         return false;
     }
@@ -61,12 +64,14 @@ function validateRegister() {
     if (password.value.length === 0 || password.value.length == '') {
         password_error.style.display = "block";
         span_password.innerHTML = "*Password can not be left blank !";
+        password.style.border = "1px solid #FC6F6F";
         qs_password.appendChild(span_password);
         return false;
     }
     if (password.value.length <= 5 || password.value.length >= 13) {
         password_error.style.display = "block";
         span_password.innerHTML = "*Password must be between 6 and 12 characters !";
+        password.style.border = "1px solid #FC6F6F";
         qs_password.appendChild(span_password);
         return false;
     }
@@ -74,18 +79,21 @@ function validateRegister() {
     if (fullname.value.length === 0 || fullname.value.length == '') {
         fullname_error.style.display = "block";
         span_fullname.innerHTML = "*Fullname can not be left blank !";
+        fullname.style.border = "1px solid #FC6F6F";
         qs_fullname.appendChild(span_fullname);
         return false;
     }
     if (fullname.value.length <= 3 || fullname.value.length >= 26) {
         fullname_error.style.display = "block";
         span_fullname.innerHTML = "*Fullname must be between 4 and 25 characters !";
+        fullname.style.border = "1px solid #FC6F6F";
         qs_fullname.appendChild(span_fullname);
         return false;
     }
     if (regex_only_text.test(fullname.value) == false) {
         fullname_error.style.display = "block";
         span_fullname.innerHTML = "*Fullname without special characters and numbers !";
+        fullname.style.border = "1px solid #FC6F6F";
         qs_fullname.appendChild(span_fullname);
         return false;
     }
@@ -93,12 +101,14 @@ function validateRegister() {
     if (phone.value.length === 0 || phone.value.length == '') {
         phone_error.style.display = "block";
         span_phone.innerHTML = "*Phone can not be left blank !";
+        phone.style.border = "1px solid #FC6F6F";
         qs_phone.appendChild(span_phone);
         return false;
     }
     if (phone.value.length <= 9 || phone.value.length >= 11) {
         phone_error.style.display = "block";
         span_phone.innerHTML = "*Phone must enter 10 numbers !";
+        phone.style.border = "1px solid #FC6F6F";
         qs_phone.appendChild(span_phone);
         return false;
     }
@@ -107,6 +117,7 @@ function validateRegister() {
         dob.style.opacity = "1";
         dob_error.style.display = "block";
         span_dob.innerHTML = "*Date can not be left blank !";
+        dob.style.border = "1px solid #FC6F6F";
         qs_dob.appendChild(span_dob);
         return false;
     }
@@ -114,6 +125,7 @@ function validateRegister() {
         dob.style.opacity = "1";
         dob_error.style.display = "block";
         span_dob.innerHTML = "*Year must be from 1970 to current year !";
+        dob.style.border = "1px solid #FC6F6F";
         qs_dob.appendChild(span_dob);
         return false;
     }
@@ -121,12 +133,14 @@ function validateRegister() {
     if (identitycard.value.length === 0 || identitycard.value.length == '') {
         identitycard_error.style.display = "block";
         span_identitycard.innerHTML = "*Identity can not be left blank !";
+        identitycard.style.border = "1px solid #FC6F6F";
         qs_identitycard.appendChild(span_identitycard);
         return false;
     }
-    if (identitycard.value.length <= 9 || identitycard.value.length >= 11) {
+    if (identitycard.value.length <= 9 || identitycard.value.length >= 16) {
         identitycard_error.style.display = "block";
-        span_identitycard.innerHTML = "*Identity card must enter 10 numbers !";
+        span_identitycard.innerHTML = "*Identity card must between 10 and 15 numbers !";
+        identitycard.style.border = "1px solid #FC6F6F";
         qs_identitycard.appendChild(span_identitycard);
         return false;
     }
@@ -134,12 +148,14 @@ function validateRegister() {
     if (email.value.length === 0 || email.value.length == '') {
         email_error.style.display = "block";
         span_email.innerHTML = "*Email can not be left blank !";
+        email.style.border = "1px solid #FC6F6F";
         qs_email.appendChild(span_email);
         return false;
     }
     if (regex_email.test(email.value) == false || email.value.length < 9) {
         email_error.style.display = "block";
         span_email.innerHTML = "*Invalid email, only accept email as @gmail.com !";
+        email.style.border = "1px solid #FC6F6F";
         qs_email.appendChild(span_email);
         return false;
     }
@@ -148,18 +164,23 @@ function validateRegister() {
 function username_verify() {
     if (username.value.length >= 6 && username.value.length <= 25) {
         username_error.style.display = "none";
+        username.style.border = "1px solid #28a745";
         return true;
     }
 }
+
 function password_verify() {
     if (password.value.length >= 6 && password.value.length <= 12) {
         password_error.style.display = "none";
+        password.style.border = "1px solid #28a745";
         return true;
     }
 }
+
 function fullname_verify() {
     if (fullname.value.length >= 4 && fullname.value.length <= 25) {
         fullname_error.style.display = "none";
+        fullname.style.border = "1px solid #28a745";
         return true;
     }
 }
@@ -169,24 +190,31 @@ function dob_verify() {
     if (dob.value && checkYear.getFullYear() > 1969 && checkYear < getYear) {
         dob.style.opacity = "1";
         dob_error.style.display = "none";
+        dob.style.border = "1px solid #28a745";
         return true;
     }
 }
+
 function phone_verify() {
     if (phone.value.length == 10) {
         phone_error.style.display = "none";
+        phone.style.border = "1px solid #28a745";
         return true;
     }
 }
+
 function identitycard_verify() {
-    if (identitycard.value.length == 10) {
+    if (identitycard.value.length > 9 && identitycard.value.length < 16) {
         identitycard_error.style.display = "none";
+        identitycard.style.border = "1px solid #28a745";
         return true;
     }
 }
+
 function email_verify() {
     if (regex_email.test(email.value) == true && email.value.length >= 9) {
         email_error.style.display = "none";
+        email.style.border = "1px solid #28a745";
         return true;
     }
 }

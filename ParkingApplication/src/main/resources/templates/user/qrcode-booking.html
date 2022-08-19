@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/user-layout.html}">
     <head>
         <meta charset="utf-8">
-        <title>ParkingGo | QR Code Booking Page</title>
+        <title>QR Code Booking Page</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
     </head>
     <body>  
@@ -73,34 +73,34 @@
                                     <h2 class="text-primary">// Booking Details //</h2>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <label class="pb-2">Parking Name</label>
-                                    <div class="input-group mb-3">
+                                    <label class="pb-1">Parking Name:</label>
+                                    <div class="input-group mb-4">
                                         <input type="text" th:value="${bookingDetailRes.parkingname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Car Name</label>
-                                    <div class="input-group mb-3">
+                                    <label class="pb-1">Car Name:</label>
+                                    <div class="input-group mb-4">
                                         <input type="text" th:value="${bookingDetailRes.carname}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Start Time</label>
-                                    <div class="input-group mb-3">
+                                    <label class="pb-1">Start Time:</label>
+                                    <div class="input-group mb-4">
                                         <input type="datetime" th:value="${#temporals.format(bookingDetailRes.starttime, 'dd-MM-yyyy HH:mm')}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Time Number</label>
+                                    <label class="pb-1">Time Number:</label>
                                     <div class="input-group">
                                         <input type="number" th:value="${bookingDetailRes.timenumber}" class="form-control" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                    <label class="pb-2">License Plates</label>
-                                    <div class="input-group mb-3">                                     
+                                    <label class="pb-1">License Plates:</label>
+                                    <div class="input-group mb-4">                                     
                                         <input type="text" th:value="${bookingDetailRes.lisenceplates}" class="form-control" readonly="true"/>
                                     </div>
-                                    <label class="pb-2">Amount</label>
-                                    <div class="input-group mb-3">
+                                    <label class="pb-1">Amount</label>
+                                    <div class="input-group mb-4">
                                         <input type="text" th:value="${#numbers.formatInteger(bookingDetailRes.price, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true"/>
                                     </div>
                                     <img class="qrcode-booking mb-2" th:src="${displaycode}" />
-                                    <p class="text-center title-qrcode-booking">Your Qr Code</p>
+                                    <p class="text-center title-qrcode-booking">Your QR Code</p>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-2 mb-2 col-button-edit-qrcode-booking button-edit">
                                     <a type="button" th:href="@{/list-booking}" id="back-to-booking-list" class="mt-0 mb-2 me-2 p-2"><i class="fa fa-undo"></i>&nbsp;Back to List</a>
