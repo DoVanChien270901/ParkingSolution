@@ -136,12 +136,12 @@ public class AccountController {
 //    }
 //
     //test
-    @CrossOrigin
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<String> getListUser() {
-
-        return ResponseEntity.ok("hello");
-    }
+//    @CrossOrigin
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public ResponseEntity<String> getListUser() {
+//
+//        return ResponseEntity.ok("hello");
+//    }
 //    @RequestMapping(value = "/user", method = RequestMethod.PUT)
 //    public ResponseEntity editUser(@RequestBody EditProfileReq editProfileReq, @RequestHeader("Authorization") String token) {
 //        try {

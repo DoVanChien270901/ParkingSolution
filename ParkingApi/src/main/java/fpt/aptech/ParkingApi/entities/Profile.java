@@ -59,9 +59,9 @@ import org.springframework.format.annotation.DateTimeFormat;
                 columns = {
                     @ColumnResult(name = "username", type = String.class),
                     @ColumnResult(name = "fullname", type = String.class),
-                    @ColumnResult(name = "identitycard", type = Integer.class),
+                    @ColumnResult(name = "identitycard", type = String.class),
                     @ColumnResult(name = "email", type = String.class),
-                    @ColumnResult(name = "phone", type = Integer.class)
+                    @ColumnResult(name = "phone", type = String.class)
                 })
 )
 @NamedQueries({

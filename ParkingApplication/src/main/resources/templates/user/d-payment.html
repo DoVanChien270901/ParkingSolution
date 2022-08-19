@@ -51,8 +51,8 @@
                                 <form th:action="@{/generator-qrcode}" method="GET" id="form-direct-payment" class="form-direct-payment">
                                     <div class="row payment">
                                         <div class="col-12 col-lg-6 col-md-12 col-sm-12 pt-2">
-                                            <label class="label-input-payment mb-2">Input Payment:</label>
-                                            <div class="input-group">    
+                                            <label class="label-input-payment mb-2 h3" style="color:#35477d; font-weight: 600;">Input Payment:</label>
+                                            <div class="input-group pt-2">    
                                                 <input autocomplete="off" class="form-control amount-dp" th:name="amount" type="number" id="amount-dp" placeholder="0"/>
                                                 <div th:if="${amountValid}" class="invalid-feedback invalid-error-mess-d-payment" id="invalid-error-mess-d-payment">
                                                     <span th:text="${amountValid}"></span>

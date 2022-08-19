@@ -4,6 +4,8 @@
  */
 package fpt.aptech.ParkingApplication.domain.request;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,7 @@ import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Empty;
  *
  * @author CHIEN
  */
+
 public class UpdateParkingReq implements Serializable{
     @Size(min = 6, max = 150, message = "*Name must between 6 and 20 characters !")
     private String name;
@@ -41,7 +44,6 @@ public class UpdateParkingReq implements Serializable{
         this.nop = nop;
         this.rentcost = rentcost;
     }
-
     public UpdateParkingReq(String name, String latitude, String longtitude, String address, Integer nop, double rentcost) {
         this.name = name;
         this.latitude = latitude;
@@ -103,5 +105,5 @@ public class UpdateParkingReq implements Serializable{
     public void setRentcost(Integer rentcost) {
         this.rentcost = rentcost;
     }
-    
+
 }

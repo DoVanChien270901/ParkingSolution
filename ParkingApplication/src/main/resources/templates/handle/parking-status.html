@@ -19,10 +19,33 @@
                                 <option th:each="item : ${listParking}" th:value="${item.name}" th:text="${item.name}" th:selected="(${selected} == ${item.name})"></option>
                             </select>
                         </div>
-                    </div>
-                    <div class="pd-20 card-box mb-30 mt-4">
-                        <div th:if="${bookingRes}" class="table-res p-1">
-                            <table class="table">
+                    </div>  
+                    
+                    <div class="row">
+                        <div th:if="${listParkings}" class="col-lg-12 mt-2">
+                            <table class="table table-responsive-md">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Blank</th>
+                                        <th scope="col">Rent Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${listParking}">
+                                        <td th:text="${item.name}"></td>
+                                        <td th:text="${item.address}"></td>
+                                        <td th:text="${item.nop}"></td>
+                                        <td th:text="${item.blank}"></td>
+                                        <td th:text="${item.rentcost}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div th:if="${bookingRes}" class="col-lg-8 mt-2">
+                            <table class="table table-responsive-md">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -58,62 +81,64 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
-        if (([[${selected}]]) == "all") {
-        loadAllTable(([[${loadStatusParkings}]]), "all-table");
-        } else{
-        loadAllTable(([[${loadStatusParkings}]]), "signle-table");
-        }
-        function loadAllTable(data, type) {
-        var text = document.getElementById("content-parking-status");
-        var list = data;
-        var table = "";
-        var call = 0;
-        for (const item in list) {
-        table += '<div><table id="' + type + '-select"><tbody><tr>';
-        table += '<label id="' + type + '-label">' + list[item].parkingname + '</lable>'
-                for (var i = 1; i < list[item].locationcode.length + 1; i++) {
-        for (var j = 0; j < list[item].codebooked.length; j++) {
-        if (list[item].locationcode[i - 1] == list[item].codebooked[j]) {
-        table += '<td id="' + type + '-no">' + list[item].locationcode[i - 1] + "</td>";
-        if (i != 0 && i % list[item].columnofrow == 0) {
-        table += "</tr><tr>";
-        }
-        call = 1;
-        break;
-        }
-        }
-        if (call == 0) {
-        table += '<td id="' + type + '-yes">' + list[item].locationcode[i - 1] + "</td>";
-        if (i != 0 && i % list[item].columnofrow == 0) {
-        table += "</tr><tr>";
-        }
-        } else {
-        call = 0;
-        }
-        }
-        table += "</tbody></table></div>";
-        }
-        if (type == "all-table") {
-        text.style.textAlign = "left";
-        text.style.width = "100%";
-        text.style.color = "#4e73df";
-        text.style.fontWeight = "600";
-        text.className = "row d-flex justify-content-start"
-        } else{
-        text.style.width = "100%";
-        text.style.color = "#4e73df";
-        //row d-flex justify-content-center
-        //text.style.textAlign = "center";
-        text.className = "row d-flex justify-content-center align-items-center pt-4"
-        }
-        text.innerHTML = table;
-        }
-        function selected(value) {
-        location.href = "/h/status-parking/" + value;
-        }
-    </script>
-</body>
+            <!-- Carousel End -->
+        </section>
+        <script th:inline="javascript" type="text/javascript" layout:fragment="code-javascript">
+//            if (([[${selected}]]) == "all") {
+//            loadAllTable(([[${loadStatusParkings}]]), "all-table");
+//            } else{
+//            loadAllTable(([[${loadStatusParkings}]]), "signle-table");
+//            }
+            if (([[${selected}]]) != "all") {
+                loadAllTable(([[${loadStatusParkings}]]), "signle-table");
+            }
+            function loadAllTable(data, type) {
+            var text = document.getElementById("content-parking-status");
+            var list = data;
+            var table = "";
+            var call = 0;
+            for (const item in list) {
+            table += '<div><table id="' + type + '-select"><tbody><tr>';
+            table += '<label id="' + type + '-label">' + list[item].parkingname + '</lable>'
+                    for (var i = 1; i < list[item].locationcode.length + 1; i++) {
+            for (var j = 0; j < list[item].codebooked.length; j++) {
+            if (list[item].locationcode[i - 1] == list[item].codebooked[j]) {
+            table += '<td id="' + type + '-no">' + list[item].locationcode[i - 1] + "</td>";
+            if (i != 0 && i % list[item].columnofrow == 0) {
+            table += "</tr><tr>";
+            }
+            call = 1;
+            break;
+            }
+            }
+            if (call == 0) {
+            table += '<td id="' + type + '-yes">' + list[item].locationcode[i - 1] + "</td>";
+            if (i != 0 && i % list[item].columnofrow == 0) {
+            table += "</tr><tr>";
+            }
+            } else {
+            call = 0;
+            }
+            }
+            table += "</tbody></table></div>";
+            }
+            if (type == "all-table") {
+            text.style.textAlign = "center";
+            text.style.width = "100%";
+            text.style.color = "#1b00ff";
+            text.className = "row d-flex justify-content-center"
+            } else{
+            text.style.width = "100%";
+            text.style.color = "#1b00ff";
+            //row d-flex justify-content-center
+            text.style.textAlign = "center";
+            text.className = "col-lg-4"
+            }
+            text.innerHTML = table;
+            }
+            function selected(value) {
+            location.href = "/h/status-parking/" + value;
+            }
+        </script>
+    </body>
 </html>

@@ -14,20 +14,20 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class EditProfileReq {
 
-    private Integer identitycard;
+    private String identitycard;
     private String fullname;
     private String dob;
     private String email;
-    private Integer phone;
+    private String phone;
 
     public EditProfileReq() {
     }
 
-    public Integer getIdentitycard() {
+    public String getIdentitycard() {
         return identitycard;
     }
 
-    public void setIdentitycard(Integer identitycard) {
+    public void setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
     }
 
@@ -55,11 +55,11 @@ public class EditProfileReq {
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }
