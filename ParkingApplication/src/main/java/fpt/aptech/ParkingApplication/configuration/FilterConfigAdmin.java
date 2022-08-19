@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @author CHIEN
  */
 @Component
-public class FilterConfig implements Filter{
+public class FilterConfigAdmin implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -27,7 +27,7 @@ public class FilterConfig implements Filter{
         LoginRes token;
         try {
             token = (LoginRes)request.getSession().getAttribute("account");
-            if (token.getRole() != Roles.user) {
+            if (token.getRole() != Roles.admin) {
                 token = null;
             }
         } catch (Exception e) {

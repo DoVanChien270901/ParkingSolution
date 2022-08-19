@@ -40,8 +40,12 @@ public class NewBookingReq {
     }
 
     public void setStarttime(String starttime) {
+        try {
+            this.starttime = LocalDateTime.parse(starttime);
+        } catch (Exception e) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            this.starttime = LocalDateTime.parse(starttime,formatter);
+            this.starttime = LocalDateTime.parse(starttime, formatter);
+        }
     }
 
     public void setStarttime(LocalDateTime starttime) {

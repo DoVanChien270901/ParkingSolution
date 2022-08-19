@@ -19,10 +19,10 @@
                                 <div class="pull-left mb-2">
                                     <div class="row form-inline">
                                         <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                            <input type="date" name="from-date" class="form-control" placeholder="From:&nbsp;">
+                                            <input type="date" name="from-date" th:value="${fromDate}" class="form-control border-info form-control-md" placeholder="From:&nbsp;">
                                         </div>
                                         <div class="col-5 col-lg-5 col-md-5 col-sm-5 p-1">
-                                            <input type="date" name="to-date" class="form-control" placeholder="To:&nbsp;" style="margin-left: 8px;">
+                                            <input type="date" name="to-date" th:value="${toDate}" class="form-control border-info form-control-md ml-2" placeholder="To:&nbsp;">
                                         </div>
                                         <div class="col-2 col-lg-2 col-md-2 col-sm-2">
                                             <button type="submit" class="btn btn-color" style="margin-left: -10px;"><i class="dw dw-search2 search-icon"></i></button>

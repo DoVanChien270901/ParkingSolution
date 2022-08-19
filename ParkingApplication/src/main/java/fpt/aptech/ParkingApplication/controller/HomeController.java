@@ -27,6 +27,6 @@ public class HomeController {
     
     @RequestMapping("/handle")
     public String homeHandle() {
-        return "handle/index";
+        return "redirect:/h/status-parking/all";
     }
 }

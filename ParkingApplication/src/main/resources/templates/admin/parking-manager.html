@@ -199,6 +199,67 @@
                     </div>
                 </div>
             </div>
+            <div class="pd-20 mb-30">
+                <div class="footer-wrap pd-20 mb-20 card-box">
+                    ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>
+                </div>
+                <form th:action="@{/a/parking/update}" th:object="${updateParkingReq}" method="POST">
+                    <ul class="row">
+                        <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Name:</label>
+                                <input th:field="*{name}" class="form-control form-control" type="text">
+                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Latitude:</label>
+                                <input th:field="*{latitude}" class="form-control form-control" type="text">
+                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                   <span th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Parking Spaces:</label>
+                                <input th:field="*{nop}" class="form-control form-control" type="number">
+                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                   <span th:if="${#fields.hasErrors('nop')}" th:errors="*{nop}"></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="weight-500 col-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Address:</label>
+                                <input th:field="*{address}" class="form-control form-control" type="text">
+                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Longitude:</label>
+                                <input th:field="*{longtitude}" class="form-control form-control" type="text">
+                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                    <span th:if="${#fields.hasErrors('longtitude')}" th:errors="*{longtitude}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Rent Cost:</label>
+                                <input th:field="*{rentcost}" class="form-control form-control" type="text">
+                                <div class="invalid-feedback invalid-parking-edit-admin input-group">
+                                    <span th:if="${#fields.hasErrors('rentcost')}" th:errors="*{rentcost}"></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="weight-500 col-12 col-sm-12 col-md-12 col-lg-12 col-create-parking">
+                            <div class="form-group mb-0 weight">
+                                <input type="submit" class="btn btn-primary update-parking mt-0 mb-2 me-2 p-2" value="Update">
+                                <a th:href="@{/a/list-parking}" type="button" class="btn btn-danger cancel-return-parking-list mt-0 mb-2 me-2 p-2" id="index">Cancel</a>
+                            </div>
+                        </li>
+                    </ul>   
+                </form>
+            </div>
             <!-- basic table  End -->
             <div class="footer-wrap pd-20 mb-20 card-box">
                 ParkingGo Make By <a href="#" target="_blank">T1.2008.A0</a>

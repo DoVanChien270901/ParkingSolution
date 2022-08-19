@@ -18,12 +18,12 @@ public class RegisterReq {
 
     private String username;
     private String password;
-    private Integer identitycard;
+    private String identitycard;
     private String fullname;
     private boolean gender;
     private String dob;
     private String email;
-    private Integer phone;
+    private String phone;
 
     public RegisterReq() {
     }
@@ -44,11 +44,11 @@ public class RegisterReq {
         this.password = password;
     }
 
-    public Integer getIdentitycard() {
+    public String getIdentitycard() {
         return identitycard;
     }
 
-    public void setIdentitycard(Integer identitycard) {
+    public void setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
     }
 
@@ -84,11 +84,11 @@ public class RegisterReq {
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }
