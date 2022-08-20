@@ -17,7 +17,7 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20 text-dark">0</div>
+                                    <div class="weight-700 font-20 text-dark" th:text="${statistical.user}"></div>
                                     <div class="font-14 text-secondary weight-500">User</div>
                                 </div>
                                 <div class="widget-icon widget-user">
@@ -30,7 +30,7 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20 text-dark">0</div>
+                                    <div class="weight-700 font-20 text-dark" th:text="${statistical.parking}"></div>
                                     <div class="font-14 text-secondary weight-500">Parking</div>
                                 </div>
                                 <div class="widget-icon widget-location">
@@ -43,8 +43,8 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20 text-dark">0</div>
-                                    <div class="font-14 text-secondary weight-500">Recharge</div>
+                                    <div class="weight-700 font-20 text-dark" th:text="${#numbers.formatInteger(statistical.amount, 1, 'COMMA')+ 'VND'}"></div>
+                                    <div class="font-14 text-secondary weight-500">Revenue</div>
                                 </div>
                                 <div class="widget-icon widget-money">
                                     <div class="icon" data-color="#fff"><i class="icon-copy fa fa-money" aria-hidden="true"></i></div>
@@ -95,22 +95,22 @@
             }
             }
             function loadChartByMonth() {
-                var data = ([[${data}]]);
-                for (var item in data) {
-                    for (var i = data[item].data.length - 1; i > 0; i--) {
-                        if (data[item].data[i] != 0) {
-                            data[item].data.splice(i + 1, data[item].data.length - 1);
-                            break;
-                        }
-                    }
-                }
-                var dayNumber = new Date(2022, 7, 0).getDate();
-                var labels = new Array();
-                for (var i = 1; i < dayNumber + 1; i++) {
-                    labels.push(i);
-                }
-                const dataparent = {
-                    labels: labels,
+            var data = ([[${data}]]);
+            for (var item in data) {
+            for (var i = data[item].data.length - 1; i > 0; i--) {
+            if (data[item].data[i] != 0) {
+            data[item].data.splice(i + 1, data[item].data.length - 1);
+            break;
+            }
+            }
+            }
+            var dayNumber = new Date(2022, 7, 0).getDate();
+            var labels = new Array();
+            for (var i = 1; i < dayNumber + 1; i++) {
+            labels.push(i);
+            }
+            const dataparent = {
+            labels: labels,
                     datasets: data,
             };
             const config = {

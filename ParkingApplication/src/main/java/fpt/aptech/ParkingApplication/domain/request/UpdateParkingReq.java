@@ -18,19 +18,19 @@ import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Empty;
  */
 
 public class UpdateParkingReq implements Serializable{
-    @Size(min = 6, max = 150, message = "*Name must between 6 and 20 characters !")
+    @Size(min = 6, max = 150, message = "Name must between 6 and 20 characters !")
     private String name;
-    @Size(min = 6, max = 50, message = "*Latitude can not be blank !")
-    @NotNull(message = "*Latitude can not be blank !")
+    @Size(min = 6, max = 50, message = "Latitude can not be blank !")
+    @NotNull(message = "Latitude can not be blank !")
     private String latitude;
-    @NotNull(message = "*Longitude can not be blank !")
-    @Size(min = 6, max = 50, message = "*Longitude can not be blank !")
+    @NotNull(message = "Longitude can not be blank !")
+    @Size(min = 6, max = 50, message = "Longitude can not be blank !")
     private String longtitude;
-    @Size(min = 6, max = 250, message = "*Address can not be blank !")
+    @Size(min = 6, max = 250, message = "Address can not be blank !")
     private String address;
-    @NotNull(message = "*Parking Spaces can not be blank !")
+    @NotNull(message = "Parking Spaces can not be blank !")
     private Integer nop;
-    @NotNull(message = "*Rent Cost can not be blank !")
+    @NotNull(message = "Rent Cost can not be blank !")
     private Integer rentcost;
 
     public UpdateParkingReq() {

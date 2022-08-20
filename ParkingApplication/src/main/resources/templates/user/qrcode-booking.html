@@ -99,6 +99,10 @@
                                     <div class="input-group mb-4">
                                         <input type="text" th:value="${#numbers.formatInteger(bookingDetailRes.price, 1, 'COMMA') + ' VND'}" class="form-control" readonly="true"/>
                                     </div>
+                                    <label class="pb-1">Location Code</label>
+                                    <div class="input-group mb-4">
+                                        <input type="text" th:value="${bookingDetailRes.locationcode}" class="form-control" readonly="true"/>
+                                    </div>
                                     <img class="qrcode-booking mb-2" th:src="${displaycode}" />
                                     <p class="text-center title-qrcode-booking">Your QR Code</p>
                                 </div>

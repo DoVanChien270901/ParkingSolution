@@ -29,4 +29,9 @@ public class RevenueController {
     public ResponseEntity<?> revenueMonth(@RequestParam("month")int month, @RequestParam("year")int year){
         return new ResponseEntity<>( _revenueServices.byDays(month, year),HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/statistical", method = RequestMethod.GET)
+    public ResponseEntity<?> revenueMonth(){
+        return new ResponseEntity<>( _revenueServices.getStatistical(),HttpStatus.OK);
+    }
 }

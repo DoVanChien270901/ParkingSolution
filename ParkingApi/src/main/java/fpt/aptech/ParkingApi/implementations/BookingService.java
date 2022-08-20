@@ -58,7 +58,7 @@ public class BookingService implements IBooking {
         Booking booking = _mapper.map(bookingReq, Booking.class);
         booking.setStatus(StatusBooking.NONE.toString());
         booking.setPrice(_parkingRepo.getRencostByName(bookingReq.getParkingname()) * bookingReq.getTimenumber());
-        booking.setAccountid(_profileRepo.getByUsername(bookingReq.getUsername()));
+        booking.setAccountid(new Profile(bookingReq.getUsername()));
         booking.setParkingname(_parkingRepo.getByName(bookingReq.getParkingname()));
         return _bookingRepo.save(booking);
     }

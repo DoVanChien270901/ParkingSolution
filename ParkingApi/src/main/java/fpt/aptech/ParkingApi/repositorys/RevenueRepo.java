@@ -30,4 +30,7 @@ public interface RevenueRepo extends JpaRepository<Revenue, Integer> {
 
     @Query(name = "getRevenueDayInMonth", nativeQuery = true)
     List<RevenueByDay> getRevenueDayInMonth(@Param("month") int month, @Param("year") int year);
+
+    @Query("SELECT SUM(r.amount) from Revenue r")
+    long sumAmount();
 }
