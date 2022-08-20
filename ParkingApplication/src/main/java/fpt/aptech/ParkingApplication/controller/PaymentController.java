@@ -37,6 +37,10 @@ public class PaymentController {
 
     @RequestMapping("/d-payment")
     public String dpayment(Model model, HttpSession session) {
+        HttpEntity request = RestTemplateConfiguration.setRequest(((LoginRes) session.getAttribute("account")).getToken());
+        ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "get-blance", HttpMethod.GET, request, Double.class);
+        Double balance = (Double) response.getBody();
+        ((LoginRes) session.getAttribute("account")).setBalance(balance);
         LoginRes loginRes = (LoginRes) session.getAttribute("account");
         model.addAttribute("balance", String.valueOf(loginRes.getBalance()));
         return "user/d-payment";
@@ -44,7 +48,11 @@ public class PaymentController {
 
     @RequestMapping("generator-qrcode")
     public String generatorQrcode(@RequestParam(value = "amount", required = true) String amount,
-        HttpSession session, Model model) {
+            HttpSession session, Model model) {
+        HttpEntity request1 = RestTemplateConfiguration.setRequest(((LoginRes) session.getAttribute("account")).getToken());
+        ResponseEntity<?> response1 = RestTemplateConfiguration.excuteRequest(PATH_API + "get-blance", HttpMethod.GET, request1, Double.class);
+        Double balance = (Double) response1.getBody();
+        ((LoginRes) session.getAttribute("account")).setBalance(balance);
         LoginRes account = (LoginRes) session.getAttribute("account");
         if (String.valueOf(amount).isEmpty()) {
             model.addAttribute("balance", String.valueOf(account.getBalance()));
@@ -57,7 +65,7 @@ public class PaymentController {
             model.addAttribute("amountValid", "*Amount must between 10.000 VND and 5.000.000 VND");
             return "user/d-payment";
         }
-        
+
         HttpEntity request = RestTemplateConfiguration.setRequest(account.getToken());
         ResponseEntity<?> response = RestTemplateConfiguration.excuteRequest(PATH_API + "qr-code/generated/payment?amount=" + am, HttpMethod.POST, request, byte[].class);
         StringBuilder sb = new StringBuilder();
@@ -68,8 +76,6 @@ public class PaymentController {
         model.addAttribute("balance", String.valueOf(account.getBalance()));
         return "user/d-payment";
     }
-
-    
 
     @RequestMapping("/history")
     public String history() {

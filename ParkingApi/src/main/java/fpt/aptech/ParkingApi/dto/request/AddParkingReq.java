@@ -4,21 +4,19 @@
  */
 package fpt.aptech.ParkingApi.dto.request;
 
-import java.io.Serializable;
-
 /**
  *
  * @author CHIEN
  */
-public class AddParkingReq implements Serializable{
+public class AddParkingReq {
 
     private String name;
     private String latitude;
     private String longtitude;
     private String address;
     private Integer nop;
-    private Integer rentcost;
     private Integer blank;
+    private Integer rentcost;
 
     public AddParkingReq() {
     }
@@ -65,11 +63,11 @@ public class AddParkingReq implements Serializable{
         this.address = address;
     }
 
-    public Integer getNop() {
+    public Integer getNob() {
         return nop;
     }
 
-    public void setNop(Integer nop) {
+    public void setNob(Integer nop) {
         this.nop = nop;
     }
 

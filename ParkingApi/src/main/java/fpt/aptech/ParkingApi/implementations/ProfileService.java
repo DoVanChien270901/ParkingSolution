@@ -164,4 +164,9 @@ public class ProfileService implements IProfile {
         return pageProfileRes;
     }
 
+    @Override
+    public double getBalance(String username) {
+        return _profileRepository.getBalanceByUsername(username);
+    }
+    
 }

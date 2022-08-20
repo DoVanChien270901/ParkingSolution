@@ -16,4 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface AccountRepo extends JpaRepository<Account, String> {
     @Query("SELECT a FROM Account a WHERE a.username = :username")
     Account getByUserName(@PathVariable("username") String username);
+    @Query("SELECT COUNT(a) FROM Account a")
+    long countRecord();
 }

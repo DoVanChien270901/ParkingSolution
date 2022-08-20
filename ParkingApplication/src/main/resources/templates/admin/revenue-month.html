@@ -17,7 +17,7 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20">0</div>
+                                    <div class="weight-700 font-20" th:text="${statistical.user}"></div>
                                     <div class="font-14 text-secondary weight-400">User</div>
                                 </div>
                                 <div class="widget-icon widget-user">
@@ -30,7 +30,7 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20">0</div>
+                                    <div class="weight-700 font-20" th:text="${statistical.parking}"></div>
                                     <div class="font-14 text-secondary weight-400">Parking</div>
                                 </div>
                                 <div class="widget-icon widget-location">
@@ -43,8 +43,8 @@
                         <div class="card-box height-100-p widget-style3">
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20">0</div>
-                                    <div class="font-14 text-secondary weight-400">Recharge</div>
+                                    <div class="weight-700 font-20 text-dark" th:text="${#numbers.formatInteger(statistical.amount, 1, 'COMMA')+ 'VND'}"></div>
+                                    <div class="font-14 text-secondary weight-400">Revenue</div>
                                 </div>
                                 <div class="widget-icon widget-money">
                                     <div class="icon" data-color="#fff"><i class="icon-copy fa fa-money" aria-hidden="true"></i></div>

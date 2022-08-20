@@ -122,6 +122,10 @@ public class TransactionController {
     @RequestMapping(value = "/e-payment", method = RequestMethod.GET)
     public String ePayment(Model model, HttpSession session) {
         try {
+            HttpEntity request = restTemplate.setRequest(((LoginRes)session.getAttribute("account")).getToken());
+            ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "get-blance", HttpMethod.GET, request, Double.class);
+            Double balance = (Double) response.getBody();
+            ((LoginRes)session.getAttribute("account")).setBalance(balance);
             LoginRes account = (LoginRes) session.getAttribute("account");
             model.addAttribute("balance", String.valueOf(account.getBalance()));
             model.addAttribute("rechargeReq", new ERechargeReq());

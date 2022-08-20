@@ -36,5 +36,6 @@ public interface ParkingRepo extends JpaRepository<Parkinglocation, String> {
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query(value = "UPDATE Parkinglocation SET blank = blank -1 WHERE name = :name", nativeQuery = true)
     int minusOneBlank(@PathVariable("username") String name);
-
+    @Query("SELECT COUNT(p) FROM Parkinglocation p")
+    long countRecord();
 }

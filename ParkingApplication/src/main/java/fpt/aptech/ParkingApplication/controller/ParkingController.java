@@ -251,29 +251,28 @@ public class ParkingController {
         HttpEntity request = RestTemplateConfiguration.setRequest();
         ResponseEntity<?> response = RestTemplateConfiguration
             .excuteRequest(PATH_API + "parking/" + id, HttpMethod.DELETE, request, String.class);
-        return "redirect:/a/list-parking";
+        return "redirect:/list-parking";
     }
 
     @RequestMapping(value = "/a/parking/add", method = RequestMethod.GET)
-    public String creatpre(@ModelAttribute("addParkingReq") AddParkingReq addParkingReq) {
+    public String creatpre(Model model) {
+        model.addAttribute("addParkingReq", new AddParkingReq());
         return "admin/parking-manager";
     }
 
     @RequestMapping(value = "/a/parking/add", method = RequestMethod.POST)
-    public String createpost(@Valid @ModelAttribute("addParkingReq") AddParkingReq addParkingReq, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors() == false) {
-            HttpEntity request = RestTemplateConfiguration.setRequest(addParkingReq);
-            ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(PATH_API + "parking", HttpMethod.POST, request, String.class);
-            if (response.getStatusCode() == HttpStatus.CREATED) {
-                return "redirect:/a/list-parking";
-            } else {
-                redirectAttributes.addFlashAttribute("errormes", "Parking name is already");
-                redirectAttributes.addFlashAttribute("addParkingReq", addParkingReq);
-                return "redirect:/a/parking/add";
-            }
+    public String createpost(@ModelAttribute("addParkingReq") AddParkingReq addParkingReq, RedirectAttributes redirectAttributes) {
+        HttpEntity request = RestTemplateConfiguration.setRequest(addParkingReq);
+        ResponseEntity<?> response = RestTemplateConfiguration
+            .excuteRequest(PATH_API + "parking", HttpMethod.POST, request, String.class);
+        if (response.getStatusCode() == HttpStatus.CREATED) {
+            return "redirect:/list-parking";
+        } else {
+            redirectAttributes.addFlashAttribute("errormes", "Parking name is already");
+            redirectAttributes.addFlashAttribute("addParkingReq", addParkingReq);
+            return "redirect:/a/parking/add";
         }
-        return "admin/parking-manager";
+
     }
 
     @RequestMapping(value = "/a/parking/update", method = RequestMethod.GET)
@@ -318,10 +317,10 @@ public class ParkingController {
         model.addAttribute("listParking", parkingRes);
         if (name.equals("all")) {
             model.addAttribute("selected", "all");
-            ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(PATH_API + "load-status-parking", HttpMethod.GET, request, LoadStatusParking[].class);
-            LoadStatusParking[] loadStatusParkings = (LoadStatusParking[]) response.getBody();
-            model.addAttribute("loadStatusParkings", loadStatusParkings);
+//            ResponseEntity<?> response = RestTemplateConfiguration
+//                .excuteRequest(PATH_API + "list-parking", HttpMethod.GET, request, ParkingRes[].class);
+//            ParkingRes[] parkingRes = (ParkingRes[]) response.getBody();
+            model.addAttribute("listParkings", parkingRes);
             return "handle/parking-status";
         } else {
             //call get list booking

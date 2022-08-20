@@ -13,19 +13,19 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class UserDetailsRes {
 
-    private Integer identitycard;
+    private String identitycard;
     private String fullname;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private boolean gender;
     private LocalDate dob;
     private Double balance;
     private String email;
-    private Integer phone;
+    private String phone;
 
     public UserDetailsRes() {
     }
 
-    public UserDetailsRes(Integer identitycard, String fullname, boolean gender, LocalDate dob, Double balance, String email, Integer phone) {
+    public UserDetailsRes(String identitycard, String fullname, boolean gender, LocalDate dob, Double balance, String email, String phone) {
         this.identitycard = identitycard;
         this.fullname = fullname;
         this.gender = gender;
@@ -35,11 +35,11 @@ public class UserDetailsRes {
         this.phone = phone;
     }
 
-    public Integer getIdentitycard() {
+    public String getIdentitycard() {
         return identitycard;
     }
 
-    public void setIdentitycard(Integer identitycard) {
+    public void setIdentitycard(String identitycard) {
         this.identitycard = identitycard;
     }
 
@@ -83,11 +83,11 @@ public class UserDetailsRes {
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

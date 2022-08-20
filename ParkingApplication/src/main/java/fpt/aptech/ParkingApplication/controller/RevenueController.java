@@ -7,6 +7,7 @@ package fpt.aptech.ParkingApplication.controller;
 import fpt.aptech.ParkingApplication.configuration.RestTemplateConfiguration;
 import fpt.aptech.ParkingApplication.domain.response.DataRevenueDayRes;
 import fpt.aptech.ParkingApplication.domain.response.DataRevenueMonthRes;
+import fpt.aptech.ParkingApplication.domain.response.Statistical;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
@@ -37,6 +38,12 @@ public class RevenueController {
             defaultValue = "#{T(java.time.Year).now().getValue()}") int year,
             @RequestParam(value = "type", required = false, defaultValue = "line") String type) {
         HttpEntity request = RestTemplateConfiguration.setRequest();
+        //get statistical
+        ResponseEntity<?> response1 = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "statistical", HttpMethod.GET, request, Statistical.class);
+        Statistical statistical = (Statistical) response1.getBody();
+        model.addAttribute("statistical", statistical);
+        //
         ResponseEntity<?> response = RestTemplateConfiguration
                 .excuteRequest(PATH_API + "data/revenue-month?year=" + year, HttpMethod.GET, request, DataRevenueMonthRes[].class);
         DataRevenueMonthRes[] dataRevenueMonthReses = (DataRevenueMonthRes[]) response.getBody();
@@ -47,7 +54,7 @@ public class RevenueController {
         int[] arrYear = new int[size];
         for (int i = 0; i < size; i++) {
             arrYear[i] = startYear;
-            startYear ++;
+            startYear++;
         }
         if (dataRevenueMonthReses.length < 1) {
             model.addAttribute("errormes", "*Data not found or invalid data !");
@@ -58,6 +65,7 @@ public class RevenueController {
         model.addAttribute("type", type);
         return "admin/revenue-month";
     }
+
     @RequestMapping(value = "/day", method = RequestMethod.GET)
     public String revenueDay(Model model, @RequestParam(value = "monthofyear", required = false, defaultValue = "null") String monthofyear,
             @RequestParam(value = "type", required = false, defaultValue = "line") String type) {
@@ -66,14 +74,20 @@ public class RevenueController {
         if (monthofyear.equals("null")) {
             year = String.valueOf(LocalDate.now().getYear());
             month = String.valueOf(LocalDate.now().getMonthValue());
-        }else{
-            year = monthofyear.substring(0,4);
-            month = monthofyear.substring(5,7);
+        } else {
+            year = monthofyear.substring(0, 4);
+            month = monthofyear.substring(5, 7);
         }
-        
+
         HttpEntity request = RestTemplateConfiguration.setRequest();
+        //get statistical
+        ResponseEntity<?> response1 = RestTemplateConfiguration
+                .excuteRequest(PATH_API + "statistical", HttpMethod.GET, request, Statistical.class);
+        Statistical statistical = (Statistical) response1.getBody();
+        model.addAttribute("statistical", statistical);
+        //
         ResponseEntity<?> response = RestTemplateConfiguration
-                .excuteRequest(PATH_API + "data/revenue-day?month="+month+"&year="+year, HttpMethod.GET, request, DataRevenueDayRes[].class);
+                .excuteRequest(PATH_API + "data/revenue-day?month=" + month + "&year=" + year, HttpMethod.GET, request, DataRevenueDayRes[].class);
         DataRevenueDayRes[] dataRevenueDayRes = (DataRevenueDayRes[]) response.getBody();
 
         if (dataRevenueDayRes.length < 1) {
@@ -81,7 +95,7 @@ public class RevenueController {
         }
         model.addAttribute("data", dataRevenueDayRes);
         model.addAttribute("type", type);
-        model.addAttribute("monthofyear", year+"-"+month);
+        model.addAttribute("monthofyear", year + "-" + month);
         model.addAttribute("type", type);
         return "admin/revenue-day";
     }

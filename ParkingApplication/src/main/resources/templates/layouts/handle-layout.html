@@ -49,11 +49,6 @@
                 <div class="sidebar-menu">
                     <ul id="accordion-menu">
                         <li>
-                            <a th:href="@{/home/handle}" class="dropdown-toggle no-arrow">
-                                <span class="micon dw dw-house-1"></span><span class="mtext">Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
                             <a th:href="@{/h/status-parking/all}" class="dropdown-toggle no-arrow">
                                 <span class="micon dw dw-bookmark"></span>
                                 <span class="mtext">Parking Manager</span>
@@ -65,16 +60,13 @@
                             </a>
                             <ul class="submenu">
                                 <li><a th:href="@{/scan-qrcode/recharge}">Recharge Wallet Parking</a></li>
-                                <li><a th:href="@{/scan-qrcode/booking}">Parking Tickets</a></li>
-                                <li><a th:href="@{/scan-qrcode/new-booking}">New Booking</a></li>
-                            </ul>
+                                <li><a th:href="@{/scan-qrcode/booking}">Parking Tickets</a></li>                          </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="mobile-menu-overlay"></div>
-
         <!-- Admin Content Start -->
         <div class="main-container" layout:fragment="handle-content"></div>
         <!-- Admin Content End -->

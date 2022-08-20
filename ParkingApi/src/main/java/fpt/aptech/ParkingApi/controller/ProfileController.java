@@ -151,4 +151,14 @@ public class ProfileController {
 //        List<ItemPageProfile> l = holder.getPageList();
 //        return null;
 //    }
+    @RequestMapping(value = "/get-blance", method = RequestMethod.GET)
+    public ResponseEntity<?> userBlance(@RequestHeader("Authorization")String token) {
+        try {
+            String username = _jwtTokenUtil.extracUsername(token.substring(7));
+            Double res = _profileService.getBalance(username);
+            return new ResponseEntity(res, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -16,4 +16,5 @@ public interface IRevenue {
     boolean add(AddRevenueReq addRevenueReq);
     List<DataRevenueMonthRes> byMonths(int year);
     List<DataRevenueDayRes> byDays(int month, int year);
+    Statistical getStatistical();
 }

@@ -6,8 +6,11 @@ package fpt.aptech.ParkingApi.implementations;
 
 import fpt.aptech.ParkingApi.dto.request.AddRevenueReq;
 import fpt.aptech.ParkingApi.dto.response.*;
+import fpt.aptech.ParkingApi.entities.Parkinglocation;
 import fpt.aptech.ParkingApi.entities.Revenue;
 import fpt.aptech.ParkingApi.interfaces.IRevenue;
+import fpt.aptech.ParkingApi.repositorys.AccountRepo;
+import fpt.aptech.ParkingApi.repositorys.ParkingRepo;
 import fpt.aptech.ParkingApi.repositorys.RevenueRepo;
 import fpt.aptech.ParkingApi.utils.ModelMapperUtil;
 import java.util.ArrayList;
@@ -26,6 +29,10 @@ public class RevenueServices implements IRevenue {
     private ModelMapperUtil _mapper;
     @Autowired
     private RevenueRepo _revenueRepo;
+    @Autowired 
+    private AccountRepo _accountRepo;
+    @Autowired 
+    private ParkingRepo _parkingRepo;
 
     @Override
     public boolean add(AddRevenueReq addRevenueReq) {
@@ -79,5 +86,15 @@ public class RevenueServices implements IRevenue {
         }
         return res;
     }
+
+    @Override
+    public Statistical getStatistical() {
+        Statistical res = new Statistical();
+        res.setUser(_accountRepo.count());
+        res.setParking(_parkingRepo.count());
+        res.setAmount(_revenueRepo.sumAmount());
+        return res;
+    }
+    
     
 }

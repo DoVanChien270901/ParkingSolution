@@ -18,6 +18,7 @@ public class BookingDetailRes {
     private String carname;
     private String lisenceplates;
     private String parkingname;
+    private String locationcode;
     private byte[] qrcontent;
 
     public BookingDetailRes() {
@@ -30,6 +31,14 @@ public class BookingDetailRes {
         this.carname = carname;
         this.lisenceplates = lisenceplates;
         this.parkingname = parkingname;
+    }
+
+    public String getLocationcode() {
+        return locationcode;
+    }
+
+    public void setLocationcode(String locationcode) {
+        this.locationcode = locationcode;
     }
 
     public LocalDateTime getStarttime() {
