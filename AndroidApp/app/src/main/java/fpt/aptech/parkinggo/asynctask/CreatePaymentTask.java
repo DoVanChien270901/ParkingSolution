@@ -1,8 +1,14 @@
 package fpt.aptech.parkinggo.asynctask;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -11,9 +17,12 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import fpt.aptech.parkinggo.R;
+import fpt.aptech.parkinggo.activity.BookingActivity;
+import fpt.aptech.parkinggo.activity.BookingHistoryActivity;
 import fpt.aptech.parkinggo.configuration.RestTemplateConfiguration;
 import fpt.aptech.parkinggo.domain.modelbuilder.EBookingReqBuilder;
 import fpt.aptech.parkinggo.domain.modelbuilder.NewBookingReqBuilder;
@@ -89,5 +98,6 @@ public class CreatePaymentTask extends AsyncTask<Void, Integer, ResponseEntity<?
     }
 
     @Override
-    protected void onPostExecute(ResponseEntity<?> response) {}
+    protected void onPostExecute(ResponseEntity<?> response) {
+    }
 }

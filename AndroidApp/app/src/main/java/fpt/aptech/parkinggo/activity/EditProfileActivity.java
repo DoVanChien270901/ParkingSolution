@@ -45,7 +45,7 @@ import fpt.aptech.parkinggo.statics.Session;
 
 public class EditProfileActivity extends AppCompatActivity implements CallBack {
     private TextInputLayout etFullName,etEmail,tvDob,etPhone,etICard;
-    private ImageView qrcode;
+    //private ImageView qrcode;
     private Button btnSave;
     private DateTimeFormatter formatter;
     private String sDob;
@@ -70,7 +70,7 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
         tvDob = findViewById(R.id.a_editprofile_tv_dob);
         etPhone = findViewById(R.id.a_editprofile_et_phone);
         etICard = findViewById(R.id.a_editprofile_et_icard);
-        qrcode = findViewById(R.id.a_editprofile_imv_qrcode);
+        //qrcode = findViewById(R.id.a_editprofile_imv_qrcode);
         btnSave = findViewById(R.id.a_editprofile_btn_save);
 
         LoadProfileTask loadProfileTask = new LoadProfileTask(this, this::callback);
@@ -138,8 +138,8 @@ public class EditProfileActivity extends AppCompatActivity implements CallBack {
             etEmail.getEditText().setText(profileRes.getEmail());
             etICard.getEditText().setText(profileRes.getIdentitycard().toString());
             etPhone.getEditText().setText(profileRes.getPhone().toString());
-            Bitmap bmp = BitmapFactory.decodeByteArray(profileRes.getQrcontent(), 0, profileRes.getQrcontent().length);
-            qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
+//            Bitmap bmp = BitmapFactory.decodeByteArray(profileRes.getQrcontent(), 0, profileRes.getQrcontent().length);
+//            qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
             //update session
             ((LoginRes)Session.getSession()).setUsername(profileRes.getFullname());
             ((LoginRes)Session.getSession()).setQrcode(profileRes.getQrcontent());

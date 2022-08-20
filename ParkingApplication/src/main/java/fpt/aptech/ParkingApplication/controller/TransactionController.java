@@ -217,7 +217,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
-    public String createEBooking(@ModelAttribute("bookingReq") BookingReq bookingReq, @RequestParam("parkingname") String parkingname, Model model, HttpSession session) {
+    public String createEBooking(@ModelAttribute("bookingReq") BookingReq bookingReq, @RequestParam("parkingname") String parkingname, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         try {
             HttpEntity request = restTemplate.setRequest();
             ResponseEntity<?> response = restTemplate.excuteRequest(PATH_API + "parking/" + parkingname, HttpMethod.GET, request, ParkingRes.class);
@@ -310,7 +310,8 @@ public class TransactionController {
                     int id = Integer.valueOf(response.getBody().toString());
                     return "redirect:/booking-details?id=" + id;
                 } else {
-                    return "badrequest";
+                    redirectAttributes.addFlashAttribute("errormes", "The balance in the account is not enough for payment");
+                    return "redirect:/booking?parkingname="+bookingReq.getParkingname();
                 }
             } else {
                 LoginRes loginRes = (LoginRes) session.getAttribute("account");

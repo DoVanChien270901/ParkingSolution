@@ -4,16 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -156,19 +160,47 @@ public class ParkingHistoryActivity extends AppCompatActivity {
     public void search(){
         try {
             ResponseEntity<?> response = ((SearchParkingHistoryTask) new SearchParkingHistoryTask(this)).execute().get();
-            parkingHistoryRes = (ParkingHistoryRes[]) response.getBody();
-            if (parkingHistoryRes.length>=1){
+            if (((ParkingHistoryRes[]) response.getBody()).length>=1){
+                parkingHistoryRes = (ParkingHistoryRes[]) response.getBody();
                 ListView listView = (ListView) findViewById(R.id.a_parking_history_lv);
                 ParkingHistoryAdapter transactionHistoryAdapter
                         = new ParkingHistoryAdapter(this, parkingHistoryRes);
                 listView.setAdapter(transactionHistoryAdapter);
             }else{
-                Toast.makeText(this, "The account has no parking history during this time", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                LayoutInflater inflater = LayoutInflater.from(this);
+                View alertView = inflater.inflate(R.layout.error_dialog, null);
+                TextView tvContent = alertView.findViewById(R.id.error_dialog_tv_content);
+                tvContent.setText("The account has no parking history during this time!");
+                builder.setView(alertView);
+                final Dialog er = builder.show();
+                Button btnError = alertView.findViewById(R.id.error_dialog_btn_retry);
+                btnError.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        er.dismiss();
+                    }
+                });
+                //Toast.makeText(this, "The account has no parking history during this time", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
 //            ListView listView = (ListView) findViewById(R.id.a_transaction_history_lv);
 //            listView.setAdapter(null);
-            Toast.makeText(this, "The account has no parking history during this time", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View alertView = inflater.inflate(R.layout.error_dialog, null);
+            TextView tvContent = alertView.findViewById(R.id.error_dialog_tv_content);
+            tvContent.setText("The account has no parking history during this time!");
+            builder.setView(alertView);
+            final Dialog er = builder.show();
+            Button btnError = alertView.findViewById(R.id.error_dialog_btn_retry);
+            btnError.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    er.dismiss();
+                }
+            });
+            //Toast.makeText(this, "The account has no parking history during this time", Toast.LENGTH_LONG).show();
         }
     }
 }

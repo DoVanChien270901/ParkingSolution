@@ -29,7 +29,7 @@ public interface ParkingRepo extends JpaRepository<Parkinglocation, String> {
 
     @Transactional
     @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query(value = "UPDATE Parkinglocation SET blank = blank +1 WHERE p.name = :name", nativeQuery = true)
+    @Query(value = "UPDATE Parkinglocation SET blank = blank +1 WHERE name = :name", nativeQuery = true)
     int plusOneBlank(@PathVariable("name") String name);
 
     @Transactional

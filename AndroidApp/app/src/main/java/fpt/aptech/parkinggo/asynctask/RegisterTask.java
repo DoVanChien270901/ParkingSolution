@@ -1,9 +1,15 @@
 package fpt.aptech.parkinggo.asynctask;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -60,12 +66,40 @@ public class RegisterTask extends AsyncTask<RegisterReq, Integer, ResponseEntity
                 activity.startActivity(intent);
             }else{
                 dialog.dismiss();
-                Toast.makeText(activity.getApplicationContext(), "Username already exists", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                LayoutInflater inflater = LayoutInflater.from(activity);
+                View alertView = inflater.inflate(R.layout.error_dialog, null);
+                TextView tvContent = alertView.findViewById(R.id.error_dialog_tv_content);
+                tvContent.setText("Username already exists!");
+                builder.setView(alertView);
+                final Dialog er = builder.show();
+                Button btnError = alertView.findViewById(R.id.error_dialog_btn_retry);
+                btnError.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        er.dismiss();
+                    }
+                });
+                //Toast.makeText(activity.getApplicationContext(), "Username already exists", Toast.LENGTH_LONG).show();
             }
 //          Intent intent = new Intent(activity.getApplicationContext(), MainActivity.class);
         } else {
             dialog.dismiss();
-            Toast.makeText(activity.getApplicationContext(), "Username already exists", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            LayoutInflater inflater = LayoutInflater.from(activity);
+            View alertView = inflater.inflate(R.layout.error_dialog, null);
+            TextView tvContent = alertView.findViewById(R.id.error_dialog_tv_content);
+            tvContent.setText("Username already exists!");
+            builder.setView(alertView);
+            final Dialog er = builder.show();
+            Button btnError = alertView.findViewById(R.id.error_dialog_btn_retry);
+            btnError.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    er.dismiss();
+                }
+            });
+            //Toast.makeText(activity.getApplicationContext(), "Username already exists", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -18,6 +18,7 @@
                             <div class="form h-100">
                                 <form class="mb-5" th:action="@{/booking}" th:object="${bookingReq}" method="POST" id="contactForm" name="contactForm">
                                     <div class="row">
+                                        <label style="color: red" th:if="${errormes}" th:text="${errormes}"></label>
                                         <h4 data-color="#35477d" class="pt-0 label-input-payment">Fill In The Information:</h4>
                                         <input th:field="*{parkingname}" type="text" value="" class="form-control mb-4" style="display: none"/>    
                                         <div class="col-md-6 form-group mb-2">

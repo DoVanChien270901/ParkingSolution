@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -27,6 +28,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -54,6 +56,8 @@ import fpt.aptech.parkinggo.asynctask.CreatePaymentTask;
 import fpt.aptech.parkinggo.asynctask.LoadStatusParkingTask;
 import fpt.aptech.parkinggo.domain.response.EPaymentRes;
 import fpt.aptech.parkinggo.domain.response.LoadStatusParking;
+import fpt.aptech.parkinggo.domain.response.LoginRes;
+import fpt.aptech.parkinggo.statics.Session;
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -269,7 +273,12 @@ public class BookingActivity extends AppCompatActivity {
             textView.setTextSize(12);
             textView.setWidth(70);
             textView.setHeight(70);
-//            textView.setPadding(15, 15 ,15 ,15);
+            textView.setPadding(0,7,0,0);
+            TableLayout.LayoutParams lp =
+                    new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
+                            TableLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0,20,0,0);
+            row.setLayoutParams(lp);
             row.addView(textView);
             if ((i + 1) % loadStatusParking.getColumnofrow() == 0) {
                 tableLayout.addView(row);

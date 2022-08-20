@@ -1,7 +1,12 @@
 package fpt.aptech.parkinggo.asynctask;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.AsyncTask;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import org.springframework.http.HttpEntity;
@@ -10,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import android.content.*;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -95,12 +101,40 @@ public class LoginTask extends AsyncTask<Void, Integer, ResponseEntity<?>> {
 //              activity.startActivity(intent);
             }else{
                 dialog.dismiss();
-                Toast.makeText(activity.getApplicationContext(), "User name or password is valid", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                LayoutInflater inflater = LayoutInflater.from(activity);
+                View alertView = inflater.inflate(R.layout.error_dialog, null);
+                TextView tvContent = alertView.findViewById(R.id.error_dialog_tv_content);
+                tvContent.setText("Login failed due to incorrect username or password!");
+                builder.setView(alertView);
+                final Dialog er = builder.show();
+                Button btnError = alertView.findViewById(R.id.error_dialog_btn_retry);
+                btnError.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        er.dismiss();
+                    }
+                });
+                //Toast.makeText(activity.getApplicationContext(), "User name or password is valid", Toast.LENGTH_LONG).show();
             }
 //          Intent intent = new Intent(activity.getApplicationContext(), MainActivity.class);
         } else {
             dialog.dismiss();
-            Toast.makeText(activity.getApplicationContext(), "User name or password is valid", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            LayoutInflater inflater = LayoutInflater.from(activity);
+            View alertView = inflater.inflate(R.layout.error_dialog, null);
+            TextView tvContent = alertView.findViewById(R.id.error_dialog_tv_content);
+            tvContent.setText("Login failed due to incorrect username or password!");
+            builder.setView(alertView);
+            final Dialog er = builder.show();
+            Button btnError = alertView.findViewById(R.id.error_dialog_btn_retry);
+            btnError.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    er.dismiss();
+                }
+            });
+            //Toast.makeText(activity.getApplicationContext(), "User name or password is valid", Toast.LENGTH_LONG).show();
         }
     }
 

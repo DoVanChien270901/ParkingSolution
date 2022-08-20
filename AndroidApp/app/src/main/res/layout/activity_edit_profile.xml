@@ -18,28 +18,27 @@
         android:layout_margin="10dp"
         android:background="@drawable/border_trans_history"
         android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="650px"
-            android:layout_gravity="center"
-            android:background="@drawable/border_ic_blue">
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="650px"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/border_ic_blue">-->
 
-            <FrameLayout
-                android:layout_width="425px"
-                android:layout_height="425px"
-                android:layout_gravity="center"
-                android:background="@drawable/border_md_white">
+<!--            <FrameLayout-->
+<!--                android:layout_width="425px"-->
+<!--                android:layout_height="425px"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:background="@drawable/border_md_white">-->
 
-                <ImageView
-                    android:id="@+id/a_editprofile_imv_qrcode"
-                    android:layout_width="400px"
-                    android:layout_height="400px"
-                    android:layout_gravity="center">
-                    android:src="@drawable/logo">
-                </ImageView>
-            </FrameLayout>
-        </FrameLayout>
-
+<!--                <ImageView-->
+<!--                    android:id="@+id/a_editprofile_imv_qrcode"-->
+<!--                    android:layout_width="400px"-->
+<!--                    android:layout_height="400px"-->
+<!--                    android:layout_gravity="center">-->
+<!--                    android:src="@drawable/logo">-->
+<!--                </ImageView>-->
+<!--            </FrameLayout>-->
+<!--        </FrameLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

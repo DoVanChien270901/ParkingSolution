@@ -71,6 +71,8 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -87,6 +89,7 @@ import fpt.aptech.parkinggo.domain.dto.FetchURL;
 import fpt.aptech.parkinggo.domain.dto.TaskLoadedCallback;
 import fpt.aptech.parkinggo.domain.response.LoginRes;
 import fpt.aptech.parkinggo.domain.response.ParkingRes;
+import fpt.aptech.parkinggo.domain.response.ParkingSortRes;
 import fpt.aptech.parkinggo.domain.response.TransactionRes;
 import fpt.aptech.parkinggo.statics.Session;
 
@@ -130,7 +133,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvName = header.findViewById(R.id.hd_tv_name);
         tvEmail = header.findViewById(R.id.hd_tv_email);
         tvBalance = header.findViewById(R.id.hd_tv_balance);
-        qrcode = header.findViewById(R.id.f_profile_imv_qrcode);
+        //qrcode = header.findViewById(R.id.f_profile_imv_qrcode);
         ibtnEdit = header.findViewById(R.id.hd_ibtn_edit);
         LoginRes loginRes = (LoginRes) Session.getSession();
         tvName.setText(loginRes.getFullname());
@@ -138,8 +141,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        DecimalFormat formatter = new DecimalFormat("###,###,###");
 //        tvBalance.setText(formatter.format(loginRes.getBalance()) + " VND");
         tvBalance.setText(formatInteger(loginRes.getBalance().toString())+"đ");
-        Bitmap bmp = BitmapFactory.decodeByteArray(loginRes.getQrcode(), 0, loginRes.getQrcode().length);
-        qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
+//        Bitmap bmp = BitmapFactory.decodeByteArray(loginRes.getQrcode(), 0, loginRes.getQrcode().length);
+//        qrcode.setImageBitmap(Bitmap.createScaledBitmap(bmp, 650, 650, false));
         /*--------------------------------Tool Bar--------------------------*/
         //setSupportActionBar(toolbar);
         /*--------------------------------Navigation Drawer Menu--------------------------*/
@@ -247,15 +250,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (origin == null) {
                     checkGPS();
                 } else {
-                    List<ParkingRes> checkRadiusParking = new ArrayList<>();
+                    ArrayList<ParkingRes> checkRadiusParking = new ArrayList<>();
                     float results[] = new float[10];
                     BottomSheetDialog dialog = new BottomSheetDialog(MapsActivity.this);
                     dialog.setContentView(R.layout.bottom_sheet_view);
                     BottomSheetListView listView = (BottomSheetListView) dialog.findViewById(R.id.listViewBtmSheet);
+
                     for (ParkingRes p : parkingLocationList) {
                         Location.distanceBetween(origin.latitude, origin.longitude, Double.valueOf(p.getLatitude()), Double.valueOf(p.getLongtitude()), results);
                         if ((results[0] / 1000) < 10.000) {
                             checkRadiusParking.add(p);
+                        }
+                    }
+                    for (int i = 0; i<checkRadiusParking.size(); i++) {
+                        Location.distanceBetween(origin.latitude, origin.longitude, Double.valueOf(checkRadiusParking.get(i).getLatitude()), Double.valueOf(checkRadiusParking.get(i).getLongtitude()), results);
+                        for(int j = 0; j<checkRadiusParking.size(); j++){
+                            float[] min = new float[10];
+                            Location.distanceBetween(origin.latitude, origin.longitude, Double.valueOf(checkRadiusParking.get(j).getLatitude()), Double.valueOf(checkRadiusParking.get(j).getLongtitude()), min);
+                            if (results[0]<min[0]) {
+                                Collections.swap(checkRadiusParking, i, j);
+                            }
                         }
                     }
                     //listView.setAdapter();

@@ -3,11 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/drawable/btn_menu.xml" value="0.191" />
-        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/activity_maps.xml" value="0.25" />
-        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/all_parking_info.xml" value="0.536" />
-        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/list_parking_history.xml" value="0.25" />
-        <entry key="..\:/Aptech/HK4/ParkingSolution4/AndroidApp/app/src/main/res/layout/list_transaction_history.xml" value="0.25" />
         <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/drawable/boder_qrcode.xml" value="0.196" />
         <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_dpayment.xml" value="0.2515" />
         <entry key="..\:/OneDrive/Documents/NetBeansProjects/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_booking.xml" value="0.25" />
@@ -182,6 +177,18 @@
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-merge-code-8-9/ParkingSolution/AndroidApp/app/src/main/res/menu/actionbar_edit_profile_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-merge-code-8-9/ParkingSolution/AndroidApp/app/src/main/res/menu/teacher_main_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/CHIEN/Desktop/Project/test-merge-code-8-9/ParkingSolution/AndroidApp/app/src/main/res/menu/user_main_menu.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_item_table_row_green.xml" value="0.257" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/drawable/border_item_table_row_red.xml" value="0.257" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_booking.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_direct_payment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_maps.xml" value="0.1648148148148148" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_payment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/error_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/header.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/progress_dialog_loadding.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CHIEN/Desktop/project-2/clone/ParkingSolution/AndroidApp/app/src/main/res/layout/table_select_location_dialog.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

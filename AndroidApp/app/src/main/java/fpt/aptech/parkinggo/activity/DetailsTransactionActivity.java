@@ -53,6 +53,7 @@ private TextInputLayout etTransno, etParkingName, etDateTime, etAmount, etChanne
         etType.getEditText().setText(item.getStype());
         etDateTime.getEditText().setText(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy").format(item.getDatetime()));
         etTransno.getEditText().setText(item.getTransno());
+        etChannel.getEditText().setText(item.getChannel());
         if(item.getStype().equals("e-Booking")){
             etAmount.getEditText().setText("- "+formatInteger(item.getAmount().toString())+"đ");
             etAmount.getEditText().setTextColor(Color.parseColor("#ff5722"));

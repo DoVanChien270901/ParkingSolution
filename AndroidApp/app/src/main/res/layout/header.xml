@@ -9,26 +9,25 @@
     android:gravity="bottom"
     android:paddingLeft="20dp"
     >
+<!--    <FrameLayout-->
+<!--        android:id="@+id/frameLayout"-->
+<!--        android:layout_width="250px"-->
+<!--        android:layout_height="250px"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:background="@drawable/border_md_white"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.83"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.864">-->
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="250px"
-        android:layout_height="250px"
-        android:layout_gravity="center"
-        android:background="@drawable/border_md_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.864">
-
-        <ImageView
-            android:id="@+id/f_profile_imv_qrcode"
-            android:layout_width="220px"
-            android:layout_height="220px"
-            android:layout_gravity="center"></ImageView>
-    </FrameLayout>
+<!--        <ImageView-->
+<!--            android:id="@+id/f_profile_imv_qrcode"-->
+<!--            android:layout_width="220px"-->
+<!--            android:layout_height="220px"-->
+<!--            android:layout_gravity="center"></ImageView>-->
+<!--    </FrameLayout>-->
 
 
     <TextView
@@ -57,12 +56,11 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/hd_tv_balance"
-        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hd_tv_name"
         app:layout_constraintVertical_bias="0.411"></TextView>
-
+    <!--        app:layout_constraintEnd_toStartOf="@+id/frameLayout"-->
     <TextView
         android:id="@+id/hd_tv_balance"
         android:layout_width="wrap_content"
@@ -73,7 +71,7 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@+id/hd_tv_email"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -85,11 +83,11 @@
         android:layout_height="50dp"
         android:background="@null"
         android:src="@drawable/ic_edit"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintHorizontal_bias="0.922"
         app:layout_constraintStart_toEndOf="@+id/hd_tv_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintVertical_bias="0.17" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

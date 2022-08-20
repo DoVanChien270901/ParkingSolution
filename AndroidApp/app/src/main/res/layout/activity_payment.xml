@@ -15,7 +15,7 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
         android:freezesText="false"
-        android:text="Status"
+        android:text="Payment Successful"
         android:textAlignment="center"
         android:textColor="@color/blue_default"
         android:textSize="40dp"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:maxLength="25"
-            android:text="ad212"
+            android:text=""
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:maxLength="25"
-            android:text="12,000đ"
+            android:text=""
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:maxLength="25"
-            android:text="MoMo"
+            android:text=""
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:maxLength="25"
-            android:text="e-Booking"
+            android:text=""
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
